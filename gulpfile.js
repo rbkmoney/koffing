@@ -111,7 +111,7 @@ gulp.task('watch', () => {
 gulp.task('capiMock', () => {
     var started = false;
     return nodemon({
-        script: 'capiMock/capi.js'
+        script: 'capi-mock/capi.js'
     }).on('start', () => {
         if (!started) {
             cb();
@@ -121,4 +121,5 @@ gulp.task('capiMock', () => {
 });
 
 gulp.task('build', ['index', 'sources', 'styles', 'vendorScripts', 'vendorStyles', 'keycloak']);
-gulp.task('default', ['connect', 'watch', 'build']);
+gulp.task('docker', ['connect', 'capiMock', 'build']);
+gulp.task('default', ['connect', 'capiMock', 'build', 'watch']);
