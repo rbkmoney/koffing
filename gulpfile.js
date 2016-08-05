@@ -121,5 +121,4 @@ gulp.task('capiMock', () => {
 });
 
 gulp.task('build', ['index', 'sources', 'styles', 'vendorScripts', 'vendorStyles', 'keycloak']);
-gulp.task('docker', ['connect', 'capiMock', 'build']);
-gulp.task('default', ['connect', 'capiMock', 'build', 'watch']);
+gulp.task('default', ['connect', 'build', 'watch']);
