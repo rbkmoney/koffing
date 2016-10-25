@@ -25,6 +25,11 @@ module.exports = {
                 loader: 'html'
             },
             {
+                test: /\.pug$/,
+                include: /\.pug/,
+                loader: 'pug-html-loader'
+            },
+            {
                 test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
                 loader: 'file?name=assets/[name].[hash].[ext]'
             },
@@ -47,7 +52,8 @@ module.exports = {
         }),
 
         new HtmlWebpackPlugin({
-            template: 'src/index.html'
+            filename: 'index.html',
+            template: 'src/index.pug'
         })
     ]
 };
