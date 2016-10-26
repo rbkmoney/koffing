@@ -18,13 +18,6 @@ shops.component('editShop', {
                 this.shopDetails = shop.shopDetails;
                 this.contractor = shop.contractor;
                 this.categoryRef = shop.categoryRef;
-            }, error => {
-                modalMsg.open([
-                    'Error code: ' + error.status,
-                    'Url: ' + error.config.url,
-                    'Method: ' + error.config.method,
-                    'JS-component: edit-shop'
-                ], 'Ошибка http-запроса');
             });
         };
 

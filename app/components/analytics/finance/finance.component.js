@@ -25,13 +25,6 @@ finance.component('finance', {
                     this.searchedInvoices = result.invoices;
                     this.totalCount = result.totalCount;
                     this.isLoading = false;
-                }, error => {
-                    modalMsg.open([
-                        'Error code: ' + error.status,
-                        'Url: ' + error.config.url,
-                        'Method: ' + error.config.method,
-                        'JS-component: finance'
-                    ], 'Ошибка http-запроса');
                 });
             };
 

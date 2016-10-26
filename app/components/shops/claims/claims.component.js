@@ -9,13 +9,6 @@ shops.component('claims', {
             this.claimID = claim.id;
             this.showClaimInfo = true;
             this.changeset = claim.changeset;
-        }, error => {
-            modalMsg.open([
-                'Error code: ' + error.status,
-                'Url: ' + error.config.url,
-                'Method: ' + error.config.method,
-                'JS-component: claims'
-            ], 'Ошибка http-запроса');
         });
 
         this.revoke = () => {

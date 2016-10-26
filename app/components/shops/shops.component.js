@@ -11,13 +11,6 @@ shops.component('shops', {
             Parties.get(party => {
                 this.isLoading = false;
                 this.shops = party.shops;
-            }, error => {
-                modalMsg.open([
-                    'Error code: ' + error.status,
-                    'Url: ' + error.config.url,
-                    'Method: ' + error.config.method,
-                    'JS-component: shops'
-                ], 'Ошибка http-запроса');
             });
         };
 

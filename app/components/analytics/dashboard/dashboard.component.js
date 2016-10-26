@@ -14,13 +14,6 @@ dashboard.component('dashboard', {
                 toTime: this.toTime
             }, rateStat => {
                 this.uniqueCount = rateStat[0] ? rateStat[0].uniqueCount : 0;
-            }, error => {
-                modalMsg.open([
-                    'Error code: ' + error.status,
-                    'Url: ' + error.config.url,
-                    'Method: ' + error.config.method,
-                    'JS-component: dashboard'
-                ], 'Ошибка http-запроса');
             });
 
             customers.paymentMethod({
@@ -31,13 +24,6 @@ dashboard.component('dashboard', {
                 paymentMethod: 'bank_card'
             }, paymentMethodStat => {
                 this.paymentMethodChartData = ChartDataConversion.toPaymentMethodChartData(paymentMethodStat);
-            }, error => {
-                modalMsg.open([
-                    'Error code: ' + error.status,
-                    'Url: ' + error.config.url,
-                    'Method: ' + error.config.method,
-                    'JS-component: dashboard'
-                ], 'Ошибка http-запроса');
             });
 
             const payments = new Payments(this.shopID);
@@ -51,13 +37,6 @@ dashboard.component('dashboard', {
                 const paymentCountInfo = ChartDataConversion.toPaymentCountInfo(conversionStat);
                 this.successfulCount = paymentCountInfo.successfulCount;
                 this.unfinishedCount = paymentCountInfo.unfinishedCount;
-            }, error => {
-                modalMsg.open([
-                    'Error code: ' + error.status,
-                    'Url: ' + error.config.url,
-                    'Method: ' + error.config.method,
-                    'JS-component: dashboard'
-                ], 'Ошибка http-запроса');
             });
 
             payments.revenue({
@@ -68,13 +47,6 @@ dashboard.component('dashboard', {
             }, revenueStat => {
                 this.revenueChartData = ChartDataConversion.toRevenueChartData(revenueStat);
                 this.profit = ChartDataConversion.toTotalProfit(revenueStat);
-            }, error => {
-                modalMsg.open([
-                    'Error code: ' + error.status,
-                    'Url: ' + error.config.url,
-                    'Method: ' + error.config.method,
-                    'JS-component: dashboard'
-                ], 'Ошибка http-запроса');
             });
 
             payments.geo({
@@ -84,13 +56,6 @@ dashboard.component('dashboard', {
                 splitSize: 1
             }, geoStat => {
                 this.geoChartData = ChartDataConversion.toGeoChartData(geoStat);
-            }, error => {
-                modalMsg.open([
-                    'Error code: ' + error.status,
-                    'Url: ' + error.config.url,
-                    'Method: ' + error.config.method,
-                    'JS-component: dashboard'
-                ], 'Ошибка http-запроса');
             });
 
             Accounts.query({
@@ -106,13 +71,6 @@ dashboard.component('dashboard', {
                         accountID: item.generalID
                     }, generalAccount => {
                         account.general = generalAccount;
-                    }, error => {
-                        modalMsg.open([
-                            'Error code: ' + error.status,
-                            'Url: ' + error.config.url,
-                            'Method: ' + error.config.method,
-                            'JS-component: dashboard',
-                        ], 'Ошибка http-запроса');
                     });
 
                     Accounts.get({
@@ -120,23 +78,9 @@ dashboard.component('dashboard', {
                         accountID: item.guaranteeID
                     }, guaranteeAccount => {
                         account.guarantee = guaranteeAccount;
-                    }, error => {
-                        modalMsg.open([
-                            'Error code: ' + error.status,
-                            'Url: ' + error.config.url,
-                            'Method: ' + error.config.method,
-                            'JS-component: dashboard'
-                        ], 'Ошибка http-запроса');
                     });
                     this.account = account;
                 });
-            }, error => {
-                modalMsg.open([
-                    'Error code: ' + error.status,
-                    'Url: ' + error.config.url,
-                    'Method: ' + error.config.method,
-                    'JS-component: dashboard'
-                ], 'Ошибка http-запроса');
             });
         };
 

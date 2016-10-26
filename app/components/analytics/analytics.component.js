@@ -20,13 +20,6 @@ dashboard.component('analytics', {
                 }));
                 this.selectedShopId = resolveShopId(party.shops);
                 this.onSelect();
-            }, error => {
-                modalMsg.open([
-                    'Error code: ' + error.status,
-                    'Url: ' + error.config.url,
-                    'Method: ' + error.config.method,
-                    'JS-component: analytics'
-                ], 'Ошибка http-запроса');
             });
         };
 
