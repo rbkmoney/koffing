@@ -1,12 +1,21 @@
 shops.component('claims', {
     templateUrl: 'components/shops/claims/claims.template.html',
-    controller: function (Claims) {
+    controller: function (Claims, modalMsg) {
         this.showClaimInfo = false;
 
-        Claims.get({claimStatus: 'pending'}, claim => {
+        Claims.get({
+            claimStatus: 'pending'
+        }, claim => {
             this.claimID = claim.id;
             this.showClaimInfo = true;
             this.changeset = claim.changeset;
+        }, error => {
+            modalMsg.open([
+                'Error code: ' + error.status,
+                'Url: ' + error.config.url,
+                'Method: ' + error.config.method,
+                'JS-component: claims'
+            ], 'Ошибка http-запроса');
         });
 
         this.revoke = () => {

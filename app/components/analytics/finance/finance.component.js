@@ -1,6 +1,6 @@
 finance.component('finance', {
     templateUrl: 'components/analytics/finance/finance.html',
-    controller: function (Invoices) {
+    controller: function (Invoices, modalMsg) {
         this.searchParams = {
             fromTime: moment().hours(0).minutes(0).seconds(0).format(),
             toTime: moment().format(),
@@ -25,6 +25,13 @@ finance.component('finance', {
                     this.searchedInvoices = result.invoices;
                     this.totalCount = result.totalCount;
                     this.isLoading = false;
+                }, error => {
+                    modalMsg.open([
+                        'Error code: ' + error.status,
+                        'Url: ' + error.config.url,
+                        'Method: ' + error.config.method,
+                        'JS-component: finance'
+                    ], 'Ошибка http-запроса');
                 });
             };
 

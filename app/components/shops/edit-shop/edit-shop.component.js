@@ -3,7 +3,7 @@ shops.component('editShop', {
     bindings: {
         $router: '<'
     },
-    controller: function (Shops, Parties, Categories) {
+    controller: function (Shops, Parties, Categories, modalMsg) {
         this.args = {};
         this.isLoading = false;
 
@@ -18,6 +18,13 @@ shops.component('editShop', {
                 this.shopDetails = shop.shopDetails;
                 this.contractor = shop.contractor;
                 this.categoryRef = shop.categoryRef;
+            }, error => {
+                modalMsg.open([
+                    'Error code: ' + error.status,
+                    'Url: ' + error.config.url,
+                    'Method: ' + error.config.method,
+                    'JS-component: edit-shop'
+                ], 'Ошибка http-запроса');
             });
         };
 
