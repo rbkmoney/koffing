@@ -1,6 +1,6 @@
 shops.component('claims', {
     templateUrl: 'components/shops/claims/claims.template.html',
-    controller: function (Claims, modalMsg) {
+    controller: function (Claims) {
         this.showClaimInfo = false;
 
         Claims.get({

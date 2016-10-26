@@ -1,6 +1,6 @@
 shops.component('shops', {
     templateUrl: 'components/shops/shops.template.html',
-    controller: function (Parties, Shops, Categories, modalMsg) {
+    controller: function (Parties, Shops, Categories) {
 
         this.categories = Categories.query();
 

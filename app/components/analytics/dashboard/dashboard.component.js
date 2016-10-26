@@ -1,6 +1,6 @@
 dashboard.component('dashboard', {
     templateUrl: 'components/analytics/dashboard/dashboard.template.html',
-    controller: function (Payments, ChartDataConversion, Customers, Accounts, modalMsg) {
+    controller: function (Payments, ChartDataConversion, Customers, Accounts) {
         // this.fromTime = moment(this.toTime).subtract(1, 'M').hours(0).minutes(0).seconds(0).milliseconds(0).format();
         this.toTime = moment().format();
         this.fromTime = moment().hours(0).minutes(0).seconds(0).format();

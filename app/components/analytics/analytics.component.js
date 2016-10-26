@@ -7,7 +7,7 @@ dashboard.component('analytics', {
     bindings: {
         $router: '<'
     },
-    controller: function (Parties, $location, modalMsg) {
+    controller: function (Parties, $location) {
         this.$routerOnActivate = () => {
             Parties.get(party => {
                 this.isShopsExists = !!party.shops.length;

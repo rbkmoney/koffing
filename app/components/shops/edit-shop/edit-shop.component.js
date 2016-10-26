@@ -3,7 +3,7 @@ shops.component('editShop', {
     bindings: {
         $router: '<'
     },
-    controller: function (Shops, Parties, Categories, modalMsg) {
+    controller: function (Shops, Parties, Categories) {
         this.args = {};
         this.isLoading = false;
 
