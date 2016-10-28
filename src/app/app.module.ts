@@ -1,16 +1,20 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 
-import { AppComponent } from './app.component';
+import { RootComponent } from './components/root/root.component.ts';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { TopPanelComponent } from './components/top-panel/top-panel.component.ts';
 
 @NgModule({
     imports: [
         BrowserModule
     ],
     declarations: [
-        AppComponent
+        RootComponent,
+        SidebarComponent,
+        TopPanelComponent
     ],
-    bootstrap: [ AppComponent ]
+    bootstrap: [ RootComponent ]
 })
 
 export class AppModule { }
