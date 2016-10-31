@@ -7,6 +7,11 @@ module.exports = {
     entry: {
         'polyfills': './src/polyfills.ts',
         'vendor': './src/vendor.ts',
+        'vendorjs': [
+            './node_modules/jquery/dist/jquery',
+            './node_modules/bootstrap/dist/js/bootstrap',
+            './node_modules/gentelella/build/js/custom'
+        ],
         'app': './src/main.ts'
     },
 
