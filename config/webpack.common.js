@@ -8,19 +8,34 @@ module.exports = {
         'polyfills': './src/polyfills.ts',
         'vendor': './src/vendor.ts',
         'vendorjs': [
-            './node_modules/jquery/dist/jquery',
-            './node_modules/bootstrap/dist/js/bootstrap',
-            './node_modules/gentelella/build/js/custom'
+            './node_modules/jquery/dist/jquery.js',
+            './node_modules/bootstrap/dist/js/bootstrap.js',
+            './node_modules/gentelella/build/js/custom.js',
+            './node_modules/moment/moment.js',
+            './node_modules/bootstrap-daterangepicker/daterangepicker.js',
+            './node_modules/select2/dist/js/select2.full.js',
+            './node_modules/keycloak-js/dist/keycloak.js',
+            './node_modules/lodash/lodash.js'
         ],
         'app': './src/main.ts'
     },
 
     resolve: {
+        root: __dirname + '/node_modules',
+        alias: {
+            'jquery': 'jquery/dist/jquery',
+            'daterangepicker': 'bootstrap-daterangepicker/daterangepicker',
+            'select2.full': 'select2/dist/js/select2.full'
+        },
         extensions: ['', '.ts', '.js']
     },
 
     module: {
         loaders: [
+            {
+                test: /(jquery.js$)|(daterangepicker.js$)|(select2.full.js$)/,
+                loader: 'script-loader'
+            },
             {
                 test: /\.ts$/,
                 loaders: ['awesome-typescript-loader', 'angular2-template-loader']
@@ -53,7 +68,7 @@ module.exports = {
 
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
-            name: ['app', 'vendor', 'polyfills']
+            name: ['app', 'vendor', 'polyfills', 'vendorjs']
         }),
 
         new HtmlWebpackPlugin({
