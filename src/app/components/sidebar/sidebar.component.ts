@@ -6,4 +6,12 @@ import { Component } from '@angular/core';
     styleUrls: ['./sidebar.component.css']
 })
 
-export class SidebarComponent {}
+export class SidebarComponent {
+    public isActive(path: string): boolean {
+        if (path == '/analytics') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}

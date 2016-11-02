@@ -6,4 +6,6 @@ import { Component } from '@angular/core';
     styleUrls: ['./top-panel.component.css']
 })
 
-export class TopPanelComponent {}
+export class TopPanelComponent {
+    public profileName: string = 'Пользователь';
+}
