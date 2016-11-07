@@ -14,8 +14,7 @@ module.exports = {
             './node_modules/moment/moment.js',
             './node_modules/bootstrap-daterangepicker/daterangepicker.js',
             './node_modules/select2/dist/js/select2.full.js',
-            './node_modules/keycloak-js/dist/keycloak.js',
-            './node_modules/lodash/lodash.js'
+            './node_modules/keycloak-js/dist/keycloak.js'
         ],
         'app': './src/main.ts'
     },
