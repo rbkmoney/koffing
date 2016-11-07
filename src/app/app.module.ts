@@ -1,26 +1,28 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
 
 import { RootComponent } from './components/root/root.component.ts';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { TopPanelComponent } from './components/top-panel/top-panel.component.ts';
-import { ContentComponent } from './components/content/content.component.ts';
+import { AnalyticsComponent } from './components/analytics/analytics.component';
+import { ShopsComponent } from "./components/shops/shops.component";
+import { ClaimsComponent } from "./components/shops/claims/claims.component";
+
+import { AppRoutingModule } from "./app-routing.module";
 
 @NgModule({
     imports: [
         BrowserModule,
-        RouterModule.forRoot([
-            { path: '', component: ContentComponent }
-        ])
+        AppRoutingModule
     ],
     declarations: [
         RootComponent,
         SidebarComponent,
         TopPanelComponent,
-        ContentComponent
+        AnalyticsComponent,
+        ShopsComponent,
+        ClaimsComponent
     ],
     bootstrap: [ RootComponent ]
 })
-
 export class AppModule { }
