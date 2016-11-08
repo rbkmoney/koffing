@@ -21,7 +21,7 @@ CALL_W_CONTAINER := init build clean submodules
 
 .PHONY: $(CALL_W_CONTAINER)
 
-all: build	
+all: build
 
 -include $(UTILS_PATH)/make_lib/utils_image.mk
 -include $(UTILS_PATH)/make_lib/utils_container.mk
