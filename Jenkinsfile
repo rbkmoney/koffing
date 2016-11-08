@@ -1,6 +1,6 @@
 #!groovy
 
-build('weezing', 'docker-host') {
+build('koffing', 'docker-host') {
   checkoutRepo()
   loadBuildUtils()
 
@@ -13,9 +13,7 @@ build('weezing', 'docker-host') {
   pipeDefault() {
     //ToDo: npm stuff should be in a cache, when caching is implemented!
     runStage('init') {
-      withGithubSshCredentials {
-        sh 'make wc_init'
-      }
+      sh 'make wc_init'
     }
     runStage('build') {
       sh 'make wc_build'
@@ -37,4 +35,3 @@ build('weezing', 'docker-host') {
     }
   }
 }
-

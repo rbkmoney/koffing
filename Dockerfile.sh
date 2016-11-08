@@ -3,7 +3,7 @@ cat <<EOF
 FROM $BASE_IMAGE
 MAINTAINER Ildar Galeev <i.galeev@rbkmoney.com>
 COPY dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/vhosts.d/weezing.conf
+COPY nginx.conf /etc/nginx/vhosts.d/koffing.conf
 COPY containerpilot.json /etc/containerpilot.json
 CMD /bin/containerpilot -config file:///etc/containerpilot.json /usr/sbin/nginx -g "daemon off;"
 LABEL base_image_tag=$BASE_IMAGE_TAG
