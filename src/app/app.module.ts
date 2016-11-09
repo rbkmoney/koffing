@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
+import { HttpModule } from "@angular/http";
 
 import { RootComponent } from './components/root/root.component.ts';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -13,7 +14,8 @@ import { AppRoutingModule } from "./app-routing.module";
 @NgModule({
     imports: [
         BrowserModule,
-        AppRoutingModule
+        AppRoutingModule,
+        HttpModule
     ],
     declarations: [
         RootComponent,
