@@ -8,6 +8,9 @@ import { TopPanelComponent } from './components/top-panel/top-panel.component.ts
 import { AnalyticsComponent } from './components/analytics/analytics.component';
 import { ShopsComponent } from "./components/shops/shops.component";
 import { ClaimsComponent } from "./components/shops/claims/claims.component";
+import { ShopCreationComponent } from './components/shops/claims/shop-creation/shop-creation.component';
+import { ShopModificationComponent } from './components/shops/claims/shop-modification/shop-modification.component';
+import { ModificationDetailComponent } from './components/shops/claims/modification-detail/modification-detail.component';
 
 import { AppRoutingModule } from "./app-routing.module";
 
@@ -23,7 +26,10 @@ import { AppRoutingModule } from "./app-routing.module";
         TopPanelComponent,
         AnalyticsComponent,
         ShopsComponent,
-        ClaimsComponent
+        ClaimsComponent,
+        ShopCreationComponent,
+        ShopModificationComponent,
+        ModificationDetailComponent
     ],
     bootstrap: [ RootComponent ]
 })
