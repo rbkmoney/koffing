@@ -5,5 +5,6 @@ const app = angular.module('app', [
     'finance',
     'sidebar',
     'topPanel',
-    'templates'
+    'templates',
+    'modalMsg'
 ]);

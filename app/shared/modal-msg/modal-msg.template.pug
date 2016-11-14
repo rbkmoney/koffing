@@ -1,0 +1,5 @@
+.modal-body
+    h4.modal-title(ng-if='$ctrl.title' ng-bind='$ctrl.title')
+    ul(ng-if='$ctrl.parsedMessage')
+        li(ng-repeat='message in $ctrl.parsedMessage' ng-bind='message')
+    button.modal-close.btn.btn-default(ng-click='$ctrl.close()') Закрыть

@@ -57,7 +57,9 @@ dashboard.component('dashboard', {
                 this.geoChartData = ChartDataConversion.toGeoChartData(geoStat);
             });
 
-            Accounts.query({shopID: this.shopID}, shopAccounts => {
+            Accounts.query({
+                shopID: this.shopID
+            }, shopAccounts => {
                 if (shopAccounts.length > 1) {
                     console.warn('shop accounts size > 1');
                 }

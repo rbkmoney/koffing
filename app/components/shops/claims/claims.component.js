@@ -3,7 +3,9 @@ shops.component('claims', {
     controller: function (Claims) {
         this.showClaimInfo = false;
 
-        Claims.get({claimStatus: 'pending'}, claim => {
+        Claims.get({
+            claimStatus: 'pending'
+        }, claim => {
             this.claimID = claim.id;
             this.showClaimInfo = true;
             this.changeset = claim.changeset;

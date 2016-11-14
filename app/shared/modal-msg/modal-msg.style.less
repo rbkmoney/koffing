@@ -1,0 +1,54 @@
+.overflow-hidden {
+  overflow: hidden!important;
+}
+modal-msg {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 10000;
+}
+modal-msg ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+modal-msg ul li {
+  margin: 10px auto;
+  font-size: 14px;
+  line-height: 16px;
+}
+modal-msg ul li:first-of-type,
+modal-msg ul li:last-of-type {
+  margin: auto;
+}
+modal-msg .modal-title {
+  text-align: center;
+  margin-bottom: 10px;
+  padding: 0;
+  border: none;
+}
+modal-msg .modal-body {
+  min-width: 300px;
+  max-width: 500px;
+  min-height: 160px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 15px 15px 60px;
+  transform: translate(-50%, -50%);
+  color: #000;
+  background: #fff;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 5px 15px 2px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0 5px 15px 2px rgba(0,0,0,0.5);
+  box-shadow: 0 5px 15px 2px rgba(0,0,0,0.5);
+}
+modal-msg button.modal-close {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  margin: 0;
+}
