@@ -11,7 +11,15 @@ import { ShopModification } from './../../../../services/claim/claim';
 export class ShopModificationComponent implements OnInit{
     @Input() changeset: ShopModification;
 
-    ngOnInit(): void {
+    public showPanel: boolean = false;
+    public isModification: boolean = false;
+    public details: any;
 
+    ngOnInit(): void {
+        this.details = this.changeset.details.details;
+        this.isModification = this.changeset.details.modificationType === 'ShopModification';
+    }
+    show(): void {
+        this.showPanel = !this.showPanel;
     }
 }
