@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Shop } from './../../services/shop/shop';
 import { ShopService } from './../../services/shop/shop.service';
 import { Category} from './../../services/category/category';
@@ -8,7 +7,6 @@ import { CategoryService } from './../../services/category/category.service';
 @Component({
     selector: 'shops',
     templateUrl: './shops.component.pug',
-    styleUrls: ['./shops.component.css'],
     providers: [ShopService, CategoryService]
 })
 
@@ -20,6 +18,14 @@ export class ShopsComponent implements OnInit {
         private shopService: ShopService,
         private categoryService: CategoryService
     ) { }
+
+    activateShop(shop): void {
+        this.shopService.activateShop(shop.shopID).then(
+            (claimID) => {
+                this.getShops();
+            }
+        );
+    }
 
     getShops(): void {
         this.shopService.getShops().then(

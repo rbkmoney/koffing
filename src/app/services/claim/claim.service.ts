@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-
 import 'rxjs/add/operator/toPromise';
-
 import { Claim } from './claim';
 import { Urls } from './../../app-config/constants';
 
@@ -23,5 +21,19 @@ export class ClaimService {
             })
             .catch(this.handleError)
 
+    },
+
+    revokeClaim(claimID, revokeDetails): Promise<string> {
+        let url = Urls.base + `claims/${claimID}/revoke`,
+            params = {
+                reason: revokeDetails.reason
+            };
+
+        return this.http.post(url, params)
+            .toPromise()
+            .then(function(response) {
+                return response.statusText;
+            })
+            .catch(this.handleError)
     }
 }

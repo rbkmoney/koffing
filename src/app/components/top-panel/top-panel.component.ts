@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'top-panel',
-    templateUrl: './top-panel.component.pug',
-    styleUrls: ['./top-panel.component.css']
+    templateUrl: './top-panel.component.pug'
 })
 
 export class TopPanelComponent {

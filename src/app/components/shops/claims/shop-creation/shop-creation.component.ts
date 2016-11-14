@@ -1,11 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-
 import { ShopCreation } from './../../../../services/claim/claim';
 
 @Component({
     selector: 'shop-creation',
-    templateUrl: './shop-creation.component.pug',
-    styleUrls: ['./shop-creation.component.css']
+    templateUrl: './shop-creation.component.pug'
 })
 
 export class ShopCreationComponent implements OnInit{

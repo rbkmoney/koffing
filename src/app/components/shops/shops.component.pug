@@ -20,10 +20,10 @@ claims
                     td {{shop.shopDetails.location}}
                     td {{getCategory(shop.categoryRef).name}}
                     td(*ngIf="shop.isSuspended && !shop.isBlocked")
-                        button.btn.btn-success.btn-xs.pull-right((click)="activate(shop)") Активировать
+                        button.btn.btn-success.btn-xs.pull-right((click)="activateShop(shop)") Активировать
                     td(*ngIf="!shop.isSuspended && !shop.isBlocked")
-                        a.btn.btn-default.btn-xs.pull-right(routerLink="['\EditShop\', {shopId: shop.shopID}]") Изменить данные
+                        a.btn.btn-default.btn-xs.pull-right([routerLink]="['edit', shop.shopID]") Изменить данные
                     td(*ngIf="shop.isBlocked")
                         span.pull-right Заблокирован
         span(*ngIf="!shops.length") Список магазинов пуст
-        a.btn.btn-primary.pull-right(routerLink="['\AddShop\']") Добавить новый магазин
+        a.btn.btn-primary.pull-right(routerLink="/shops/add") Добавить новый магазин
