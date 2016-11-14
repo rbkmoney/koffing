@@ -27,7 +27,7 @@ export class ClaimsComponent implements OnInit {
     getClaim(): void {
         this.claimService.getClaim().then(
             aClaim => {
-                debugger;
+                // debugger;
                 this.claim = aClaim;
                 this.changeset = aClaim.changeset;
                 this.showClaimInfo = true;

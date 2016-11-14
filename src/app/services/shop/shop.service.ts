@@ -12,7 +12,7 @@ export class ShopService {
     constructor(private http: Http) {}
 
     handleError(): void {
-        debugger;
+        // debugger;
     }
 
     getShops(): Promise<Shop[]> {

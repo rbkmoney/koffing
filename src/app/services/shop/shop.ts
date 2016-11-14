@@ -27,3 +27,11 @@ export class Shop {
     contractor: Contractor;
     contract: Contract;
 }
+export class ShopItem {
+    value: string;
+    label: string;
+    constructor(value: string, label: string) {
+        this.value = value;
+        this.label = label;
+    }
+}

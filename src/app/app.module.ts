@@ -12,19 +12,20 @@ import { ShopCreationComponent } from './components/shops/claims/shop-creation/s
 import { ShopModificationComponent } from './components/shops/claims/shop-modification/shop-modification.component';
 import { ModificationDetailComponent } from './components/shops/claims/modification-detail/modification-detail.component';
 
+import { AnalyticsModule } from './components/analytics/analytics.module';
 import { AppRoutingModule } from "./app-routing.module";
 
 @NgModule({
     imports: [
         BrowserModule,
         AppRoutingModule,
+        AnalyticsModule,
         HttpModule
     ],
     declarations: [
         RootComponent,
         SidebarComponent,
         TopPanelComponent,
-        AnalyticsComponent,
         ShopsComponent,
         ClaimsComponent,
         ShopCreationComponent,

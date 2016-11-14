@@ -12,7 +12,7 @@ export class ClaimService {
     constructor(private http: Http) {}
 
     handleError(): void {
-        debugger;
+        // debugger;
     }
 
     getClaim(): Promise<Claim> {

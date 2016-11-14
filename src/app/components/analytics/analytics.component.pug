@@ -1,1 +1,26 @@
-div Analytics
+.row
+    .col-md-12
+        .x_panel.tile
+            .x_content(*ngIf="shops.length")
+                form.form-horizontal
+                    .form-group
+                        .col-md-1
+                            label.control-label Магазин
+                        .col-md-5
+                            ng-select(
+                                [options]="shopItems",
+                                placeholder="Выберите магазин",
+                                (selected)="onSelectShop($event)"
+                            )
+                ul.nav.nav-tabs.bar_tabs
+                    li([routerLink]="['/analytics/dashboard']",[routerLinkActive]="['active']")
+                        a([routerLink]=["/analytics/dashboard"]) Статистика
+                    li([routerLink]="['/analytics/finance']",[routerLinkActive]="['active']")
+                        a([routerLink]=["/analytics/finance"]) Финансы
+                .tab-content
+                    router-outlet
+//.row(ng-if="!$ctrl.isShopsExists")
+//    .col-md-12
+//        .jumbotron
+//            h1 Список магазинов пуст
+//            p Создайте новый магазин во вкладке "Мои магазины"
