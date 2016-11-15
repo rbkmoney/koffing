@@ -11,33 +11,45 @@ import { ShopService } from './../../services/shop/shop.service';
 })
 export class AnalyticsComponent implements OnInit {
 
-    public shops: Array<Shop> = [];
     public shopItems: Array<ShopItem> = [];
-    public activeShopItem: ShopItem;
+    private shops: Array<Shop> = [];
+    private selectedShopID: string = '';
+    private isUploadedDataShops: boolean = false;
 
     constructor(
+        private route: ActivatedRoute,
+        private router: Router,
         private shopService: ShopService
     ) {}
 
     ngOnInit() {
-        this.shopService.getShops().then(shops => {
-            this.shops = shops;
+        this.route.params.forEach((params: Params) => {
+            this.selectedShopID = params['shopID'];
+        });
 
-            if(!(this.shops.length)) {
+        this.shopService.getShops().then(shops => {
+            this.isUploadedDataShops = true;
+            if(!shops.length) {
                 return;
             }
-
+            this.shops = shops;
             this.shops.forEach((shop: Shop) => {
                 this.shopItems.push(new ShopItem(shop.shopID, shop.shopDetails.name));
             });
-            console.log(this.shopItems);
-            // this.onSelectShop(this.shopItems[0]);
+
+            if(this.selectedShopID === '' || typeof(this.selectedShopID) === 'undefined') {
+                this.selectedShopID = this.shops[0].shopID;
+            }
+            this.goToShop(this.selectedShopID);
         });
     }
 
-    onSelectShop(item: ShopItem) {
-        this.activeShopItem = item;
-        // this.router.navigate(['/dashboard', this.activeShopItem.value]);
-        console.log(this.activeShopItem);
+    onSelectShop(shopItem: ShopItem) {
+        this.selectedShopID = shopItem.value;
+        this.goToShop(this.selectedShopID);
+    }
+
+    goToShop(shopID: string) {
+        this.router.navigate(['analytics', shopID, 'dashboard']);
     }
 }

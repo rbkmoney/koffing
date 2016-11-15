@@ -10,10 +10,16 @@ import { FinanceComponent } from './finance/finance.component';
         RouterModule.forChild([
             {
                 path: 'analytics',
+                component: AnalyticsComponent
+            },
+            {
+                path: 'analytics/:shopID',
                 component: AnalyticsComponent,
                 children: [
                     {
-                        path: ''
+                        path: '',
+                        redirectTo: 'dashboard',
+                        pathMatch: 'full'
                     },
                     {
                         path: 'dashboard',
