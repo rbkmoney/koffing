@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-
-import { Shop, ShopItem } from './../../services/shop/shop';
-import { ShopService } from './../../services/shop/shop.service';
+import {Component, OnInit} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
+import {Shop, ShopItem} from './../../services/shop/shop';
+import {ShopService} from './../../services/shop/shop.service';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'analytics',
@@ -11,45 +11,27 @@ import { ShopService } from './../../services/shop/shop.service';
 })
 export class AnalyticsComponent implements OnInit {
 
+    public selectedShopID: string;
     public shopItems: Array<ShopItem> = [];
-    private shops: Array<Shop> = [];
-    private selectedShopID: string = '';
-    private isUploadedDataShops: boolean = false;
 
-    constructor(
-        private route: ActivatedRoute,
-        private router: Router,
-        private shopService: ShopService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private router: Router,
+                private shopService: ShopService) {
+    }
 
     ngOnInit() {
-        this.route.params.forEach((params: Params) => {
-            this.selectedShopID = params['shopID'];
-        });
-
-        this.shopService.getShops().then(shops => {
-            this.isUploadedDataShops = true;
-            if(!shops.length) {
-                return;
-            }
-            this.shops = shops;
-            this.shops.forEach((shop: Shop) => {
-                this.shopItems.push(new ShopItem(shop.shopID, shop.shopDetails.name));
-            });
-
-            if(this.selectedShopID === '' || typeof(this.selectedShopID) === 'undefined') {
-                this.selectedShopID = this.shops[0].shopID;
-            }
-            this.goToShop(this.selectedShopID);
+        const shopID = this.route.snapshot.params['shopID'];
+        if (shopID) {
+            this.selectedShopID = shopID;
+        }
+        this.shopService.getShops().then((shops: Shop[]) => {
+            this.shopItems = _.map(shops, (shop: Shop) => new ShopItem(shop.shopID, shop.shopDetails.name));
         });
     }
 
     onSelectShop(shopItem: ShopItem) {
         this.selectedShopID = shopItem.value;
-        this.goToShop(this.selectedShopID);
+        this.router.navigate(['analytics', this.selectedShopID, 'dashboard']);
     }
 
-    goToShop(shopID: string) {
-        this.router.navigate(['analytics', shopID, 'dashboard']);
-    }
 }
