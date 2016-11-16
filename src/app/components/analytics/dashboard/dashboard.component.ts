@@ -14,9 +14,6 @@ export class DashboardComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        // noinspection TypeScriptUnresolvedFunction
-        this.router.routerState.parent(this.route).params.subscribe((params: any) => {
-            this.shopID = params['shopID'];
-        });
+        this.shopID = this.route.parent.snapshot.params['shopID'];
     }
 }
