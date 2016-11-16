@@ -1,4 +1,4 @@
-.row([hidden]="isUploadedDataShops && !shopItems.length")
+.row
     .col-md-12
         .x_panel.tile
             .x_content
@@ -7,19 +7,15 @@
                         .col-md-1
                             label.control-label Магазин
                         .col-md-5(*ngIf="shopItems.length")
-                            ng-select(
-                                [options]="shopItems",
-                                placeholder="Выберите магазин",
-                                (selected)="onSelectShop($event)"
-                            )
-                ul.nav.nav-tabs.bar_tabs
-                    li([routerLink]="['../', selectedShopID, 'dashboard']",[routerLinkActive]="['active']")
+                            ng-select([options]="shopItems", placeholder="Выберите магазин", (selected)="onSelectShop($event)")
+                ul.nav.nav-tabs.bar_tabs(*ngIf="selectedShopID")
+                    li([routerLink]="['dashboard']", [routerLinkActive]="['active']")
                         a Статистика
-                    li([routerLink]="['../', selectedShopID, 'finance']",[routerLinkActive]="['active']")
+                    li([routerLink]="['finance']", [routerLinkActive]="['active']")
                         a Финансы
                 .tab-content
                     router-outlet
-.row(*ngIf="isUploadedDataShops && !shopItems.length")
+.row(*ngIf="!shopItems.length")
     .col-md-12
         .jumbotron
             h1 Список магазинов пуст

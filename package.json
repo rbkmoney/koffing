@@ -4,7 +4,7 @@
   "description": "",
   "private": true,
   "scripts": {
-    "start": "webpack-dev-server --config config/webpack.dev.js --inline --progress --port 8080",
+    "start": "webpack-dev-server --config config/webpack.dev.js --inline --progress --port 8000",
     "test": "karma start",
     "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail"
   },
@@ -38,6 +38,7 @@
     "@types/node": "^6.0.45",
     "angular2-template-loader": "^0.4.0",
     "awesome-typescript-loader": "^2.2.4",
+    "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
@@ -49,6 +50,8 @@
     "karma-phantomjs-launcher": "^1.0.2",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.8.0",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
     "null-loader": "^0.1.1",
     "phantomjs-prebuilt": "^2.1.7",
     "pug-html-loader": "^1.0.9",
