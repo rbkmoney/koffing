@@ -6,5 +6,4 @@ import { Component, ViewEncapsulation } from '@angular/core';
     styleUrls: ['./root.component.css'],
     encapsulation: ViewEncapsulation.None
 })
-
 export class RootComponent { }

@@ -4,7 +4,7 @@
   "description": "",
   "private": true,
   "scripts": {
-    "start": "webpack-dev-server --config config/webpack.dev.js --inline --progress --port 8080",
+    "start": "webpack-dev-server --config config/webpack.dev.js --inline --progress --port 8000",
     "test": "karma start",
     "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail"
   },
@@ -18,17 +18,18 @@
     "@angular/platform-browser": "~2.1.1",
     "@angular/platform-browser-dynamic": "~2.1.1",
     "@angular/router": "~3.1.1",
+    "angular2-select": "^1.0.0-alpha.12",
     "bootstrap": "^3.3.7",
     "bootstrap-daterangepicker": "^2.1.24",
     "core-js": "^2.4.1",
+    "gentelella": "git@github.com:rbkmoney/gentelella.git",
     "jquery": "^3.1.1",
+    "keycloak-js": "^2.3.0",
     "lodash": "^4.16.6",
     "moment": "^2.15.2",
     "rxjs": "5.0.0-beta.12",
     "select2": "^4.0.3",
-    "zone.js": "^0.6.25",
-    "gentelella": "git@github.com:rbkmoney/gentelella.git",
-    "keycloak-js": "^2.3.0"
+    "zone.js": "^0.6.25"
   },
   "devDependencies": {
     "@types/core-js": "^0.9.34",
@@ -48,6 +49,8 @@
     "karma-phantomjs-launcher": "^1.0.2",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.8.0",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
     "null-loader": "^0.1.1",
     "phantomjs-prebuilt": "^2.1.7",
     "pug-html-loader": "^1.0.9",
