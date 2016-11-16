@@ -1,17 +1,15 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { AnalyticsComponent } from './components/analytics/analytics.component';
-
-const routes: Routes = [
-    { path: '', redirectTo: '/analytics', pathMatch: 'full'},
-    { path: 'analytics', component: AnalyticsComponent }
-];
-
-export const routing = RouterModule.forRoot(routes);
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     imports: [
-        routing
+        RouterModule.forRoot([
+            {
+                path: '',
+                redirectTo: '/analytics',
+                pathMatch: 'full'
+            }
+        ])
     ],
     exports: [
         RouterModule

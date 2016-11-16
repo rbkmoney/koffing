@@ -1,25 +1,43 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
+import { Http, XHRBackend, RequestOptions, HttpModule } from '@angular/http';
 import { RootComponent } from './components/root/root.component.ts';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { TopPanelComponent } from './components/top-panel/top-panel.component.ts';
-import { AnalyticsComponent } from './components/analytics/analytics.component';
-import { ShopsModule } from './components/shops/shops.module';
+import { AnalyticsModule } from './components/analytics/analytics.module';
 import { AppRoutingModule } from './app-routing.module';
+import { KeycloakHttpInterceptor } from '../keycloak/keycloak-http.interceptor';
+import { ConfigService } from './config.service';
+import { ShopsModule } from './components/shops/shops.module';
 
 @NgModule({
     imports: [
         BrowserModule,
         AppRoutingModule,
-        HttpModule,
-        ShopsModule
+        AnalyticsModule,
+        ShopsModule,
+        HttpModule
     ],
     declarations: [
         RootComponent,
         SidebarComponent,
-        TopPanelComponent,
-        AnalyticsComponent
+        TopPanelComponent
+    ],
+    providers: [
+        ConfigService,
+        {
+            provide: Http,
+            useFactory: (
+                backend: XHRBackend, defaultOptions: RequestOptions
+            ) => new KeycloakHttpInterceptor(backend, defaultOptions),
+            deps: [XHRBackend, RequestOptions]
+        },
+        {
+            provide: APP_INITIALIZER,
+            useFactory: (config: ConfigService) => () => config.load(),
+            deps: [ConfigService],
+            multi: true
+        }
     ],
     bootstrap: [ RootComponent ]
 })

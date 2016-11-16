@@ -10,7 +10,7 @@ export class CategoryService {
     constructor(private http: Http) {}
 
     handleError(): void {
-        debugger;
+        //debugger;
     }
 
     getCategories(): Promise<Category[]> {
