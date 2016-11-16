@@ -21,9 +21,9 @@ export class ClaimService {
             })
             .catch(this.handleError)
 
-    },
+    }
 
-    revokeClaim(claimID, revokeDetails): Promise<string> {
+    revokeClaim(claimID: any, revokeDetails: any): Promise<string> {
         let url = Urls.base + `claims/${claimID}/revoke`,
             params = {
                 reason: revokeDetails.reason

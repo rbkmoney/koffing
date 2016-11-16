@@ -14,7 +14,7 @@ export class AddShopComponent implements OnInit {
 
     categories: Category[] = [];
 
-    public args = {
+    public args: any = {
         shopDetails: {},
         contractor: {},
         categoryRef: null
@@ -32,11 +32,11 @@ export class AddShopComponent implements OnInit {
         );
     }
 
-    hasError(field): boolean {
+    hasError(field: any): boolean {
         return field.dirty && field.invalid;
     }
 
-    createClaim(form) : void {
+    createClaim(form: any) : void {
         if (form.valid) {
             this.args.contractor.legalEntity = '';
             this.shopService.createShop(this.args).then(

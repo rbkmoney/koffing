@@ -17,7 +17,7 @@ export class EditShopComponent implements OnInit {
 
     public currentShopId: number;
 
-    public args = {
+    public args: any = {
         shopDetails: {},
         contractor: {},
         categoryRef: null
@@ -48,11 +48,11 @@ export class EditShopComponent implements OnInit {
         );
     }
 
-    hasError(field): boolean {
+    hasError(field: any): boolean {
         return field.dirty && field.invalid;
     }
 
-    updateShop(form) : void {
+    updateShop(form: any) : void {
         if (form.valid) {
             this.shopService.updateShop(this.currentShopId, this.args).then(
                 claimID => {

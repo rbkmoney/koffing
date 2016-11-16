@@ -19,7 +19,7 @@ export class ShopsComponent implements OnInit {
         private categoryService: CategoryService
     ) { }
 
-    activateShop(shop): void {
+    activateShop(shop: any): void {
         this.shopService.activateShop(shop.shopID).then(
             (claimID) => {
                 this.getShops();

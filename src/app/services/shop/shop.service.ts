@@ -22,7 +22,7 @@ export class ShopService {
             .catch(this.handleError)
     }
 
-    createShop(args): Promise<string> {
+    createShop(args: any): Promise<string> {
         let params = {
             categoryRef: args.categoryRef,
             shopDetails: args.shopDetails,
@@ -37,7 +37,7 @@ export class ShopService {
             .catch(this.handleError)
     }
 
-    updateShop(shopID, args): Promise<string> {
+    updateShop(shopID: any, args: any): Promise<string> {
         let url = Urls.base + `shops/${shopID}`,
             params = {
                 categoryRef: args.categoryRef,
@@ -53,7 +53,7 @@ export class ShopService {
             .catch(this.handleError)
     }
 
-    activateShop(shopID): Promise<string> {
+    activateShop(shopID: any): Promise<string> {
         let url = Urls.base + `shops/${shopID}/activate`,
             params = {};
 
