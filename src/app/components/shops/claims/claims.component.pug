@@ -1,0 +1,21 @@
+.x_panel.tile(*ngIf="changeset.length > 0")
+    .x_title
+        h4 Активная заявка
+    .x_content
+        .row(*ngFor="let set of changeset")
+            shop-creation([changeset]="set")
+            shop-modification([changeset]="set")
+        button.btn.btn-danger.pull-right(data-toggle="modal" data-target=".revoke-modal" data-backdrop="false") Отмена заявки
+
+.modal.fade.revoke-modal(tabindex="-1" role="dialog")
+    .modal-dialog.modal-sm
+        .modal-content
+            .modal-header
+                h4.modal-title Подтверждение
+            .modal-body Отменить заявку?
+            .modal-footer
+                .btn-toolbar.pull-right
+                    .btn-group.btn-group-sm
+                        button.btn.btn-default(type="button" data-dismiss="modal") Назад
+                    .btn-group.btn-group-sm
+                        button.btn.btn-danger(type="button" data-dismiss="modal",(click)="revoke()") Отменить заявку
