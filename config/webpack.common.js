@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 var helpers = require('./helpers');
 
 module.exports = {
@@ -22,6 +23,7 @@ module.exports = {
     resolve: {
         root: __dirname + '/node_modules',
         alias: {
+            'Keycloak': 'keycloak-js/dist/keycloak.js',
             'jquery': 'jquery/dist/jquery',
             'daterangepicker': 'bootstrap-daterangepicker/daterangepicker',
             'select2.full': 'select2/dist/js/select2.full'
@@ -32,7 +34,7 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /(jquery.js$)|(daterangepicker.js$)|(select2.full.js$)/,
+                test: /(jquery.js$)|(daterangepicker.js$)|(select2.full.js$)|(keycloak.js$)/,
                 loader: 'script-loader'
             },
             {
@@ -73,10 +75,12 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({
             name: ['app', 'vendor', 'polyfills', 'vendorjs']
         }),
-
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: 'src/index.pug'
-        })
+        }),
+        new CopyWebpackPlugin([{
+            from: 'config/runtime'
+        }])
     ]
 };
