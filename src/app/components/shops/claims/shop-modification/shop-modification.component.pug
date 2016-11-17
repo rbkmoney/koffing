@@ -1,1 +1,12 @@
-div changeset = {{ changeset.modificationType }}
+.panel.panel-default
+    .panel-heading((click)="show()")
+        a(href="#") Изменение магазина
+        i.fa.pull-right.custom-chevron([ngClass]="{'fa-chevron-down': showPanel, 'fa-chevron-right': !showPanel}")
+    .panel-body(*ngIf="showPanel")
+        div(*ngIf="details.shopDetails")
+            modification-detail([displayName]="'Название магазина'", [value]="details.shopDetails.name")
+            modification-detail([displayName]="'Описание'", [value]="details.shopDetails.description")
+            modification-detail([displayName]="'Месторасположение'", [value]="details.shopDetails.location")
+        div(*ngIf="details.contractor")
+            modification-detail([displayName]="'Наименование организации'", [value]="details.contractor.registeredName")
+            modification-detail([displayName]="'Тип юридического лица'", [value]="details.contractor.legalEntity")
