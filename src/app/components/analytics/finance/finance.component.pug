@@ -1,7 +1,19 @@
-div Finance
-    br
-    br
-    br
-    br
-    br
-    br
+.row
+    .col-md-12.col-sm-12.col-xs-12
+        .x_panel.tile
+            .x_title
+                h4 Поиск
+            .x_content
+                //search-form([searchParams]="searchParams")
+                search-form([searchParams]="searchParams", (onSearch)="search()")
+.row
+    .col-md-12.col-sm-12.col-xs-12
+        .x_panel.tile
+            .x_content
+                div(*ngIf='isUploaded')
+                    //search-result([searchedInvoices]="searchedInvoices" [offset]="searchParams.offset")
+                    paginate([size]='totalCount', [limit]='15', [offset]='0', [pagesOnScreen]='15')
+                    //paginate([size]='totalCount', [limit]='15', [offset]='0', (onChange)='search(offset)', [pagesOnScreen]='15')
+                //loading(is-loading="$ctrl.isLoading")
+                    search-result(searched-invoices="$ctrl.searchedInvoices" offset="$ctrl.searchParams.offset")
+                    paginate(limit="15" offset="$ctrl.searchParams.offset" size="$ctrl.totalCount" on-change="$ctrl.search(offset)" pages-on-screen="15")

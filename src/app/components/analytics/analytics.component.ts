@@ -14,7 +14,9 @@ export class AnalyticsComponent implements OnInit {
     public selectedShopID: string;
     public shopItems: Array<ShopItem> = [];
 
-    constructor(private route: ActivatedRoute, private router: Router, private shopService: ShopService) {
+    constructor(private route: ActivatedRoute,
+                private router: Router,
+                private shopService: ShopService) {
     }
 
     ngOnInit() {

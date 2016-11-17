@@ -1,0 +1,25 @@
+form.form-horizontal.form-label-left
+    .row
+        .col-md-6
+            .form-group
+                label.control-label.col-md-4 Дата с
+                .col-md-6
+                    input([(ngModel)]="searchParams.fromTime", type="date", name="fromTime", required)
+            .form-group
+                label.control-label.col-md-4 Дата по
+                .col-md-6
+                    input([(ngModel)]="searchParams.toTime", type="date", name="toTime", required)
+        .col-md-6
+            .form-group
+                label.control-label.col-md-4 Статус платежа
+                .col-md-6
+                    //custom-select(options="$ctrl.statuses" selected="$ctrl.searchParams.status")
+            .form-group
+                label.control-label.col-md-4 Номер
+                .col-md-6
+                    //input.form-control(type="text" ng-model="$ctrl.searchParams.invoiceID")
+            .form-group
+                .row
+                    .col-md-10
+                        .btn.btn-primary.pull-right((click)="search()") Найти
+                        //button.btn.btn-primary.pull-right((click)="search()") Найти
