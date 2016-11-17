@@ -15,7 +15,7 @@ export class EditShopComponent implements OnInit {
 
     categories: Category[] = [];
 
-    public currentShopId: number;
+    public currentShopId: string;
 
     public args: any = {
         shopDetails: {},
