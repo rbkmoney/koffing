@@ -1,7 +1,40 @@
 .row
+    .col-md-12
+        form.form-inline.pull-right
+            .form-group
+                label.control-label Статистика с
+                datepicker([date]="fromTime")
+            .form-group
+                label.control-label по
+                datepicker([date]="toTime")
+            button.btn.btn-default(style="margin-bottom: 0; margin-right: 0", (click)="loadData()") Показать
+.row
+    info-panel([uniqueCount]="uniqueCount", [successfulCount]="successfulCount",
+    [unfinishedCount]="unfinishedCount", [profit]="profit", [account]="account")
+.row
+    .col-md-12
+        .x_panel.tile
+            .x_title
+                h4 Оборот
+            .x_content
+                revenue([fromTime]="chartFromTime", [chartData]="revenueChartData")
+.row
+    .col-md-12
+        .x_panel.tile
+            .x_title
+                h4 Конверсия оплат
+            .x_content
+                conversion([fromTime]="chartFromTime", [chartData]="conversionChartData")
+.row
     .col-md-6
         .x_panel.tile
             .x_title
                 h4 Способы оплаты
             .x_content
                 payment-method([chartData]="paymentMethodChartData")
+    .col-md-6
+        .x_panel.tile
+            .x_title
+                h4 Геолокация
+            .x_content
+                geolocation([chartData]="geoChartData")

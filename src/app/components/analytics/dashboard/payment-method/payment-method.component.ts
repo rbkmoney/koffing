@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 
 @Component({
     selector: 'payment-method',
-    template: `<div><canvas baseChart [data]="data" [labels]="labels" [chartType]="type" [options]="options"></canvas></div>`
+    templateUrl: './payment-method.component.pug'
 })
 export class PaymentMethodComponent implements OnChanges {
 
