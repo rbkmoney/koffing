@@ -1,23 +1,32 @@
-import { NgModule } from '@angular/core';
-import { SelectModule } from 'angular2-select';
-import { BrowserModule } from '@angular/platform-browser';
-
-import { AnalyticsComponent } from './analytics.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { FinanceComponent } from './finance/finance.component';
-
-import { AnalyticsRoutingModule } from './analytics-routing.module';
+import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {BrowserModule} from '@angular/platform-browser';
+import {AnalyticsComponent} from './analytics.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {FinanceComponent} from './finance/finance.component';
+import {AnalyticsRoutingModule} from './analytics-routing.module';
+import {ShopService} from '../../services/shop/shop.service';
+import {BaseChartDirective} from 'ng2-charts';
+import {PaymentMethodComponent} from './dashboard/payment-method.component';
+import {CustomerService} from '../../services/customers/customer.service';
 
 @NgModule({
     imports: [
-        SelectModule,
         AnalyticsRoutingModule,
-        BrowserModule
+        BrowserModule,
+        FormsModule
     ],
     declarations: [
         AnalyticsComponent,
         DashboardComponent,
-        FinanceComponent
+        FinanceComponent,
+        BaseChartDirective,
+        PaymentMethodComponent
+    ],
+    providers: [
+        ShopService,
+        CustomerService
     ]
 })
-export class AnalyticsModule {}
+export class AnalyticsModule {
+}
