@@ -1,10 +1,10 @@
-.x_panel.tile(*ngIf="changeset.length > 0")
+.x_panel.tile(*ngIf="showClaimInfo")
     .x_title
         h4 Активная заявка
     .x_content
         .row(*ngFor="let set of changeset")
-            shop-creation([changeset]="set")
-            shop-modification([changeset]="set")
+            shop-creation(*ngIf="set.modificationType == 'ShopCreation'", [changeset]="set")
+            shop-modification(*ngIf="set.modificationType == 'ShopModificationUnit' && set.details.modificationType !== 'ShopAccountCreated'", [changeset]="set")
         button.btn.btn-danger.pull-right(data-toggle="modal" data-target=".revoke-modal" data-backdrop="false") Отмена заявки
 
 .modal.fade.revoke-modal(tabindex="-1" role="dialog")

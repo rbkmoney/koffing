@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'modification-detail',
-    templateUrl: './modification-detail.component.pug',
-    styleUrls: ['./modification-detail.component.css']
+    templateUrl: './modification-detail.component.pug'
 })
 
 export class ModificationDetailComponent {
-
+    @Input() displayName: string;
+    @Input() value: string;
 }
