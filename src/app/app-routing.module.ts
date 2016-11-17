@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { ShopsComponent } from "./components/shops/shops.component";
-
 @NgModule({
     imports: [
         RouterModule.forRoot([
@@ -10,10 +8,6 @@ import { ShopsComponent } from "./components/shops/shops.component";
                 path: '',
                 redirectTo: '/analytics',
                 pathMatch: 'full'
-            },
-            {
-                path: 'shops',
-                component: ShopsComponent
             }
         ])
     ],

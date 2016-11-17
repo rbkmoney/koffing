@@ -2,15 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'sidebar',
-    templateUrl: './sidebar.component.pug',
-    styleUrls: ['./sidebar.component.css']
+    templateUrl: './sidebar.component.pug'
 })
 export class SidebarComponent {
-    public isActive(path: string): boolean {
-        if (path == '/analytics') {
-            return true;
-        } else {
-            return false;
-        }
-    }
+
 }
