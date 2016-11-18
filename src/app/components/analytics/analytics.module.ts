@@ -16,6 +16,7 @@ import {RevenueComponent} from './dashboard/revenue/revenue.component';
 import {GeolocationComponent} from './dashboard/geolocation/geolocation.component';
 import {InfoPanelComponent} from './dashboard/info-panel/info-panel.component';
 import {PaymentsService} from './../../services/payments/payments.service';
+import {RoubleCurrencyPipe} from './dashboard/info-panel/currency.pipe'
 
 @NgModule({
     imports: [
@@ -34,7 +35,8 @@ import {PaymentsService} from './../../services/payments/payments.service';
         ConversionComponent,
         RevenueComponent,
         GeolocationComponent,
-        InfoPanelComponent
+        InfoPanelComponent,
+        RoubleCurrencyPipe
     ],
     providers: [
         ShopService,

@@ -26,7 +26,8 @@ module.exports = {
             'Keycloak': 'keycloak-js/dist/keycloak.js',
             'jquery': 'jquery/dist/jquery',
             'daterangepicker': 'bootstrap-daterangepicker/daterangepicker',
-            'Chart': 'chart.js/dist/Chart.js'
+            'Chart': 'chart.js/dist/Chart.js',
+            'moment': 'moment/moment'
         },
         extensions: ['', '.ts', '.js']
     },
@@ -34,7 +35,7 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /(jquery.js$)|(daterangepicker.js$)|(keycloak.js$)|(chart.js$)/,
+                test: /(jquery.js$)|(daterangepicker.js$)|(keycloak.js$)|(chart.js$)|(moment.js$)/,
                 loader: 'script-loader'
             },
             {

@@ -18,7 +18,14 @@ export class DashboardComponent implements OnInit {
     public successfulCount = 4;
     public unfinishedCount = 5;
     public profit = 6;
-    public account = 7;
+    public account = {
+        general: {
+            ownAmount: 1
+        },
+        guarantee: {
+            ownAmount: 2
+        }
+    };
     public chartFromTime = 8;
     public revenueChartData = 9;
     public conversionChartData = 10;
@@ -42,8 +49,15 @@ export class DashboardComponent implements OnInit {
 
         this.payments.getGeoChartData(this.shopID).then(
             (geoData) => {
-                this.geoChartData = geoData;
+                this.geoChartData = ChartDataConversionService.toGeoChartData(geoData);
             }
-        )
+        );
+
+        this.payments.getRevenueStat(this.shopID).then(
+            (revenueStat) => {
+                this.revenueChartData = ChartDataConversionService.toRevenueChartData(revenueStat);
+                this.profit = ChartDataConversionService.toTotalProfit(revenueStat);
+            }
+        );
     }
 }

@@ -1,4 +1,8 @@
-import {Directive, ElementRef} from '@angular/core';
+import {Directive, ElementRef, Renderer, HostListener} from '@angular/core';
+import * as moment from 'moment';
+
+declare const daterangepicker;
+declare const jQuery;
 
 const libConfig = {
     singleDatePicker: true,
@@ -15,8 +19,21 @@ const libConfig = {
 })
 export class DaterangepickerDirective{
 
-    constructor(private elementRef: ElementRef){
+    constructor(
+        private elementRef: ElementRef,
+        private renderer: Renderer
+    ){
+        let $element = jQuery(elementRef.nativeElement);
+        debugger;
+        $element.daterangepicker(libConfig);
 
+        $element.on('apply.daterangepicker', (ev, picker) => {
+            let formatted = moment(picker.startDate).format();
+            debugger;
+        })
+    }
 
+    @HostListener('click') onClick() {
+        debugger
     }
 }

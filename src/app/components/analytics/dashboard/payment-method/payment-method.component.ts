@@ -18,17 +18,25 @@ export class PaymentMethodComponent implements OnChanges {
     };
 
     ngOnChanges() {
+        let grouped;
+        let paymentSystem;
+        let data;
+
         if (this.chartData) {
-            const grouped = _.groupBy(this.chartData, 'paymentSystem');
-            const paymentSystem = _.keys(grouped);
-            const data: any = [];
+
+            grouped = _.groupBy(this.chartData, 'paymentSystem');
+            paymentSystem = _.keys(grouped);
+            data = [];
+
             _.forEach(paymentSystem, system => data.push(
                 _.chain(grouped[system])
                     .reduce((acc, item) => acc + item.totalCount, 0)
                     .value()
             ));
+
             this.labels = _.map(paymentSystem, system => {
                 let result = system;
+
                 if (system === 'visa') {
                     result = 'Visa';
                 } else if (system === 'mastercard') {
@@ -36,9 +44,12 @@ export class PaymentMethodComponent implements OnChanges {
                 } else if (system === 'nspkmir') {
                     result = 'Mir'
                 }
+
                 return result;
             });
+
             this.data = data;
+
         }
     }
 }
