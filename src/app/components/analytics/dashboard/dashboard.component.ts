@@ -1,24 +1,27 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import * as moment from 'moment';
 import {CustomerService} from '../../../services/customers/customer.service';
-import PaymentMethodRequest from '../../../services/customers/PaymentMethodRequest';
+import RequestParams from '../../../services/RequestParams';
 import {ChartDataConversionService} from './chart-data-conversion.service';
 import {PaymentsService} from './../../../services/payments/payments.service';
 import {GeoData} from './../../../services/payments/geodata';
+import {AccountService} from './../../../services/accounts/accounts.service';
+import * as _ from 'lodash';
+
+declare var moment: any;
 
 @Component({
     templateUrl: './dashboard.component.pug'
 })
 export class DashboardComponent implements OnInit {
 
-    public fromTime = 1;
-    public toTime = 2;
-    public uniqueCount = 3;
-    public successfulCount = 4;
-    public unfinishedCount = 5;
-    public profit = 6;
-    public account = {
+    public fromTime: any;
+    public toTime: any;
+    public uniqueCount: any;
+    public successfulCount: any;
+    public unfinishedCount: any;
+    public profit: any;
+    public account: any = {
         general: {
             ownAmount: 1
         },
@@ -26,9 +29,9 @@ export class DashboardComponent implements OnInit {
             ownAmount: 2
         }
     };
-    public chartFromTime = 8;
-    public revenueChartData = 9;
-    public conversionChartData = 10;
+    public chartFromTime: any;
+    public revenueChartData: any;
+    public conversionChartData: any;
     public geoChartData: GeoData[] = [];
 
     private shopID: string;
@@ -36,28 +39,121 @@ export class DashboardComponent implements OnInit {
 
     constructor(private route: ActivatedRoute,
                 private customer: CustomerService,
-                private payments: PaymentsService) {}
+                private payments: PaymentsService,
+                private accounts: AccountService) {
+        this.toTime = moment().format();
+        this.fromTime = moment(this.toTime).subtract(1, 'M').hours(0).minutes(0).seconds(0).milliseconds(0).format();
+    }
 
-    ngOnInit() {
-        this.shopID = this.route.parent.snapshot.params['shopID'];
-        const paymentMethodRequest = new PaymentMethodRequest('1', '2');
+    loadData(): void {
+        this.customer.getRate(
+            this.shopID,
+            new RequestParams(
+                this.fromTime,
+                this.toTime
+            )
+        ).then(
+            (rateStat: any) => {
+                this.uniqueCount = rateStat[0] ? rateStat[0].uniqueCount : 0;
+            }
+        );
 
-        this.customer.paymentMethod(this.shopID, paymentMethodRequest).then(
+        this.customer.getPaymentMethod(
+            this.shopID,
+            new RequestParams(
+                this.fromTime,
+                this.toTime,
+                'minute',
+                '1',
+                'bank_card'
+            )
+        ).then(
             (paymentMethodState: any) => {
                 this.paymentMethodChartData = ChartDataConversionService.toPaymentMethodChartData(paymentMethodState);
-        });
+            });
 
-        this.payments.getGeoChartData(this.shopID).then(
+        this.payments.getConversionStat(
+            this.shopID,
+            new RequestParams(
+                this.fromTime,
+                this.toTime,
+                'minute',
+                '1'
+            )
+        ).then(
+            (conversionStat) => {
+                let paymentCountInfo;
+
+                paymentCountInfo = ChartDataConversionService.toPaymentCountInfo(conversionStat);
+
+                this.conversionChartData = ChartDataConversionService.toConversionChartData(conversionStat);
+                this.successfulCount = paymentCountInfo.successfulCount;
+                this.unfinishedCount = paymentCountInfo.unfinishedCount;
+            }
+        );
+
+        this.payments.getGeoChartData(
+            this.shopID,
+            new RequestParams(
+                this.fromTime,
+                this.toTime,
+                'day',
+                '1'
+            )
+        ).then(
             (geoData) => {
                 this.geoChartData = ChartDataConversionService.toGeoChartData(geoData);
             }
         );
 
-        this.payments.getRevenueStat(this.shopID).then(
+        this.payments.getRevenueStat(
+            this.shopID,
+            new RequestParams(
+                this.fromTime,
+                this.toTime,
+                'minute',
+                '1'
+            )
+        ).then(
             (revenueStat) => {
                 this.revenueChartData = ChartDataConversionService.toRevenueChartData(revenueStat);
                 this.profit = ChartDataConversionService.toTotalProfit(revenueStat);
             }
         );
+
+        this.accounts.getShopAccounts(this.shopID).then(
+            (shopAccounts) => {
+                if (shopAccounts.length > 1) {
+                    console.warn('shop accounts size > 1');
+                }
+                _.forEach(shopAccounts, item => {
+                    this.accounts.getShopAccountDetails(
+                        this.shopID,
+                        item.generalID
+                    ).then(
+                        (generalAccount) => {
+                            this.account.general = generalAccount
+                        }
+                    );
+
+                    this.accounts.getShopAccountDetails(
+                        this.shopID,
+                        item.guaranteeID
+                    ).then(
+                        (guaranteeAccount) => {
+                            this.account.guarantee = guaranteeAccount
+                        }
+                    );
+                });
+            }
+        );
+    }
+
+    ngOnInit() {
+        this.shopID = this.route.parent.snapshot.params['shopID'];
+
+        this.chartFromTime = this.fromTime;
+
+        this.loadData();
     }
 }

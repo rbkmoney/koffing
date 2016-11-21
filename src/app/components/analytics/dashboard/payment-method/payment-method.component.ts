@@ -12,7 +12,7 @@ export class PaymentMethodComponent implements OnChanges {
 
     public labels: string[];
     public data: number[] = [];
-    public type: string = 'pie';
+    public type: string = 'doughnut';
     public options: any = {
         animation: false
     };

@@ -16,7 +16,8 @@ import {RevenueComponent} from './dashboard/revenue/revenue.component';
 import {GeolocationComponent} from './dashboard/geolocation/geolocation.component';
 import {InfoPanelComponent} from './dashboard/info-panel/info-panel.component';
 import {PaymentsService} from './../../services/payments/payments.service';
-import {RoubleCurrencyPipe} from './dashboard/info-panel/currency.pipe'
+import {RoubleCurrencyPipe} from './dashboard/info-panel/currency.pipe';
+import {AccountService} from './../../services/accounts/accounts.service';
 
 @NgModule({
     imports: [
@@ -41,7 +42,8 @@ import {RoubleCurrencyPipe} from './dashboard/info-panel/currency.pipe'
     providers: [
         ShopService,
         CustomerService,
-        PaymentsService
+        PaymentsService,
+        AccountService
     ]
 })
 export class AnalyticsModule {

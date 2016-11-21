@@ -1,4 +1,4 @@
-export default class PaymentMethodRequest {
+export default class RequestParams {
 
     public fromTime: string;
     public toTime: string;
