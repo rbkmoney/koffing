@@ -1,0 +1,15 @@
+.row
+    .col-md-12.col-sm-12.col-xs-12
+        .x_panel.tile
+            .x_title
+                h4 Ваш открытый ключ:
+            .x_content
+                textarea.form-control(readonly, rows="20") {{offlineToken}}
+
+.row
+    .col-md-12.col-sm-12.col-xs-12
+        .x_panel.tile
+            .x_title
+                h4 Ваш приватный ключ:
+            .x_content
+                textarea.form-control(readonly, rows="20") {{privateToken}}

@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { KeycloakHttpInterceptor } from '../keycloak/keycloak-http.interceptor';
 import { ConfigService } from './config.service';
 import { ShopsModule } from './components/shops/shops.module';
+import { TokenizationModule } from './components/tokenization/tokenization.module';
 
 @NgModule({
     imports: [
@@ -16,6 +17,7 @@ import { ShopsModule } from './components/shops/shops.module';
         AppRoutingModule,
         AnalyticsModule,
         ShopsModule,
+        TokenizationModule,
         HttpModule
     ],
     declarations: [
