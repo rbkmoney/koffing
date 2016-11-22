@@ -29,11 +29,17 @@ export class RevenueComponent implements OnChanges{
 
     ngOnChanges(): void {
         if (this.chartData) {
-            this.labels = _.map(this.chartData, item => moment(this.fromTime).add(item.offset, 's').format('DD.MM HH:mm'));
+
+            this.labels = _.map(this.chartData,
+                (item: any) => moment(this.fromTime).add(item.offset, 's').format('DD.MM HH:mm')
+            );
+
             this.data = _.chain(this.chartData)
-                .map(item => _.round(item.profit / 100, 2))
-                .chunk(this.chartData.length)
+                .map(
+                    (item: any) => _.round(item.profit / 100, 2)
+                ).chunk(this.chartData.length)
                 .value();
+
         }
     }
 }

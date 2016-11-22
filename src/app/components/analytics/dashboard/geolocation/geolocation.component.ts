@@ -21,9 +21,9 @@ export class GeolocationComponent implements OnChanges{
     };
 
     ngOnChanges() {
-        let grouped;
-        let cities;
-        let data;
+        let grouped: any;
+        let cities: any;
+        let data: any[];
 
         if (this.chartData) {
 
@@ -33,8 +33,9 @@ export class GeolocationComponent implements OnChanges{
 
             _.forEach(cities, city => data.push(
                 _.chain(grouped[city])
-                    .reduce((acc, item) => acc + item.profit, 0)
-                    .divide(100)
+                    .reduce(
+                        (acc: any, item: any) => acc + item.profit, 0
+                    ).divide(100)
                     .value()
             ));
 

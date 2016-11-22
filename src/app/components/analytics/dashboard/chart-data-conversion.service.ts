@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 export class ChartDataConversionService {
 
     public static toPaymentMethodChartData(paymentMethodStat: any): any {
-        return _.map(paymentMethodStat, item => {
+        return _.map(paymentMethodStat, (item: any) => {
             return {
                 totalCount: item.totalCount,
                 paymentSystem: item.paymentSystem
@@ -12,7 +12,7 @@ export class ChartDataConversionService {
     }
 
     public static toRevenueChartData(revenueStat: any): any {
-        return _.map(revenueStat, item => {
+        return _.map(revenueStat, (item: any) => {
             return {
                 profit: item.profit,
                 offset: item.offset
@@ -21,7 +21,7 @@ export class ChartDataConversionService {
     }
 
     public static toGeoChartData(geoStat: any): any {
-        return _.map(geoStat, item => {
+        return _.map(geoStat, (item: any) => {
             return {
                 cityName: item.cityName,
                 profit: item.profit
@@ -30,11 +30,11 @@ export class ChartDataConversionService {
     }
 
     public static toTotalProfit(revenueStat: any): any {
-        return _.reduce(revenueStat, (acc, item) => acc + item.profit, 0);
+        return _.reduce(revenueStat, (acc: any, item: any) => acc + item.profit, 0);
     }
 
     public static toPaymentCountInfo(conversionStat: any): any {
-        return _.reduce(conversionStat, (acc, item) => {
+        return _.reduce(conversionStat, (acc: any, item: any) => {
             return {
                 successfulCount: acc.successfulCount + item.successfulCount,
                 unfinishedCount: acc.unfinishedCount + (item.totalCount - item.successfulCount)
@@ -46,7 +46,7 @@ export class ChartDataConversionService {
     }
 
     public static toConversionChartData(conversionStat: any): any {
-        return _.map(conversionStat, item => {
+        return _.map(conversionStat, (item: any) => {
             return {
                 conversion: item.conversion,
                 offset: item.offset

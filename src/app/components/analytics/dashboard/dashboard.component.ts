@@ -6,6 +6,7 @@ import {ChartDataConversionService} from './chart-data-conversion.service';
 import {PaymentsService} from './../../../services/payments/payments.service';
 import {GeoData} from './../../../services/payments/geodata';
 import {AccountService} from './../../../services/accounts/accounts.service';
+import { Conversion } from './../../../services/payments/conversion';
 import * as _ from 'lodash';
 
 declare var moment: any;
@@ -99,8 +100,8 @@ export class DashboardComponent implements OnInit {
                 '1'
             )
         ).then(
-            (conversionStat) => {
-                let paymentCountInfo;
+            (conversionStat: Conversion[]) => {
+                let paymentCountInfo: any;
 
                 paymentCountInfo = ChartDataConversionService.toPaymentCountInfo(conversionStat);
 
@@ -119,7 +120,7 @@ export class DashboardComponent implements OnInit {
                 '1'
             )
         ).then(
-            (geoData) => {
+            (geoData: GeoData[]) => {
                 this.geoChartData = ChartDataConversionService.toGeoChartData(geoData);
             }
         );

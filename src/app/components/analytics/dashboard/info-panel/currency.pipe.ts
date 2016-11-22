@@ -1,9 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import * as _ from 'lodash';
 
-function format(val, decimalLength, wholeLength, delimiter, decimalDelimiter) {
+function format(val: any, decimalLength: any, wholeLength: any, delimiter: any, decimalDelimiter: any) {
     var exp = '\\d(?=(\\d{' + (wholeLength || 3) + '})+' + (decimalLength > 0 ? '\\D' : '$') + ')';
     var num = val.toFixed(Math.max(0, ~~decimalLength));
+
     return (decimalDelimiter ? num.replace('.', decimalDelimiter) : num).replace(new RegExp(exp, 'g'), '$&' + (delimiter || ','));
 }
 

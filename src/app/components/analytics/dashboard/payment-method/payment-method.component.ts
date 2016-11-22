@@ -18,9 +18,9 @@ export class PaymentMethodComponent implements OnChanges {
     };
 
     ngOnChanges() {
-        let grouped;
-        let paymentSystem;
-        let data;
+        let grouped: any;
+        let paymentSystem: any;
+        let data: any[];
 
         if (this.chartData) {
 
@@ -30,7 +30,9 @@ export class PaymentMethodComponent implements OnChanges {
 
             _.forEach(paymentSystem, system => data.push(
                 _.chain(grouped[system])
-                    .reduce((acc, item) => acc + item.totalCount, 0)
+                    .reduce(
+                        (acc: any, item: any) => acc + item.totalCount, 0
+                    )
                     .value()
             ));
 

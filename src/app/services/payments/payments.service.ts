@@ -19,7 +19,7 @@ export class PaymentsService {
         //debugger;
     }
 
-    getGeoChartData(shopID, requestParams: RequestParams): Promise<GeoData[]> {
+    getGeoChartData(shopID: string, requestParams: RequestParams): Promise<GeoData[]> {
         let params = new URLSearchParams();
 
         params.set('fromTime', requestParams.fromTime);
@@ -37,7 +37,7 @@ export class PaymentsService {
             .catch(this.handleError)
     }
 
-    getRevenueStat(shopID, requestParams: RequestParams): Promise<Revenue[]> {
+    getRevenueStat(shopID: string, requestParams: RequestParams): Promise<Revenue[]> {
         let params = new URLSearchParams();
 
         params.set('fromTime', requestParams.fromTime);
@@ -55,7 +55,7 @@ export class PaymentsService {
             .catch(this.handleError)
     }
 
-    getConversionStat(shopID, requestParams: RequestParams): Promise<any> {
+    getConversionStat(shopID: string, requestParams: RequestParams): Promise<Conversion[]> {
         let params = new URLSearchParams();
 
         params.set('fromTime', requestParams.fromTime);
