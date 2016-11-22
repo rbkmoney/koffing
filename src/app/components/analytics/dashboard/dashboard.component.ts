@@ -45,7 +45,25 @@ export class DashboardComponent implements OnInit {
         this.fromTime = moment(this.toTime).subtract(1, 'M').hours(0).minutes(0).seconds(0).milliseconds(0).format();
     }
 
+    get pickerFromTime(): any {
+        return moment(this.fromTime).format('YYYY-MM-DD');
+    }
+
+    set pickerFromTime(value: any) {
+        this.fromTime = moment(value).format();
+    }
+
+    get pickerToTime(): any {
+        return moment(this.toTime).format('YYYY-MM-DD');
+    }
+
+    set pickerToTime(value: any) {
+        this.toTime = moment(value).format();
+    }
+
     loadData(): void {
+        this.chartFromTime = this.fromTime;
+
         this.customer.getRate(
             this.shopID,
             new RequestParams(
@@ -151,8 +169,6 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit() {
         this.shopID = this.route.parent.snapshot.params['shopID'];
-
-        this.chartFromTime = this.fromTime;
 
         this.loadData();
     }

@@ -9,8 +9,6 @@ import {ShopService} from '../../services/shop/shop.service';
 import {BaseChartDirective} from 'ng2-charts';
 import {PaymentMethodComponent} from './dashboard/payment-method/payment-method.component.ts';
 import {CustomerService} from '../../services/customers/customer.service';
-import {DatepickerComponent} from './datepicker/datepicker.component';
-import {DaterangepickerDirective} from './datepicker/daterangepicker.directive';
 import {ConversionComponent} from './dashboard/conversion/conversion.component';
 import {RevenueComponent} from './dashboard/revenue/revenue.component';
 import {GeolocationComponent} from './dashboard/geolocation/geolocation.component';
@@ -31,8 +29,6 @@ import {AccountService} from './../../services/accounts/accounts.service';
         FinanceComponent,
         BaseChartDirective,
         PaymentMethodComponent,
-        DatepickerComponent,
-        DaterangepickerDirective,
         ConversionComponent,
         RevenueComponent,
         GeolocationComponent,

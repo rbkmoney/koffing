@@ -13,7 +13,6 @@ module.exports = {
             './node_modules/bootstrap/dist/js/bootstrap.js',
             './node_modules/gentelella/build/js/custom.js',
             './node_modules/moment/moment.js',
-            './node_modules/bootstrap-daterangepicker/daterangepicker.js',
             './node_modules/keycloak-js/dist/keycloak.js',
             './node_modules/chart.js/dist/Chart.js'
         ],
@@ -25,7 +24,6 @@ module.exports = {
         alias: {
             'Keycloak': 'keycloak-js/dist/keycloak.js',
             'jquery': 'jquery/dist/jquery',
-            'daterangepicker': 'bootstrap-daterangepicker/daterangepicker',
             'Chart': 'chart.js/dist/Chart.js',
             'moment': 'moment/moment'
         },
@@ -35,7 +33,7 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /(jquery.js$)|(daterangepicker.js$)|(keycloak.js$)|(chart.js$)|(moment.js$)/,
+                test: /(jquery.js$)|(keycloak.js$)|(chart.js$)|(moment.js$)/,
                 loader: 'script-loader'
             },
             {

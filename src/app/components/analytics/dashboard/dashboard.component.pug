@@ -3,10 +3,10 @@
         form.form-inline.pull-right
             .form-group
                 label.control-label Статистика с
-                datepicker([date]="fromTime")
+                input(type="date", name="fromTime", [(ngModel)]="pickerFromTime")
             .form-group
                 label.control-label по
-                datepicker([date]="toTime")
+                input(type="date", name="toTime", [(ngModel)]="pickerToTime")
             button.btn.btn-default(style="margin-bottom: 0; margin-right: 0", (click)="loadData()") Показать
 .row
     info-panel([uniqueCount]="uniqueCount", [successfulCount]="successfulCount",

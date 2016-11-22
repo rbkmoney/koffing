@@ -10,7 +10,7 @@ export class PaymentMethodComponent implements OnChanges {
     @Input()
     public chartData: any;
 
-    public labels: string[];
+    public labels: string[] | any[];
     public data: number[] = [];
     public type: string = 'doughnut';
     public options: any = {

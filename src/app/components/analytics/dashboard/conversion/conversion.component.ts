@@ -12,8 +12,8 @@ export class ConversionComponent implements OnChanges{
     @Input() fromTime: any;
     @Input() chartData: any;
     public labels: string[];
-    public data: number[] = [];
-    public type: string = 'bubble';
+    public data: number[] | any[] = [];
+    public type: string = 'line';
     public options: any = {
         animation: false,
         elements: {
