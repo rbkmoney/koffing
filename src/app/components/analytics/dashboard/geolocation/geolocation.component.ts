@@ -26,18 +26,14 @@ export class GeolocationComponent implements OnChanges{
         let data: any[];
 
         if (this.chartData) {
-
             grouped = _.groupBy(this.chartData, 'cityName');
             cities = _.keys(grouped);
             data = [];
 
-            _.forEach(cities, city => data.push(
-                _.chain(grouped[city])
-                    .reduce(
-                        (acc: any, item: any) => acc + item.profit, 0
-                    ).divide(100)
-                    .value()
-            ));
+            _.forEach(cities, city => {
+                let accumulatedValue = _.reduce(grouped[city], (acc: any, item: any) => acc + item.profit, 0);
+                data.push(accumulatedValue/100)
+            });
 
             this.labels = cities;
             this.data = data;

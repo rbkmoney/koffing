@@ -14,7 +14,8 @@ function format(val: any, decimalLength: any, wholeLength: any, delimiter: any, 
 
 export class RoubleCurrencyPipe implements PipeTransform {
     transform(input: number): number {
-        const val = _.chain(input).divide(100).round(2).value();
+        let val = _.round(input / 100, 2);
+
         return val ? format(val, 2, 3, ' ', '.') : input;
     }
 }
