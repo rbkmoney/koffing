@@ -7,6 +7,5 @@ import '@angular/router';
 import 'rxjs';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import 'select2/dist/css/select2.css';
 import 'gentelella/build/css/custom.css';
 import './styles.less';
