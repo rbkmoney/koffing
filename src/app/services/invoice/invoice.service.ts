@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+import {Http, URLSearchParams} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -9,11 +9,16 @@ export class InvoiceService {
     constructor(private http: Http) {
     }
 
-    getInvoices(shopID: string): Promise<any> {
-        return this.http.get(`http://localhost:9000/v1/analytics/shops/${shopID}/invoices`).toPromise()
-            .then(function (response) {
-                return response.json();
-            })
+    getInvoices(shopID: string, request: any): Promise<any> {
+        let params = new URLSearchParams();
+        params.set('fromTime', request.fromTime);
+        params.set('toTime', request.toTime);
+        params.set('limit', request.limit);
+        params.set('offset', request.offset);
+        params.set('invoiceID', request.invoiceID);
+        return this.http.get(`http://localhost:9000/v1/analytics/shops/${shopID}/invoices`, {
+            search: params
+        }).toPromise().then(response => response.json());
     }
 }
 export class Invoice {
@@ -26,4 +31,3 @@ export class Invoice {
     product: string;
     status: string;
 }
-

@@ -1,21 +1,12 @@
-import * as _ from 'lodash';
-import {Component, Input, OnChanges} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
     selector: 'search-result',
     templateUrl: 'search-result.component.pug'
 })
-export class SearchResultComponent implements OnChanges {
+export class SearchResultComponent {
 
-    @Input() public size: number;
-
-
-    constructor() {
-    }
-
-    ngOnChanges() {
-
-    }
+    @Input() invoices: any;
 
 }
 

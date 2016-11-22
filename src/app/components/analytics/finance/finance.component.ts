@@ -14,33 +14,38 @@ export class FinanceComponent implements OnInit {
     private totalCount: number;
     private isUploaded: boolean = false;
     private searchParams: any;
+    private shopID: string;
 
     constructor(private route: ActivatedRoute,
                 private invoiceService: InvoiceService) {
     }
 
     ngOnInit() {
-        this.route.parent.params.subscribe((params: Params) => {
-            this.invoiceService.getInvoices(params['shopID']).then(response => {
-                this.isUploaded = true;
-                this.invoices = response.invoices;
-                this.totalCount = response.totalCount;
-                this.search();
-            });
-        });
-
-        //todo описать class и создать searchParams как экземпляр класса
+        //todo: описать class SearchParams и создать как экземпляр класса
         this.searchParams = {
-            fromTime: moment().subtract(1, 'M').format('YYYY-MM-DD'),
-            toTime: moment().format('YYYY-MM-DD'),
+            fromTime: moment().subtract(1, 'M').format(),
+            toTime: moment().format(),
             limit: 20,
-            offset: 0
+            offset: 0,
+            invoiceID: null
         };
+        this.route.parent.params.subscribe((params: Params) => {
+            this.shopID = params['shopID'];
+            this.search();
+        });
     }
 
-    search() {
-        console.log('searching');
-        console.log(this.searchParams.fromTime);
-        console.log(this.searchParams.toTime);
+    search(offset?: number) {
+        this.searchParams.offset = offset ? offset : 0;
+        this.isUploaded = false;
+        this.invoiceService.getInvoices(this.shopID, this.searchParams).then(response => {
+            this.isUploaded = true;
+            this.invoices = response.invoices;
+            this.totalCount = response.totalCount;
+        });
+    }
+
+    onChangePage(offset: number) {
+        this.search(offset);
     }
 }

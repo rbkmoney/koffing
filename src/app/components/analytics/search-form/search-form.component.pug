@@ -1,25 +1,30 @@
 form.form-horizontal.form-label-left
     .row
-        .col-md-6
+        .col-xs-6
             .form-group
-                label.control-label.col-md-4 Дата с
-                .col-md-6
-                    input([(ngModel)]="searchParams.fromTime", type="date", name="fromTime", required)
+                .col-xs-4
+                    label.control-label Дата с
+                .col-xs-6
+                    input.form-control(type="date", [(ngModel)]="searchFromTime", name="searchFromTime", required)
             .form-group
-                label.control-label.col-md-4 Дата по
-                .col-md-6
-                    input([(ngModel)]="searchParams.toTime", type="date", name="toTime", required)
-        .col-md-6
+                .col-xs-4
+                    label.control-label Дата по
+                .col-xs-6
+                    input.form-control(type="date", [(ngModel)]="searchToTime", name="searchToTime", required)
+        .col-xs-6
             .form-group
-                label.control-label.col-md-4 Статус платежа
-                .col-md-6
-                    //custom-select(options="$ctrl.statuses" selected="$ctrl.searchParams.status")
+                .col-xs-4
+                    label.control-label Статус платежа
+                .col-xs-6
+                    select.form-control([(ngModel)]="searchParams.status", (ngModelChange)="onChangeStatus($event)", name="searchByStatus")
+                        option([value]="''") Любой статус
+                        option(*ngFor="let status of statuses", [value]="status.key") {{status.name}}
             .form-group
-                label.control-label.col-md-4 Номер
-                .col-md-6
-                    //input.form-control(type="text" ng-model="$ctrl.searchParams.invoiceID")
+                .col-xs-4
+                    label.control-label Номер
+                .col-xs-6
+                    input.form-control(type="number", [(ngModel)]="searchParams.invoiceID", name="invoiceID")
             .form-group
                 .row
-                    .col-md-10
-                        .btn.btn-primary.pull-right((click)="search()") Найти
-                        //button.btn.btn-primary.pull-right((click)="search()") Найти
+                    .col-xs-10
+                        button.btn.btn-primary.pull-right((click)="search()") Найти

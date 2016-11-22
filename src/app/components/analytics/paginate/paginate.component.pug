@@ -1,20 +1,8 @@
 .dataTables_paginate.paging_simple_numbers(*ngIf="size > limit")
     ul.pagination.custom_pagination
-        li.paginate_button.previous((click)="back()")
+        li.paginate_button.previous((click)="back($event)")
             a.fa.fa-chevron-left(href="")
-        li.paginate_button(*ngFor="let page of pages", (click)="select(page)", [ngClass]="{'active': page.active}")
+        li.paginate_button(*ngFor="let page of pages | pagination : pagesOnScreen : pageOffset()", (click)="select($event, page)", [ngClass]="{'active': page.active}")
             a(href="") {{page.label}}
-        li.paginate_button.next((click)="forward()")
-            a.fa.fa-chevron-right(href="")
-
-//ng-repeat="page in $ctrl.pages | limitTo: $ctrl.pagesOnScreen : $ctrl.pageOffset"
-
-
-//.dataTables_paginate.paging_simple_numbers(ng-if="$ctrl.size > $ctrl.limit")
-    ul.pagination.custom_pagination
-        li.paginate_button.previous(ng-click="$ctrl.back()")
-            a.fa.fa-chevron-left(href="")
-        li.paginate_button(ng-repeat="page in $ctrl.pages | limitTo: $ctrl.pagesOnScreen : $ctrl.pageOffset" ng-class="{'active': page.active}" ng-click="$ctrl.select(page)")
-            a(href="") {{page.label}}
-        li.paginate_button.next(ng-click="$ctrl.forward()")
+        li.paginate_button.next((click)="forward($event)")
             a.fa.fa-chevron-right(href="")

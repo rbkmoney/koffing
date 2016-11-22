@@ -1,12 +1,12 @@
 .row
-    .col-md-12
+    .col-xs-12
         .x_panel.tile
             .x_content
                 form.form-horizontal
                     .form-group
-                        .col-md-1
+                        .col-xs-1
                             label.control-label Магазин
-                        .col-md-5(*ngIf="shopItems.length")
+                        .col-xs-5(*ngIf="shopItems.length")
                             ng-select([options]="shopItems", placeholder="Выберите магазин", (selected)="onSelectShop($event)")
                 ul.nav.nav-tabs.bar_tabs(*ngIf="selectedShopID")
                     li([routerLink]="['dashboard']", [routerLinkActive]="['active']")
@@ -16,7 +16,7 @@
                 .tab-content
                     router-outlet
 .row(*ngIf="!shopItems.length")
-    .col-md-12
+    .col-xs-12
         .jumbotron
             h1 Список магазинов пуст
             p Создайте новый магазин во вкладке "Мои магазины"

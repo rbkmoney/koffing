@@ -1,52 +1,64 @@
+import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
 import * as _ from 'lodash';
-import {Component, Input, OnChanges} from '@angular/core';
 
 @Component({
     selector: 'paginate',
     templateUrl: 'paginate.component.pug'
 })
-export class PaginateComponent implements OnChanges {
+export class PaginateComponent implements OnInit {
 
     @Input() size: number;
     @Input() limit: number;
     @Input() offset: number;
     @Input() pagesOnScreen: number;
-    @Input() onChange: Function;
+    @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
 
-    private pages: any;
-    private select: any;
-    private pageOffset: any;
-    private forward: Function;
-    private back: Function;
+    public pages: Array<any>;
 
     constructor() {
     }
 
-    ngOnChanges() {
-        const paginate = new Paginate(this.size, this.limit, this.offset, this.pagesOnScreen, this.onChange);
-        // console.log(paginate);
-        this.pages = paginate.pages;
-        this.select = paginate.activatePage;
-        this.pageOffset = paginate.calcPageOffset();
-        this.forward = paginate.forward;
-        this.back = paginate.back;
+    select(event: MouseEvent, page: any) {
+        event.preventDefault();
+        return this.activatePage(page);
     }
 
-}
-export class Paginate {
+    forward(event: MouseEvent) {
+        event.preventDefault();
+        const index = _.indexOf(this.pages, this.getActive()) + 1;
+        if (this.pages.length > index) {
+            return this.activatePage(this.pages[index]);
+        }
+    }
 
-    public pages: Array<any>;
-    public activatePage: any;
-    public forward: Function;
-    public back: Function;
-    public calcPageOffset: Function;
+    back(event: MouseEvent) {
+        event.preventDefault();
+        const index = _.indexOf(this.pages, this.getActive()) - 1;
+        if (index >= 0) {
+            return this.activatePage(this.pages[index]);
+        }
+    }
 
-    constructor(private size: number,
-                private limit: number,
-                private offset: number,
-                private pagesOnScreen: number,
-                private onChange: Function
-    ) {
+    getActive() {
+        return _.find(this.pages, page => page.active);
+    }
+
+    activatePage(page: any) {
+        this.getActive().active = false;
+        page.active = true;
+        this.onChange.emit(page.offset);
+        return page;
+    }
+
+    pageOffset() {
+        const currentPage = (this.offset / this.limit) + 1;
+        return currentPage > this.pagesOnScreen ? currentPage - this.pagesOnScreen : 0;
+    }
+
+    ngOnInit() {
+
+        this.pages = initPages(this.size, this.limit, this.offset);
+
         function initPages(itemsSize: number, itemsLimit: number, itemsOffset: number): Array<any> {
             const size = initParam(itemsSize);
             const limit = initParam(itemsLimit);
@@ -76,36 +88,5 @@ export class Paginate {
             return (size % limit > 0) ? res + 1 : res;
         }
 
-        function getActive(pages: Array<any>) {
-            return _.find(pages, page => page.active);
-        }
-
-        this.pages = initPages(size, limit, offset);
-
-        this.activatePage = (activated: any) => {
-            getActive(this.pages).active = false;
-            activated.active = true;
-            onChange({offset: activated.offset});
-            return activated;
-        };
-
-        this.forward = () => {
-            const index = _.indexOf(this.pages, getActive(this.pages)) + 1;
-            if (this.pages.length > index) {
-                return this.activatePage(this.pages[index]);
-            }
-        };
-
-        this.back = () => {
-            const index = _.indexOf(this.pages, getActive(this.pages)) - 1;
-            if (index >= 0) {
-                return this.activatePage(this.pages[index]);
-            }
-        };
-
-        this.calcPageOffset = () => {
-            const currentPage = (offset / limit) + 1;
-            return currentPage > pagesOnScreen ? currentPage - pagesOnScreen : 0;
-        };
     }
 }
