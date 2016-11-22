@@ -42,16 +42,17 @@ export class KeycloakHttpInterceptor extends Http {
     private getToken(): Promise<string> {
         const minValidity = 5;
         return new Promise<string>((resolve, reject) => {
-            if (KeycloakService.auth.token) {
-                KeycloakService.auth.updateToken(minValidity)
-                    .success(() => resolve(<string>KeycloakService.auth.token))
+            const token: string = KeycloakService.getAccountInfo().token;
+            if (token) {
+                KeycloakService.updateToken(minValidity)
+                    .success(() => resolve(token))
                     .error(() => reject('Failed to refresh token'));
             }
         });
     }
 
     private setHeaders(options: RequestOptionsArgs) {
-        options.headers.set('Authorization', 'Bearer ' + KeycloakService.auth.token);
+        options.headers.set('Authorization', 'Bearer ' + KeycloakService.getAccountInfo().token);
         options.headers.set('X-Request-ID', this.guid());
     }
 
@@ -59,7 +60,6 @@ export class KeycloakHttpInterceptor extends Http {
         function s4() {
             return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
         }
-
         return `${s4()}${s4()}-${s4()}-${s4()}-${s4()}-${s4()}${s4()}${s4()}`;
     }
 
