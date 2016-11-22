@@ -6,6 +6,7 @@ import '@angular/http';
 import '@angular/router';
 import 'rxjs';
 
+import 'chart.js/src/chart.js'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'gentelella/build/css/custom.css';
 import './styles.less';
