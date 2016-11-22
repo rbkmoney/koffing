@@ -13,7 +13,8 @@ export class PaginateComponent implements OnInit {
     @Input() pagesOnScreen: number;
     @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
 
-    public pages: Array<any>;
+    private pages: Array<any>;
+    private pagesViewed: Array<any>;
 
     constructor() {
     }
@@ -51,8 +52,9 @@ export class PaginateComponent implements OnInit {
     }
 
     pageOffset() {
-        const currentPage = (this.offset / this.limit) + 1;
-        return currentPage > this.pagesOnScreen ? currentPage - this.pagesOnScreen : 0;
+        const currentPageIndex = (this.offset / this.limit);
+        const offset = _.round(this.pagesOnScreen / 2);
+        return currentPageIndex > offset ? currentPageIndex - offset : 0;
     }
 
     ngOnInit() {
