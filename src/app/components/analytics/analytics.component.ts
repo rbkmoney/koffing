@@ -1,6 +1,7 @@
-import * as _ from 'lodash';
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
+import * as _ from 'lodash';
+
 import {Shop, ShopItem} from './../../services/shop/shop';
 import {ShopService} from './../../services/shop/shop.service';
 
@@ -13,7 +14,9 @@ export class AnalyticsComponent implements OnInit {
     public selectedShopID: string;
     public shopItems: Array<ShopItem> = [];
 
-    constructor(private route: ActivatedRoute, private router: Router, private shopService: ShopService) {
+    constructor(private route: ActivatedRoute,
+                private router: Router,
+                private shopService: ShopService) {
     }
 
     ngOnInit() {

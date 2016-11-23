@@ -8,8 +8,7 @@ import {GeoData} from './../../../services/payments/geodata';
 import {AccountService} from './../../../services/accounts/accounts.service';
 import { Conversion } from './../../../services/payments/conversion';
 import * as _ from 'lodash';
-
-declare var moment: any;
+import * as moment from 'moment';
 
 @Component({
     templateUrl: './dashboard.component.pug'

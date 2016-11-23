@@ -1,10 +1,10 @@
 .row
-    .col-md-12
+    .col-xs-12
         .x_panel.tile
             .x_content
                 form.form-horizontal
                     .form-group
-                        .col-md-1
+                        .col-xs-1
                             label.control-label Магазин
                         .col-md-5(*ngIf="shopItems.length")
                             select.form-control([(ngModel)]="selectedShopID", (change)="onSelectShop($event.target.value)", [ngModelOptions]="{standalone: true}")
@@ -17,7 +17,7 @@
                 .tab-content
                     router-outlet
 .row(*ngIf="!shopItems.length")
-    .col-md-12
+    .col-xs-12
         .jumbotron
             h1 Список магазинов пуст
             p Создайте новый магазин во вкладке "Мои магазины"

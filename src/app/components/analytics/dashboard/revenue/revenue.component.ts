@@ -1,7 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import * as _ from 'lodash';
-
-declare var moment: any;
+import * as moment from 'moment';
 
 @Component({
     selector: 'revenue',

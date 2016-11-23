@@ -1,7 +1,13 @@
-div Finance
-    br
-    br
-    br
-    br
-    br
-    br
+.row
+    .col-xs-12
+        .x_panel.tile
+            .x_title
+                h4 Поиск
+            .x_content
+                search-form([searchParams]="searchParams", (onSearch)="search()")
+.row
+    .col-xs-12
+        .x_panel.tile
+            .x_content(*ngIf="isUploaded")
+                search-result([invoices]="invoices")
+                paginate([size]="totalCount", [limit]="searchParams.limit", [offset]="searchParams.offset", [pagesOnScreen]="10", (onChange)="onChangePage($event)")
