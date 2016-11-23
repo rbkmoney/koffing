@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import {SelectModule} from 'angular2-select';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule}   from '@angular/forms';
 
@@ -31,7 +30,6 @@ import {AccountService} from './../../services/accounts/accounts.service';
 @NgModule({
     imports: [
         AnalyticsRoutingModule,
-        SelectModule,
         BrowserModule,
         FormsModule
     ],
