@@ -7,10 +7,6 @@ import * as _ from 'lodash';
 
 export class RoubleCurrencyPipe implements PipeTransform {
     transform(input: number): number {
-        //todo решить проблему функции divide
-        // let value = _.chain(input).divide(100).round(2).value();
-        // return value ? format(value, 2, 3, ' ', '.') : input;
-
         let value = _.round(input/100, 2);
         return value ? format(value, 2, 3, ' ', '.') : input;
     }
