@@ -14,9 +14,6 @@ export class SearchFormComponent implements OnInit {
     @Output() onSearch: EventEmitter<any> = new EventEmitter<any>();
     private statuses: any;
 
-    constructor() {
-    }
-
     ngOnInit() {
         this.statuses = _.map(PAYMENT_STATUSES.GET, (name, key) => {
             return {name, key}
