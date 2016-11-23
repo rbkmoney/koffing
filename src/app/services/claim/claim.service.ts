@@ -12,17 +12,12 @@ export class ClaimService {
         private config: ConfigService
     ) {}
 
-    handleError(): void {
-        //debugger;
-    }
-
     getClaim(): Promise<Claim> {
         return this.http.get(`${this.config.capiUrl}/processing/claims`)
             .toPromise()
             .then(function(response) {
                 return response.json() as Claim;
             })
-            .catch(this.handleError)
 
     }
 
@@ -37,6 +32,5 @@ export class ClaimService {
             .then(function(response) {
                 return response.statusText;
             })
-            .catch(this.handleError)
     }
 }

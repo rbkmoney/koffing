@@ -6,8 +6,9 @@
                     .form-group
                         .col-xs-1
                             label.control-label Магазин
-                        .col-xs-5(*ngIf="shopItems.length")
-                            ng-select([options]="shopItems", placeholder="Выберите магазин", (selected)="onSelectShop($event)")
+                        .col-md-5(*ngIf="shopItems.length")
+                            select.form-control([(ngModel)]="selectedShopID", (change)="onSelectShop($event.target.value)", [ngModelOptions]="{standalone: true}")
+                                option(*ngFor="let item of shopItems", [value]="item.value") {{item.label}}
                 ul.nav.nav-tabs.bar_tabs(*ngIf="selectedShopID")
                     li([routerLink]="['dashboard']", [routerLinkActive]="['active']")
                         a Статистика

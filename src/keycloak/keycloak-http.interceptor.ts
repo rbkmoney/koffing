@@ -51,7 +51,7 @@ export class KeycloakHttpInterceptor extends Http {
     }
 
     private setHeaders(options: RequestOptionsArgs) {
-        if(!options.headers) {
+        if (!options.headers) {
             options.headers = new Headers();
         }
         options.headers.set('Authorization', 'Bearer ' + KeycloakService.auth.token);

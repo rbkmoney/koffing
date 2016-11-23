@@ -7,8 +7,7 @@ import {ShopService} from './../../services/shop/shop.service';
 
 @Component({
     selector: 'analytics',
-    templateUrl: './analytics.component.pug',
-    providers: [ShopService]
+    templateUrl: './analytics.component.pug'
 })
 export class AnalyticsComponent implements OnInit {
 
@@ -29,8 +28,8 @@ export class AnalyticsComponent implements OnInit {
         });
     }
 
-    onSelectShop(shopItem: ShopItem) {
-        this.selectedShopID = shopItem.value;
+    onSelectShop(shopID: string) {
+        this.selectedShopID = shopID;
         this.navigate();
     }
 

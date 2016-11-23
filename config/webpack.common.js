@@ -12,9 +12,6 @@ module.exports = {
             './node_modules/jquery/dist/jquery.js',
             './node_modules/bootstrap/dist/js/bootstrap.js',
             './node_modules/gentelella/build/js/custom.js',
-            './node_modules/moment/moment.js',
-            './node_modules/bootstrap-daterangepicker/daterangepicker.js',
-            './node_modules/select2/dist/js/select2.full.js',
             './node_modules/keycloak-js/dist/keycloak.js'
         ],
         'app': './src/main.ts'
@@ -24,9 +21,7 @@ module.exports = {
         root: __dirname + '/node_modules',
         alias: {
             'Keycloak': 'keycloak-js/dist/keycloak.js',
-            'jquery': 'jquery/dist/jquery',
-            'daterangepicker': 'bootstrap-daterangepicker/daterangepicker',
-            'select2.full': 'select2/dist/js/select2.full'
+            'jquery': 'jquery/dist/jquery'
         },
         extensions: ['', '.ts', '.js']
     },
@@ -34,7 +29,7 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /(jquery.js$)|(daterangepicker.js$)|(select2.full.js$)|(keycloak.js$)/,
+                test: /(jquery.js$)|(keycloak.js$)/,
                 loader: 'script-loader'
             },
             {
