@@ -7,8 +7,10 @@ import {KeycloakService} from '../../../keycloak/keycloak.service';
 })
 export class TopPanelComponent {
 
-    public profileName: string = KeycloakService.auth.profileName;
+    public profileName: string = KeycloakService.getAccountInfo().profileName;
 
-    public logout: Function = KeycloakService.auth.logout;
+    public logout() {
+        KeycloakService.logout();
+    }
 
 }
