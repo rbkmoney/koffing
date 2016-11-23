@@ -12,17 +12,12 @@ export class ShopService {
         private config: ConfigService
     ) {}
 
-    handleError(): void {
-        //debugger;
-    }
-
     getShops(): Promise<Shop[]> {
         return this.http.get(`${this.config.capiUrl}/processing/me`)
             .toPromise()
             .then(function(response) {
                 return response.json().shops as Shop[];
             })
-            .catch(this.handleError)
     }
 
     createShop(args: any): Promise<string> {
@@ -37,7 +32,6 @@ export class ShopService {
             .then(function(response) {
                 return response.json();
             })
-            .catch(this.handleError)
     }
 
     updateShop(shopID: any, args: any): Promise<string> {
@@ -53,7 +47,6 @@ export class ShopService {
             .then(function(response) {
                 return response.json();
             })
-            .catch(this.handleError)
     }
 
     activateShop(shopID: any): Promise<string> {
@@ -65,7 +58,6 @@ export class ShopService {
             .then(function(response) {
                 return response.json();
             })
-            .catch(this.handleError)
     }
 
 }

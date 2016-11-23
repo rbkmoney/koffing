@@ -15,10 +15,6 @@ export class PaymentsService {
         private config: ConfigService
     ) {}
 
-    handleError(): void {
-        //debugger;
-    }
-
     getGeoChartData(shopID: string, requestParams: RequestParams): Promise<GeoData[]> {
         let params = new URLSearchParams();
 
@@ -34,7 +30,6 @@ export class PaymentsService {
             .then(function(response) {
                 return response.json() as GeoData[];
             })
-            .catch(this.handleError)
     }
 
     getRevenueStat(shopID: string, requestParams: RequestParams): Promise<Revenue[]> {
@@ -52,7 +47,6 @@ export class PaymentsService {
             .then(function(response) {
                 return response.json() as Revenue[];
             })
-            .catch(this.handleError)
     }
 
     getConversionStat(shopID: string, requestParams: RequestParams): Promise<Conversion[]> {
@@ -70,7 +64,6 @@ export class PaymentsService {
             .then(function(response) {
                 return response.json() as Conversion[];
             })
-            .catch(this.handleError)
     }
 
 }

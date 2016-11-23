@@ -12,17 +12,12 @@ export class CategoryService {
         private config: ConfigService
     ) {}
 
-    handleError(): void {
-        //debugger;
-    }
-
     getCategories(): Promise<Category[]> {
         return this.http.get(`${this.config.capiUrl}/processing/categories`)
             .toPromise()
             .then(
                 response => response.json() as Category[]
             )
-            .catch(this.handleError)
 
     }
 }
