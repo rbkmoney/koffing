@@ -12,7 +12,6 @@ module.exports = {
             './node_modules/jquery/dist/jquery.js',
             './node_modules/bootstrap/dist/js/bootstrap.js',
             './node_modules/gentelella/build/js/custom.js',
-            './node_modules/moment/moment.js',
             './node_modules/keycloak-js/dist/keycloak.js'
         ],
         'app': './src/main.ts'
@@ -22,8 +21,7 @@ module.exports = {
         root: __dirname + '/node_modules',
         alias: {
             'Keycloak': 'keycloak-js/dist/keycloak.js',
-            'jquery': 'jquery/dist/jquery',
-            'moment': 'moment/moment'
+            'jquery': 'jquery/dist/jquery'
         },
         extensions: ['', '.ts', '.js']
     },
@@ -31,7 +29,7 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /(jquery.js$)|(keycloak.js$)|(moment.js$)/,
+                test: /(jquery.js$)|(keycloak.js$)/,
                 loader: 'script-loader'
             },
             {
