@@ -1,19 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CategoryService } from './../../../services/category/category.service';
-import { Category } from './../../../services/category/category'
-import { ShopService } from './../../../services/shop/shop.service';
 import * as _ from 'lodash';
 
+import { CategoryService } from './../../../services/category/category.service';
+import { ShopService } from './../../../services/shop/shop.service';
+import { Category } from '../../../services/category/category.class';
+
 @Component({
-    selector: 'edit-shop',
+    selector: 'kof-edit-shop',
     templateUrl: './edit-shop.component.pug',
     providers: [CategoryService, ShopService]
 })
 
 export class EditShopComponent implements OnInit {
 
-    categories: Category[] = [];
+    public categories: Category[] = [];
 
     public currentShopId: string;
 
@@ -23,46 +24,41 @@ export class EditShopComponent implements OnInit {
         categoryRef: null
     };
 
-    constructor(
-        private categoryService: CategoryService,
-        private shopService: ShopService,
-        private router: Router,
-        private route: ActivatedRoute
-    ) { }
+    constructor(private categoryService: CategoryService,
+                private shopService: ShopService,
+                private router: Router,
+                private route: ActivatedRoute) {
+    }
 
-    init(): void {
+    public init(): void {
         this.currentShopId = this.route.snapshot.params['shopID'];
-
         this.shopService.getShops().then(shops => {
-            let shop = _.find(shops, shop => shop.shopID === this.currentShopId);
-
-            this.args.shopDetails = shop.shopDetails;
-            this.args.contractor = shop.contractor;
-            this.args.categoryRef = shop.categoryRef;
-        })
+            const found = _.find(shops, shop => shop.shopID === this.currentShopId);
+            this.args.shopDetails = found.shopDetails;
+            this.args.contractor = found.contractor;
+            this.args.categoryRef = found.categoryRef;
+        });
     }
 
-    getCategories(): void {
-        this.categoryService.getCategories().then(
-            aCategories => { this.categories = aCategories; }
-        );
+    public getCategories() {
+        this.categoryService.getCategories().then(aCategories => {
+            this.categories = aCategories;
+        });
     }
 
-    hasError(field: any): boolean {
+    public hasError(field: any): boolean {
         return field.dirty && field.invalid;
     }
 
-    updateShop(form: any) : void {
+    public updateShop(form: any) {
         if (form.valid) {
-            this.shopService.updateShop(this.currentShopId, this.args).then(
-                claimID => {
-                    this.router.navigate(['/shops'])
-                }
-            );
+            this.shopService.updateShop(this.currentShopId, this.args).then(() => {
+                this.router.navigate(['/shops']);
+            });
         }
     }
 
-    ngOnInit(): void {
+    public ngOnInit() {
         this.init();
         this.getCategories();
     }

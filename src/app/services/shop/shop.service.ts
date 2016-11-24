@@ -1,63 +1,49 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+
 import { Shop } from './shop';
 import { ConfigService } from './../../config.service';
 
 @Injectable()
 export class ShopService {
 
-    constructor(
-        private http: Http,
-        private config: ConfigService
-    ) {}
+    constructor(private http: Http, private config: ConfigService) {}
 
-    getShops(): Promise<Shop[]> {
+    public getShops(): Promise<Shop[]> {
         return this.http.get(`${this.config.capiUrl}/processing/me`)
             .toPromise()
-            .then(function(response) {
-                return response.json().shops as Shop[];
-            })
+            .then(response => response.json().shops as Shop[]);
     }
 
-    createShop(args: any): Promise<string> {
-        let params = {
+    public createShop(args: any): Promise<string> {
+        const params = {
             categoryRef: args.categoryRef,
             shopDetails: args.shopDetails,
             contractor: args.contractor
         };
-
         return this.http.post(`${this.config.capiUrl}/processing/shops`, params)
             .toPromise()
-            .then(function(response) {
-                return response.json();
-            })
+            .then(response => response.json());
     }
 
-    updateShop(shopID: any, args: any): Promise<string> {
-        let url = `${this.config.capiUrl}/processing/shops/${shopID}`,
-            params = {
-                categoryRef: args.categoryRef,
-                shopDetails: args.shopDetails,
-                contractor: args.contractor
-            };
-
+    public updateShop(shopID: any, args: any): Promise<string> {
+        const url = `${this.config.capiUrl}/processing/shops/${shopID}`;
+        const params = {
+            categoryRef: args.categoryRef,
+            shopDetails: args.shopDetails,
+            contractor: args.contractor
+        };
         return this.http.post(url, params)
             .toPromise()
-            .then(function(response) {
-                return response.json();
-            })
+            .then(response => response.json());
     }
 
-    activateShop(shopID: any): Promise<string> {
-        let url = `${this.config.capiUrl}/processing/shops/${shopID}/activate`,
-            params = {};
-
+    public activateShop(shopID: any): Promise<string> {
+        const url = `${this.config.capiUrl}/processing/shops/${shopID}/activate`;
+        const params = {};
         return this.http.put(url, params)
             .toPromise()
-            .then(function(response) {
-                return response.json();
-            })
+            .then(response => response.json());
     }
-
 }

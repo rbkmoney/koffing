@@ -1,8 +1,8 @@
-import {Component, Input, OnChanges} from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import * as _ from 'lodash';
 
 @Component({
-    selector: 'payment-method',
+    selector: 'kof-payment-method',
     templateUrl: './payment-method.component.pug'
 })
 export class PaymentMethodComponent implements OnChanges {
@@ -11,23 +11,23 @@ export class PaymentMethodComponent implements OnChanges {
     public chartData: any;
 
     public labels: string[] | any[];
+
     public data: number[] = [];
+
     public type: string = 'doughnut';
+
     public options: any = {
         animation: false
     };
 
-    ngOnChanges() {
+    public ngOnChanges() {
         let grouped: any;
         let paymentSystem: any;
         let data: any[];
-
         if (this.chartData) {
-
             grouped = _.groupBy(this.chartData, 'paymentSystem');
             paymentSystem = _.keys(grouped);
             data = [];
-
             _.forEach(paymentSystem, system => data.push(
                 _.chain(grouped[system])
                     .reduce(
@@ -35,7 +35,6 @@ export class PaymentMethodComponent implements OnChanges {
                     )
                     .value()
             ));
-
             this.labels = _.map(paymentSystem, system => {
                 let result = system;
 
@@ -44,14 +43,12 @@ export class PaymentMethodComponent implements OnChanges {
                 } else if (system === 'mastercard') {
                     result = 'Master Card';
                 } else if (system === 'nspkmir') {
-                    result = 'Mir'
+                    result = 'Mir';
                 }
 
                 return result;
             });
-
             this.data = data;
-
         }
     }
 }

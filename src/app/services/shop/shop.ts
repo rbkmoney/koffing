@@ -1,35 +1,57 @@
 export class ShopDetail {
-    name: string;
-    description: string;
-    location: string;
+
+    public name: string;
+
+    public description: string;
+
+    public location: string;
 }
 
 export class Contractor {
-    registeredName: string;
-    legalEntity: string;
+
+    public registeredName: string;
+
+    public legalEntity: string;
 }
 
 export class Contract {
-    number: string;
-    systemContractorRef: string;
-    concludedAt: string;
-    validSince: string;
-    validUntil: string;
-    terminatedAt: string;
+
+    public number: string;
+
+    public systemContractorRef: string;
+
+    public concludedAt: string;
+
+    public validSince: string;
+
+    public validUntil: string;
+
+    public terminatedAt: string;
 }
 
 export class Shop {
-    shopID: string;
-    isBlocked: boolean;
-    isSuspended: boolean;
-    categoryRef: number;
-    shopDetails: ShopDetail;
-    contractor: Contractor;
-    contract: Contract;
+
+    public shopID: string;
+
+    public isBlocked: boolean;
+
+    public isSuspended: boolean;
+
+    public categoryRef: number;
+
+    public shopDetails: ShopDetail;
+
+    public contractor: Contractor;
+
+    public contract: Contract;
+
 }
 export class ShopItem {
-    value: string;
-    label: string;
+
+    public value: string;
+
+    public label: string;
+
     constructor(value: string, label: string) {
         this.value = value;
         this.label = label;

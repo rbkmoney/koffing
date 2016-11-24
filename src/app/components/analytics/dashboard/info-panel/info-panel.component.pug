@@ -2,17 +2,17 @@
     .col-md-2.tile_stats_count
         span.count_top Оборот
             .dashboard_stats_count
-                div {{profit | roubleCurrency}}
+                div {{profit | kofRoubleCurrency}}
         span.count_bottom Рублей
     .col-md-2.tile_stats_count
         span.count_top Основной счет
             .dashboard_stats_count
-                div {{account.general.ownAmount | roubleCurrency}}
+                div {{account.general.ownAmount | kofRoubleCurrency}}
         span.count_bottom Рублей
     .col-md-2.tile_stats_count
         span.count_top Гарантийный счет
             .dashboard_stats_count
-                div {{account.guarantee.ownAmount | roubleCurrency}}
+                div {{account.guarantee.ownAmount | kofRoubleCurrency}}
         span.count_bottom Рублей
     .col-md-2.tile_stats_count
         span.count_top Успешных платежей

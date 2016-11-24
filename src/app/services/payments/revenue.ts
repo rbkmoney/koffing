@@ -1,6 +1,10 @@
 export class Revenue {
-    currency: string;
-    offset: number;
-    profit: number;
-    revenue: number;
+
+    public currency: string;
+
+    public offset: number;
+
+    public profit: number;
+
+    public revenue: number;
 }
