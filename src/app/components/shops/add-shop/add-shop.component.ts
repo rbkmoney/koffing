@@ -23,8 +23,7 @@ export class AddShopComponent implements OnInit {
 
     constructor(private categoryService: CategoryService,
                 private shopService: ShopService,
-                private router: Router) {
-    }
+                private router: Router) { }
 
     public getCategories() {
         this.categoryService.getCategories().then(aCategories => {

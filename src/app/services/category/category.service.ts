@@ -8,7 +8,7 @@ import { Category } from './category.class';
 @Injectable()
 export class CategoryService {
 
-    constructor(private http: Http, private config: ConfigService) {}
+    constructor(private http: Http, private config: ConfigService) { }
 
     public getCategories(): Promise<Category[]> {
         return this.http.get(`${this.config.capiUrl}/processing/categories`)

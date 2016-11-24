@@ -16,12 +16,12 @@ export class ShopModificationComponent implements OnInit {
 
     public details: any;
 
-    public ngOnInit(): void {
+    public ngOnInit() {
         this.details = this.changeset.details.details;
         this.isModification = this.changeset.details.modificationType === 'ShopModification';
     }
 
-    public show(): void {
+    public show() {
         this.showPanel = !this.showPanel;
     }
 }

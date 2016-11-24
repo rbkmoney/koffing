@@ -27,10 +27,9 @@ export class EditShopComponent implements OnInit {
     constructor(private categoryService: CategoryService,
                 private shopService: ShopService,
                 private router: Router,
-                private route: ActivatedRoute) {
-    }
+                private route: ActivatedRoute) { }
 
-    public init(): void {
+    public init() {
         this.currentShopId = this.route.snapshot.params['shopID'];
         this.shopService.getShops().then(shops => {
             const found = _.find(shops, shop => shop.shopID === this.currentShopId);

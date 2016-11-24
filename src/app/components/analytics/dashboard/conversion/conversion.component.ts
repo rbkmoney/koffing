@@ -34,7 +34,7 @@ export class ConversionComponent implements OnChanges {
         }
     };
 
-    public ngOnChanges(): void {
+    public ngOnChanges() {
         if (this.chartData) {
             this.labels = _.map(this.chartData,
                 (item: any) => moment(this.fromTime).add(item.offset, 's').format('DD.MM HH:mm')

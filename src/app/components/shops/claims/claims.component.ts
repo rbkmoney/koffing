@@ -20,7 +20,7 @@ export class ClaimsComponent implements OnInit {
 
     constructor(private claimService: ClaimService) { }
 
-    public getClaim(): void {
+    public getClaim() {
         this.claimService.getClaim().then((aClaim: Claim) => {
                 this.claim = aClaim;
                 this.changeset = aClaim.changeset;
@@ -29,7 +29,7 @@ export class ClaimsComponent implements OnInit {
         );
     }
 
-    public revoke(): void {
+    public revoke() {
         let revokeDetails = {
             // TODO: реализовать
             reason: 'test'

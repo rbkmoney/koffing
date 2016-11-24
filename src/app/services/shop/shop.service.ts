@@ -8,7 +8,7 @@ import { Shop } from './shop.class';
 @Injectable()
 export class ShopService {
 
-    constructor(private http: Http, private config: ConfigService) {}
+    constructor(private http: Http, private config: ConfigService) { }
 
     public getShops(): Promise<Shop[]> {
         return this.http.get(`${this.config.capiUrl}/processing/me`)
