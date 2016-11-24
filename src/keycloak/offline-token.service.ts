@@ -1,7 +1,8 @@
 export class OfflineTokenService {
 
-    private static authFlowPath: string = '/getOfflineToken';
-    private static storageKey: string = 'offlineToken';
+    public static authFlowPath: string = '/getOfflineToken';
+
+    public static storageKey: string = 'offlineToken';
 
     public static isTokenizationFlowPath() {
         return window.location.pathname === this.authFlowPath;

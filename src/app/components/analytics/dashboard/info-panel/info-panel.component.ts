@@ -1,14 +1,23 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-    selector: 'info-panel',
+    selector: 'kof-info-panel',
     templateUrl: './info-panel.component.pug'
 })
-
 export class InfoPanelComponent {
-    @Input() uniqueCount: any;
-    @Input() successfulCount: any;
-    @Input() unfinishedCount: any;
-    @Input() profit: any;
-    @Input() account: any;
+
+    @Input()
+    public uniqueCount: any;
+
+    @Input()
+    public successfulCount: any;
+
+    @Input()
+    public unfinishedCount: any;
+
+    @Input()
+    public profit: any;
+
+    @Input()
+    public account: any;
 }

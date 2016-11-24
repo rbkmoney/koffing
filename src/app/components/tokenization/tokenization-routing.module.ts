@@ -1,6 +1,7 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {TokenizationComponent} from './tokenization.component';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+
+import { TokenizationComponent } from './tokenization.component';
 
 @NgModule({
     imports: [
@@ -15,4 +16,4 @@ import {TokenizationComponent} from './tokenization.component';
         RouterModule
     ]
 })
-export class TokenizationRoutingModule {}
+export class TokenizationRoutingModule { }

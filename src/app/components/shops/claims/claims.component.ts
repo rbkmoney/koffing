@@ -1,49 +1,46 @@
 import { Component, OnInit } from '@angular/core';
-import { ShopCreationComponent } from './shop-creation/shop-creation.component';
-import { ShopModificationComponent } from './shop-modification/shop-modification.component';
-import { Claim } from './../../../services/claim/claim';
+
 import { ClaimService } from './../../../services/claim/claim.service';
+import { Claim } from '../../../services/claim/claim.class';
 
 @Component({
-    selector: 'claims',
+    selector: 'kof-claims',
     templateUrl: './claims.component.pug',
     providers: [
         ClaimService
     ]
 })
-
 export class ClaimsComponent implements OnInit {
+
     public claim: Claim;
+
     public changeset: any[];
+
     public showClaimInfo: boolean = false;
 
-    constructor(
-        private claimService: ClaimService
-    ) { }
+    constructor(private claimService: ClaimService) { }
 
-    getClaim(): void {
-        this.claimService.getClaim().then(
-            aClaim => {
+    public getClaim() {
+        this.claimService.getClaim().then((aClaim: Claim) => {
                 this.claim = aClaim;
                 this.changeset = aClaim.changeset;
                 this.showClaimInfo = true;
             }
-        )
-    }
-
-    revoke(): void {
-        let revokeDetails = {
-            reason: 'test' //TODO: реализовать
-        };
-
-        this.claimService.revokeClaim(this.claim.id, revokeDetails).then(
-            (statusText) => {
-                this.showClaimInfo = false;
-            }
         );
     }
 
-    ngOnInit(): void {
+    public revoke() {
+        let revokeDetails = {
+            // TODO: реализовать
+            reason: 'test'
+        };
+
+        this.claimService.revokeClaim(this.claim.id, revokeDetails).then(() => {
+            this.showClaimInfo = false;
+        });
+    }
+
+    public ngOnInit() {
         this.getClaim();
     }
 }

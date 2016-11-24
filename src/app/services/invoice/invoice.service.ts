@@ -1,17 +1,14 @@
-import {Injectable} from '@angular/core';
-import {Http, URLSearchParams} from '@angular/http';
-import {ConfigService} from './../../config.service';
-
+import { Injectable } from '@angular/core';
+import { Http, URLSearchParams } from '@angular/http';
+import { ConfigService } from './../../config.service';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class InvoiceService {
 
-    constructor(private http: Http,
-                private config: ConfigService) {
-    }
+    constructor(private http: Http, private config: ConfigService) { }
 
-    getInvoices(shopID: string, request: any): Promise<any> {
+    public getInvoices(shopID: string, request: any): Promise<any> {
         let params = new URLSearchParams();
         params.set('fromTime', request.fromTime);
         params.set('toTime', request.toTime);
@@ -22,14 +19,4 @@ export class InvoiceService {
             search: params
         }).toPromise().then(response => response.json());
     }
-}
-export class Invoice {
-    id: number;
-    shopID: number;
-    amount: number;
-    currency: string;
-    description: string;
-    dueDate: string;
-    product: string;
-    status: string;
 }

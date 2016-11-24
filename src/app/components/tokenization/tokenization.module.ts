@@ -1,7 +1,8 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {TokenizationRoutingModule} from './tokenization-routing.module';
-import {TokenizationComponent} from './tokenization.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { TokenizationRoutingModule } from './tokenization-routing.module';
+import { TokenizationComponent } from './tokenization.component';
 
 @NgModule({
     imports: [
@@ -12,6 +13,4 @@ import {TokenizationComponent} from './tokenization.component';
         TokenizationComponent
     ]
 })
-export class TokenizationModule {
-    
-}
+export class TokenizationModule { }

@@ -1,36 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import { Claim } from './claim';
+
 import { ConfigService } from './../../config.service';
+import { Claim } from './claim.class';
 
 @Injectable()
 export class ClaimService {
 
-    constructor(
-        private http: Http,
-        private config: ConfigService
-    ) {}
+    constructor(private http: Http, private config: ConfigService) { }
 
-    getClaim(): Promise<Claim> {
+    public getClaim(): Promise<Claim> {
         return this.http.get(`${this.config.capiUrl}/processing/claims`)
             .toPromise()
-            .then(function(response) {
-                return response.json() as Claim;
-            })
+            .then(response => response.json());
 
     }
 
-    revokeClaim(claimID: any, revokeDetails: any): Promise<string> {
-        let url = `${this.config.capiUrl}/processing/claims/${claimID}/revoke`,
-            params = {
-                reason: revokeDetails.reason
-            };
-
+    public revokeClaim(claimID: any, revokeDetails: any): Promise<string> {
+        const url = `${this.config.capiUrl}/processing/claims/${claimID}/revoke`;
+        const params = {
+            reason: revokeDetails.reason
+        };
         return this.http.post(url, params)
             .toPromise()
-            .then(function(response) {
-                return response.statusText;
-            })
+            .then(response => response.statusText);
     }
 }
