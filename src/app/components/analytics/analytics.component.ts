@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as _ from 'lodash';
 
-import { Shop, ShopItem } from './../../services/shop/shop';
 import { ShopService } from './../../services/shop/shop.service';
+import { ShopItem } from '../../services/shop/shop-item.class';
+import { Shop } from '../../services/shop/shop.class';
 
 @Component({
     selector: 'kof-analytics',

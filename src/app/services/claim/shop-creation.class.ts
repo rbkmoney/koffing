@@ -1,4 +1,4 @@
-import { Shop } from '../shop/shop';
+import { Shop } from '../shop/shop.class';
 
 export class ShopCreation {
     public modificationType: string;

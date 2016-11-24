@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ShopCreation } from '../../../../services/claim/shopCreation.class';
+import { ShopCreation } from '../../../../services/claim/shop-creation.class';
 
 @Component({
     selector: 'kof-shop-creation',

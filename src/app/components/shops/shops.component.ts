@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Shop } from './../../services/shop/shop';
 import { ShopService } from './../../services/shop/shop.service';
 import { CategoryService } from './../../services/category/category.service';
 import { Category } from '../../services/category/category.class';
+import { Shop } from '../../services/shop/shop.class';
 
 @Component({
     selector: 'kof-shops',

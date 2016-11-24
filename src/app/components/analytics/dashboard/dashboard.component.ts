@@ -7,9 +7,9 @@ import { CustomerService } from '../../../services/customers/customer.service';
 import { RequestParams } from '../../../services/RequestParams';
 import { ChartDataConversionService } from './chart-data-conversion.service';
 import { PaymentsService } from './../../../services/payments/payments.service';
-import { GeoData } from './../../../services/payments/geodata';
 import { AccountService } from './../../../services/accounts/accounts.service';
-import { Conversion } from './../../../services/payments/conversion';
+import { GeoData } from '../../../services/payments/geodata.class';
+import { Conversion } from '../../../services/payments/conversion.class';
 
 @Component({
     templateUrl: './dashboard.component.pug'

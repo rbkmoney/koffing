@@ -3,10 +3,10 @@ import { Http, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { ConfigService } from './../../config.service';
-import { GeoData } from './geodata';
-import { Revenue } from './revenue';
-import { Conversion } from './conversion';
 import { RequestParams } from '../RequestParams';
+import { GeoData } from './geodata.class';
+import { Revenue } from './revenue.class';
+import { Conversion } from './conversion.class';
 
 @Injectable()
 export class PaymentsService {
