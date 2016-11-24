@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { CategoryService } from './../../../services/category/category.service';
-import { Category } from './../../../services/category/category'
 import { ShopService } from './../../../services/shop/shop.service';
+import { Category } from '../../../services/category/category.class';
 
 @Component({
-    selector: 'add-shop',
+    selector: 'kof-add-shop',
     templateUrl: './add-shop.component.pug',
     providers: [CategoryService, ShopService]
 })
 
 export class AddShopComponent implements OnInit {
 
-    categories: Category[] = [];
+    public categories: Category[] = [];
 
     public args: any = {
         shopDetails: {},
@@ -20,34 +21,30 @@ export class AddShopComponent implements OnInit {
         categoryRef: null
     };
 
-    constructor(
-        private categoryService: CategoryService,
-        private shopService: ShopService,
-        private router: Router
-    ) { }
+    constructor(private categoryService: CategoryService,
+                private shopService: ShopService,
+                private router: Router) { }
 
-    getCategories(): void {
-        this.categoryService.getCategories().then(
-            aCategories => { this.categories = aCategories; }
-        );
+    public getCategories() {
+        this.categoryService.getCategories().then(aCategories => {
+            this.categories = aCategories;
+        });
     }
 
-    hasError(field: any): boolean {
+    public hasError(field: any): boolean {
         return field.dirty && field.invalid;
     }
 
-    createClaim(form: any) : void {
+    public createClaim(form: any) {
         if (form.valid) {
             this.args.contractor.legalEntity = '';
-            this.shopService.createShop(this.args).then(
-                claimID => {
-                    this.router.navigate(['/shops'])
-                }
-            );
+            this.shopService.createShop(this.args).then(() => {
+                this.router.navigate(['/shops']);
+            });
         }
     }
 
-    ngOnInit(): void {
+    public ngOnInit() {
         this.getCategories();
     }
 }

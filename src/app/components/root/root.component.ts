@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-    selector: 'app',
+    selector: 'kof-app',
     templateUrl: './root.component.pug',
     encapsulation: ViewEncapsulation.None
 })

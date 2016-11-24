@@ -1,69 +1,55 @@
 import { Injectable } from '@angular/core';
 import { Http, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+
 import { ConfigService } from './../../config.service';
-import { GeoData } from './geodata';
-import { Revenue } from './revenue';
-import { Conversion } from './conversion';
-import RequestParams from './../RequestParams';
+import { RequestParams } from '../RequestParams';
+import { GeoData } from './geodata.class';
+import { Revenue } from './revenue.class';
+import { Conversion } from './conversion.class';
 
 @Injectable()
 export class PaymentsService {
 
-    constructor(
-        private http: Http,
-        private config: ConfigService
-    ) {}
+    constructor(private http: Http, private config: ConfigService) { }
 
-    getGeoChartData(shopID: string, requestParams: RequestParams): Promise<GeoData[]> {
-        let params = new URLSearchParams();
-
+    public getGeoChartData(shopID: string, requestParams: RequestParams): Promise<GeoData[]> {
+        const params = new URLSearchParams();
         params.set('fromTime', requestParams.fromTime);
         params.set('toTime', requestParams.toTime);
         params.set('splitUnit', requestParams.splitUnit);
         params.set('splitSize', requestParams.splitSize);
-
         return this.http.get(`${this.config.capiUrl}/analytics/shops/${shopID}/payments/stats/geo`, {
-                search: params
-            })
+            search: params
+        })
             .toPromise()
-            .then(function(response) {
-                return response.json() as GeoData[];
-            })
+            .then(response => response.json());
     }
 
-    getRevenueStat(shopID: string, requestParams: RequestParams): Promise<Revenue[]> {
-        let params = new URLSearchParams();
-
+    public getRevenueStat(shopID: string, requestParams: RequestParams): Promise<Revenue[]> {
+        const params = new URLSearchParams();
         params.set('fromTime', requestParams.fromTime);
         params.set('toTime', requestParams.toTime);
         params.set('splitUnit', requestParams.splitUnit);
         params.set('splitSize', requestParams.splitSize);
 
         return this.http.get(`${this.config.capiUrl}/analytics/shops/${shopID}/payments/stats/revenue`, {
-                search: params
-            })
+            search: params
+        })
             .toPromise()
-            .then(function(response) {
-                return response.json() as Revenue[];
-            })
+            .then(response => response.json());
     }
 
-    getConversionStat(shopID: string, requestParams: RequestParams): Promise<Conversion[]> {
-        let params = new URLSearchParams();
-
+    public getConversionStat(shopID: string, requestParams: RequestParams): Promise<Conversion[]> {
+        const params = new URLSearchParams();
         params.set('fromTime', requestParams.fromTime);
         params.set('toTime', requestParams.toTime);
         params.set('splitUnit', requestParams.splitUnit);
         params.set('splitSize', requestParams.splitSize);
-
         return this.http.get(`${this.config.capiUrl}/analytics/shops/${shopID}/payments/stats/conversion`, {
-                search: params
-            })
+            search: params
+        })
             .toPromise()
-            .then(function(response) {
-                return response.json() as Conversion[];
-            })
+            .then(response => response.json());
     }
-
 }

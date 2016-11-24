@@ -8,5 +8,4 @@ export class AuthInfo {
         this.profileName = profileName;
         this.token = token;
     }
-
 }

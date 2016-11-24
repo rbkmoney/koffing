@@ -1,12 +1,11 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
-    selector: 'search-result',
+    selector: 'kof-search-result',
     templateUrl: 'search-result.component.pug'
 })
 export class SearchResultComponent {
 
-    @Input() invoices: any;
-
+    @Input()
+    public invoices: any;
 }
-

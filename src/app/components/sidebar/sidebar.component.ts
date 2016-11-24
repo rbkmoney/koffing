@@ -1,8 +1,7 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-    selector: 'sidebar',
+    selector: 'kof-sidebar',
     templateUrl: './sidebar.component.pug'
 })
-export class SidebarComponent {
-}
+export class SidebarComponent { }

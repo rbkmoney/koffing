@@ -9,32 +9,32 @@
                 input(type="date", name="toTime", [(ngModel)]="pickerToTime")
             button.btn.btn-default(style="margin-bottom: 0; margin-right: 0", (click)="loadData()") Показать
 .row
-    info-panel([uniqueCount]="uniqueCount", [successfulCount]="successfulCount",
-    [unfinishedCount]="unfinishedCount", [profit]="profit", [account]="account")
+    kof-info-panel([uniqueCount]="uniqueCount", [successfulCount]="successfulCount",
+        [unfinishedCount]="unfinishedCount", [profit]="profit", [account]="account")
 .row
     .col-md-12
         .x_panel.tile
             .x_title
                 h4 Оборот
             .x_content
-                revenue([fromTime]="chartFromTime", [chartData]="revenueChartData")
+                kof-revenue([fromTime]="chartFromTime", [chartData]="revenueChartData")
 .row
     .col-md-12
         .x_panel.tile
             .x_title
                 h4 Конверсия оплат
             .x_content
-                conversion([fromTime]="chartFromTime", [chartData]="conversionChartData")
+                kof-conversion([fromTime]="chartFromTime", [chartData]="conversionChartData")
 .row
     .col-md-6
         .x_panel.tile
             .x_title
                 h4 Способы оплаты
             .x_content
-                payment-method([chartData]="paymentMethodChartData")
+                kof-payment-method([chartData]="paymentMethodChartData")
     .col-md-6
         .x_panel.tile
             .x_title
                 h4 Геолокация
             .x_content
-                geolocation([chartData]="geoChartData")
+                kof-geolocation([chartData]="geoChartData")

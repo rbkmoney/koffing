@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
+
 import { ShopsComponent } from './shops.component';
 import { ClaimsComponent } from './claims/claims.component';
 import { ShopCreationComponent } from './claims/shop-creation/shop-creation.component';

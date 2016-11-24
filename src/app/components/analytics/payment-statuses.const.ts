@@ -6,6 +6,6 @@ export class PAYMENT_STATUSES {
             paid: 'Оплаченный',
             refunded: 'Возвращенный',
             fulfilled: 'Выполненный'
-        }
+        };
     }
 }

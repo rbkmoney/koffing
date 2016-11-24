@@ -1,21 +1,24 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ShopCreation } from './../../../../services/claim/claim';
+import { ShopCreation } from '../../../../services/claim/shop-creation.class';
 
 @Component({
-    selector: 'shop-creation',
+    selector: 'kof-shop-creation',
     templateUrl: './shop-creation.component.pug'
 })
+export class ShopCreationComponent implements OnInit {
 
-export class ShopCreationComponent implements OnInit{
-    @Input() changeset: ShopCreation;
+    @Input()
+    public changeset: ShopCreation;
 
     public showPanel: boolean = false;
+
     public shop: any;
 
-    ngOnInit(): void {
+    public ngOnInit() {
         this.shop = this.changeset.shop;
     }
-    show(): void {
+
+    public show() {
         this.showPanel = !this.showPanel;
     }
 }
