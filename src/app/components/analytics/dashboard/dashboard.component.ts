@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Params} from '@angular/router';
 import {CustomerService} from '../../../services/customers/customer.service';
 import RequestParams from '../../../services/RequestParams';
 import {ChartDataConversionService} from './chart-data-conversion.service';
@@ -168,8 +168,9 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.shopID = this.route.parent.snapshot.params['shopID'];
-
-        this.loadData();
+        this.route.parent.params.subscribe((params: Params) => {
+            this.shopID = params['shopID'];
+            this.loadData();
+        });
     }
 }

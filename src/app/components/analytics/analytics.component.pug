@@ -2,13 +2,14 @@
     .col-xs-12
         .x_panel.tile
             .x_content
-                form.form-horizontal
+                form.form-horizontal.form-label-right
                     .form-group
                         .col-xs-1
                             label.control-label Магазин
-                        .col-md-5(*ngIf="shopItems.length")
-                            select.form-control([(ngModel)]="selectedShopID", (change)="onSelectShop($event.target.value)", [ngModelOptions]="{standalone: true}")
-                                option(*ngFor="let item of shopItems", [value]="item.value") {{item.label}}
+                        .col-xs-5(*ngIf="shopItems.length")
+                            .kof-select
+                                select.form-control([(ngModel)]="selectedShopID", (change)="onSelectShop($event.target.value)", [ngModelOptions]="{standalone: true}")
+                                    option(*ngFor="let item of shopItems", [value]="item.value") {{item.label}}
                 ul.nav.nav-tabs.bar_tabs(*ngIf="selectedShopID")
                     li([routerLink]="['dashboard']", [routerLinkActive]="['active']")
                         a Статистика

@@ -1,4 +1,4 @@
-form.form-horizontal.form-label-left
+form.form-horizontal.form-label-right
     .row
         .col-xs-6
             .form-group
@@ -16,9 +16,10 @@ form.form-horizontal.form-label-left
                 .col-xs-4
                     label.control-label Статус платежа
                 .col-xs-6
-                    select.form-control([(ngModel)]="searchParams.status", (ngModelChange)="onChangeStatus($event)", name="searchByStatus")
-                        option([value]="''") Любой статус
-                        option(*ngFor="let status of statuses", [value]="status.key") {{status.name}}
+                    .kof-select
+                        select.form-control([(ngModel)]="searchParams.status", (ngModelChange)="onChangeStatus($event)", name="searchByStatus")
+                            option([value]="''") Любой статус
+                            option(*ngFor="let status of statuses", [value]="status.key") {{status.name}}
             .form-group
                 .col-xs-4
                     label.control-label Номер

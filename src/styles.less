@@ -32,3 +32,34 @@
 .custom-chevron {
   margin-top: 3px;
 }
+
+.kof-select select {
+  background: transparent;
+  -webkit-appearance: none;
+  border-radius: 0;
+  border: 0;
+  width: 100%;
+  padding: 0 20px 0 10px;
+  font-size: 13px;
+  line-height: 2;
+}
+.kof-select {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  position: relative;
+}
+.kof-select::before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #888;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+.form-label-right {
+  text-align: right;
+}
