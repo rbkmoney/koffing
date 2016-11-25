@@ -10,6 +10,7 @@ import {FinanceComponent} from './finance/finance.component';
 import {PaginateComponent} from './paginate/paginate.component';
 import {SearchFormComponent} from './search-form/search-form.component';
 import {SearchResultComponent} from './search-result/search-result.component';
+import {KofSelectComponent} from './kof-select/kof-select.component';
 import {PaymentMethodComponent} from './dashboard/payment-method/payment-method.component.ts';
 import {ConversionComponent} from './dashboard/conversion/conversion.component';
 import {RevenueComponent} from './dashboard/revenue/revenue.component';
@@ -40,6 +41,7 @@ import {AccountService} from './../../services/accounts/accounts.service';
         PaginateComponent,
         SearchFormComponent,
         SearchResultComponent,
+        KofSelectComponent,
         BaseChartDirective,
         PaymentMethodComponent,
         ConversionComponent,

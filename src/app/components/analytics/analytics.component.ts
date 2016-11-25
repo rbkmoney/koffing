@@ -2,8 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import * as _ from 'lodash';
 
-import {Shop, ShopItem} from './../../services/shop/shop';
-import {ShopService} from './../../services/shop/shop.service';
+import { Shop } from './../../services/shop/shop';
+import { ShopService } from './../../services/shop/shop.service';
+import { SelectItem } from './kof-select/kof-select.class';
 
 @Component({
     selector: 'analytics',
@@ -12,7 +13,7 @@ import {ShopService} from './../../services/shop/shop.service';
 export class AnalyticsComponent implements OnInit {
 
     public selectedShopID: string;
-    public shopItems: Array<ShopItem> = [];
+    public selectItems: SelectItem[] = [];
 
     constructor(private route: ActivatedRoute,
                 private router: Router,
@@ -22,8 +23,8 @@ export class AnalyticsComponent implements OnInit {
     ngOnInit() {
         this.shopService.getShops().then((shops: Shop[]) => {
             const routeShopID = this.route.snapshot.params['shopID'];
-            this.shopItems = _.map(shops, (shop: Shop) => new ShopItem(shop.shopID, shop.shopDetails.name));
-            this.selectedShopID = routeShopID ? routeShopID : this.shopItems[0].value;
+            this.selectItems = _.map(shops, (shop: Shop) => new SelectItem(shop.shopID, shop.shopDetails.name));
+            this.selectedShopID = routeShopID ? routeShopID : this.selectItems[0].value;
             this.navigate();
         });
     }

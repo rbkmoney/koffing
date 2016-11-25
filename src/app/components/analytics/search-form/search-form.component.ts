@@ -2,7 +2,8 @@ import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
 import * as _ from 'lodash';
 import * as moment from "moment";
 
-import {PAYMENT_STATUSES} from '../payment-statuses.const'
+import { PAYMENT_STATUSES } from '../payment-statuses.const';
+import { SelectItem } from '../kof-select/kof-select.class';
 
 @Component({
     selector: 'search-form',
@@ -12,12 +13,11 @@ export class SearchFormComponent implements OnInit {
 
     @Input() searchParams: any;
     @Output() onSearch: EventEmitter<any> = new EventEmitter<any>();
-    private statuses: any;
+
+    public statuses: SelectItem[] = [];
 
     ngOnInit() {
-        this.statuses = _.map(PAYMENT_STATUSES.GET, (name, key) => {
-            return {name, key}
-        });
+        this.statuses = _.map(PAYMENT_STATUSES.GET, (name: string, key: string) => new SelectItem(key, name));
     }
 
     search() {
@@ -25,7 +25,9 @@ export class SearchFormComponent implements OnInit {
     }
 
     onChangeStatus(status: string) {
-        if (!status) {
+        if (status) {
+            this.searchParams.status = status;
+        } else {
             delete this.searchParams.status;
         }
     }

@@ -16,10 +16,7 @@ form.form-horizontal.form-label-right
                 .col-xs-4
                     label.control-label Статус платежа
                 .col-xs-6
-                    .kof-select
-                        select.form-control([(ngModel)]="searchParams.status", (ngModelChange)="onChangeStatus($event)", name="searchByStatus")
-                            option([value]="''") Любой статус
-                            option(*ngFor="let status of statuses", [value]="status.key") {{status.name}}
+                    kof-select([model]="searchParams.status", [items]="statuses", (onChange)="onChangeStatus($event)", [placeholder]="'Любой статус'", [modelOptions]="{standalone: true}")
             .form-group
                 .col-xs-4
                     label.control-label Номер
