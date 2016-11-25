@@ -7,7 +7,7 @@ export class ChartDataConversionService {
             return {
                 totalCount: item.totalCount,
                 paymentSystem: item.paymentSystem
-            }
+            };
         });
     }
 
@@ -16,7 +16,7 @@ export class ChartDataConversionService {
             return {
                 profit: item.profit,
                 offset: item.offset
-            }
+            };
         });
     }
 
@@ -25,7 +25,7 @@ export class ChartDataConversionService {
             return {
                 cityName: item.cityName,
                 profit: item.profit
-            }
+            };
         });
     }
 
@@ -50,7 +50,7 @@ export class ChartDataConversionService {
             return {
                 conversion: item.conversion,
                 offset: item.offset
-            }
+            };
         });
     }
 }

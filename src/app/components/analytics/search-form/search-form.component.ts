@@ -1,30 +1,33 @@
-import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import * as _ from 'lodash';
-import * as moment from "moment";
+import * as moment from 'moment';
 
 import { PAYMENT_STATUSES } from '../payment-statuses.const';
 import { SelectItem } from '../kof-select/kof-select.class';
 
 @Component({
-    selector: 'search-form',
+    selector: 'kof-search-form',
     templateUrl: 'search-form.component.pug'
 })
 export class SearchFormComponent implements OnInit {
 
-    @Input() searchParams: any;
-    @Output() onSearch: EventEmitter<any> = new EventEmitter<any>();
+    @Input()
+    public searchParams: any;
 
-    public statuses: SelectItem[] = [];
+    @Output()
+    public onSearch: EventEmitter<any> = new EventEmitter<any>();
 
-    ngOnInit() {
+    private statuses: any;
+
+    public ngOnInit() {
         this.statuses = _.map(PAYMENT_STATUSES.GET, (name: string, key: string) => new SelectItem(key, name));
     }
 
-    search() {
+    public search() {
         this.onSearch.emit();
     }
 
-    onChangeStatus(status: string) {
+    public onChangeStatus(status: string) {
         if (status) {
             this.searchParams.status = status;
         } else {
@@ -47,5 +50,4 @@ export class SearchFormComponent implements OnInit {
     set searchToTime(value: any) {
         this.searchParams.toTime = moment(value).format();
     }
-
 }

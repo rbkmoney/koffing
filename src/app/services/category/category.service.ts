@@ -1,23 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import { Category } from './category';
+
 import { ConfigService } from './../../config.service';
+import { Category } from './category.class';
 
 @Injectable()
 export class CategoryService {
 
-    constructor(
-        private http: Http,
-        private config: ConfigService
-    ) {}
+    constructor(private http: Http, private config: ConfigService) { }
 
-    getCategories(): Promise<Category[]> {
+    public getCategories(): Promise<Category[]> {
         return this.http.get(`${this.config.capiUrl}/processing/categories`)
             .toPromise()
-            .then(
-                response => response.json() as Category[]
-            )
-
+            .then(response => response.json());
     }
 }

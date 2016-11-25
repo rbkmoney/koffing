@@ -1,26 +1,35 @@
-import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import * as _ from 'lodash';
 
 @Component({
-    selector: 'paginate',
+    selector: 'kof-paginate',
     templateUrl: 'paginate.component.pug'
 })
 export class PaginateComponent implements OnInit {
 
-    @Input() size: number;
-    @Input() limit: number;
-    @Input() offset: number;
-    @Input() pagesOnScreen: number;
-    @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
+    @Input()
+    public size: number;
+
+    @Input()
+    public limit: number;
+
+    @Input()
+    public offset: number;
+
+    @Input()
+    public pagesOnScreen: number;
+
+    @Output()
+    public onChange: EventEmitter<any> = new EventEmitter<any>();
 
     private pages: Array<any>;
 
-    select(event: MouseEvent, page: any) {
+    public select(event: MouseEvent, page: any) {
         event.preventDefault();
         return this.activatePage(page);
     }
 
-    forward(event: MouseEvent) {
+    public forward(event: MouseEvent) {
         event.preventDefault();
         const index = _.indexOf(this.pages, this.getActive()) + 1;
         if (this.pages.length > index) {
@@ -28,7 +37,7 @@ export class PaginateComponent implements OnInit {
         }
     }
 
-    back(event: MouseEvent) {
+    public back(event: MouseEvent) {
         event.preventDefault();
         const index = _.indexOf(this.pages, this.getActive()) - 1;
         if (index >= 0) {
@@ -36,25 +45,24 @@ export class PaginateComponent implements OnInit {
         }
     }
 
-    getActive() {
+    public getActive() {
         return _.find(this.pages, page => page.active);
     }
 
-    activatePage(page: any) {
+    public activatePage(page: any) {
         this.getActive().active = false;
         page.active = true;
         this.onChange.emit(page.offset);
         return page;
     }
 
-    pageOffset() {
+    public pageOffset() {
         const currentPageIndex = (this.offset / this.limit);
         const offset = _.round(this.pagesOnScreen / 2);
         return currentPageIndex > offset ? currentPageIndex - offset : 0;
     }
 
-    ngOnInit() {
-
+    public ngOnInit() {
         this.pages = initPages(this.size, this.limit, this.offset);
 
         function initPages(itemsSize: number, itemsLimit: number, itemsOffset: number): Array<any> {
@@ -74,8 +82,8 @@ export class PaginateComponent implements OnInit {
         }
 
         function initParam(param: number): number {
-            const number = _.toNumber(param);
-            return _.isNaN(number) ? 0 : number;
+            const result = _.toNumber(param);
+            return _.isNaN(result) ? 0 : result;
         }
 
         function calcPages(size: number, limit: number): number {
@@ -85,6 +93,5 @@ export class PaginateComponent implements OnInit {
             const res = size / limit;
             return (size % limit > 0) ? res + 1 : res;
         }
-
     }
 }

@@ -1,13 +1,14 @@
-import {Injectable} from '@angular/core';
-import {OfflineTokenService} from './offline-token.service';
-import {AuthInfo} from "./AuthInfo";
+import { Injectable } from '@angular/core';
+
+import { OfflineTokenService } from './offline-token.service';
+import { AuthInfo } from './AuthInfo';
 
 declare const Keycloak: any;
 
 @Injectable()
 export class KeycloakService {
 
-    private static koffingInstance: any;
+    public static koffingInstance: any;
 
     public static init(): Promise<any> {
         return OfflineTokenService.isTokenizationFlowPath() ? this.initTokenization() : this.initKoffing();
@@ -53,6 +54,6 @@ export class KeycloakService {
                     resolve();
                 }
             }).error(() => reject());
-        })
+        });
     }
 }

@@ -1,8 +1,9 @@
-import {Component} from '@angular/core';
-import {KeycloakService} from '../../../keycloak/keycloak.service';
+import { Component } from '@angular/core';
+
+import { KeycloakService } from '../../../keycloak/keycloak.service';
 
 @Component({
-    selector: 'top-panel',
+    selector: 'kof-top-panel',
     templateUrl: './top-panel.component.pug',
 })
 export class TopPanelComponent {
@@ -12,5 +13,4 @@ export class TopPanelComponent {
     public logout() {
         KeycloakService.logout();
     }
-
 }

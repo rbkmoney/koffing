@@ -1,11 +1,14 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-    selector: 'modification-detail',
+    selector: 'kof-modification-detail',
     templateUrl: './modification-detail.component.pug'
 })
-
 export class ModificationDetailComponent {
-    @Input() displayName: string;
-    @Input() value: string;
+
+    @Input()
+    public displayName: string;
+
+    @Input()
+    public value: string;
 }
