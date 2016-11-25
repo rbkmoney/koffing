@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule}   from '@angular/forms';
+import {CalendarModule} from 'primeng/primeng';
 
 import {AnalyticsRoutingModule} from './analytics-routing.module';
 
@@ -31,7 +32,8 @@ import {AccountService} from './../../services/accounts/accounts.service';
     imports: [
         AnalyticsRoutingModule,
         BrowserModule,
-        FormsModule
+        FormsModule,
+        CalendarModule
     ],
     declarations: [
         AnalyticsComponent,

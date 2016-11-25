@@ -15,6 +15,8 @@ import * as moment from 'moment';
 })
 export class DashboardComponent implements OnInit {
 
+    public myDate: Date;
+
     public fromTime: any;
     public toTime: any;
     public uniqueCount: any;
