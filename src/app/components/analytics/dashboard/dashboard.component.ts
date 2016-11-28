@@ -16,6 +16,9 @@ import * as moment from 'moment';
 })
 export class DashboardComponent implements OnInit, OnChanges {
 
+    private fromTimeDate: Date;
+    private toTimeDate: Date;
+
     public fromTime: any;
     public toTime: any;
     public uniqueCount: any;
@@ -41,28 +44,12 @@ export class DashboardComponent implements OnInit, OnChanges {
     constructor(private route: ActivatedRoute,
                 private customer: CustomerService,
                 private payments: PaymentsService,
-                private accounts: AccountService) {
-        this.toTime = moment().format();
-        this.fromTime = moment(this.toTime).subtract(1, 'M').hours(0).minutes(0).seconds(0).milliseconds(0).format();
-    }
-
-    get pickerFromTime(): any {
-        return new Date(this.fromTime);
-    }
-
-    set pickerFromTime(value: any) {
-        this.fromTime = moment(value).format();
-    }
-
-    get pickerToTime(): any {
-        return new Date(this.toTime);
-    }
-
-    set pickerToTime(value: any) {
-        this.toTime = moment(value).format();
-    }
+                private accounts: AccountService) { }
 
     loadData(): void {
+        this.fromTime = moment(this.fromTimeDate).format('YYYY-MM-DD');
+        this.toTime = moment(this.toTimeDate).format('YYYY-MM-DD');
+
         this.chartFromTime = this.fromTime;
 
         this.customer.getRate(
@@ -168,8 +155,16 @@ export class DashboardComponent implements OnInit, OnChanges {
         );
     }
 
+    setInitialDate() {
+        this.toTimeDate = new Date();
+        this.fromTimeDate = new Date();
+        this.fromTimeDate.setMonth( this.fromTimeDate.getMonth() - 1 );
+    }
+
     ngOnInit() {
         this.shopID = this.route.parent.snapshot.params['shopID'];
+
+        this.setInitialDate();
 
         this.loadData();
     }
