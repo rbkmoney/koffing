@@ -3,8 +3,7 @@
         form.form-inline.pull-right
             .form-group
                 label.control-label Статистика с
-                .ui-calendar
-                    p-calendar.ui-inputtext(name="fromTime", [(ngModel)]="myDate")
+                datepicker(name="fromTime", [(ngModel)]="myDate")
             .form-group
                 label.control-label по
                 input(type="date", name="toTime", [(ngModel)]="pickerToTime")
