@@ -17,7 +17,6 @@ import {RevenueComponent} from './dashboard/revenue/revenue.component';
 import {GeolocationComponent} from './dashboard/geolocation/geolocation.component';
 import {InfoPanelComponent} from './dashboard/info-panel/info-panel.component';
 import {DatepickerComponent} from './../datepicker/datepicker.component';
-import {datepickerValueAccessor} from './../datepicker/datepicker.component';
 
 import {PaymentStatusPipe} from './payment-statuses.pipe';
 import {RoubleCurrencyPipe} from './rouble-currency.pipe';
@@ -59,8 +58,7 @@ import {AccountService} from './../../services/accounts/accounts.service';
         ShopService,
         CustomerService,
         PaymentsService,
-        AccountService,
-        datepickerValueAccessor
+        AccountService
     ]
 })
 export class AnalyticsModule {

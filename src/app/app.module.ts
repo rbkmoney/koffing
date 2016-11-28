@@ -11,7 +11,6 @@ import { KeycloakHttpInterceptor } from '../keycloak/keycloak-http.interceptor';
 import { ConfigService } from './config.service';
 import { ShopsModule } from './components/shops/shops.module';
 import { TokenizationModule } from './components/tokenization/tokenization.module';
-import { customFormControlValueAccessor } from './components/datepicker/custom-form-control.class';
 
 @NgModule({
     imports: [
@@ -28,7 +27,6 @@ import { customFormControlValueAccessor } from './components/datepicker/custom-f
         TopPanelComponent
     ],
     providers: [
-        customFormControlValueAccessor,
         ConfigService,
         {
             provide: Http,

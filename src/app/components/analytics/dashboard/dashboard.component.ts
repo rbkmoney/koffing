@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnChanges} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CustomerService} from '../../../services/customers/customer.service';
 import RequestParams from '../../../services/RequestParams';
@@ -13,7 +13,7 @@ import * as moment from 'moment';
 @Component({
     templateUrl: './dashboard.component.pug'
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnChanges {
 
     public myDate: Date;
 
@@ -172,6 +172,12 @@ export class DashboardComponent implements OnInit {
     ngOnInit() {
         this.shopID = this.route.parent.snapshot.params['shopID'];
 
+        this.myDate = new Date();
+
         this.loadData();
+    }
+
+    ngOnChanges() {
+        debugger;
     }
 }
