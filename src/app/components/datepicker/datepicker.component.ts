@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, forwardRef } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { CustomFormControl, NG_VALUE_ACCESSOR } from './custom-form-control.class';
+import { CustomFormControl } from './custom-form-control.class';
 
 export const datepickerValueAccessor: any = {
     provide: NG_VALUE_ACCESSOR,
