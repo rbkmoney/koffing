@@ -2,11 +2,13 @@
     .col-md-12
         form.form-inline.pull-right
             .form-group
-                label.control-label Статистика с
-                datepicker(name="fromTime", [(ngModel)]="myDate", ngDefaultControl)
+                label.control-label Статистика с&nbsp;
+                .ui-calendar
+                    p-calendar.ui-inputtext(name="fromTime", [(ngModel)]="pickerFromTime", dateFormat="dd.mm.yy")
             .form-group
-                label.control-label по
-                input(type="date", name="toTime", [(ngModel)]="pickerToTime")
+                label.control-label &nbsp;по&nbsp;
+                .ui-calendar
+                    p-calendar.ui-inputtext(name="toTime", [(ngModel)]="pickerToTime", dateFormat = "dd.mm.yy")
             button.btn.btn-default(style="margin-bottom: 0; margin-right: 0", (click)="loadData()") Показать
 .row
     info-panel([uniqueCount]="uniqueCount", [successfulCount]="successfulCount",

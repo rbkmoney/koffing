@@ -11,11 +11,10 @@ import * as _ from 'lodash';
 import * as moment from 'moment';
 
 @Component({
-    templateUrl: './dashboard.component.pug'
+    templateUrl: './dashboard.component.pug',
+    styleUrls: ['./dashboard.component.less']
 })
 export class DashboardComponent implements OnInit, OnChanges {
-
-    public myDate: Date;
 
     public fromTime: any;
     public toTime: any;
@@ -48,7 +47,7 @@ export class DashboardComponent implements OnInit, OnChanges {
     }
 
     get pickerFromTime(): any {
-        return moment(this.fromTime).format('YYYY-MM-DD');
+        return new Date(this.fromTime);
     }
 
     set pickerFromTime(value: any) {
@@ -56,7 +55,7 @@ export class DashboardComponent implements OnInit, OnChanges {
     }
 
     get pickerToTime(): any {
-        return moment(this.toTime).format('YYYY-MM-DD');
+        return new Date(this.toTime);
     }
 
     set pickerToTime(value: any) {
@@ -171,8 +170,6 @@ export class DashboardComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.shopID = this.route.parent.snapshot.params['shopID'];
-
-        this.myDate = new Date();
 
         this.loadData();
     }
