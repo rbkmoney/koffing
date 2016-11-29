@@ -1,4 +1,4 @@
-import {Component, OnInit, OnChanges} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CustomerService} from '../../../services/customers/customer.service';
 import RequestParams from '../../../services/RequestParams';
@@ -13,7 +13,7 @@ import * as moment from 'moment';
 @Component({
     templateUrl: './dashboard.component.pug'
 })
-export class DashboardComponent implements OnInit, OnChanges {
+export class DashboardComponent implements OnInit {
 
     private fromTimeDate: Date;
     private toTimeDate: Date;
@@ -166,9 +166,5 @@ export class DashboardComponent implements OnInit, OnChanges {
         this.setInitialDate();
 
         this.loadData();
-    }
-
-    ngOnChanges() {
-        debugger;
     }
 }
