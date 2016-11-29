@@ -4,9 +4,9 @@
             .x_content
                 form.form-horizontal
                     .form-group
-                        .col-xs-1
+                        .col-xs-12.col-sm-1
                             label.control-label Магазин
-                        .col-md-5(*ngIf="shopItems.length")
+                        .col-xs-12.col-sm-6(*ngIf="shopItems.length")
                             select.form-control([(ngModel)]="selectedShopID", (change)="onSelectShop($event.target.value)", [ngModelOptions]="{standalone: true}")
                                 option(*ngFor="let item of shopItems", [value]="item.value") {{item.label}}
                 ul.nav.nav-tabs.bar_tabs(*ngIf="selectedShopID")

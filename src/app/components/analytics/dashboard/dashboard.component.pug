@@ -1,6 +1,6 @@
 .row
-    .col-md-12
-        form.form-inline.pull-right
+    .col-xs-12
+        form.form-inline
             .form-group
                 label.control-label Статистика с
                 input(type="date", name="fromTime", [(ngModel)]="pickerFromTime")
@@ -9,30 +9,31 @@
                 input(type="date", name="toTime", [(ngModel)]="pickerToTime")
             button.btn.btn-default(style="margin-bottom: 0; margin-right: 0", (click)="loadData()") Показать
 .row
-    kof-info-panel([uniqueCount]="uniqueCount", [successfulCount]="successfulCount",
-        [unfinishedCount]="unfinishedCount", [profit]="profit", [account]="account")
+    .col-xs-12
+        kof-info-panel([uniqueCount]="uniqueCount", [successfulCount]="successfulCount",
+            [unfinishedCount]="unfinishedCount", [profit]="profit", [account]="account")
 .row
-    .col-md-12
+    .col-xs-12
         .x_panel.tile
             .x_title
                 h4 Оборот
             .x_content
                 kof-revenue([fromTime]="chartFromTime", [chartData]="revenueChartData")
 .row
-    .col-md-12
+    .col-xs-12
         .x_panel.tile
             .x_title
                 h4 Конверсия оплат
             .x_content
                 kof-conversion([fromTime]="chartFromTime", [chartData]="conversionChartData")
 .row
-    .col-md-6
+    .col-xs-12.col-sm-6
         .x_panel.tile
             .x_title
                 h4 Способы оплаты
             .x_content
                 kof-payment-method([chartData]="paymentMethodChartData")
-    .col-md-6
+    .col-xs-12.col-sm-6
         .x_panel.tile
             .x_title
                 h4 Геолокация
