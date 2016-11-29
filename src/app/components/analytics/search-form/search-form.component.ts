@@ -27,10 +27,8 @@ export class SearchFormComponent implements OnInit {
         this.onSearch.emit();
     }
 
-    public onChangeStatus(status: string) {
-        if (status) {
-            this.searchParams.status = status;
-        } else {
+    public onCheckStatus() {
+        if (!this.searchParams.status) {
             delete this.searchParams.status;
         }
     }
