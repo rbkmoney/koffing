@@ -41,7 +41,7 @@ export class SearchFormComponent implements OnInit {
     }
 
     set searchFromTime(value: any) {
-        this.searchParams.fromTime = moment(value).format();
+        this.searchParams.fromTime = moment(value).utc().format();
         this.fromTime = new Date(this.searchParams.fromTime);
     }
 
@@ -50,7 +50,7 @@ export class SearchFormComponent implements OnInit {
     }
 
     set searchToTime(value: any) {
-        this.searchParams.toTime = moment(value).format();
+        this.searchParams.toTime = moment(value).utc().format();
     }
 
 }

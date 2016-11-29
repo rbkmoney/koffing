@@ -46,8 +46,8 @@ export class DashboardComponent implements OnInit {
                 private accounts: AccountService) { }
 
     loadData(): void {
-        this.fromTime = moment(this.fromTimeDate).format('YYYY-MM-DD');
-        this.toTime = moment(this.toTimeDate).format('YYYY-MM-DD');
+        this.fromTime = moment(this.fromTimeDate).utc().format();
+        this.toTime = moment(this.toTimeDate).utc().format();
 
         this.chartFromTime = this.fromTime;
 
