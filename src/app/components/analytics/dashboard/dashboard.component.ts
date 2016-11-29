@@ -11,8 +11,7 @@ import * as _ from 'lodash';
 import * as moment from 'moment';
 
 @Component({
-    templateUrl: './dashboard.component.pug',
-    styleUrls: ['./dashboard.component.less']
+    templateUrl: './dashboard.component.pug'
 })
 export class DashboardComponent implements OnInit, OnChanges {
 
