@@ -14,10 +14,16 @@ export class SearchFormComponent implements OnInit {
     @Output() onSearch: EventEmitter<any> = new EventEmitter<any>();
     private statuses: any;
 
+    private fromTime: Date;
+    private toTime: Date;
+
     ngOnInit() {
         this.statuses = _.map(PAYMENT_STATUSES.GET, (name, key) => {
             return {name, key}
         });
+
+        this.fromTime = new Date(this.searchParams.fromTime);
+        this.toTime = new Date(this.searchParams.toTime);
     }
 
     search() {
@@ -31,15 +37,16 @@ export class SearchFormComponent implements OnInit {
     }
 
     get searchFromTime() {
-        return moment(this.searchParams.fromTime).format('YYYY-MM-DD');
+        return this.fromTime;
     }
 
     set searchFromTime(value: any) {
         this.searchParams.fromTime = moment(value).format();
+        this.fromTime = new Date(this.searchParams.fromTime);
     }
 
     get searchToTime() {
-        return moment(this.searchParams.toTime).format('YYYY-MM-DD');
+        return this.toTime;
     }
 
     set searchToTime(value: any) {

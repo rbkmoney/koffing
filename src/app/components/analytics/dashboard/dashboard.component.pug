@@ -9,7 +9,7 @@
                 label.control-label &nbsp;по&nbsp;
                 .ui-calendar
                     p-calendar.ui-inputtext(name="toTime", [(ngModel)]="toTimeDate", dateFormat = "dd.mm.yy")
-            button.btn.btn-default(style="margin-bottom: 0; margin-right: 0", (click)="loadData()") Показать
+            button.btn.btn-default(style="margin-bottom: 0; margin-right: 0; margin-left: 5px;", (click)="loadData()") Показать
 .row
     info-panel([uniqueCount]="uniqueCount", [successfulCount]="successfulCount",
     [unfinishedCount]="unfinishedCount", [profit]="profit", [account]="account")

@@ -5,12 +5,14 @@ form.form-horizontal.form-label-left
                 .col-xs-4
                     label.control-label Дата с
                 .col-xs-6
-                    input.form-control(type="date", [(ngModel)]="searchFromTime", name="searchFromTime", required)
+                    .ui-calendar.search-form
+                        p-calendar.ui-inputtext.search-form(name="searchFromTime", [(ngModel)]="searchFromTime", dateFormat = "dd.mm.yy", required)
             .form-group
                 .col-xs-4
                     label.control-label Дата по
                 .col-xs-6
-                    input.form-control(type="date", [(ngModel)]="searchToTime", name="searchToTime", required)
+                    .ui-calendar.search-form
+                        p-calendar.ui-inputtext.search-form(name="searchToTime", [(ngModel)]="searchToTime", dateFormat = "dd.mm.yy", required)
         .col-xs-6
             .form-group
                 .col-xs-4
