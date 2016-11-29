@@ -7,7 +7,7 @@
                         .col-xs-1
                             label.control-label Магазин
                         .col-xs-5(*ngIf="selectItems.length")
-                            kof-select([model]="selectedShopID", [items]="selectItems", (onChange)="onSelectShop($event)", [modelOptions]="{standalone: true}")
+                            kof-select([(ngModel)]="selectedShopID", [items]="selectItems", (onChange)="navigateToShop()", [modelOptions]="{standalone: true}", name='shopId')
                 ul.nav.nav-tabs.bar_tabs(*ngIf="selectedShopID")
                     li([routerLink]="['dashboard']", [routerLinkActive]="['active']")
                         a Статистика

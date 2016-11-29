@@ -22,13 +22,14 @@ import { ShopService } from '../../services/shop/shop.service';
 import { CustomerService } from '../../services/customers/customer.service';
 import { PaymentsService } from './../../services/payments/payments.service';
 import { AccountService } from './../../services/accounts/accounts.service';
-import { KofSelectComponent } from './kof-select/kof-select.component';
+import { CommonModule } from '../../common/common.module';
 
 @NgModule({
     imports: [
         AnalyticsRoutingModule,
         BrowserModule,
-        FormsModule
+        FormsModule,
+        CommonModule
     ],
     declarations: [
         AnalyticsComponent,
@@ -37,7 +38,6 @@ import { KofSelectComponent } from './kof-select/kof-select.component';
         PaginateComponent,
         SearchFormComponent,
         SearchResultComponent,
-        KofSelectComponent,
         BaseChartDirective,
         PaymentMethodComponent,
         ConversionComponent,

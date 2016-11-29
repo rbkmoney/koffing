@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 import * as moment from 'moment';
 
 import { PAYMENT_STATUSES } from '../payment-statuses.const';
-import { SelectItem } from '../kof-select/kof-select.class';
+import { SelectItem } from '../../../common/kof-select/kof-select.class';
 
 @Component({
     selector: 'kof-search-form',

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import * as _ from 'lodash';
 
 import { CategoryService } from './../../../services/category/category.service';
 import { ShopService } from './../../../services/shop/shop.service';
-import { Category } from '../../../services/category/category.class';
+import { SelectItem } from '../../../common/kof-select/kof-select.class';
 
 @Component({
     selector: 'kof-add-shop',
@@ -13,7 +14,7 @@ import { Category } from '../../../services/category/category.class';
 
 export class AddShopComponent implements OnInit {
 
-    public categories: Category[] = [];
+    public categories: SelectItem[] = [];
 
     public args: any = {
         shopDetails: {},
@@ -27,7 +28,7 @@ export class AddShopComponent implements OnInit {
 
     public getCategories() {
         this.categoryService.getCategories().then(aCategories => {
-            this.categories = aCategories;
+            this.categories = _.map(aCategories, (cat: any) => new SelectItem(cat.categoryRef, cat.name));
         });
     }
 
