@@ -23,12 +23,14 @@ import { ShopService } from '../../services/shop/shop.service';
 import { CustomerService } from '../../services/customers/customer.service';
 import { PaymentsService } from './../../services/payments/payments.service';
 import { AccountService } from './../../services/accounts/accounts.service';
+import { CommonModule } from '../../common/common.module';
 
 @NgModule({
     imports: [
         AnalyticsRoutingModule,
         BrowserModule,
         FormsModule,
+        CommonModule,
         CalendarModule
     ],
     declarations: [

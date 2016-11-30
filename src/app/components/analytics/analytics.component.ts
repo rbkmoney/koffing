@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import * as _ from 'lodash';
 
 import { ShopService } from './../../services/shop/shop.service';
-import { ShopItem } from '../../services/shop/shop-item.class';
+import { SelectItem } from '../../common/kof-select/kof-select.class';
 import { Shop } from '../../services/shop/shop.class';
 
 @Component({
@@ -14,7 +14,7 @@ export class AnalyticsComponent implements OnInit {
 
     public selectedShopID: string;
 
-    public shopItems: ShopItem[] = [];
+    public selectItems: SelectItem[] = [];
 
     constructor(private route: ActivatedRoute,
                 private router: Router,
@@ -23,18 +23,13 @@ export class AnalyticsComponent implements OnInit {
     public ngOnInit() {
         this.shopService.getShops().then((shops: Shop[]) => {
             const routeShopID = this.route.snapshot.params['shopID'];
-            this.shopItems = _.map(shops, (shop: Shop) => new ShopItem(shop.shopID, shop.shopDetails.name));
-            this.selectedShopID = routeShopID ? routeShopID : this.shopItems[0].value;
-            this.navigate();
+            this.selectItems = _.map(shops, (shop: Shop) => new SelectItem(shop.shopID, shop.shopDetails.name));
+            this.selectedShopID = routeShopID ? routeShopID : this.selectItems[0].value;
+            this.navigateToShop();
         });
     }
 
-    public onSelectShop(shopID: string) {
-        this.selectedShopID = shopID;
-        this.navigate();
-    }
-
-    public navigate() {
+    public navigateToShop() {
         const hasChildren = this.route.children.length > 0;
         const childComponent = hasChildren ? this.route.children[0].routeConfig.path : 'dashboard';
         this.router.navigate(['analytics', this.selectedShopID, childComponent]);
