@@ -1,7 +1,8 @@
-import {Injectable} from '@angular/core';
-import {Http, ConnectionBackend, RequestOptions, Request, RequestOptionsArgs, Response, Headers} from '@angular/http';
-import {KeycloakService} from './keycloak.service';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Http, ConnectionBackend, RequestOptions, Request, RequestOptionsArgs, Response, Headers } from '@angular/http';
+import { Observable } from 'rxjs';
+
+import { KeycloakService } from './keycloak.service';
 
 @Injectable()
 export class KeycloakHttpInterceptor extends Http {
@@ -10,13 +11,45 @@ export class KeycloakHttpInterceptor extends Http {
         super(connectionBackend, defaultOptions);
     }
 
+    public request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
+        return this.configureRequest(super.request, url, options);
+    }
+
+    public get(url: string, options?: RequestOptionsArgs): Observable<Response> {
+        return this.configureRequest(super.get, url, options);
+    }
+
+    public post(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
+        return this.configureRequest(super.post, url, options, body);
+    }
+
+    public put(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
+        return this.configureRequest(super.put, url, options, body);
+    }
+
+    public delete(url: string, options?: RequestOptionsArgs): Observable<Response> {
+        return this.configureRequest(super.delete, url, options);
+    }
+
+    public patch(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
+        return this.configureRequest(super.patch, url, options, body);
+    }
+
+    public head(url: string, options?: RequestOptionsArgs): Observable<Response> {
+        return this.configureRequest(super.head, url, options);
+    }
+
+    public options(url: string, options?: RequestOptionsArgs): Observable<Response> {
+        return this.configureRequest(super.options, url, options);
+    }
+
     private configureRequest(f: Function, url: string | Request, options: RequestOptionsArgs, body?: any) {
         const tokenPromise: Promise<string> = this.getToken();
         const tokenObservable: Observable<string> = Observable.fromPromise(tokenPromise);
         const tokenUpdateObservable: Observable<any> = Observable.create((observer: any) => {
             if (!options) {
                 const headers = new Headers();
-                options = new RequestOptions({headers: headers});
+                options = new RequestOptions({headers});
             }
             this.setHeaders(options);
             observer.next();
@@ -34,7 +67,7 @@ export class KeycloakHttpInterceptor extends Http {
                 observer.complete();
             });
         });
-        return <Observable<Response>>Observable
+        return <Observable<Response>> Observable
             .merge(tokenObservable, tokenUpdateObservable, requestObservable, 1)
             .filter((response) => response instanceof Response);
     }
@@ -64,37 +97,5 @@ export class KeycloakHttpInterceptor extends Http {
             return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
         }
         return `${s4()}${s4()}-${s4()}-${s4()}-${s4()}-${s4()}${s4()}${s4()}`;
-    }
-
-    request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
-        return this.configureRequest(super.request, url, options);
-    }
-
-    get(url: string, options?: RequestOptionsArgs): Observable<Response> {
-        return this.configureRequest(super.get, url, options);
-    }
-
-    post(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
-        return this.configureRequest(super.post, url, options, body);
-    }
-
-    put(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
-        return this.configureRequest(super.put, url, options, body);
-    }
-
-    delete(url: string, options?: RequestOptionsArgs): Observable<Response> {
-        return this.configureRequest(super.delete, url, options);
-    }
-
-    patch(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
-        return this.configureRequest(super.patch, url, options, body);
-    }
-
-    head(url: string, options?: RequestOptionsArgs): Observable<Response> {
-        return this.configureRequest(super.head, url, options);
-    }
-
-    options(url: string, options?: RequestOptionsArgs): Observable<Response> {
-        return this.configureRequest(super.options, url, options);
     }
 }

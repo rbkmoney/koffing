@@ -27,6 +27,12 @@ module.exports = {
     },
 
     module: {
+        preLoaders: [
+            {
+                test: /\.ts$/,
+                loader: 'tslint-loader'
+            }
+        ],
         loaders: [
             {
                 test: /(jquery.js$)|(keycloak.js$)/,

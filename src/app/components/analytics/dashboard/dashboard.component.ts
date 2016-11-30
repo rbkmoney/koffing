@@ -1,14 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {CustomerService} from '../../../services/customers/customer.service';
-import RequestParams from '../../../services/RequestParams';
-import {ChartDataConversionService} from './chart-data-conversion.service';
-import {PaymentsService} from './../../../services/payments/payments.service';
-import {GeoData} from './../../../services/payments/geodata';
-import {AccountService} from './../../../services/accounts/accounts.service';
-import { Conversion } from './../../../services/payments/conversion';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import * as _ from 'lodash';
 import * as moment from 'moment';
+
+import { CustomerService } from '../../../services/customers/customer.service';
+import { RequestParams } from '../../../services/RequestParams';
+import { ChartDataConversionService } from './chart-data-conversion.service';
+import { PaymentsService } from './../../../services/payments/payments.service';
+import { AccountService } from './../../../services/accounts/accounts.service';
+import { GeoData } from '../../../services/payments/geodata.class';
+import { Conversion } from '../../../services/payments/conversion.class';
 
 @Component({
     templateUrl: './dashboard.component.pug'
@@ -19,11 +20,17 @@ export class DashboardComponent implements OnInit {
     private toTimeDate: Date;
 
     public fromTime: any;
+
     public toTime: any;
+
     public uniqueCount: any;
+
     public successfulCount: any;
+
     public unfinishedCount: any;
+
     public profit: any;
+
     public account: any = {
         general: {
             ownAmount: 1
@@ -32,13 +39,18 @@ export class DashboardComponent implements OnInit {
             ownAmount: 2
         }
     };
+
     public chartFromTime: any;
+
     public revenueChartData: any;
+
     public conversionChartData: any;
+
     public geoChartData: GeoData[] = [];
 
-    private shopID: string;
     public paymentMethodChartData: any;
+
+    private shopID: string;
 
     constructor(private route: ActivatedRoute,
                 private customer: CustomerService,
@@ -137,7 +149,7 @@ export class DashboardComponent implements OnInit {
                         item.generalID
                     ).then(
                         (generalAccount) => {
-                            this.account.general = generalAccount
+                            this.account.general = generalAccount;
                         }
                     );
 
@@ -146,7 +158,7 @@ export class DashboardComponent implements OnInit {
                         item.guaranteeID
                     ).then(
                         (guaranteeAccount) => {
-                            this.account.guarantee = guaranteeAccount
+                            this.account.guarantee = guaranteeAccount;
                         }
                     );
                 });

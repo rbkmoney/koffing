@@ -4,10 +4,10 @@
             .x_title
                 h4 Поиск
             .x_content
-                search-form([searchParams]="searchParams", (onSearch)="search()")
+                kof-search-form([searchParams]="searchParams", (onSearch)="search()")
 .row
     .col-xs-12
         .x_panel.tile
             .x_content(*ngIf="isUploaded")
-                search-result([invoices]="invoices")
-                paginate([size]="totalCount", [limit]="searchParams.limit", [offset]="searchParams.offset", [pagesOnScreen]="10", (onChange)="onChangePage($event)")
+                kof-search-result([invoices]="invoices")
+                kof-paginate([size]="totalCount", [limit]="searchParams.limit", [offset]="searchParams.offset", [pagesOnScreen]="10", (onChange)="onChangePage($event)")

@@ -1,14 +1,7 @@
-import { Shop } from './../shop/shop';
-
-export class ShopCreation {
-    modificationType: string;
-    shop: Shop
-}
-
 export class ShopModification {
-    modificationType: string;
-    shopID: string;
-    details: {
+    public modificationType: string;
+    public shopID: string;
+    public details: {
         modificationType: string;
         details: {
             shopDetails: {
@@ -22,13 +15,5 @@ export class ShopModification {
             },
             categoryRef: string;
         }
-    }
-}
-
-export class Claim {
-    id: number;
-    changeset: any[];
-    status: {
-        status: string;
-    }
+    };
 }

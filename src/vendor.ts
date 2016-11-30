@@ -6,7 +6,7 @@ import '@angular/http';
 import '@angular/router';
 import 'rxjs';
 
-import 'chart.js/src/chart.js'
+import 'chart.js/src/chart.js';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'primeng/resources/themes/aristo/theme.css';
 import 'primeng/resources/primeng.min.css';

@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
-import * as moment from "moment";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+import * as moment from 'moment';
 
-import {InvoiceService, Invoice} from '../../../services/invoice/invoice.service';
+import { InvoiceService } from '../../../services/invoice/invoice.service';
+import { Invoice } from '../../../services/invoice/invoice.class';
 
 @Component({
     templateUrl: 'finance.component.pug',
@@ -16,12 +17,10 @@ export class FinanceComponent implements OnInit {
     private searchParams: any;
     private shopID: string;
 
-    constructor(private route: ActivatedRoute,
-                private invoiceService: InvoiceService) {
-    }
+    constructor(private route: ActivatedRoute, private invoiceService: InvoiceService) { }
 
-    ngOnInit() {
-        //todo: описать class SearchParams и создать как экземпляр класса
+    public ngOnInit() {
+        // todo: описать class SearchParams и создать как экземпляр класса
         this.searchParams = {
             fromTime: moment().subtract(1, 'M').utc().format(),
             toTime: moment().utc().format(),
@@ -35,7 +34,7 @@ export class FinanceComponent implements OnInit {
         });
     }
 
-    search(offset?: number) {
+    public search(offset?: number) {
         this.searchParams.offset = offset ? offset : 0;
         this.isUploaded = false;
         this.invoiceService.getInvoices(this.shopID, this.searchParams).then(response => {
@@ -45,7 +44,7 @@ export class FinanceComponent implements OnInit {
         });
     }
 
-    onChangePage(offset: number) {
+    public onChangePage(offset: number) {
         this.search(offset);
     }
 }
