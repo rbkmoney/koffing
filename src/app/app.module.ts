@@ -1,38 +1,22 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
-import { BrowserModule }  from '@angular/platform-browser';
 import { Http, XHRBackend, RequestOptions, HttpModule } from '@angular/http';
 
-import { RootComponent } from './components/root/root.component.ts';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { TopPanelComponent } from './components/top-panel/top-panel.component.ts';
-import { AnalyticsModule } from './components/analytics/analytics.module';
-import { AppRoutingModule } from './app-routing.module';
-import { KeycloakHttpInterceptor } from '../keycloak/keycloak-http.interceptor';
-import { ConfigService } from './config.service';
-import { ShopsModule } from './components/shops/shops.module';
-import { TokenizationModule } from './components/tokenization/tokenization.module';
+import { RootModule } from './root/root.module';
+import { AuthHttpInterceptor } from './auth/interceptors/auth-http.interceptor';
+import { ConfigService } from './backend/services/config.service';
+import { ContainerComponent } from './root/components/container/container.component';
 
 @NgModule({
     imports: [
-        BrowserModule,
-        AppRoutingModule,
-        AnalyticsModule,
-        ShopsModule,
-        TokenizationModule,
-        HttpModule
-    ],
-    declarations: [
-        RootComponent,
-        SidebarComponent,
-        TopPanelComponent
+        HttpModule,
+        RootModule
     ],
     providers: [
-        ConfigService,
         {
             provide: Http,
             useFactory: (
                 backend: XHRBackend, defaultOptions: RequestOptions
-            ) => new KeycloakHttpInterceptor(backend, defaultOptions),
+            ) => new AuthHttpInterceptor(backend, defaultOptions),
             deps: [XHRBackend, RequestOptions]
         },
         {
@@ -42,6 +26,6 @@ import { TokenizationModule } from './components/tokenization/tokenization.modul
             multi: true
         }
     ],
-    bootstrap: [ RootComponent ]
+    bootstrap: [ContainerComponent]
 })
 export class AppModule { }
