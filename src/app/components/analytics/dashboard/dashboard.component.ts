@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 
@@ -46,11 +46,11 @@ export class DashboardComponent implements OnInit {
                 private accounts: AccountService) { }
 
     public ngOnInit() {
-        this.shopID = this.route.parent.snapshot.params['shopID'];
-
-        this.setInitialDate();
-
-        this.loadData();
+        this.route.parent.params.subscribe((params: Params) => {
+            this.shopID = params['shopID'];
+            this.setInitialDate();
+            this.loadData();
+        });
     }
 
     private loadData(): void {

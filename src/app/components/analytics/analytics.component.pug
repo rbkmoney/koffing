@@ -2,13 +2,12 @@
     .col-xs-12
         .x_panel.tile
             .x_content
-                form.form-horizontal
+                form.form-horizontal.form-label-right
                     .form-group
                         .col-xs-1
                             label.control-label Магазин
-                        .col-md-5(*ngIf="shopItems.length")
-                            select.form-control([(ngModel)]="selectedShopID", (change)="onSelectShop($event.target.value)", [ngModelOptions]="{standalone: true}")
-                                option(*ngFor="let item of shopItems", [value]="item.value") {{item.label}}
+                        .col-xs-5(*ngIf="selectItems.length")
+                            kof-select([(ngModel)]="selectedShopID", [items]="selectItems", (onChange)="navigateToShop()", [modelOptions]="{standalone: true}", name='shopId')
                 ul.nav.nav-tabs.bar_tabs(*ngIf="selectedShopID")
                     li([routerLink]="['dashboard']", [routerLinkActive]="['active']")
                         a Статистика
@@ -16,7 +15,7 @@
                         a Финансы
                 .tab-content
                     router-outlet
-.row(*ngIf="!shopItems.length")
+.row(*ngIf="!selectItems.length")
     .col-xs-12
         .jumbotron
             h1 Список магазинов пуст
