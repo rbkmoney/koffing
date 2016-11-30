@@ -48,7 +48,7 @@ export class PaymentMethodComponent implements OnChanges {
 
                 if (system === 'visa') {
                     result = 'Visa';
-                } else if (system === 'mastercard') {
+                } else if (system === 'mastercard' || system === 'master_card' ) {
                     result = 'Master Card';
                 } else if (system === 'nspkmir') {
                     result = 'Mir';

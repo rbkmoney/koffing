@@ -32,7 +32,15 @@ export class ConversionComponent implements OnChanges {
         scales: {
             yAxes: [{
                 stacked: true
+            }],
+            xAxes: [{
+                ticks: {
+                    fontSize: 10
+                }
             }]
+        },
+        legend: {
+            display: false
         }
     };
 
