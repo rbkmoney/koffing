@@ -3,6 +3,7 @@ import * as _ from 'lodash';
 import * as moment from 'moment';
 
 import { PAYMENT_STATUSES } from '../payment-statuses.const';
+import { SelectItem } from '../../../common/kof-select/kof-select.class';
 
 @Component({
     selector: 'kof-search-form',
@@ -18,35 +19,43 @@ export class SearchFormComponent implements OnInit {
 
     private statuses: any;
 
+    private fromTime: Date;
+
+    private toTime: Date;
+
+    get searchFromTime() {
+        return this.fromTime;
+    }
+
+    set searchFromTime(value: Date) {
+        this.searchParams.fromTime = moment(value).utc().format();
+        this.fromTime = value;
+    }
+
+    get searchToTime() {
+        return this.toTime;
+    }
+
+    set searchToTime(value: Date) {
+        this.searchParams.toTime = moment(value).utc().format();
+        this.toTime = value;
+    }
+
     public ngOnInit() {
-        this.statuses = _.map(PAYMENT_STATUSES.GET, (name, key) => {
-            return {name, key};
-        });
+        this.statuses = _.map(PAYMENT_STATUSES.GET, (name: string, key: string) => new SelectItem(key, name));
+
+        this.fromTime = new Date(this.searchParams.fromTime);
+        this.toTime = new Date(this.searchParams.toTime);
     }
 
     public search() {
         this.onSearch.emit();
     }
 
-    public onChangeStatus(status: string) {
-        if (!status) {
+    public onCheckStatus() {
+        if (!this.searchParams.status) {
             delete this.searchParams.status;
         }
     }
 
-    get searchFromTime() {
-        return moment(this.searchParams.fromTime).format('YYYY-MM-DD');
-    }
-
-    set searchFromTime(value: any) {
-        this.searchParams.fromTime = moment(value).format();
-    }
-
-    get searchToTime() {
-        return moment(this.searchParams.toTime).format('YYYY-MM-DD');
-    }
-
-    set searchToTime(value: any) {
-        this.searchParams.toTime = moment(value).format();
-    }
 }

@@ -8,5 +8,7 @@ import 'rxjs';
 
 import 'chart.js/src/chart.js';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'primeng/resources/themes/aristo/theme.css';
+import 'primeng/resources/primeng.min.css';
 import 'gentelella/build/css/custom.css';
 import './styles.less';

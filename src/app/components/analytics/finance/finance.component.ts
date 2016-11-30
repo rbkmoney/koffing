@@ -22,8 +22,8 @@ export class FinanceComponent implements OnInit {
     public ngOnInit() {
         // todo: описать class SearchParams и создать как экземпляр класса
         this.searchParams = {
-            fromTime: moment().subtract(1, 'M').format(),
-            toTime: moment().format(),
+            fromTime: moment().subtract(1, 'M').utc().format(),
+            toTime: moment().utc().format(),
             limit: 20,
             offset: 0,
             invoiceID: null

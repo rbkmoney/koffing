@@ -32,8 +32,7 @@
                         .col-xs-12.col-sm-3
                             label.control-label Категория *
                         .col-xs-12.col-sm-6
-                            select.form-control(required, [(ngModel)]="args.categoryRef", name="category")
-                                option(*ngFor="let category of categories", [value]="category.categoryRef") {{ category.name }}
+                            kof-select([(ngModel)]="args.categoryRef", [items]="categories", [modelOptions]="{standalone: true}", name='category')
                     .ln_solid
                     .form-group
                         .col-xs-12.col-sm-6.col-sm-offset-3

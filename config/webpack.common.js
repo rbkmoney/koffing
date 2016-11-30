@@ -61,13 +61,14 @@ module.exports = {
                 loader: ExtractTextPlugin.extract('style', 'css?sourceMap')
             },
             {
-                test: /\.css$/,
-                include: helpers.root('src', 'app'),
-                loader: 'raw'
+                test: /\.less$/,
+                exclude: helpers.root('src', 'app'),
+                loader: ExtractTextPlugin.extract('style', ['css?sourceMap', 'less'])
             },
             {
                 test: /\.less$/,
-                loader: "style!css!less"
+                include: helpers.root('src', 'app'),
+                loader: 'raw!less'
             }
         ]
     },

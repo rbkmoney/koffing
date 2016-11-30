@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
+import { CalendarModule } from 'primeng/primeng';
 import { BaseChartDirective } from 'ng2-charts';
 
 import { AnalyticsRoutingModule } from './analytics-routing.module';
@@ -10,7 +11,7 @@ import { FinanceComponent } from './finance/finance.component';
 import { PaginateComponent } from './paginate/paginate.component';
 import { SearchFormComponent } from './search-form/search-form.component';
 import { SearchResultComponent } from './search-result/search-result.component';
-import { PaymentMethodComponent } from './dashboard/payment-method/payment-method.component.ts';
+import { PaymentMethodComponent } from './dashboard/payment-method/payment-method.component';
 import { ConversionComponent } from './dashboard/conversion/conversion.component';
 import { RevenueComponent } from './dashboard/revenue/revenue.component';
 import { GeolocationComponent } from './dashboard/geolocation/geolocation.component';
@@ -22,12 +23,15 @@ import { ShopService } from '../../services/shop/shop.service';
 import { CustomerService } from '../../services/customers/customer.service';
 import { PaymentsService } from './../../services/payments/payments.service';
 import { AccountService } from './../../services/accounts/accounts.service';
+import { CommonModule } from '../../common/common.module';
 
 @NgModule({
     imports: [
         AnalyticsRoutingModule,
         BrowserModule,
-        FormsModule
+        FormsModule,
+        CommonModule,
+        CalendarModule
     ],
     declarations: [
         AnalyticsComponent,

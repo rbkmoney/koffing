@@ -1,24 +1,24 @@
-form.form-horizontal.form-label-left
+form.form-horizontal.form-label-right
     .row
         .col-xs-12.col-sm-6
             .form-group
                 .col-xs-12.col-sm-4
                     label.control-label Дата с
                 .col-xs-12.col-sm-6
-                    input.form-control(type="date", [(ngModel)]="searchFromTime", name="searchFromTime", required)
+                    .ui-calendar.search-form
+                        p-calendar.ui-inputtext.search-form(name="searchFromTime", [(ngModel)]="searchFromTime", dateFormat = "dd.mm.yy", required)
             .form-group
                 .col-xs-12.col-sm-4
                     label.control-label Дата по
                 .col-xs-12.col-sm-6
-                    input.form-control(type="date", [(ngModel)]="searchToTime", name="searchToTime", required)
+                    .ui-calendar.search-form
+                        p-calendar.ui-inputtext.search-form(name="searchToTime", [(ngModel)]="searchToTime", dateFormat = "dd.mm.yy", required)
         .col-xs-12.col-sm-6
             .form-group
                 .col-xs-12.col-sm-4
                     label.control-label Статус платежа
                 .col-xs-12.col-sm-6
-                    select.form-control([(ngModel)]="searchParams.status", (ngModelChange)="onChangeStatus($event)", name="searchByStatus")
-                        option([value]="''") Любой статус
-                        option(*ngFor="let status of statuses", [value]="status.key") {{status.name}}
+                    kof-select([(ngModel)]="searchParams.status", [items]="statuses", (onChange)="onCheckStatus()", [placeholder]="'Любой статус'", [modelOptions]="{standalone: true}", name='status')
             .form-group
                 .col-xs-12.col-sm-4
                     label.control-label Номер
