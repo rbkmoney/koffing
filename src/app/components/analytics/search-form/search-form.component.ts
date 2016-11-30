@@ -22,25 +22,6 @@ export class SearchFormComponent implements OnInit {
 
     private toTime: Date;
 
-    ngOnInit() {
-        this.statuses = _.map(PAYMENT_STATUSES.GET, (name, key) => {
-            return {name, key};
-        });
-
-        this.fromTime = new Date(this.searchParams.fromTime);
-        this.toTime = new Date(this.searchParams.toTime);
-    }
-
-    public search() {
-        this.onSearch.emit();
-    }
-
-    public onChangeStatus(status: string) {
-        if (!status) {
-            delete this.searchParams.status;
-        }
-    }
-
     get searchFromTime() {
         return this.fromTime;
     }
@@ -57,6 +38,25 @@ export class SearchFormComponent implements OnInit {
     set searchToTime(value: Date) {
         this.searchParams.toTime = moment(value).utc().format();
         this.toTime = value;
+    }
+
+    public ngOnInit() {
+        this.statuses = _.map(PAYMENT_STATUSES.GET, (name, key) => {
+            return {name, key};
+        });
+
+        this.fromTime = new Date(this.searchParams.fromTime);
+        this.toTime = new Date(this.searchParams.toTime);
+    }
+
+    public search() {
+        this.onSearch.emit();
+    }
+
+    public onChangeStatus(status: string) {
+        if (!status) {
+            delete this.searchParams.status;
+        }
     }
 
 }

@@ -16,22 +16,12 @@ import { Conversion } from '../../../services/payments/conversion.class';
 })
 export class DashboardComponent implements OnInit {
 
-    private fromTimeDate: Date;
-
-    private toTimeDate: Date;
-
     public fromTime: any;
-
     public toTime: any;
-
     public uniqueCount: any;
-
     public successfulCount: any;
-
     public unfinishedCount: any;
-
     public profit: any;
-
     public account: any = {
         general: {
             ownAmount: 1
@@ -40,17 +30,14 @@ export class DashboardComponent implements OnInit {
             ownAmount: 2
         }
     };
-
     public chartFromTime: any;
-
     public revenueChartData: any;
-
     public conversionChartData: any;
-
     public geoChartData: GeoData[] = [];
-
     public paymentMethodChartData: any;
 
+    private fromTimeDate: Date;
+    private toTimeDate: Date;
     private shopID: string;
 
     constructor(private route: ActivatedRoute,
@@ -58,7 +45,15 @@ export class DashboardComponent implements OnInit {
                 private payments: PaymentsService,
                 private accounts: AccountService) { }
 
-    loadData(): void {
+    public ngOnInit() {
+        this.shopID = this.route.parent.snapshot.params['shopID'];
+
+        this.setInitialDate();
+
+        this.loadData();
+    }
+
+    private loadData(): void {
         this.fromTime = moment(this.fromTimeDate).utc().format();
         this.toTime = moment(this.toTimeDate).utc().format();
 
@@ -167,17 +162,9 @@ export class DashboardComponent implements OnInit {
         );
     }
 
-    setInitialDate() {
+    private setInitialDate() {
         this.toTimeDate = new Date();
         this.fromTimeDate = new Date();
         this.fromTimeDate.setMonth( this.fromTimeDate.getMonth() - 1 );
-    }
-
-    ngOnInit() {
-        this.shopID = this.route.parent.snapshot.params['shopID'];
-
-        this.setInitialDate();
-
-        this.loadData();
     }
 }
