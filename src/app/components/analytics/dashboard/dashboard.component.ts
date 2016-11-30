@@ -17,6 +17,7 @@ import { Conversion } from '../../../services/payments/conversion.class';
 export class DashboardComponent implements OnInit {
 
     private fromTimeDate: Date;
+
     private toTimeDate: Date;
 
     public fromTime: any;

@@ -45,20 +45,18 @@ export class SearchFormComponent implements OnInit {
         return this.fromTime;
     }
 
-    set searchFromTime(value: any) {
+    set searchFromTime(value: Date) {
         this.searchParams.fromTime = moment(value).utc().format();
-        debugger;
-        this.fromTime = new Date(this.searchParams.fromTime);
+        this.fromTime = value;
     }
 
     get searchToTime() {
         return this.toTime;
     }
 
-    set searchToTime(value: any) {
+    set searchToTime(value: Date) {
         this.searchParams.toTime = moment(value).utc().format();
-        debugger;
-        this.toTime = new Date(this.searchParams.toTime);
+        this.toTime = value;
     }
 
 }
