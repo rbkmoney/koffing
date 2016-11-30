@@ -1,6 +1,8 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import * as _ from 'lodash';
 
+import { CHART_OPTIONS } from './../chart-options.const';
+
 @Component({
     selector: 'kof-payment-method',
     templateUrl: './payment-method.component.pug'
@@ -17,8 +19,14 @@ export class PaymentMethodComponent implements OnChanges {
     public type: string = 'doughnut';
 
     public options: any = {
-        animation: false
+        animation: false,
+        legend: {
+            display: true,
+            position: 'left'
+        }
     };
+
+    public chartColors = [CHART_OPTIONS.DOUGHNUT.COLORS];
 
     public ngOnChanges() {
         let grouped: any;

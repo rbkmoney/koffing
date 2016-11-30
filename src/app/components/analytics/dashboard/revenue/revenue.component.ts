@@ -2,6 +2,8 @@ import { Component, Input, OnChanges } from '@angular/core';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 
+import { CHART_OPTIONS } from './../chart-options.const';
+
 @Component({
     selector: 'kof-revenue',
     templateUrl: './revenue.component.pug'
@@ -33,6 +35,8 @@ export class RevenueComponent implements OnChanges {
             }]
         }
     };
+
+    public chartColors = [CHART_OPTIONS.LINE.COLORS];
 
     public ngOnChanges() {
         if (this.chartData) {
