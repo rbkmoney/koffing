@@ -1,28 +1,28 @@
-.tile_count
-    .col-md-2.tile_stats_count
+.row.tile_count
+    .col-xs-6.col-sm-4.col-md-2.tile_stats_count
         span.count_top Оборот
             .dashboard_stats_count
                 div {{profit | kofRoubleCurrency}}
         span.count_bottom Рублей
-    .col-md-2.tile_stats_count
+    .col-xs-6.col-sm-4.col-md-2.tile_stats_count
         span.count_top Основной счет
             .dashboard_stats_count
                 div {{account.general.ownAmount | kofRoubleCurrency}}
         span.count_bottom Рублей
-    .col-md-2.tile_stats_count
+    .col-xs-6.col-sm-4.col-md-2.tile_stats_count
         span.count_top Гарантийный счет
             .dashboard_stats_count
                 div {{account.guarantee.ownAmount | kofRoubleCurrency}}
         span.count_bottom Рублей
-    .col-md-2.tile_stats_count
+    .col-xs-6.col-sm-4.col-md-2.tile_stats_count
         span.count_top Успешных платежей
         .dashboard_stats_count
             div {{successfulCount}}
-    .col-md-2.tile_stats_count
+    .col-xs-6.col-sm-4.col-md-2.tile_stats_count
         span.count_top Незавершенных платежей
         .dashboard_stats_count
             div {{unfinishedCount}}
-    .col-md-2.tile_stats_count
+    .col-xs-6.col-sm-4.col-md-2.tile_stats_count
         span.count_top Уникальных плательщиков
         .dashboard_stats_count
             div {{uniqueCount}}

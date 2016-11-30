@@ -8,16 +8,16 @@ kof-claims
                 tr
                     th ID магазина
                     th Название магазина
-                    th Описание
-                    th Месторасположение
+                    th.hidden-xs Описание
+                    th.hidden-xs Месторасположение
                     th Категория
                     th
             tbody
                 tr(*ngFor="let shop of shops",[ngClass]="{'success': shop.isSuspended, 'danger': shop.isBlocked}")
                     td {{shop.shopID}}
                     td {{shop.shopDetails.name}}
-                    td {{shop.shopDetails.description}}
-                    td {{shop.shopDetails.location}}
+                    td.hidden-xs {{shop.shopDetails.description}}
+                    td.hidden-xs {{shop.shopDetails.location}}
                     td {{getCategory(shop.categoryRef).name}}
                     td(*ngIf="shop.isSuspended && !shop.isBlocked")
                         button.btn.btn-success.btn-xs.pull-right((click)="activateShop(shop)") Активировать
