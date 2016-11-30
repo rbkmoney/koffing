@@ -11,13 +11,15 @@ import { ModificationDetailComponent } from './claims/modification-detail/modifi
 import { AddShopComponent } from './add-shop/add-shop.component';
 import { EditShopComponent } from './edit-shop/edit-shop.component';
 import { ShopsRoutingModule } from './shops-routing.module';
+import { CommonModule } from '../../common/common.module';
 
 @NgModule({
     imports: [
         BrowserModule,
         ShopsRoutingModule,
         HttpModule,
-        FormsModule
+        FormsModule,
+        CommonModule
     ],
     declarations: [
         ShopsComponent,

@@ -3,6 +3,7 @@ import * as _ from 'lodash';
 import * as moment from 'moment';
 
 import { PAYMENT_STATUSES } from '../payment-statuses.const';
+import { SelectItem } from '../../../common/kof-select/kof-select.class';
 
 @Component({
     selector: 'kof-search-form',
@@ -41,9 +42,7 @@ export class SearchFormComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this.statuses = _.map(PAYMENT_STATUSES.GET, (name, key) => {
-            return {name, key};
-        });
+        this.statuses = _.map(PAYMENT_STATUSES.GET, (name: string, key: string) => new SelectItem(key, name));
 
         this.fromTime = new Date(this.searchParams.fromTime);
         this.toTime = new Date(this.searchParams.toTime);
@@ -53,8 +52,8 @@ export class SearchFormComponent implements OnInit {
         this.onSearch.emit();
     }
 
-    public onChangeStatus(status: string) {
-        if (!status) {
+    public onCheckStatus() {
+        if (!this.searchParams.status) {
             delete this.searchParams.status;
         }
     }
