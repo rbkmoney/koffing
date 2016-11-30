@@ -3,15 +3,15 @@ table.table.table-hover.table-striped
         tr
             th Номер
             th Сумма
-            th Валюта
+            th.hidden-xs Валюта
             th Дата
             th Статус
-            th Описание
+            th.hidden-xs Описание
     tbody
         tr(*ngFor="let invoice of invoices")
             td {{invoice.id}}
             td {{invoice.amount | kofRoubleCurrency}}
-            td {{invoice.currency}}
+            td.hidden-xs {{invoice.currency}}
             td {{invoice.dueDate | date: "dd.MM.yyyy HH:mm:ss"}}
             td {{invoice.status | kofPaymentStatus}}
-            td(width="400") {{invoice.description}}
+            td.hidden-xs {{invoice.description}}
