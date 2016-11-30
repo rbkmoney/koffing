@@ -1,6 +1,8 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import * as _ from 'lodash';
 
+import { CHART_OPTIONS } from './../chart-options.const';
+
 @Component({
     selector: 'kof-geolocation',
     templateUrl: './geolocation.component.pug'
@@ -23,6 +25,8 @@ export class GeolocationComponent implements OnChanges {
             position: 'left'
         }
     };
+
+    public chartColors = [CHART_OPTIONS.DOUGHNUT.COLORS];
 
     public ngOnChanges() {
         if (this.chartData) {

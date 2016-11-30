@@ -2,6 +2,8 @@ import { Component, Input, OnChanges } from '@angular/core';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 
+import { CHART_OPTIONS } from './../chart-options.const';
+
 @Component({
     selector: 'kof-conversion',
     templateUrl: './conversion.component.pug'
@@ -30,9 +32,19 @@ export class ConversionComponent implements OnChanges {
         scales: {
             yAxes: [{
                 stacked: true
+            }],
+            xAxes: [{
+                ticks: {
+                    fontSize: 10
+                }
             }]
+        },
+        legend: {
+            display: false
         }
     };
+
+    public chartColors = [CHART_OPTIONS.LINE.COLORS];
 
     public ngOnChanges() {
         if (this.chartData) {
