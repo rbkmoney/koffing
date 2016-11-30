@@ -17,17 +17,11 @@ import { Conversion } from '../../../services/payments/conversion.class';
 export class DashboardComponent implements OnInit {
 
     public fromTime: any;
-
     public toTime: any;
-
     public uniqueCount: any;
-
     public successfulCount: any;
-
     public unfinishedCount: any;
-
     public profit: any;
-
     public account: any = {
         general: {
             ownAmount: 1
@@ -36,51 +30,33 @@ export class DashboardComponent implements OnInit {
             ownAmount: 2
         }
     };
-
     public chartFromTime: any;
-
     public revenueChartData: any;
-
     public conversionChartData: any;
-
     public geoChartData: GeoData[] = [];
-
     public paymentMethodChartData: any;
 
+    private fromTimeDate: Date;
+    private toTimeDate: Date;
     private shopID: string;
 
     constructor(private route: ActivatedRoute,
                 private customer: CustomerService,
                 private payments: PaymentsService,
-                private accounts: AccountService) {
-        this.toTime = moment().format();
-        this.fromTime = moment(this.toTime).subtract(1, 'M').hours(0).minutes(0).seconds(0).milliseconds(0).format();
-    }
-
-    get pickerFromTime(): any {
-        return moment(this.fromTime).format('YYYY-MM-DD');
-    }
-
-    set pickerFromTime(value: any) {
-        this.fromTime = moment(value).format();
-    }
-
-    get pickerToTime(): any {
-        return moment(this.toTime).format('YYYY-MM-DD');
-    }
-
-    set pickerToTime(value: any) {
-        this.toTime = moment(value).format();
-    }
+                private accounts: AccountService) { }
 
     public ngOnInit() {
         this.route.parent.params.subscribe((params: Params) => {
             this.shopID = params['shopID'];
+            this.setInitialDate();
             this.loadData();
         });
     }
 
-    private loadData() {
+    private loadData(): void {
+        this.fromTime = moment(this.fromTimeDate).utc().format();
+        this.toTime = moment(this.toTimeDate).utc().format();
+
         this.chartFromTime = this.fromTime;
 
         this.customer.getRate(
@@ -184,5 +160,11 @@ export class DashboardComponent implements OnInit {
                 });
             }
         );
+    }
+
+    private setInitialDate() {
+        this.toTimeDate = new Date();
+        this.fromTimeDate = new Date();
+        this.fromTimeDate.setMonth( this.fromTimeDate.getMonth() - 1 );
     }
 }

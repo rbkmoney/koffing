@@ -2,12 +2,14 @@
     .col-md-12
         form.form-inline.pull-right
             .form-group
-                label.control-label Статистика с
-                input(type="date", name="fromTime", [(ngModel)]="pickerFromTime")
+                label.control-label Статистика с&nbsp;
+                .ui-calendar
+                    p-calendar.ui-inputtext(name="fromTime", [(ngModel)]="fromTimeDate", dateFormat="dd.mm.yy")
             .form-group
-                label.control-label по
-                input(type="date", name="toTime", [(ngModel)]="pickerToTime")
-            button.btn.btn-default(style="margin-bottom: 0; margin-right: 0", (click)="loadData()") Показать
+                label.control-label &nbsp;по&nbsp;
+                .ui-calendar
+                    p-calendar.ui-inputtext(name="toTime", [(ngModel)]="toTimeDate", dateFormat = "dd.mm.yy")
+            button.btn.btn-default(style="margin-bottom: 0; margin-right: 0; margin-left: 5px;", (click)="loadData()") Показать
 .row
     kof-info-panel([uniqueCount]="uniqueCount", [successfulCount]="successfulCount",
         [unfinishedCount]="unfinishedCount", [profit]="profit", [account]="account")
