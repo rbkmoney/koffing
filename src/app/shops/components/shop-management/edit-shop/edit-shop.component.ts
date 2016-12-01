@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 import { CategoryService } from '../../../../backend/services/category.service';
 import { ShopService } from '../../../../backend/services/shop.service';
 import { SelectItem } from '../../../../common/components/kof-select/kof-select.class';
+import { PromisificationService } from '../../../../common/services/promisification.service';
 
 @Component({
     selector: 'kof-edit-shop',
@@ -26,7 +27,8 @@ export class EditShopComponent implements OnInit {
     constructor(private categoryService: CategoryService,
                 private shopService: ShopService,
                 private router: Router,
-                private route: ActivatedRoute) { }
+                private route: ActivatedRoute,
+                private promisificator: PromisificationService) { }
 
     public loadShops(requestsPromises: Array<any>) {
         let currentPromise: Promise<any>;
@@ -76,18 +78,19 @@ export class EditShopComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this.isLoading = true;
-        this.requests = [];
-
         this.currentShopId = this.route.snapshot.params['shopID'];
 
-        this.loadShops(this.requests);
-        this.loadCategories(this.requests);
-
-        Promise.all(this.requests).then(
-            (results) => {
+        this.promisificator.handleAsyncOperations(
+            () => {
+                this.isLoading = true;
+                this.requests = [];
+            },
+            this.requests,
+            [this.loadShops, this.loadCategories],
+            () => {
                 this.isLoading = false;
-            }
+            },
+            this
         );
     }
 }

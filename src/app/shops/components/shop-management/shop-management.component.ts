@@ -4,6 +4,7 @@ import { Category } from '../../../backend/classes/category.class';
 import { CategoryService } from '../../../backend/services/category.service';
 import { Shop } from '../../../backend/classes/shop.class';
 import { ShopService } from '../../../backend/services/shop.service';
+import { PromisificationService } from '../../../common/services/promisification.service';
 
 @Component({
     selector: 'kof-shops',
@@ -17,16 +18,30 @@ export class ShopManagementComponent implements OnInit {
     private isLoading: boolean;
     private requests: Promise<any>[] = [];
 
-    constructor(private shopService: ShopService, private categoryService: CategoryService) { }
+    constructor(
+        private shopService: ShopService,
+        private categoryService: CategoryService,
+        private promisificator: PromisificationService
+    ) { }
 
     public activateShop(shop: any) {
         this.isLoading = true;
-        this.requests = [];
 
         this.shopService.activateShop(shop.shopID).then(() => {
-            this.loadShops(this.requests);
+            this.isLoading = false;
 
-            this.handleRequestsPromiseResolve();
+            this.promisificator.handleAsyncOperations(
+                () => {
+                    this.isLoading = true;
+                    this.requests = [];
+                },
+                this.requests,
+                [this.loadShops],
+                () => {
+                    this.isLoading = false;
+                },
+                this
+            );
         });
     }
 
@@ -53,7 +68,7 @@ export class ShopManagementComponent implements OnInit {
             requestsPromises.push(currentPromise);
         }
 
-        currentPromise .then(aCategories => {
+        currentPromise.then(aCategories => {
             this.categories = aCategories;
         });
     }
@@ -69,20 +84,17 @@ export class ShopManagementComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this.isLoading = true;
-        this.requests = [];
-
-        this.loadShops(this.requests);
-        this.loadCategories(this.requests);
-
-        this.handleRequestsPromiseResolve();
-    }
-
-    public handleRequestsPromiseResolve() {
-        Promise.all(this.requests).then(
-            (results) => {
+        this.promisificator.handleAsyncOperations(
+            () => {
+                this.isLoading = true;
+                this.requests = [];
+            },
+            this.requests,
+            [this.loadShops, this.loadCategories],
+            () => {
                 this.isLoading = false;
-            }
+            },
+            this
         );
     }
 }

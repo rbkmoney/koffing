@@ -10,6 +10,7 @@ import { RequestParams } from '../../../../backend/classes/request-params.class'
 import { GeoData } from '../../../../backend/classes/geodata.class';
 import { PaymentsService } from '../../../../backend/services/payments.service';
 import { Conversion } from '../../../../backend/classes/conversion.class';
+import { PromisificationService } from './../../../../common/services/promisification.service';
 
 @Component({
     templateUrl: './dashboard.component.pug'
@@ -45,7 +46,8 @@ export class DashboardComponent implements OnInit {
     constructor(private route: ActivatedRoute,
                 private customer: CustomerService,
                 private payments: PaymentsService,
-                private accounts: AccountService) { }
+                private accounts: AccountService,
+                private promisificator: PromisificationService) { }
 
     public ngOnInit() {
         this.route.parent.params.subscribe((params: Params) => {
@@ -202,28 +204,31 @@ export class DashboardComponent implements OnInit {
         );
     }
 
-    private loadData(): void {
-        this.isInfoPanelLoading = true;
-
+    private loadData() {
         this.fromTime = moment(this.fromTimeDate).utc().format();
         this.toTime = moment(this.toTimeDate).utc().format();
 
         this.chartFromTime = this.fromTime;
 
-        this.infoPanelRequests = [];
-        this.loadRate(this.infoPanelRequests);
-        this.loadPaymentMethod();
-        this.loadConversionStat(this.infoPanelRequests);
-        this.loadGeoChartData();
-        this.loadRevenueStat(this.infoPanelRequests);
-        this.loadShopAccounts(this.infoPanelRequests);
-
-        Promise.all(this.infoPanelRequests).then(
-            (results) => {
+        this.promisificator.handleAsyncOperations(
+            () => {
+                this.isInfoPanelLoading = true;
+                this.infoPanelRequests = [];
+            },
+            this.infoPanelRequests,
+            [
+                this.loadRate,
+                this.loadPaymentMethod,
+                this.loadConversionStat,
+                this.loadGeoChartData,
+                this.loadRevenueStat,
+                this.loadShopAccounts
+            ],
+            () => {
                 this.isInfoPanelLoading = false;
-            }
+            },
+            this
         );
-
     }
 
     private setInitialDate() {
