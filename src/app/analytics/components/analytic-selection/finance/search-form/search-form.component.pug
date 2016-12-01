@@ -23,7 +23,7 @@ form.form-horizontal.form-search-invoices
                 .col-xs-12.col-sm-4
                     label.control-label Номер
                 .col-xs-12.col-sm-6
-                    input.form-control(type="number", [(ngModel)]="searchParams.invoiceID", name="invoiceID")
+                    input.form-control(type="text", [(ngModel)]="searchParams.invoiceID", name="invoiceID")
             .form-group
                 .col-xs-12.col-sm-10
                     button.btn.btn-primary.pull-right.btn-search-invoices((click)="search()") Найти
