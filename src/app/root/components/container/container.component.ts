@@ -11,7 +11,7 @@ import { ToggleMenuEvent } from '../../../backend/broadcasters/toggle-menu.broad
 })
 export class ContainerComponent implements OnInit {
 
-    public isMenuOpened: boolean = true;
+    public isMenuOpened: boolean = false;
 
     constructor(
         private toggleMenuEvent: ToggleMenuEvent
