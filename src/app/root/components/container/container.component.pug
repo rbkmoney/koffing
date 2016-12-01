@@ -1,6 +1,7 @@
-.container.body
-    .main_container
-        kof-sidebar
-        kof-top-panel
-        .right_col.outlet
-            router-outlet
+div([ngClass]="{'nav-md': isMenuOpened, 'nav-sm': !isMenuOpened}")
+    .container.body
+        .main_container
+            kof-sidebar
+            kof-top-panel
+            .right_col.outlet
+                router-outlet

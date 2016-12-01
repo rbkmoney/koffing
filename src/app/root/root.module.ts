@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { TopPanelComponent } from './components/top-panel/top-panel.component';
@@ -13,7 +14,8 @@ import { ShopsModule } from '../shops/shops.module';
         RootRoutingModule,
         AnalyticsModule,
         ShopsModule,
-        TokenizationModule
+        TokenizationModule,
+        BrowserModule
     ],
     declarations: [
         ContainerComponent,
