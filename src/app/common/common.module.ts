@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
-import { KofSelectComponent } from './kof-select/kof-select.component';
 import { FormsModule } from '@angular/forms';
+
+import { KofSelectComponent } from './components/kof-select/kof-select.component';
 
 @NgModule({
     imports: [
