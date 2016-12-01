@@ -35,10 +35,12 @@ export class DashboardComponent implements OnInit {
     public conversionChartData: any;
     public geoChartData: GeoData[] = [];
     public paymentMethodChartData: any;
+    public isInfoPanelLoading: boolean;
 
     private fromTimeDate: Date;
     private toTimeDate: Date;
     private shopID: string;
+    private infoPanelRequests: Promise<any>[] = [];
 
     constructor(private route: ActivatedRoute,
                 private customer: CustomerService,
@@ -53,24 +55,29 @@ export class DashboardComponent implements OnInit {
         });
     }
 
-    private loadData(): void {
-        this.fromTime = moment(this.fromTimeDate).utc().format();
-        this.toTime = moment(this.toTimeDate).utc().format();
+    private loadRate(promisesArray: Array<any>) {
+        let currentPromise: Promise<any>;
 
-        this.chartFromTime = this.fromTime;
-
-        this.customer.getRate(
+        currentPromise = this.customer.getRate(
             this.shopID,
             new RequestParams(
                 this.fromTime,
                 this.toTime
             )
-        ).then(
+        );
+
+        if (promisesArray) {
+            promisesArray.push(currentPromise);
+        }
+
+        currentPromise.then(
             (rateStat: any) => {
                 this.uniqueCount = rateStat[0] ? rateStat[0].uniqueCount : 0;
             }
         );
+    }
 
+    private loadPaymentMethod() {
         this.customer.getPaymentMethod(
             this.shopID,
             new RequestParams(
@@ -83,9 +90,14 @@ export class DashboardComponent implements OnInit {
         ).then(
             (paymentMethodState: any) => {
                 this.paymentMethodChartData = ChartDataConversionService.toPaymentMethodChartData(paymentMethodState);
-            });
+            }
+        );
+    }
 
-        this.payments.getConversionStat(
+    private loadConversionStat(promisesArray: Array<any>) {
+        let currentPromise: Promise<any>;
+
+        currentPromise = this.payments.getConversionStat(
             this.shopID,
             new RequestParams(
                 this.fromTime,
@@ -93,7 +105,13 @@ export class DashboardComponent implements OnInit {
                 'minute',
                 '1'
             )
-        ).then(
+        );
+
+        if (promisesArray) {
+            promisesArray.push(currentPromise);
+        }
+
+        currentPromise.then(
             (conversionStat: Conversion[]) => {
                 let paymentCountInfo: any;
 
@@ -104,7 +122,9 @@ export class DashboardComponent implements OnInit {
                 this.unfinishedCount = paymentCountInfo.unfinishedCount;
             }
         );
+    }
 
+    private loadGeoChartData() {
         this.payments.getGeoChartData(
             this.shopID,
             new RequestParams(
@@ -118,8 +138,12 @@ export class DashboardComponent implements OnInit {
                 this.geoChartData = ChartDataConversionService.toGeoChartData(geoData);
             }
         );
+    }
 
-        this.payments.getRevenueStat(
+    private loadRevenueStat(promisesArray: Array<any>) {
+        let currentPromise: Promise<any>;
+
+        currentPromise = this.payments.getRevenueStat(
             this.shopID,
             new RequestParams(
                 this.fromTime,
@@ -127,14 +151,30 @@ export class DashboardComponent implements OnInit {
                 'minute',
                 '1'
             )
-        ).then(
-            (revenueStat) => {
+        );
+
+        if (promisesArray) {
+            promisesArray.push(currentPromise);
+        }
+
+        currentPromise.then(
+            (revenueStat: any) => {
                 this.revenueChartData = ChartDataConversionService.toRevenueChartData(revenueStat);
                 this.profit = ChartDataConversionService.toTotalProfit(revenueStat);
             }
         );
+    }
 
-        this.accounts.getShopAccounts(this.shopID).then(
+    private loadShopAccounts(promisesArray: Array<any>) {
+        let currentPromise: Promise<any>;
+
+        currentPromise = this.accounts.getShopAccounts(this.shopID);
+
+        if (promisesArray) {
+            promisesArray.push(currentPromise);
+        }
+
+        currentPromise.then(
             (shopAccounts) => {
                 if (shopAccounts.length > 1) {
                     console.warn('shop accounts size > 1');
@@ -144,7 +184,7 @@ export class DashboardComponent implements OnInit {
                         this.shopID,
                         item.generalID
                     ).then(
-                        (generalAccount) => {
+                        (generalAccount: any) => {
                             this.account.general = generalAccount;
                         }
                     );
@@ -153,13 +193,37 @@ export class DashboardComponent implements OnInit {
                         this.shopID,
                         item.guaranteeID
                     ).then(
-                        (guaranteeAccount) => {
+                        (guaranteeAccount: any) => {
                             this.account.guarantee = guaranteeAccount;
                         }
                     );
                 });
             }
         );
+    }
+
+    private loadData(): void {
+        this.isInfoPanelLoading = true;
+
+        this.fromTime = moment(this.fromTimeDate).utc().format();
+        this.toTime = moment(this.toTimeDate).utc().format();
+
+        this.chartFromTime = this.fromTime;
+
+        this.infoPanelRequests = [];
+        this.loadRate(this.infoPanelRequests);
+        this.loadPaymentMethod();
+        this.loadConversionStat(this.infoPanelRequests);
+        this.loadGeoChartData();
+        this.loadRevenueStat(this.infoPanelRequests);
+        this.loadShopAccounts(this.infoPanelRequests);
+
+        Promise.all(this.infoPanelRequests).then(
+            (results) => {
+                this.isInfoPanelLoading = false;
+            }
+        );
+
     }
 
     private setInitialDate() {

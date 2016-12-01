@@ -1,10 +1,11 @@
-div
-    canvas.revenueChart(
-        baseChart,
-        [data]="data",
-        [labels]="labels",
-        [chartType]="type",
-        [options]="options",
-        [colors]="chartColors",
-        height="80"
-    )
+kof-loading([isLoading]="isLoading")
+    div
+        canvas.revenueChart(
+            baseChart,
+            [data]="data",
+            [labels]="labels",
+            [chartType]="type",
+            [options]="options",
+            [colors]="chartColors",
+            height="80"
+        )

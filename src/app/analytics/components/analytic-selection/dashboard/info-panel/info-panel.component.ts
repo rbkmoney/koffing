@@ -8,16 +8,14 @@ export class InfoPanelComponent {
 
     @Input()
     public uniqueCount: any;
-
     @Input()
     public successfulCount: any;
-
     @Input()
     public unfinishedCount: any;
-
     @Input()
     public profit: any;
-
     @Input()
     public account: any;
+    @Input()
+    public isLoading: boolean;
 }
