@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 
 import { AuthService } from '../../../auth/services/auth.service';
-import { ToggleMenuBroadcaster } from '../../../common/classes/broadcaster/toggle-menu-broadcaster.class';
+import { ToggleMenuBroadcaster } from '../../../broadcaster/broadcaster.module';
 
 @Component({
     selector: 'kof-top-panel',
-    templateUrl: './top-panel.component.pug',
-    providers: [ToggleMenuBroadcaster]
+    templateUrl: './top-panel.component.pug'
 })
 export class TopPanelComponent {
 

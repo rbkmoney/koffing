@@ -3,14 +3,12 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 
-import { IBroadcastEvent } from './broadcast-event.interface';
-
 export class Broadcaster {
 
-    private eventBus: Subject<IBroadcastEvent>;
+    private eventBus: Subject<any>;
 
     constructor() {
-        this.eventBus = new Subject<IBroadcastEvent>();
+        this.eventBus = new Subject<any>();
     }
 
     public broadcast(key: any, data?: any) {

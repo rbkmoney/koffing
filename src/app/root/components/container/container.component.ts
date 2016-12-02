@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
-import { ToggleMenuBroadcaster } from '../../../common/classes/broadcaster/toggle-menu-broadcaster.class';
+import { ToggleMenuBroadcaster } from '../../../broadcaster/broadcaster.module';
 
 @Component({
     selector: 'kof-app',
     templateUrl: './container.component.pug',
-    encapsulation: ViewEncapsulation.None,
-    providers: [ToggleMenuBroadcaster]
+    encapsulation: ViewEncapsulation.None
 })
 export class ContainerComponent implements OnInit {
 
