@@ -13,7 +13,7 @@ export class ContainerComponent implements OnInit {
     public isMenuOpened: boolean = false;
 
     constructor(
-        private toggleMenuEvent: ToggleMenuBroadcaster
+        private toggleMenuBroadcaster: ToggleMenuBroadcaster
     ) { }
 
     public ngOnInit() {
@@ -21,7 +21,7 @@ export class ContainerComponent implements OnInit {
     }
 
     private registerToggleMenuBroadcast() {
-        this.toggleMenuEvent.on().subscribe(() => {
+        this.toggleMenuBroadcaster.on().subscribe(() => {
             this.isMenuOpened = !this.isMenuOpened;
         });
     }
