@@ -18,9 +18,9 @@ import { AnalyticSelectionComponent } from './components/analytic-selection/anal
 import { PaginationPipe } from './components/analytic-selection/finance/paginate/pagination.pipe';
 import { PaymentStatusPipe } from './components/analytic-selection/finance/search-result/payment-statuses.pipe';
 import { RoubleCurrencyPipe } from './components/analytic-selection/rouble-currency.pipe';
-import { CommonModule } from '../common/common.module';
+import { CommonModule } from 'kof-modules/common/common.module';
 import { CalendarModule } from 'primeng/components/calendar/calendar';
-import { BackendModule } from '../backend/backend.module';
+import { BackendModule } from 'kof-modules/backend/backend.module';
 
 @NgModule({
     imports: [

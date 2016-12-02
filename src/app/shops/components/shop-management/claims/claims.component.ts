@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Claim } from '../../../../backend/classes/claim.class';
-import { ClaimService } from '../../../../backend/services/claim.service';
+import { Claim } from 'kof-modules/backend/classes/claim.class';
+import { ClaimService } from 'kof-modules/backend/services/claim.service';
 
 @Component({
     selector: 'kof-claims',

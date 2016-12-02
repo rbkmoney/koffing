@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
-import { ToggleMenuBroadcaster } from '../../../broadcaster/broadcaster.module';
+import { ToggleMenuBroadcaster } from 'kof-modules/broadcaster/broadcaster.module';
 
 @Component({
     selector: 'kof-app',

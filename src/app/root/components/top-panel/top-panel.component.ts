@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import { AuthService } from '../../../auth/services/auth.service';
-import { ToggleMenuBroadcaster } from '../../../broadcaster/broadcaster.module';
+import { AuthService } from 'kof-modules/auth/services/auth.service';
+import { ToggleMenuBroadcaster } from 'kof-modules/broadcaster/broadcaster.module';
 
 @Component({
     selector: 'kof-top-panel',

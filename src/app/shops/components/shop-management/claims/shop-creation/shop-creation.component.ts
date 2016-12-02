@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { ShopCreation } from '../../../../../backend/classes/shop-creation.class';
+import { ShopCreation } from 'kof-modules/backend/classes/shop-creation.class';
 
 @Component({
     selector: 'kof-shop-creation',

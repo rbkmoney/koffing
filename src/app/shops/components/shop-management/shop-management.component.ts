@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Category } from '../../../backend/classes/category.class';
-import { CategoryService } from '../../../backend/services/category.service';
-import { Shop } from '../../../backend/classes/shop.class';
-import { ShopService } from '../../../backend/services/shop.service';
+import { Category } from 'kof-modules/backend/classes/category.class';
+import { CategoryService } from 'kof-modules/backend/services/category.service';
+import { Shop } from 'kof-modules/backend/classes/shop.class';
+import { ShopService } from 'kof-modules/backend/services/shop.service';
 
 @Component({
     selector: 'kof-shops',
