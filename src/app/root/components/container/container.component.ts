@@ -1,20 +1,19 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
-import { Broadcaster } from '../../../backend/broadcasters/broadcaster';
-import { ToggleMenuEvent } from '../../../backend/broadcasters/toggle-menu.broadcaster';
+import { ToggleMenuBroadcaster } from '../../../common/classes/broadcaster/toggle-menu-broadcaster.class';
 
 @Component({
     selector: 'kof-app',
     templateUrl: './container.component.pug',
     encapsulation: ViewEncapsulation.None,
-    providers: [Broadcaster, ToggleMenuEvent]
+    providers: [ToggleMenuBroadcaster]
 })
 export class ContainerComponent implements OnInit {
 
     public isMenuOpened: boolean = false;
 
     constructor(
-        private toggleMenuEvent: ToggleMenuEvent
+        private toggleMenuEvent: ToggleMenuBroadcaster
     ) { }
 
     public ngOnInit() {

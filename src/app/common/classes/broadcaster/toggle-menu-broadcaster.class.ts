@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Broadcaster } from './broadcaster';
+import { Broadcaster } from './broadcaster.class';
 
 @Injectable()
-export class ToggleMenuEvent {
+export class ToggleMenuBroadcaster {
     constructor(private broadcaster: Broadcaster) {}
 
     public fire() {
-        this.broadcaster.broadcast(ToggleMenuEvent);
+        this.broadcaster.broadcast(ToggleMenuBroadcaster);
     }
 
     public on(): Observable<string> {
-        return this.broadcaster.on<string>(ToggleMenuEvent);
+        return this.broadcaster.on<string>(ToggleMenuBroadcaster);
     }
 }

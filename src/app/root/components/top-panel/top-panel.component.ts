@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
 
 import { AuthService } from '../../../auth/services/auth.service';
-import { ToggleMenuEvent } from '../../../backend/broadcasters/toggle-menu.broadcaster';
+import { ToggleMenuBroadcaster } from '../../../common/classes/broadcaster/toggle-menu-broadcaster.class';
 
 @Component({
     selector: 'kof-top-panel',
     templateUrl: './top-panel.component.pug',
-    providers: [ToggleMenuEvent]
+    providers: [ToggleMenuBroadcaster]
 })
 export class TopPanelComponent {
 
     public profileName: string = AuthService.getAccountInfo().profileName;
 
-    constructor(private toggleMenuEvent: ToggleMenuEvent) { }
+    constructor(private toggleMenuEvent: ToggleMenuBroadcaster) { }
 
     public logout() {
         AuthService.logout();

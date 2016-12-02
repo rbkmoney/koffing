@@ -3,10 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 
-interface IBroadcastEvent {
-    key: any;
-    data?: any;
-}
+import { IBroadcastEvent } from './broadcast-event.interface';
 
 export class Broadcaster {
 

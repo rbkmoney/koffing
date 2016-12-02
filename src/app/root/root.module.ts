@@ -8,6 +8,7 @@ import { ContainerComponent } from './components/container/container.component';
 import { TokenizationModule } from '../tokenization/tokenization.module';
 import { AnalyticsModule } from '../analytics/analytics.module';
 import { ShopsModule } from '../shops/shops.module';
+import { Broadcaster } from '../common/classes/broadcaster/broadcaster.class';
 
 @NgModule({
     imports: [
@@ -21,6 +22,9 @@ import { ShopsModule } from '../shops/shops.module';
         ContainerComponent,
         SidebarComponent,
         TopPanelComponent
+    ],
+    providers: [
+        Broadcaster
     ]
 })
 export class RootModule { }
