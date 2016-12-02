@@ -1,11 +1,13 @@
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import * as _ from 'lodash';
+
+import { CalculatePagesService } from './calculate-pages.service';
 
 @Component({
     selector: 'kof-paginate',
     templateUrl: 'paginate.component.pug'
 })
-export class PaginateComponent implements OnInit {
+export class PaginateComponent implements OnChanges {
 
     @Input()
     public size: number;
@@ -62,36 +64,7 @@ export class PaginateComponent implements OnInit {
         return currentPageIndex > offset ? currentPageIndex - offset : 0;
     }
 
-    public ngOnInit() {
-        this.pages = initPages(this.size, this.limit, this.offset);
-
-        function initPages(itemsSize: number, itemsLimit: number, itemsOffset: number): Array<any> {
-            const size = initParam(itemsSize);
-            const limit = initParam(itemsLimit);
-            const offset = initParam(itemsOffset);
-            let pages: Array<any> = [];
-            for (let page = 1; page <= calcPages(size, limit); page++) {
-                const calcOffset = (page - 1) * limit;
-                pages.push({
-                    active: calcOffset === offset,
-                    label: page,
-                    offset: calcOffset
-                });
-            }
-            return pages;
-        }
-
-        function initParam(param: number): number {
-            const result = _.toNumber(param);
-            return _.isNaN(result) ? 0 : result;
-        }
-
-        function calcPages(size: number, limit: number): number {
-            if (limit === 0 || size < limit) {
-                return 0;
-            }
-            const res = size / limit;
-            return (size % limit > 0) ? res + 1 : res;
-        }
+    public ngOnChanges() {
+        this.pages = CalculatePagesService.initPages(this.size, this.limit, this.offset);
     }
 }

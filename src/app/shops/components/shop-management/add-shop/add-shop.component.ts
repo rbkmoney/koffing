@@ -21,13 +21,19 @@ export class AddShopComponent implements OnInit {
         categoryRef: null
     };
 
+    private isLoading: boolean;
+
     constructor(private categoryService: CategoryService,
                 private shopService: ShopService,
                 private router: Router) { }
 
     public getCategories() {
-        this.categoryService.getCategories().then(aCategories => {
-            this.categories = _.map(aCategories, (cat: any) => new SelectItem(cat.categoryRef, cat.name));
+        return new Promise((resolve) => {
+            this.categoryService.getCategories().then(aCategories => {
+                this.categories = _.map(aCategories, (cat: any) => new SelectItem(cat.categoryRef, cat.name));
+
+                resolve();
+            });
         });
     }
 
@@ -38,13 +44,20 @@ export class AddShopComponent implements OnInit {
     public createClaim(form: any) {
         if (form.valid) {
             this.args.contractor.legalEntity = '';
+            this.isLoading = true;
+
             this.shopService.createShop(this.args).then(() => {
+                this.isLoading = false;
+
                 this.router.navigate(['/shops']);
             });
         }
     }
 
     public ngOnInit() {
-        this.getCategories();
+        this.isLoading = true;
+        this.getCategories().then(() => {
+            this.isLoading = false;
+        });
     }
 }
