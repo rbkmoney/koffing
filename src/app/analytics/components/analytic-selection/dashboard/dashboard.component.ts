@@ -209,15 +209,16 @@ export class DashboardComponent implements OnInit {
 
         this.chartFromTime = this.fromTime;
 
+        this.loadPaymentMethod();
+        this.loadGeoChartData();
+
         this.promisificator.handleAsyncOperations(
             () => {
                 this.isInfoPanelLoading = true;
             },
             [
                 this.loadRate,
-                this.loadPaymentMethod,
                 this.loadConversionStat,
-                this.loadGeoChartData,
                 this.loadRevenueStat,
                 this.loadShopAccounts
             ],
