@@ -12,7 +12,7 @@ export class FinanceComponent implements OnInit {
 
     private invoices: Array<Invoice>;
     private totalCount: number;
-    private isUploaded: boolean = false;
+    private isLoading: boolean = false;
     private searchParams: any;
     private shopID: string;
 
@@ -35,9 +35,9 @@ export class FinanceComponent implements OnInit {
 
     public search(offset?: number) {
         this.searchParams.offset = offset ? offset : 0;
-        this.isUploaded = false;
+        this.isLoading = true;
         this.invoiceService.getInvoices(this.shopID, this.searchParams).then(response => {
-            this.isUploaded = true;
+            this.isLoading = false;
             this.invoices = response.invoices;
             this.totalCount = response.totalCount;
         });

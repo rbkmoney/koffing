@@ -7,29 +7,47 @@ import { ShopService } from '../../../backend/services/shop.service';
 
 @Component({
     selector: 'kof-shops',
-    templateUrl: './shop-management.pug'
+    templateUrl: 'shop-management.component.pug'
 })
 export class ShopManagementComponent implements OnInit {
 
     public shops: Shop[] = [];
-
     public categories: Category[] = [];
 
-    constructor(private shopService: ShopService, private categoryService: CategoryService) { }
+    private isLoading: boolean;
+
+    constructor(
+        private shopService: ShopService,
+        private categoryService: CategoryService
+    ) { }
 
     public activateShop(shop: any) {
-        this.shopService.activateShop(shop.shopID).then(() => this.getShops());
-    }
+        this.isLoading = true;
 
-    public getShops() {
-        this.shopService.getShops().then(aShops => {
-            this.shops = aShops;
+        this.shopService.activateShop(shop.shopID).then(() => {
+            this.loadShops().then(() => {
+                this.isLoading = false;
+            });
         });
     }
 
-    public getCategories() {
-        this.categoryService.getCategories().then(aCategories => {
-            this.categories = aCategories;
+    public loadShops() {
+        return new Promise((resolve) => {
+            this.shopService.getShops().then(aShops => {
+                this.shops = aShops;
+
+                resolve();
+            });
+        });
+    }
+
+    public loadCategories() {
+        return new Promise((resolve) => {
+            this.categoryService.getCategories().then(aCategories => {
+                this.categories = aCategories;
+
+                resolve();
+            });
         });
     }
 
@@ -44,7 +62,12 @@ export class ShopManagementComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this.getShops();
-        this.getCategories();
+        this.isLoading = true;
+        Promise.all([
+            this.loadShops(),
+            this.loadCategories()
+        ]).then(() => {
+            this.isLoading = false;
+        });
     }
 }

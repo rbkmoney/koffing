@@ -3,6 +3,7 @@ import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
 import { KofSelectComponent } from './components/kof-select/kof-select.component';
+import { KofLoadingComponent } from './components/kof-loading/kof-loading.component';
 
 @NgModule({
     imports: [
@@ -10,10 +11,12 @@ import { KofSelectComponent } from './components/kof-select/kof-select.component
         FormsModule
     ],
     declarations: [
-        KofSelectComponent
+        KofSelectComponent,
+        KofLoadingComponent
     ],
     exports: [
-        KofSelectComponent
+        KofSelectComponent,
+        KofLoadingComponent
     ]
 })
 export class CommonModule { }

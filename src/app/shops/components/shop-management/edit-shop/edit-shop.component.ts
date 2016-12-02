@@ -13,33 +13,40 @@ import { SelectItem } from '../../../../common/components/kof-select/kof-select.
 export class EditShopComponent implements OnInit {
 
     public categories: SelectItem[] = [];
-
     public currentShopId: string;
-
     public args: any = {
         shopDetails: {},
         contractor: {},
         categoryRef: null
     };
 
+    private isLoading: boolean;
+
     constructor(private categoryService: CategoryService,
                 private shopService: ShopService,
                 private router: Router,
                 private route: ActivatedRoute) { }
 
-    public init() {
-        this.currentShopId = this.route.snapshot.params['shopID'];
-        this.shopService.getShops().then(shops => {
-            const found = _.find(shops, shop => shop.shopID === this.currentShopId);
-            this.args.shopDetails = found.shopDetails;
-            this.args.contractor = found.contractor;
-            this.args.categoryRef = found.categoryRef;
+    public loadShops() {
+        return new Promise((resolve) => {
+            this.shopService.getShops().then((shops: any) => {
+                const found: any = _.find(shops, (shop: any) => shop.shopID === this.currentShopId);
+                this.args.shopDetails = found.shopDetails;
+                this.args.contractor = found.contractor;
+                this.args.categoryRef = found.categoryRef;
+
+                resolve();
+            });
         });
     }
 
-    public getCategories() {
-        this.categoryService.getCategories().then(aCategories => {
-            this.categories = _.map(aCategories, (cat: any) => new SelectItem(cat.categoryRef, cat.name));
+    public loadCategories() {
+        return new Promise((resolve) => {
+            this.categoryService.getCategories().then(aCategories => {
+                this.categories = _.map(aCategories, (cat: any) => new SelectItem(cat.categoryRef, cat.name));
+
+                resolve();
+            });
         });
     }
 
@@ -49,14 +56,25 @@ export class EditShopComponent implements OnInit {
 
     public updateShop(form: any) {
         if (form.valid) {
+            this.isLoading = true;
+
             this.shopService.updateShop(this.currentShopId, this.args).then(() => {
+                this.isLoading = false;
+
                 this.router.navigate(['/shops']);
             });
         }
     }
 
     public ngOnInit() {
-        this.init();
-        this.getCategories();
+        this.currentShopId = this.route.snapshot.params['shopID'];
+
+        this.isLoading = true;
+        Promise.all([
+            this.loadShops(),
+            this.loadCategories()
+        ]).then(() => {
+            this.isLoading = false;
+        });
     }
 }
