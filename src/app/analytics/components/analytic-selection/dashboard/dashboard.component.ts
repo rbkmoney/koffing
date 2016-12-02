@@ -56,26 +56,21 @@ export class DashboardComponent implements OnInit {
         });
     }
 
-    private loadRate(promisesArray: Array<any>) {
-        let currentPromise: Promise<any>;
-
-        currentPromise = this.customer.getRate(
-            this.shopID,
-            new RequestParams(
-                this.fromTime,
-                this.toTime
-            )
-        );
-
-        if (promisesArray) {
-            promisesArray.push(currentPromise);
-        }
-
-        currentPromise.then(
-            (rateStat: any) => {
-                this.uniqueCount = rateStat[0] ? rateStat[0].uniqueCount : 0;
-            }
-        );
+    private loadRate() {
+        return new Promise((resolve) => {
+            this.customer.getRate(
+                this.shopID,
+                new RequestParams(
+                    this.fromTime,
+                    this.toTime
+                )
+            ).then(
+                (rateStat: any) => {
+                    this.uniqueCount = rateStat[0] ? rateStat[0].uniqueCount : 0;
+                    resolve();
+                }
+            );
+        });
     }
 
     private loadPaymentMethod() {
@@ -95,34 +90,30 @@ export class DashboardComponent implements OnInit {
         );
     }
 
-    private loadConversionStat(promisesArray: Array<any>) {
-        let currentPromise: Promise<any>;
+    private loadConversionStat() {
+        return new Promise((resolve) => {
+            this.payments.getConversionStat(
+                this.shopID,
+                new RequestParams(
+                    this.fromTime,
+                    this.toTime,
+                    'minute',
+                    '1'
+                )
+            ).then(
+                (conversionStat: Conversion[]) => {
+                    let paymentCountInfo: any;
 
-        currentPromise = this.payments.getConversionStat(
-            this.shopID,
-            new RequestParams(
-                this.fromTime,
-                this.toTime,
-                'minute',
-                '1'
-            )
-        );
+                    paymentCountInfo = ChartDataConversionService.toPaymentCountInfo(conversionStat);
 
-        if (promisesArray) {
-            promisesArray.push(currentPromise);
-        }
+                    this.conversionChartData = ChartDataConversionService.toConversionChartData(conversionStat);
+                    this.successfulCount = paymentCountInfo.successfulCount;
+                    this.unfinishedCount = paymentCountInfo.unfinishedCount;
 
-        currentPromise.then(
-            (conversionStat: Conversion[]) => {
-                let paymentCountInfo: any;
-
-                paymentCountInfo = ChartDataConversionService.toPaymentCountInfo(conversionStat);
-
-                this.conversionChartData = ChartDataConversionService.toConversionChartData(conversionStat);
-                this.successfulCount = paymentCountInfo.successfulCount;
-                this.unfinishedCount = paymentCountInfo.unfinishedCount;
-            }
-        );
+                    resolve();
+                }
+            );
+        });
     }
 
     private loadGeoChartData() {
@@ -141,66 +132,58 @@ export class DashboardComponent implements OnInit {
         );
     }
 
-    private loadRevenueStat(promisesArray: Array<any>) {
-        let currentPromise: Promise<any>;
+    private loadRevenueStat() {
+        return new Promise((resolve) => {
+            this.payments.getRevenueStat(
+                this.shopID,
+                new RequestParams(
+                    this.fromTime,
+                    this.toTime,
+                    'minute',
+                    '1'
+                )
+            ).then(
+                (revenueStat: any) => {
+                    this.revenueChartData = ChartDataConversionService.toRevenueChartData(revenueStat);
+                    this.profit = ChartDataConversionService.toTotalProfit(revenueStat);
 
-        currentPromise = this.payments.getRevenueStat(
-            this.shopID,
-            new RequestParams(
-                this.fromTime,
-                this.toTime,
-                'minute',
-                '1'
-            )
-        );
-
-        if (promisesArray) {
-            promisesArray.push(currentPromise);
-        }
-
-        currentPromise.then(
-            (revenueStat: any) => {
-                this.revenueChartData = ChartDataConversionService.toRevenueChartData(revenueStat);
-                this.profit = ChartDataConversionService.toTotalProfit(revenueStat);
-            }
-        );
+                    resolve();
+                }
+            );
+        });
     }
 
-    private loadShopAccounts(promisesArray: Array<any>) {
-        let currentPromise: Promise<any>;
+    private loadShopAccounts() {
+        return new Promise((resolve) => {
+            this.accounts.getShopAccounts(this.shopID).then(
+                (shopAccounts) => {
+                    if (shopAccounts.length > 1) {
+                        console.warn('shop accounts size > 1');
+                    }
+                    _.forEach(shopAccounts, item => {
+                        this.accounts.getShopAccountDetails(
+                            this.shopID,
+                            item.generalID
+                        ).then(
+                            (generalAccount: any) => {
+                                this.account.general = generalAccount;
+                            }
+                        );
 
-        currentPromise = this.accounts.getShopAccounts(this.shopID);
+                        this.accounts.getShopAccountDetails(
+                            this.shopID,
+                            item.guaranteeID
+                        ).then(
+                            (guaranteeAccount: any) => {
+                                this.account.guarantee = guaranteeAccount;
+                            }
+                        );
+                    });
 
-        if (promisesArray) {
-            promisesArray.push(currentPromise);
-        }
-
-        currentPromise.then(
-            (shopAccounts) => {
-                if (shopAccounts.length > 1) {
-                    console.warn('shop accounts size > 1');
+                    resolve();
                 }
-                _.forEach(shopAccounts, item => {
-                    this.accounts.getShopAccountDetails(
-                        this.shopID,
-                        item.generalID
-                    ).then(
-                        (generalAccount: any) => {
-                            this.account.general = generalAccount;
-                        }
-                    );
-
-                    this.accounts.getShopAccountDetails(
-                        this.shopID,
-                        item.guaranteeID
-                    ).then(
-                        (guaranteeAccount: any) => {
-                            this.account.guarantee = guaranteeAccount;
-                        }
-                    );
-                });
-            }
-        );
+            );
+        });
     }
 
     private loadData() {
@@ -212,21 +195,15 @@ export class DashboardComponent implements OnInit {
         this.loadPaymentMethod();
         this.loadGeoChartData();
 
-        this.promisificator.handleAsyncOperations(
-            () => {
-                this.isInfoPanelLoading = true;
-            },
-            [
-                this.loadRate,
-                this.loadConversionStat,
-                this.loadRevenueStat,
-                this.loadShopAccounts
-            ],
-            () => {
-                this.isInfoPanelLoading = false;
-            },
-            this
-        );
+        this.isInfoPanelLoading = true;
+        Promise.all([
+            this.loadRate(),
+            this.loadConversionStat(),
+            this.loadRevenueStat(),
+            this.loadShopAccounts()
+        ]).then(() => {
+            this.isInfoPanelLoading = false;
+        });
     }
 
     private setInitialDate() {
