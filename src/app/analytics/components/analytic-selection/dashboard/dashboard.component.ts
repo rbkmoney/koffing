@@ -41,7 +41,6 @@ export class DashboardComponent implements OnInit {
     private fromTimeDate: Date;
     private toTimeDate: Date;
     private shopID: string;
-    private infoPanelRequests: Promise<any>[] = [];
 
     constructor(private route: ActivatedRoute,
                 private customer: CustomerService,
@@ -213,9 +212,7 @@ export class DashboardComponent implements OnInit {
         this.promisificator.handleAsyncOperations(
             () => {
                 this.isInfoPanelLoading = true;
-                this.infoPanelRequests = [];
             },
-            this.infoPanelRequests,
             [
                 this.loadRate,
                 this.loadPaymentMethod,

@@ -16,7 +16,6 @@ export class ShopManagementComponent implements OnInit {
     public categories: Category[] = [];
 
     private isLoading: boolean;
-    private requests: Promise<any>[] = [];
 
     constructor(
         private shopService: ShopService,
@@ -33,9 +32,7 @@ export class ShopManagementComponent implements OnInit {
             this.promisificator.handleAsyncOperations(
                 () => {
                     this.isLoading = true;
-                    this.requests = [];
                 },
-                this.requests,
                 [this.loadShops],
                 () => {
                     this.isLoading = false;
@@ -87,9 +84,7 @@ export class ShopManagementComponent implements OnInit {
         this.promisificator.handleAsyncOperations(
             () => {
                 this.isLoading = true;
-                this.requests = [];
             },
-            this.requests,
             [this.loadShops, this.loadCategories],
             () => {
                 this.isLoading = false;
