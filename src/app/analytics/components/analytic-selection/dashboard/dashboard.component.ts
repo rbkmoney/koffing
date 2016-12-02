@@ -10,7 +10,6 @@ import { RequestParams } from '../../../../backend/classes/request-params.class'
 import { GeoData } from '../../../../backend/classes/geodata.class';
 import { PaymentsService } from '../../../../backend/services/payments.service';
 import { Conversion } from '../../../../backend/classes/conversion.class';
-import { PromisificationService } from './../../../../common/services/promisification.service';
 
 @Component({
     templateUrl: './dashboard.component.pug'
@@ -45,8 +44,7 @@ export class DashboardComponent implements OnInit {
     constructor(private route: ActivatedRoute,
                 private customer: CustomerService,
                 private payments: PaymentsService,
-                private accounts: AccountService,
-                private promisificator: PromisificationService) { }
+                private accounts: AccountService) { }
 
     public ngOnInit() {
         this.route.parent.params.subscribe((params: Params) => {

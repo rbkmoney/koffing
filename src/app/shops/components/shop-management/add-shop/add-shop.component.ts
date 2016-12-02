@@ -28,10 +28,12 @@ export class AddShopComponent implements OnInit {
                 private router: Router) { }
 
     public getCategories() {
-        this.categoryService.getCategories().then(aCategories => {
-            this.isLoading = false;
+        return new Promise((resolve) => {
+            this.categoryService.getCategories().then(aCategories => {
+                this.categories = _.map(aCategories, (cat: any) => new SelectItem(cat.categoryRef, cat.name));
 
-            this.categories = _.map(aCategories, (cat: any) => new SelectItem(cat.categoryRef, cat.name));
+                resolve();
+            });
         });
     }
 
@@ -54,7 +56,8 @@ export class AddShopComponent implements OnInit {
 
     public ngOnInit() {
         this.isLoading = true;
-
-        this.getCategories();
+        this.getCategories().then(() => {
+            this.isLoading = false;
+        });
     }
 }

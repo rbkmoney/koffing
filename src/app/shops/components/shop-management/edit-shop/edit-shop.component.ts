@@ -5,7 +5,6 @@ import * as _ from 'lodash';
 import { CategoryService } from '../../../../backend/services/category.service';
 import { ShopService } from '../../../../backend/services/shop.service';
 import { SelectItem } from '../../../../common/components/kof-select/kof-select.class';
-import { PromisificationService } from '../../../../common/services/promisification.service';
 
 @Component({
     selector: 'kof-edit-shop',
@@ -26,37 +25,28 @@ export class EditShopComponent implements OnInit {
     constructor(private categoryService: CategoryService,
                 private shopService: ShopService,
                 private router: Router,
-                private route: ActivatedRoute,
-                private promisificator: PromisificationService) { }
+                private route: ActivatedRoute) { }
 
-    public loadShops(requestsPromises: Array<any>) {
-        let currentPromise: Promise<any>;
+    public loadShops() {
+        return new Promise((resolve) => {
+            this.shopService.getShops().then((shops: any) => {
+                const found: any = _.find(shops, (shop: any) => shop.shopID === this.currentShopId);
+                this.args.shopDetails = found.shopDetails;
+                this.args.contractor = found.contractor;
+                this.args.categoryRef = found.categoryRef;
 
-        currentPromise = this.shopService.getShops();
-
-        if (requestsPromises) {
-            requestsPromises.push(currentPromise);
-        }
-
-        currentPromise.then((shops: any) => {
-            const found: any = _.find(shops, (shop: any) => shop.shopID === this.currentShopId);
-            this.args.shopDetails = found.shopDetails;
-            this.args.contractor = found.contractor;
-            this.args.categoryRef = found.categoryRef;
+                resolve();
+            });
         });
     }
 
-    public loadCategories(requestsPromises: Array<any>) {
-        let currentPromise: Promise<any>;
+    public loadCategories() {
+        return new Promise((resolve) => {
+            this.categoryService.getCategories().then(aCategories => {
+                this.categories = _.map(aCategories, (cat: any) => new SelectItem(cat.categoryRef, cat.name));
 
-        currentPromise = this.categoryService.getCategories();
-
-        if (requestsPromises) {
-            requestsPromises.push(currentPromise);
-        }
-
-        currentPromise.then(aCategories => {
-            this.categories = _.map(aCategories, (cat: any) => new SelectItem(cat.categoryRef, cat.name));
+                resolve();
+            });
         });
     }
 
@@ -79,15 +69,12 @@ export class EditShopComponent implements OnInit {
     public ngOnInit() {
         this.currentShopId = this.route.snapshot.params['shopID'];
 
-        this.promisificator.handleAsyncOperations(
-            () => {
-                this.isLoading = true;
-            },
-            [this.loadShops, this.loadCategories],
-            () => {
-                this.isLoading = false;
-            },
-            this
-        );
+        this.isLoading = true;
+        Promise.all([
+            this.loadShops(),
+            this.loadCategories()
+        ]).then(() => {
+            this.isLoading = false;
+        });
     }
 }

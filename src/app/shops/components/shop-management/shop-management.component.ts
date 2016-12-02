@@ -4,7 +4,6 @@ import { Category } from '../../../backend/classes/category.class';
 import { CategoryService } from '../../../backend/services/category.service';
 import { Shop } from '../../../backend/classes/shop.class';
 import { ShopService } from '../../../backend/services/shop.service';
-import { PromisificationService } from '../../../common/services/promisification.service';
 
 @Component({
     selector: 'kof-shops',
@@ -19,54 +18,36 @@ export class ShopManagementComponent implements OnInit {
 
     constructor(
         private shopService: ShopService,
-        private categoryService: CategoryService,
-        private promisificator: PromisificationService
+        private categoryService: CategoryService
     ) { }
 
     public activateShop(shop: any) {
         this.isLoading = true;
 
         this.shopService.activateShop(shop.shopID).then(() => {
-            this.isLoading = false;
-
-            this.promisificator.handleAsyncOperations(
-                () => {
-                    this.isLoading = true;
-                },
-                [this.loadShops],
-                () => {
-                    this.isLoading = false;
-                },
-                this
-            );
+            this.loadShops().then(() => {
+                this.isLoading = false;
+            });
         });
     }
 
-    public loadShops(requestsPromises: Array<any>) {
-        let currentPromise: Promise<any>;
+    public loadShops() {
+        return new Promise((resolve) => {
+            this.shopService.getShops().then(aShops => {
+                this.shops = aShops;
 
-        currentPromise = this.shopService.getShops();
-
-        if (requestsPromises) {
-            requestsPromises.push(currentPromise);
-        }
-
-        currentPromise.then(aShops => {
-            this.shops = aShops;
+                resolve();
+            });
         });
     }
 
-    public loadCategories(requestsPromises: Array<any>) {
-        let currentPromise: Promise<any>;
+    public loadCategories() {
+        return new Promise((resolve) => {
+            this.categoryService.getCategories().then(aCategories => {
+                this.categories = aCategories;
 
-        currentPromise = this.categoryService.getCategories();
-
-        if (requestsPromises) {
-            requestsPromises.push(currentPromise);
-        }
-
-        currentPromise.then(aCategories => {
-            this.categories = aCategories;
+                resolve();
+            });
         });
     }
 
@@ -81,15 +62,12 @@ export class ShopManagementComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this.promisificator.handleAsyncOperations(
-            () => {
-                this.isLoading = true;
-            },
-            [this.loadShops, this.loadCategories],
-            () => {
-                this.isLoading = false;
-            },
-            this
-        );
+        this.isLoading = true;
+        Promise.all([
+            this.loadShops(),
+            this.loadCategories()
+        ]).then(() => {
+            this.isLoading = false;
+        });
     }
 }

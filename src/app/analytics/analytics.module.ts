@@ -21,7 +21,6 @@ import { RoubleCurrencyPipe } from './components/analytic-selection/rouble-curre
 import { CommonModule } from '../common/common.module';
 import { CalendarModule } from 'primeng/components/calendar/calendar';
 import { BackendModule } from '../backend/backend.module';
-import { PromisificationService } from '../common/services/promisification.service';
 
 @NgModule({
     imports: [
@@ -48,9 +47,6 @@ import { PromisificationService } from '../common/services/promisification.servi
         PaymentStatusPipe,
         RoubleCurrencyPipe,
         PaginationPipe
-    ],
-    providers: [
-        PromisificationService
     ]
 })
 export class AnalyticsModule { }
