@@ -16,6 +16,7 @@ export class InvoiceService {
         params.set('limit', request.limit);
         params.set('offset', request.offset);
         params.set('invoiceID', request.invoiceID);
+        params.set('status', request.status);
         return this.http.get(`${this.config.capiUrl}/analytics/shops/${shopID}/invoices`, {
             search: params
         }).toPromise().then(response => response.json());
