@@ -20,3 +20,6 @@ import { KofLoadingComponent } from './components/kof-loading/kof-loading.compon
     ]
 })
 export class CommonModule { }
+
+export * from './components/kof-loading/kof-loading.component';
+export * from './components/kof-select/kof-select.component';

@@ -14,3 +14,5 @@ import { OfflineTokenComponent } from './components/offline-token/offline-token.
     ]
 })
 export class TokenizationModule { }
+
+export * from './components/offline-token/offline-token.component';

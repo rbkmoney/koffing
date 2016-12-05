@@ -50,3 +50,5 @@ import { BackendModule } from 'kof-modules/backend/backend.module';
     ]
 })
 export class AnalyticsModule { }
+
+export * from './components/analytic-selection/analytic-selection.component';
