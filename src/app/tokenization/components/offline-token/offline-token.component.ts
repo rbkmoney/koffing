@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AuthService } from 'kof-modules/auth/services/auth.service';
+import { AuthService } from 'kof-modules/auth/auth.module';
 
 @Component({
     selector: 'kof-offline-token',

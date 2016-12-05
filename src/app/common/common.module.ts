@@ -23,3 +23,4 @@ export class CommonModule { }
 
 export * from './components/kof-loading/kof-loading.component';
 export * from './components/kof-select/kof-select.component';
+export * from './classes/kof-select.class';

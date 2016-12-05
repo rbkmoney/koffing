@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { AuthService } from 'kof-modules/auth/services/auth.service';
+import { AuthService } from 'kof-modules/auth/auth.module';
 import { ToggleMenuBroadcaster } from 'kof-modules/broadcaster/broadcaster.module';
 
 @Component({
