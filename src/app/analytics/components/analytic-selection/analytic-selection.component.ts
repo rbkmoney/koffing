@@ -16,9 +16,11 @@ export class AnalyticSelectionComponent implements OnInit {
 
     public selectItems: SelectItem[] = [];
 
-    constructor(private route: ActivatedRoute,
-                private router: Router,
-                private shopService: ShopService) { }
+    constructor(
+        private route: ActivatedRoute,
+        private router: Router,
+        private shopService: ShopService
+    ) { }
 
     public ngOnInit() {
         this.shopService.getShops().then((shops: Shop[]) => {
