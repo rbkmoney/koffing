@@ -10,13 +10,16 @@ import { InvoiceService } from 'kof-modules/backend/backend.module';
 })
 export class FinanceComponent implements OnInit {
 
-    private invoices: Array<Invoice>;
-    private totalCount: number;
-    private isLoading: boolean = false;
-    private searchParams: any;
-    private shopID: string;
+    public invoices: Array<Invoice>;
+    public totalCount: number;
+    public isLoading: boolean = false;
+    public searchParams: any;
+    public shopID: string;
 
-    constructor(private route: ActivatedRoute, private invoiceService: InvoiceService) { }
+    constructor(
+        private route: ActivatedRoute,
+        private invoiceService: InvoiceService
+    ) { }
 
     public ngOnInit() {
         // todo: описать class SearchParams и создать как экземпляр класса
@@ -27,6 +30,7 @@ export class FinanceComponent implements OnInit {
             offset: 0,
             invoiceID: null
         };
+
         this.route.parent.params.subscribe((params: Params) => {
             this.shopID = params['shopID'];
             this.search();

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { ToggleMenuBroadcaster } from 'kof-modules/broadcaster/broadcaster.module';
+import { SidebarStateService } from './sidebarState.service';
 
 @Component({
     selector: 'kof-app',
@@ -9,19 +10,21 @@ import { ToggleMenuBroadcaster } from 'kof-modules/broadcaster/broadcaster.modul
 })
 export class ContainerComponent implements OnInit {
 
-    public isMenuOpened: boolean = false;
+    public isSidebarOpened: boolean;
 
     constructor(
         private toggleMenuBroadcaster: ToggleMenuBroadcaster
     ) { }
 
     public ngOnInit() {
+        this.isSidebarOpened = SidebarStateService.isOpened();
         this.registerToggleMenuBroadcast();
     }
 
     private registerToggleMenuBroadcast() {
         this.toggleMenuBroadcaster.on().subscribe(() => {
-            this.isMenuOpened = !this.isMenuOpened;
+            SidebarStateService.toggleState();
+            this.isSidebarOpened = SidebarStateService.isOpened();
         });
     }
 }
