@@ -10,4 +10,5 @@ import { ToggleMenuBroadcaster } from './services/toggle-menu-broadcaster.servic
 })
 export class BroadcasterModule { }
 
-export { ToggleMenuBroadcaster } from './services/toggle-menu-broadcaster.service';
+export * from './services/broadcaster.service';
+export * from './services/toggle-menu-broadcaster.service';
