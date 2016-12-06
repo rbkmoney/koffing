@@ -26,3 +26,7 @@ import { BroadcasterModule } from '../broadcaster/broadcaster.module';
     ]
 })
 export class RootModule { }
+
+export * from './components/container/container.component';
+export * from './components/sidebar/sidebar.component';
+export * from './components/top-panel/top-panel.component';

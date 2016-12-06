@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { ShopModification } from '../../../../../backend/classes/shop-modification.class';
+import { ShopModification } from 'kof-modules/backend/backend.module';
 
 @Component({
     selector: 'kof-shop-modification',

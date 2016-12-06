@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as _ from 'lodash';
 
-import { ShopService } from '../../../backend/services/shop.service';
-import { Shop } from '../../../backend/classes/shop.class';
-import { SelectItem } from '../../../common/components/kof-select/kof-select.class';
+import { ShopService } from 'kof-modules/backend/backend.module';
+import { Shop } from 'kof-modules/backend/backend.module';
+import { SelectItem } from 'kof-modules/common/common.module';
 
 @Component({
     selector: 'kof-analytic-selection',
