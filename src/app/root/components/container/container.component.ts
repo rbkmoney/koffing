@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { ToggleMenuBroadcaster } from '../../../broadcaster/broadcaster.module';
+import { SidebarStateService } from './sidebarState.service';
 
 @Component({
     selector: 'kof-app',
@@ -9,31 +10,21 @@ import { ToggleMenuBroadcaster } from '../../../broadcaster/broadcaster.module';
 })
 export class ContainerComponent implements OnInit {
 
-    public isMenuOpened: boolean;
-
-    private localStorageMenuOpened: string = 'isMenuOpened';
+    public isSidebarOpened: boolean;
 
     constructor(
         private toggleMenuBroadcaster: ToggleMenuBroadcaster
     ) { }
 
     public ngOnInit() {
-        this.isMenuOpened = !!localStorage.getItem(this.localStorageMenuOpened);
+        this.isSidebarOpened = SidebarStateService.isOpened();
         this.registerToggleMenuBroadcast();
     }
 
     private registerToggleMenuBroadcast() {
         this.toggleMenuBroadcaster.on().subscribe(() => {
-            this.isMenuOpened = !this.isMenuOpened;
-            this.saveMenuState(this.isMenuOpened);
+            SidebarStateService.toggleState();
+            this.isSidebarOpened = SidebarStateService.isOpened();
         });
-    }
-
-    private saveMenuState(isMenuOpened: boolean) {
-        if (isMenuOpened) {
-            localStorage.setItem(this.localStorageMenuOpened, 'true');
-        } else {
-            localStorage.removeItem(this.localStorageMenuOpened);
-        }
     }
 }
