@@ -10,8 +10,8 @@ import { ModificationDetailComponent } from './components/shop-management/claims
 import { AddShopComponent } from './components/shop-management/add-shop/add-shop.component';
 import { EditShopComponent } from './components/shop-management/edit-shop/edit-shop.component';
 import { ShopManagementComponent } from './components/shop-management/shop-management.component';
-import { CommonModule } from '../common/common.module';
-import { BackendModule } from '../backend/backend.module';
+import { CommonModule } from 'kof-modules/common/common.module';
+import { BackendModule } from 'kof-modules/backend/backend.module';
 
 @NgModule({
     imports: [
@@ -32,3 +32,5 @@ import { BackendModule } from '../backend/backend.module';
     ]
 })
 export class ShopsModule { }
+
+export * from './components/shop-management/shop-management.component';

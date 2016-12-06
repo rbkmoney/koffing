@@ -21,7 +21,8 @@ module.exports = {
         root: __dirname + '/node_modules',
         alias: {
             'Keycloak': 'keycloak-js/dist/keycloak.js',
-            'jquery': 'jquery/dist/jquery'
+            'jquery': 'jquery/dist/jquery',
+            'kof-modules': __dirname + '/../src/app'
         },
         extensions: ['', '.ts', '.js']
     },
