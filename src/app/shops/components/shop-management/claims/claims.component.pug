@@ -11,11 +11,9 @@
     .modal-dialog.modal-sm
         .modal-content
             .modal-header
-                h4.modal-title Подтверждение отмены заявки
+                h5.modal-title Подтверждение отмены заявки
             .modal-body Введите причину отмены
-                br
-                br
-                input.form-control(type="text", required, [(ngModel)]="revokeReason", #reason="ngModel")
+                textarea.form-control(required, [(ngModel)]="revokeReason", #reason="ngModel")
             .modal-footer
                 .btn-toolbar.pull-left
                     .btn-group.btn-group-sm
