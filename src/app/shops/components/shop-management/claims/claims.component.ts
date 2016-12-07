@@ -10,10 +10,9 @@ import { ClaimService } from 'kof-modules/backend/backend.module';
 export class ClaimsComponent implements OnInit {
 
     public claim: Claim;
-
     public changeset: any[];
-
     public showClaimInfo: boolean = false;
+    public revokeReason: string;
 
     constructor(private claimService: ClaimService) { }
 
@@ -26,10 +25,13 @@ export class ClaimsComponent implements OnInit {
         );
     }
 
-    public revoke() {
+    public revoke(reasonControl: any) {
+        if (!reasonControl.valid) {
+            return;
+        }
+
         let revokeDetails = {
-            // TODO: реализовать
-            reason: 'test'
+            reason: this.revokeReason
         };
 
         this.claimService.revokeClaim(this.claim.id, revokeDetails).then(() => {

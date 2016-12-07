@@ -11,11 +11,13 @@
     .modal-dialog.modal-sm
         .modal-content
             .modal-header
-                h4.modal-title Подтверждение
-            .modal-body Отменить заявку?
+                h5.modal-title Подтверждение отмены заявки
+            .modal-body Введите причину отмены
+                textarea.form-control(required, [(ngModel)]="revokeReason", #reason="ngModel")
             .modal-footer
+                .btn-toolbar.pull-left
+                    .btn-group.btn-group-sm
+                        button.btn.btn-default(type="button", data-dismiss="modal") Назад
                 .btn-toolbar.pull-right
                     .btn-group.btn-group-sm
-                        button.btn.btn-default(type="button" data-dismiss="modal") Назад
-                    .btn-group.btn-group-sm
-                        button.btn.btn-danger(type="button" data-dismiss="modal",(click)="revoke()") Отменить заявку
+                        button.btn.btn-danger(*ngIf="reason.valid", type="button", data-dismiss="modal",(click)="revoke(reason)") Отменить заявку
