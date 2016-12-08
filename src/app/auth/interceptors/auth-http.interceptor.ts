@@ -5,6 +5,15 @@ import { AuthService } from '../services/auth.service';
 
 export class AuthHttpInterceptor extends Http {
 
+    private additionalHeadersPostPutPatch: any = {
+        Accept: 'application/json',
+        'Content-Type': 'application/json; charset=UTF-8'
+    };
+
+    private additionalHeadersGetHeadDelete: any = {
+        Accept: 'application/json'
+    };
+
     constructor(connectionBackend: ConnectionBackend, defaultOptions: RequestOptions) {
         super(connectionBackend, defaultOptions);
     }
@@ -14,34 +23,40 @@ export class AuthHttpInterceptor extends Http {
     }
 
     public get(url: string, options?: RequestOptionsArgs): Observable<Response> {
-        return this.configureRequest(super.get, url, options);
+        return this.configureRequest(super.get, url, options, null, this.additionalHeadersGetHeadDelete);
     }
 
     public post(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
-        return this.configureRequest(super.post, url, options, body);
+        return this.configureRequest(super.post, url, options, body, this.additionalHeadersPostPutPatch);
     }
 
     public put(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
-        return this.configureRequest(super.put, url, options, body);
+        return this.configureRequest(super.put, url, options, body, this.additionalHeadersPostPutPatch);
     }
 
     public delete(url: string, options?: RequestOptionsArgs): Observable<Response> {
-        return this.configureRequest(super.delete, url, options);
+        return this.configureRequest(super.delete, url, options, null, this.additionalHeadersGetHeadDelete);
     }
 
     public patch(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
-        return this.configureRequest(super.patch, url, options, body);
+        return this.configureRequest(super.patch, url, options, body, this.additionalHeadersPostPutPatch);
     }
 
     public head(url: string, options?: RequestOptionsArgs): Observable<Response> {
-        return this.configureRequest(super.head, url, options);
+        return this.configureRequest(super.head, url, options, null, this.additionalHeadersGetHeadDelete);
     }
 
     public options(url: string, options?: RequestOptionsArgs): Observable<Response> {
         return this.configureRequest(super.options, url, options);
     }
 
-    private configureRequest(f: Function, url: string | Request, options: RequestOptionsArgs, body?: any) {
+    private configureRequest(
+        f: Function,
+        url: string | Request,
+        options: RequestOptionsArgs,
+        body?: any,
+        additionalHeaders?: any
+    ) {
         const tokenPromise: Promise<string> = this.getToken();
         const tokenObservable: Observable<string> = Observable.fromPromise(tokenPromise);
         const tokenUpdateObservable: Observable<any> = Observable.create((observer: any) => {
@@ -49,7 +64,7 @@ export class AuthHttpInterceptor extends Http {
                 const headers = new Headers();
                 options = new RequestOptions({headers});
             }
-            this.setHeaders(options);
+            this.setHeaders(options, additionalHeaders);
             observer.next();
             observer.complete();
         });
@@ -82,12 +97,19 @@ export class AuthHttpInterceptor extends Http {
         });
     }
 
-    private setHeaders(options: RequestOptionsArgs) {
+    private setHeaders(options: RequestOptionsArgs, additionalHeaders?: any) {
         if (!options.headers) {
             options.headers = new Headers();
         }
         options.headers.set('Authorization', 'Bearer ' + AuthService.getAccountInfo().token);
         options.headers.set('X-Request-ID', this.guid());
+
+        if (additionalHeaders) {
+            for (let header in additionalHeaders) {
+                if (!additionalHeaders.hasOwnProperty(header)) { continue; }
+                options.headers.set(header, additionalHeaders[header]);
+            }
+        }
     }
 
     private guid(): string {
