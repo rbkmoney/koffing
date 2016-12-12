@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 import { CategoryService } from 'kof-modules/backend/backend.module';
 import { ShopService } from 'kof-modules/backend/backend.module';
 import { SelectItem } from 'kof-modules/common/common.module';
+import { ShopArgs } from 'kof-modules/shops/shops.module';
 
 @Component({
     selector: 'kof-edit-shop',
@@ -14,7 +15,7 @@ export class EditShopComponent implements OnInit {
 
     public categories: SelectItem[] = [];
     public currentShopId: string;
-    public args: any = {
+    public args: ShopArgs = {
         shopDetails: {},
         contractor: {},
         categoryRef: null
@@ -31,8 +32,8 @@ export class EditShopComponent implements OnInit {
         return new Promise((resolve) => {
             this.shopService.getShops().then((shops: any) => {
                 const found: any = _.find(shops, (shop: any) => shop.shopID === this.currentShopId);
-                this.args.shopDetails = found.shopDetails;
-                this.args.contractor = found.contractor;
+                this.args.shopDetails = found.shopDetails ? found.shopDetails : {};
+                this.args.contractor = found.contractor ? found.contractor : {};
                 this.args.categoryRef = found.categoryRef;
 
                 resolve();
@@ -57,6 +58,10 @@ export class EditShopComponent implements OnInit {
     public updateShop(form: any) {
         if (form.valid) {
             this.isLoading = true;
+
+            if (!this.args.contractor.hasOwnProperty('legalEntity')) {
+                this.args.contractor.legalEntity = '';
+            }
 
             this.shopService.updateShop(this.currentShopId, this.args).then(() => {
                 this.isLoading = false;

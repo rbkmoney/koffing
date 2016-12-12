@@ -10,7 +10,7 @@ import { InvoiceService } from 'kof-modules/backend/backend.module';
 })
 export class FinanceComponent implements OnInit {
 
-    public invoices: Array<Invoice>;
+    public invoices: Invoice[];
     public totalCount: number;
     public isLoading: boolean = false;
     public searchParams: any;

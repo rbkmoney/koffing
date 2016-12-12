@@ -41,7 +41,12 @@ export class AuthHttpInterceptor extends Http {
         return this.configureRequest(super.options, url, options);
     }
 
-    private configureRequest(f: Function, url: string | Request, options: RequestOptionsArgs, body?: any) {
+    private configureRequest(
+        f: Function,
+        url: string | Request,
+        options: RequestOptionsArgs,
+        body?: any
+    ) {
         const tokenPromise: Promise<string> = this.getToken();
         const tokenObservable: Observable<string> = Observable.fromPromise(tokenPromise);
         const tokenUpdateObservable: Observable<any> = Observable.create((observer: any) => {
@@ -88,6 +93,8 @@ export class AuthHttpInterceptor extends Http {
         }
         options.headers.set('Authorization', 'Bearer ' + AuthService.getAccountInfo().token);
         options.headers.set('X-Request-ID', this.guid());
+        options.headers.set('Accept', 'application/json');
+        options.headers.set('Content-Type', 'application/json; charset=UTF-8');
     }
 
     private guid(): string {
