@@ -18,6 +18,6 @@ export class Broadcaster {
     public on<T>(key: any): Observable<T> {
         return this.eventBus.asObservable()
             .filter(event => event.key === key)
-            .map(event => <T> event.data);
+            .map((event: any) => <T> event.data);
     }
 }
