@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as _ from 'lodash';
 
 import { Category } from 'kof-modules/backend/backend.module';
 import { CategoryService } from 'kof-modules/backend/backend.module';
@@ -52,13 +53,11 @@ export class ShopManagementComponent implements OnInit {
     }
 
     public getCategory(categoryRef: number): Category {
-        let category = new Category();
-        for (let i = 0; i < this.categories.length; i++) {
-            if (this.categories[i].categoryRef === categoryRef) {
-                category = this.categories[i];
-            }
+        let result = new Category();
+        if (this.categories.length > 0) {
+            result = _.find(this.categories, (category: Category) => category.categoryRef === categoryRef);
         }
-        return category;
+        return result;
     }
 
     public ngOnInit() {

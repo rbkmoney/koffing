@@ -37,16 +37,16 @@ export class KofSelectComponent {
         this.onChange.emit();
     }
 
-    get selectedValue(): any {
-        return this.innerSelectedValue;
-    };
-
     set selectedValue(v: any) {
         if (v !== this.innerSelectedValue) {
             this.innerSelectedValue = v;
             this.onChangeCallback(v);
         }
     }
+
+    get selectedValue(): any {
+        return this.innerSelectedValue;
+    };
 
     public writeValue(value: any) {
         if (value !== this.innerSelectedValue) {
