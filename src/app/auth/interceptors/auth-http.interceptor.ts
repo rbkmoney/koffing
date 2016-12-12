@@ -5,15 +5,6 @@ import { AuthService } from '../services/auth.service';
 
 export class AuthHttpInterceptor extends Http {
 
-    private additionalHeadersPostPutPatch: any = {
-        Accept: 'application/json',
-        'Content-Type': 'application/json; charset=UTF-8'
-    };
-
-    private additionalHeadersGetHeadDelete: any = {
-        Accept: 'application/json'
-    };
-
     constructor(connectionBackend: ConnectionBackend, defaultOptions: RequestOptions) {
         super(connectionBackend, defaultOptions);
     }
@@ -23,27 +14,27 @@ export class AuthHttpInterceptor extends Http {
     }
 
     public get(url: string, options?: RequestOptionsArgs): Observable<Response> {
-        return this.configureRequest(super.get, url, options, null, this.additionalHeadersGetHeadDelete);
+        return this.configureRequest(super.get, url, options);
     }
 
     public post(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
-        return this.configureRequest(super.post, url, options, body, this.additionalHeadersPostPutPatch);
+        return this.configureRequest(super.post, url, options, body);
     }
 
     public put(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
-        return this.configureRequest(super.put, url, options, body, this.additionalHeadersPostPutPatch);
+        return this.configureRequest(super.put, url, options, body);
     }
 
     public delete(url: string, options?: RequestOptionsArgs): Observable<Response> {
-        return this.configureRequest(super.delete, url, options, null, this.additionalHeadersGetHeadDelete);
+        return this.configureRequest(super.delete, url, options);
     }
 
     public patch(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
-        return this.configureRequest(super.patch, url, options, body, this.additionalHeadersPostPutPatch);
+        return this.configureRequest(super.patch, url, options, body);
     }
 
     public head(url: string, options?: RequestOptionsArgs): Observable<Response> {
-        return this.configureRequest(super.head, url, options, null, this.additionalHeadersGetHeadDelete);
+        return this.configureRequest(super.head, url, options);
     }
 
     public options(url: string, options?: RequestOptionsArgs): Observable<Response> {
@@ -54,8 +45,7 @@ export class AuthHttpInterceptor extends Http {
         f: Function,
         url: string | Request,
         options: RequestOptionsArgs,
-        body?: any,
-        additionalHeaders?: any
+        body?: any
     ) {
         const tokenPromise: Promise<string> = this.getToken();
         const tokenObservable: Observable<string> = Observable.fromPromise(tokenPromise);
@@ -64,7 +54,7 @@ export class AuthHttpInterceptor extends Http {
                 const headers = new Headers();
                 options = new RequestOptions({headers});
             }
-            this.setHeaders(options, additionalHeaders);
+            this.setHeaders(options);
             observer.next();
             observer.complete();
         });
@@ -97,19 +87,14 @@ export class AuthHttpInterceptor extends Http {
         });
     }
 
-    private setHeaders(options: RequestOptionsArgs, additionalHeaders?: any) {
+    private setHeaders(options: RequestOptionsArgs) {
         if (!options.headers) {
             options.headers = new Headers();
         }
         options.headers.set('Authorization', 'Bearer ' + AuthService.getAccountInfo().token);
         options.headers.set('X-Request-ID', this.guid());
-
-        if (additionalHeaders) {
-            for (let header in additionalHeaders) {
-                if (!additionalHeaders.hasOwnProperty(header)) { continue; }
-                options.headers.set(header, additionalHeaders[header]);
-            }
-        }
+        options.headers.set('Accept', 'application/json');
+        options.headers.set('Content-Type', 'application/json; charset=UTF-8');
     }
 
     private guid(): string {

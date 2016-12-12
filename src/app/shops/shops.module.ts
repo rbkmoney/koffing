@@ -34,3 +34,4 @@ import { BackendModule } from 'kof-modules/backend/backend.module';
 export class ShopsModule { }
 
 export * from './components/shop-management/shop-management.component';
+export * from './classes/shop-args.class';

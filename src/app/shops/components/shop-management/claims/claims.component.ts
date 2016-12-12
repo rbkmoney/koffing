@@ -18,15 +18,6 @@ export class ClaimsComponent implements OnInit {
 
     constructor(private claimService: ClaimService) { }
 
-    public getClaim() {
-        this.claimService.getClaim({status: this.currentClaimStatus}).then((aClaim: Claim) => {
-                this.claim = aClaim;
-                this.changeset = aClaim.changeset;
-                this.showClaimInfo = true;
-            }
-        );
-    }
-
     public revoke(reasonControl: any) {
         if (!reasonControl.valid) {
             return;
@@ -45,5 +36,14 @@ export class ClaimsComponent implements OnInit {
         this.currentClaimStatus = 'pending';
 
         this.getClaim();
+    }
+
+    private getClaim() {
+        this.claimService.getClaim({status: this.currentClaimStatus}).then((aClaim: Claim) => {
+                this.claim = aClaim;
+                this.changeset = aClaim.changeset;
+                this.showClaimInfo = true;
+            }
+        );
     }
 }
