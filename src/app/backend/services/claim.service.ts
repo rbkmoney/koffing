@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { Claim } from '../classes/claim.class';
@@ -10,8 +10,14 @@ export class ClaimService {
 
     constructor(private http: Http, private config: ConfigService) { }
 
-    public getClaim(): Promise<Claim> {
-        return this.http.get(`${this.config.capiUrl}/processing/claims`)
+    public getClaim(queryParams: any): Promise<Claim> {
+        let params = new URLSearchParams();
+
+        params.set('claimStatus', queryParams.status);
+
+        return this.http.get(`${this.config.capiUrl}/processing/claims`, {
+                search: params
+            })
             .toPromise()
             .then(response => response.json());
 

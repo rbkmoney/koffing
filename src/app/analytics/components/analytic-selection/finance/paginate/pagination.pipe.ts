@@ -6,7 +6,7 @@ import * as _ from 'lodash';
 })
 export class PaginationPipe implements PipeTransform {
 
-    public transform(input: Array<any>, total: number, offset: number): Array<any> {
+    public transform(input: any[], total: number, offset: number): any[] {
         return _.filter(input, (value, index) => {
             if (offset <= index && index < total + offset) {
                 return value;

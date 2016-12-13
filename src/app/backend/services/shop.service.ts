@@ -18,7 +18,7 @@ export class ShopService {
 
     public createShop(args: any): Promise<string> {
         const params = {
-            categoryRef: args.categoryRef,
+            categoryRef: Number(args.categoryRef),
             shopDetails: args.shopDetails,
             contractor: args.contractor
         };
@@ -30,7 +30,7 @@ export class ShopService {
     public updateShop(shopID: any, args: any): Promise<string> {
         const url = `${this.config.capiUrl}/processing/shops/${shopID}`;
         const params = {
-            categoryRef: args.categoryRef,
+            categoryRef: Number(args.categoryRef),
             shopDetails: args.shopDetails,
             contractor: args.contractor
         };

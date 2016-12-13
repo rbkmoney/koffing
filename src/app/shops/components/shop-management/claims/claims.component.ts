@@ -14,16 +14,9 @@ export class ClaimsComponent implements OnInit {
     public showClaimInfo: boolean = false;
     public revokeReason: string;
 
-    constructor(private claimService: ClaimService) { }
+    private currentClaimStatus: string;
 
-    public getClaim() {
-        this.claimService.getClaim().then((aClaim: Claim) => {
-                this.claim = aClaim;
-                this.changeset = aClaim.changeset;
-                this.showClaimInfo = true;
-            }
-        );
-    }
+    constructor(private claimService: ClaimService) { }
 
     public revoke(reasonControl: any) {
         if (!reasonControl.valid) {
@@ -40,6 +33,17 @@ export class ClaimsComponent implements OnInit {
     }
 
     public ngOnInit() {
+        this.currentClaimStatus = 'pending';
+
         this.getClaim();
+    }
+
+    private getClaim() {
+        this.claimService.getClaim({status: this.currentClaimStatus}).then((aClaim: Claim) => {
+                this.claim = aClaim;
+                this.changeset = aClaim.changeset;
+                this.showClaimInfo = true;
+            }
+        );
     }
 }

@@ -24,7 +24,7 @@ export class PaginateComponent implements OnChanges {
     @Output()
     public onChange: EventEmitter<any> = new EventEmitter<any>();
 
-    private pages: Array<any>;
+    private pages: any[];
 
     public select(event: MouseEvent, page: any) {
         event.preventDefault();

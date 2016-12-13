@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 import { CategoryService } from 'kof-modules/backend/backend.module';
 import { ShopService } from 'kof-modules/backend/backend.module';
 import { SelectItem } from 'kof-modules/common/common.module';
+import { ShopArgs } from 'kof-modules/shops/shops.module';
 
 @Component({
     selector: 'kof-add-shop',
@@ -15,7 +16,7 @@ export class AddShopComponent implements OnInit {
 
     public categories: SelectItem[] = [];
 
-    public args: any = {
+    public args: ShopArgs = {
         shopDetails: {},
         contractor: {},
         categoryRef: null
