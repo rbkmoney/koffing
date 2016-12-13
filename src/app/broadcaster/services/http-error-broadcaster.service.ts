@@ -13,7 +13,7 @@ export class HttpErrorBroadcaster {
     public fire(status: number) {
         let detail: string = '';
         if (status >= 500 && status < 600) {
-            detail = 'Произошла ошибка на сервере. Повторите действие.';
+            detail = 'Произошла ошибка на сервере. Повторите действие позже.';
         }
         this.broadcaster.broadcast(HttpErrorBroadcaster, {status, detail});
     }
