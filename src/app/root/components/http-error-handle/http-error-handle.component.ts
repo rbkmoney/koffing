@@ -17,7 +17,7 @@ export class HttpErrorHandleComponent implements OnInit {
 
     public ngOnInit() {
         this.httpErrorBroadcaster.on().subscribe((error: any) => {
-            this.messages.push({severity: 'warn', summary: `Код ошибки: ${error.status}`, detail: error.detail});
+            this.messages.push({severity: 'error', summary: `Код ошибки: ${error.status}`, detail: error.detail});
         });
     }
 }
