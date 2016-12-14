@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 import { Message } from 'primeng/primeng';
 
 import { HttpErrorBroadcaster } from 'kof-modules/broadcaster/broadcaster.module';
