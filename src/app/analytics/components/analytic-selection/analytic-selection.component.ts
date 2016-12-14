@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 import { ShopService } from 'kof-modules/backend/backend.module';
 import { Shop } from 'kof-modules/backend/backend.module';
 import { SelectItem } from 'kof-modules/common/common.module';
+import { KofSlimBarService } from 'kof-modules/common/services/slim-bar.service';
 
 @Component({
     selector: 'kof-analytic-selection',
@@ -19,7 +20,8 @@ export class AnalyticSelectionComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private shopService: ShopService
+        private shopService: ShopService,
+        private slimBarService: KofSlimBarService
     ) { }
 
     public ngOnInit() {

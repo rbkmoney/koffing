@@ -4,11 +4,15 @@ import { FormsModule } from '@angular/forms';
 
 import { KofSelectComponent } from './components/kof-select/kof-select.component';
 import { KofLoadingComponent } from './components/kof-loading/kof-loading.component';
+import { KofSlimBarService } from 'kof-modules/common/services/slim-bar.service';
 
 @NgModule({
     imports: [
         BrowserModule,
         FormsModule
+    ],
+    providers: [
+        KofSlimBarService
     ],
     declarations: [
         KofSelectComponent,
@@ -24,3 +28,4 @@ export class CommonModule { }
 export * from './components/kof-loading/kof-loading.component';
 export * from './components/kof-select/kof-select.component';
 export * from './components/kof-select/kof-select.class';
+export * from './services/slim-bar.service';

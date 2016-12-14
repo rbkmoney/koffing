@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { TopPanelComponent } from './components/top-panel/top-panel.component';
@@ -17,7 +18,8 @@ import { BroadcasterModule } from '../broadcaster/broadcaster.module';
         ShopsModule,
         TokenizationModule,
         BrowserModule,
-        BroadcasterModule
+        BroadcasterModule,
+        SlimLoadingBarModule.forRoot()
     ],
     declarations: [
         ContainerComponent,

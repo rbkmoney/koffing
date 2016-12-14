@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Claim } from 'kof-modules/backend/backend.module';
 import { ClaimService } from 'kof-modules/backend/backend.module';
+import { KofSlimBarService } from 'kof-modules/common/services/slim-bar.service';
 
 @Component({
     selector: 'kof-claims',
@@ -16,7 +17,10 @@ export class ClaimsComponent implements OnInit {
 
     private currentClaimStatus: string;
 
-    constructor(private claimService: ClaimService) { }
+    constructor(
+        private claimService: ClaimService,
+        private slimBarService: KofSlimBarService
+    ) { }
 
     public revoke(reasonControl: any) {
         if (!reasonControl.valid) {
@@ -39,10 +43,14 @@ export class ClaimsComponent implements OnInit {
     }
 
     private getClaim() {
+        this.slimBarService.start();
+
         this.claimService.getClaim({status: this.currentClaimStatus}).then((aClaim: Claim) => {
                 this.claim = aClaim;
                 this.changeset = aClaim.changeset;
                 this.showClaimInfo = true;
+
+                this.slimBarService.stop();
             }
         );
     }

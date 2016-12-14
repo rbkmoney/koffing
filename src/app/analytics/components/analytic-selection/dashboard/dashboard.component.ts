@@ -10,6 +10,7 @@ import { RequestParams } from 'kof-modules/backend/backend.module';
 import { GeoData } from 'kof-modules/backend/backend.module';
 import { PaymentsService } from 'kof-modules/backend/backend.module';
 import { Conversion } from 'kof-modules/backend/backend.module';
+import { KofSlimBarService } from 'kof-modules/common/services/slim-bar.service';
 
 @Component({
     templateUrl: './dashboard.component.pug',
@@ -43,10 +44,13 @@ export class DashboardComponent implements OnInit {
     private toTimeDate: Date;
     private shopID: string;
 
-    constructor(private route: ActivatedRoute,
-                private customer: CustomerService,
-                private payments: PaymentsService,
-                private accounts: AccountService) { }
+    constructor(
+        private route: ActivatedRoute,
+        private customer: CustomerService,
+        private payments: PaymentsService,
+        private accounts: AccountService,
+        private slimBarService: KofSlimBarService
+    ) { }
 
     public ngOnInit() {
         this.route.parent.params.subscribe((params: Params) => {
@@ -196,6 +200,9 @@ export class DashboardComponent implements OnInit {
         this.loadGeoChartData();
 
         this.isInfoPanelLoading = true;
+
+        this.slimBarService.start();
+
         Promise.all([
             this.loadRate(),
             this.loadConversionStat(),
@@ -203,6 +210,8 @@ export class DashboardComponent implements OnInit {
             this.loadShopAccounts()
         ]).then(() => {
             this.isInfoPanelLoading = false;
+
+            this.slimBarService.stop();
         });
     }
 
