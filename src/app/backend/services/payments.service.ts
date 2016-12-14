@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+import * as moment from 'moment';
 
 import { GeoData } from '../classes/geodata.class';
 import { Revenue } from '../classes/revenue.class';
@@ -15,10 +16,15 @@ export class PaymentsService {
 
     public getGeoChartData(shopID: string, requestParams: RequestParams): Promise<GeoData[]> {
         const params = new URLSearchParams();
-        params.set('fromTime', requestParams.fromTime);
-        params.set('toTime', requestParams.toTime);
+
+        const fromTime = moment(requestParams.fromTime).utc().format();
+        const toTime = moment(requestParams.toTime).utc().format();
+
+        params.set('fromTime', fromTime);
+        params.set('toTime', toTime);
         params.set('splitUnit', requestParams.splitUnit);
         params.set('splitSize', requestParams.splitSize);
+
         return this.http.get(`${this.config.capiUrl}/analytics/shops/${shopID}/payments/stats/geo`, {
             search: params
         })
@@ -28,8 +34,12 @@ export class PaymentsService {
 
     public getRevenueStat(shopID: string, requestParams: RequestParams): Promise<Revenue[]> {
         const params = new URLSearchParams();
-        params.set('fromTime', requestParams.fromTime);
-        params.set('toTime', requestParams.toTime);
+
+        const fromTime = moment(requestParams.fromTime).utc().format();
+        const toTime = moment(requestParams.toTime).utc().format();
+
+        params.set('fromTime', fromTime);
+        params.set('toTime', toTime);
         params.set('splitUnit', requestParams.splitUnit);
         params.set('splitSize', requestParams.splitSize);
 
@@ -42,10 +52,15 @@ export class PaymentsService {
 
     public getConversionStat(shopID: string, requestParams: RequestParams): Promise<Conversion[]> {
         const params = new URLSearchParams();
-        params.set('fromTime', requestParams.fromTime);
-        params.set('toTime', requestParams.toTime);
+
+        const fromTime = moment(requestParams.fromTime).utc().format();
+        const toTime = moment(requestParams.toTime).utc().format();
+
+        params.set('fromTime', fromTime);
+        params.set('toTime', toTime);
         params.set('splitUnit', requestParams.splitUnit);
         params.set('splitSize', requestParams.splitSize);
+
         return this.http.get(`${this.config.capiUrl}/analytics/shops/${shopID}/payments/stats/conversion`, {
             search: params
         })

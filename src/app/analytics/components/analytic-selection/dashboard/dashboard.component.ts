@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import * as _ from 'lodash';
 import * as moment from 'moment';
@@ -12,7 +12,9 @@ import { PaymentsService } from 'kof-modules/backend/backend.module';
 import { Conversion } from 'kof-modules/backend/backend.module';
 
 @Component({
-    templateUrl: './dashboard.component.pug'
+    templateUrl: './dashboard.component.pug',
+    styleUrls: ['./dashboard.component.less'],
+    encapsulation: ViewEncapsulation.None
 })
 export class DashboardComponent implements OnInit {
 
@@ -185,8 +187,8 @@ export class DashboardComponent implements OnInit {
     }
 
     private loadData() {
-        this.fromTime = moment(this.fromTimeDate).utc().format();
-        this.toTime = moment(this.toTimeDate).utc().format();
+        this.fromTime = moment(this.fromTimeDate).format();
+        this.toTime = moment(this.toTimeDate).format();
 
         this.chartFromTime = this.fromTime;
 
