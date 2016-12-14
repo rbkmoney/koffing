@@ -9,9 +9,9 @@
                         .col-xs-12.col-sm-6
                             kof-select(*ngIf="selectItems.length", [(ngModel)]="selectedShopID", [items]="selectItems", (onChange)="navigateToShop()", [modelOptions]="{standalone: true}", name='shopId')
                 ul.nav.nav-tabs.bar_tabs(*ngIf="selectedShopID")
-                    li([routerLink]="['dashboard']", [routerLinkActive]="['active']")
+                    li.hand-cursor([routerLink]="['dashboard']", [routerLinkActive]="['active']")
                         a Статистика
-                    li([routerLink]="['finance']", [routerLinkActive]="['active']")
+                    li.hand-cursor([routerLink]="['finance']", [routerLinkActive]="['active']")
                         a Финансы
                 .tab-content
                     router-outlet

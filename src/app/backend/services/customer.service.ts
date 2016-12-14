@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+import * as moment from 'moment';
 
 import { RequestParams } from '../classes/request-params.class';
 import { ConfigService } from './config.service';
@@ -13,8 +14,11 @@ export class CustomerService {
     public getPaymentMethod(shopID: string, requestParams: RequestParams): Promise<any> {
         let params = new URLSearchParams();
 
-        params.set('fromTime', requestParams.fromTime);
-        params.set('toTime', requestParams.toTime);
+        let fromTime = moment(requestParams.fromTime).utc().format();
+        let toTime = moment(requestParams.toTime).utc().format();
+
+        params.set('fromTime', fromTime);
+        params.set('toTime', toTime);
         params.set('splitUnit', requestParams.splitUnit);
         params.set('splitSize', requestParams.splitSize);
         params.set('paymentMethod', requestParams.paymentMethod);
@@ -33,8 +37,11 @@ export class CustomerService {
     public getRate(shopID: string, requestParams: RequestParams): Promise<any> {
         let params = new URLSearchParams();
 
-        params.set('fromTime', requestParams.fromTime);
-        params.set('toTime', requestParams.toTime);
+        let fromTime = moment(requestParams.fromTime).utc().format();
+        let toTime = moment(requestParams.toTime).utc().format();
+
+        params.set('fromTime', fromTime);
+        params.set('toTime', toTime);
 
         return this.http.get(`${this.config.capiUrl}/analytics/shops/${shopID}/customers/stats/rate`, {
             search: params
