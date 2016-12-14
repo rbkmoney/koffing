@@ -3,31 +3,34 @@ export class CHART_OPTIONS {
     public static LINE: any = {
         COLORS: {
             backgroundColor: 'rgba(148,159,177,0.2)',
-            borderColor: 'rgba(42,63,83,0.7)',
-            pointBackgroundColor: 'rgba(255,90,90,1)',
+            borderColor: '#73879C',
+            pointBackgroundColor: '#73879C',
             pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(255,90,90,1)'
+            pointHoverBackgroundColor: '#79909c',
+            pointHoverBorderColor: '#fff',
         }
     };
 
     public static DOUGHNUT: any = {
         COLORS: {
             backgroundColor : [
-                'rgba(0,102,204,1)', // blue
-                'rgba(255,90,90,1)', // red
-                'rgba(255,153,51,1)', // orange
-                'rgba(153,153,153,1)', // grey
-                'rgba(51,102,0,1)' // green
-            ],
-            hoverBackgroundColor: [
-                'rgba(0,102,204,0.7)', // blue
-                'rgba(255,90,90,0.7)', // red
-                'rgba(255,153,51,0.7)', // orange
-                'rgba(153,153,153,0.7)', // grey
-                'rgba(51,102,0,0.7)' // green
+                '#ddf0e1',
+                '#cee9f6',
+                '#fddadb',
+                '#ebdaff',
+                '#f5ecdd',
+                '#f6d4dc',
+                '#fdc478',
+                '#aec4e8',
+                '#c0f1f0',
+                '#949fb1',
+                '#bba8dc',
+                '#d4cfcd',
+                '#ffb6b6',
+                '#f2fdeb',
+                '#f8f8f8',
+                '#ccfaf6'
             ]
         }
     };
-
 }

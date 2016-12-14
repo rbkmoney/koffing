@@ -21,7 +21,7 @@ export class ConversionComponent implements OnInit, OnChanges {
         animation: false,
         elements: {
             line: {
-                tension: 0
+                tension: 0.2
             }
         },
         scales: {
@@ -30,7 +30,7 @@ export class ConversionComponent implements OnInit, OnChanges {
             }],
             xAxes: [{
                 ticks: {
-                    fontSize: 10
+                    fontSize: 11
                 }
             }]
         },
