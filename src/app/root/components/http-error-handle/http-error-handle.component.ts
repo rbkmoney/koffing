@@ -15,13 +15,13 @@ export class HttpErrorHandleComponent implements OnInit {
     constructor(
         private router: Router,
         private httpErrorBroadcaster: HttpErrorBroadcaster
-    ) {
-        router.events.subscribe(() => {
-            this.messages = [];
-        });
-    }
+    ) { }
 
     public ngOnInit() {
+        this.router.events.subscribe(() => {
+            this.messages = [];
+        });
+
         this.httpErrorBroadcaster.on().subscribe((error: any) => {
             this.messages.push({
                 severity: 'error',
