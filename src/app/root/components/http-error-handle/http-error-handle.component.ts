@@ -18,9 +18,7 @@ export class HttpErrorHandleComponent implements OnInit {
     ) { }
 
     public ngOnInit() {
-        this.router.events.subscribe(() => {
-            this.messages = [];
-        });
+        this.router.events.subscribe(() => this.messages = []);
 
         this.httpErrorBroadcaster.on().subscribe((error: any) => {
             this.messages.push({
