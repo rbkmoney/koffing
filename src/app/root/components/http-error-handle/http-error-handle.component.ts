@@ -12,6 +12,8 @@ export class HttpErrorHandleComponent implements OnInit {
 
     public messages: Message[] = [];
 
+    public lifeTime: number = 60000;
+
     constructor(
         private router: Router,
         private httpErrorBroadcaster: HttpErrorBroadcaster
@@ -20,11 +22,15 @@ export class HttpErrorHandleComponent implements OnInit {
     public ngOnInit() {
         this.router.events.subscribe(() => this.messages = []);
 
-        this.httpErrorBroadcaster.on().subscribe((error: any) => {
+        this.httpErrorBroadcaster.on().subscribe((status: any) => {
+            let detail: string = '';
+            if (status === 0 || status >= 500 && status < 600) {
+                detail = 'Произошла ошибка на сервере. Повторите действие позже.';
+            }
             this.messages.push({
                 severity: 'error',
-                summary: `Код ошибки: ${error.status}`,
-                detail: error.detail
+                summary: `Код ошибки: ${status}`,
+                detail
             });
         });
     }
