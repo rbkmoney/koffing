@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter, ViewEncapsulation } from '@angular/core';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 
@@ -7,7 +7,9 @@ import { SelectItem } from 'kof-modules/common/common.module';
 
 @Component({
     selector: 'kof-search-form',
-    templateUrl: 'search-form.component.pug'
+    templateUrl: 'search-form.component.pug',
+    styleUrls: ['search-form.component.less'],
+    encapsulation: ViewEncapsulation.None
 })
 export class SearchFormComponent implements OnInit {
 
@@ -51,11 +53,4 @@ export class SearchFormComponent implements OnInit {
     public search() {
         this.onSearch.emit();
     }
-
-    public onCheckStatus() {
-        if (!this.searchParams.status) {
-            delete this.searchParams.status;
-        }
-    }
-
 }
