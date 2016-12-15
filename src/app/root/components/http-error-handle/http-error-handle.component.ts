@@ -23,14 +23,14 @@ export class HttpErrorHandleComponent implements OnInit {
         this.router.events.subscribe(() => this.messages = []);
 
         this.httpErrorBroadcaster.on().subscribe((status: any) => {
-            let detail: string = '';
+            let message: string = '';
             if (status === 0 || status >= 500 && status < 600) {
-                detail = 'Произошла ошибка на сервере. Повторите действие позже.';
+                message = 'Произошла ошибка на сервере. Повторите действие позже.';
             }
             this.messages.push({
                 severity: 'error',
                 summary: `Код ошибки: ${status}`,
-                detail
+                detail: message
             });
         });
     }
