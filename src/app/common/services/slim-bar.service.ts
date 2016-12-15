@@ -2,7 +2,7 @@ import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class KofSlimBarService {
+export class SlimBarService {
     private startedProcesses: number;
 
     constructor(
@@ -13,7 +13,6 @@ export class KofSlimBarService {
 
     public start() {
         if (this.startedProcesses > 0) {
-            this.increment();
             this.startedProcesses++;
         } else {
             this.slimLoadingBarService.start();
@@ -25,9 +24,5 @@ export class KofSlimBarService {
         if (--this.startedProcesses === 0) {
             this.slimLoadingBarService.complete();
         }
-    }
-
-    private increment() {
-        this.slimLoadingBarService.progress++;
     }
 }

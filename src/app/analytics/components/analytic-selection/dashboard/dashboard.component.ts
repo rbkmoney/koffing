@@ -10,7 +10,7 @@ import { RequestParams } from 'kof-modules/backend/backend.module';
 import { GeoData } from 'kof-modules/backend/backend.module';
 import { PaymentsService } from 'kof-modules/backend/backend.module';
 import { Conversion } from 'kof-modules/backend/backend.module';
-import { KofSlimBarService } from 'kof-modules/common/services/slim-bar.service';
+import { SlimBarService } from 'kof-modules/common/services/slim-bar.service';
 
 @Component({
     templateUrl: './dashboard.component.pug',
@@ -49,7 +49,7 @@ export class DashboardComponent implements OnInit {
         private customer: CustomerService,
         private payments: PaymentsService,
         private accounts: AccountService,
-        private slimBarService: KofSlimBarService
+        private slimBarService: SlimBarService
     ) { }
 
     public ngOnInit() {
@@ -78,6 +78,8 @@ export class DashboardComponent implements OnInit {
     }
 
     private loadPaymentMethod() {
+        this.slimBarService.start();
+
         this.customer.getPaymentMethod(
             this.shopID,
             new RequestParams(
@@ -89,9 +91,13 @@ export class DashboardComponent implements OnInit {
             )
         ).then(
             (paymentMethodState: any) => {
+                this.slimBarService.stop();
+
                 this.paymentMethodChartData = ChartDataConversionService.toPaymentMethodChartData(paymentMethodState);
             }
-        );
+        ).catch(() => {
+            this.slimBarService.stop();
+        });
     }
 
     private loadConversionStat() {
@@ -121,6 +127,8 @@ export class DashboardComponent implements OnInit {
     }
 
     private loadGeoChartData() {
+        this.slimBarService.start();
+
         this.payments.getGeoChartData(
             this.shopID,
             new RequestParams(
@@ -131,9 +139,13 @@ export class DashboardComponent implements OnInit {
             )
         ).then(
             (geoData: GeoData[]) => {
+                this.slimBarService.stop();
+
                 this.geoChartData = ChartDataConversionService.toGeoChartData(geoData);
             }
-        );
+        ).catch(() => {
+            this.slimBarService.stop();
+        });
     }
 
     private loadRevenueStat() {
@@ -211,6 +223,8 @@ export class DashboardComponent implements OnInit {
         ]).then(() => {
             this.isInfoPanelLoading = false;
 
+            this.slimBarService.stop();
+        }).catch(() => {
             this.slimBarService.stop();
         });
     }

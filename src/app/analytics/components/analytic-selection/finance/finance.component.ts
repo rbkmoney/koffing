@@ -4,7 +4,7 @@ import * as moment from 'moment';
 
 import { Invoice } from 'kof-modules/backend/backend.module';
 import { InvoiceService } from 'kof-modules/backend/backend.module';
-import { KofSlimBarService } from 'kof-modules/common/services/slim-bar.service';
+import { SlimBarService } from 'kof-modules/common/services/slim-bar.service';
 
 @Component({
     templateUrl: 'finance.component.pug'
@@ -20,7 +20,7 @@ export class FinanceComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private invoiceService: InvoiceService,
-        private slimBarService: KofSlimBarService
+        private slimBarService: SlimBarService
     ) { }
 
     public ngOnInit() {
@@ -50,6 +50,8 @@ export class FinanceComponent implements OnInit {
             this.invoices = response.invoices;
             this.totalCount = response.totalCount;
 
+            this.slimBarService.stop();
+        }).catch(() => {
             this.slimBarService.stop();
         });
     }

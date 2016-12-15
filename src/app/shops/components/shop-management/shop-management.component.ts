@@ -5,7 +5,7 @@ import { Category } from 'kof-modules/backend/backend.module';
 import { CategoryService } from 'kof-modules/backend/backend.module';
 import { Shop } from 'kof-modules/backend/backend.module';
 import { ShopService } from 'kof-modules/backend/backend.module';
-import { KofSlimBarService } from 'kof-modules/common/services/slim-bar.service';
+import { SlimBarService } from 'kof-modules/common/services/slim-bar.service';
 
 @Component({
     selector: 'kof-shops',
@@ -21,7 +21,7 @@ export class ShopManagementComponent implements OnInit {
     constructor(
         private shopService: ShopService,
         private categoryService: CategoryService,
-        private slimBarService: KofSlimBarService
+        private slimBarService: SlimBarService
     ) { }
 
     public activateShop(shop: any) {
@@ -70,6 +70,8 @@ export class ShopManagementComponent implements OnInit {
             this.loadCategories()
         ]).then(() => {
             this.isLoading = false;
+            this.slimBarService.stop();
+        }).catch(() => {
             this.slimBarService.stop();
         });
     }

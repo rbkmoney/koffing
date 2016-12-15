@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { KofSelectComponent } from './components/kof-select/kof-select.component';
 import { KofLoadingComponent } from './components/kof-loading/kof-loading.component';
-import { KofSlimBarService } from 'kof-modules/common/services/slim-bar.service';
+import { SlimBarService } from 'kof-modules/common/services/slim-bar.service';
 
 @NgModule({
     imports: [
@@ -12,7 +12,7 @@ import { KofSlimBarService } from 'kof-modules/common/services/slim-bar.service'
         FormsModule
     ],
     providers: [
-        KofSlimBarService
+        SlimBarService
     ],
     declarations: [
         KofSelectComponent,

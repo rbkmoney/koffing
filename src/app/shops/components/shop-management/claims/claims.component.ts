@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Claim } from 'kof-modules/backend/backend.module';
 import { ClaimService } from 'kof-modules/backend/backend.module';
-import { KofSlimBarService } from 'kof-modules/common/services/slim-bar.service';
+import { SlimBarService } from 'kof-modules/common/services/slim-bar.service';
 
 @Component({
     selector: 'kof-claims',
@@ -19,7 +19,7 @@ export class ClaimsComponent implements OnInit {
 
     constructor(
         private claimService: ClaimService,
-        private slimBarService: KofSlimBarService
+        private slimBarService: SlimBarService
     ) { }
 
     public revoke(reasonControl: any) {
@@ -52,6 +52,8 @@ export class ClaimsComponent implements OnInit {
 
                 this.slimBarService.stop();
             }
-        );
+        ).catch(() => {
+            this.slimBarService.stop();
+        });
     }
 }
