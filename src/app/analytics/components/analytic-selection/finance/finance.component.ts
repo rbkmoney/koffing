@@ -51,7 +51,7 @@ export class FinanceComponent implements OnInit {
             this.totalCount = response.totalCount;
 
             this.slimBarService.stop();
-        }).catch(() => {
+        }).catch((error) => {
             this.slimBarService.stop();
         });
     }

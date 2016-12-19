@@ -52,7 +52,7 @@ export class ClaimsComponent implements OnInit {
 
                 this.slimBarService.stop();
             }
-        ).catch(() => {
+        ).catch((error) => {
             this.slimBarService.stop();
         });
     }

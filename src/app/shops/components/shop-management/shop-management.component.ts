@@ -71,7 +71,7 @@ export class ShopManagementComponent implements OnInit {
         ]).then(() => {
             this.isLoading = false;
             this.slimBarService.stop();
-        }).catch(() => {
+        }).catch((error) => {
             this.slimBarService.stop();
         });
     }

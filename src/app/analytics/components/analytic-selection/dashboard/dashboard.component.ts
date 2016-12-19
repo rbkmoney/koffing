@@ -95,7 +95,7 @@ export class DashboardComponent implements OnInit {
 
                 this.paymentMethodChartData = ChartDataConversionService.toPaymentMethodChartData(paymentMethodState);
             }
-        ).catch(() => {
+        ).catch((error) => {
             this.slimBarService.stop();
         });
     }
@@ -143,7 +143,7 @@ export class DashboardComponent implements OnInit {
 
                 this.geoChartData = ChartDataConversionService.toGeoChartData(geoData);
             }
-        ).catch(() => {
+        ).catch((error) => {
             this.slimBarService.stop();
         });
     }
@@ -224,7 +224,7 @@ export class DashboardComponent implements OnInit {
             this.isInfoPanelLoading = false;
 
             this.slimBarService.stop();
-        }).catch(() => {
+        }).catch((error) => {
             this.slimBarService.stop();
         });
     }
