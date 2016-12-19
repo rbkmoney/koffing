@@ -11,6 +11,7 @@ import { TokenizationModule } from '../tokenization/tokenization.module';
 import { AnalyticsModule } from '../analytics/analytics.module';
 import { ShopsModule } from '../shops/shops.module';
 import { BroadcasterModule } from '../broadcaster/broadcaster.module';
+import { HttpErrorHandleComponent } from './components/http-error-handle/http-error-handle.component';
 
 @NgModule({
     imports: [
@@ -27,7 +28,8 @@ import { BroadcasterModule } from '../broadcaster/broadcaster.module';
     declarations: [
         ContainerComponent,
         SidebarComponent,
-        TopPanelComponent
+        TopPanelComponent,
+        HttpErrorHandleComponent
     ]
 })
 export class RootModule { }
