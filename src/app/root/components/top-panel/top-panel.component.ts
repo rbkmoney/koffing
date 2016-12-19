@@ -11,13 +11,15 @@ export class TopPanelComponent {
 
     public profileName: string = AuthService.getAccountInfo().profileName;
 
-    constructor(private toggleMenuEvent: ToggleMenuBroadcaster) { }
+    constructor(
+        private toggleMenuBroadcaster: ToggleMenuBroadcaster
+    ) { }
 
     public logout() {
         AuthService.logout();
     }
 
     public toggleMenu() {
-        this.toggleMenuEvent.fire();
+        this.toggleMenuBroadcaster.fire();
     }
 }

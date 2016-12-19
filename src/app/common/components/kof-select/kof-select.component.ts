@@ -29,22 +29,22 @@ export class KofSelectComponent {
     @Output()
     public onChange: EventEmitter<any> = new EventEmitter<any>();
 
-    private innerSelectedValue: any = '';
+    private innerSelectedValue: any;
     private onTouchedCallback: Function;
     private onChangeCallback: Function;
 
-    public onSelect() {
-        this.onChange.emit();
-    }
-
-    set selectedValue(v: any) {
-        if (v !== this.innerSelectedValue) {
-            this.innerSelectedValue = v;
-            this.onChangeCallback(v);
+    set selectedValue(value: any) {
+        if (value !== this.innerSelectedValue) {
+            this.innerSelectedValue = value;
+            this.onChangeCallback(value);
+            this.onChange.emit();
         }
     }
 
     get selectedValue(): any {
+        if (!this.innerSelectedValue && this.placeholder) {
+            this.innerSelectedValue = '';
+        }
         return this.innerSelectedValue;
     };
 

@@ -5,6 +5,7 @@ import { RootModule } from './root/root.module';
 import { AuthHttpInterceptor } from './auth/interceptors/auth-http.interceptor';
 import { ConfigService } from './backend/services/config.service';
 import { ContainerComponent } from './root/components/container/container.component';
+import { HttpErrorBroadcaster } from 'kof-modules/broadcaster/services/http-error-broadcaster.service';
 
 @NgModule({
     imports: [
@@ -15,9 +16,11 @@ import { ContainerComponent } from './root/components/container/container.compon
         {
             provide: Http,
             useFactory: (
-                backend: XHRBackend, defaultOptions: RequestOptions
-            ) => new AuthHttpInterceptor(backend, defaultOptions),
-            deps: [XHRBackend, RequestOptions]
+                backend: XHRBackend,
+                defaultOptions: RequestOptions,
+                httpErrorBroadcaster: HttpErrorBroadcaster
+            ) => new AuthHttpInterceptor(backend, defaultOptions, httpErrorBroadcaster),
+            deps: [XHRBackend, RequestOptions, HttpErrorBroadcaster]
         },
         {
             provide: APP_INITIALIZER,

@@ -2,10 +2,15 @@ import { Http, ConnectionBackend, RequestOptions, Request, RequestOptionsArgs, R
 import { Observable } from 'rxjs';
 
 import { AuthService } from '../services/auth.service';
+import { HttpErrorBroadcaster } from 'kof-modules/broadcaster/services/http-error-broadcaster.service';
 
 export class AuthHttpInterceptor extends Http {
 
-    constructor(connectionBackend: ConnectionBackend, defaultOptions: RequestOptions) {
+    constructor(
+        connectionBackend: ConnectionBackend,
+        defaultOptions: RequestOptions,
+        private httpErrorBroadcaster: HttpErrorBroadcaster
+    ) {
         super(connectionBackend, defaultOptions);
     }
 
@@ -68,6 +73,8 @@ export class AuthHttpInterceptor extends Http {
             result.subscribe((response: any) => {
                 observer.next(response);
                 observer.complete();
+            }, (error: any) => {
+                this.httpErrorBroadcaster.fire(error.status);
             });
         });
         return <Observable<Response>> Observable

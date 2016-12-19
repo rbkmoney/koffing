@@ -18,7 +18,7 @@ form.form-horizontal.form-search-invoices
                 .col-xs-12.col-sm-4
                     label.control-label Статус платежа
                 .col-xs-12.col-sm-6
-                    kof-select([(ngModel)]="searchParams.status", [items]="statuses", (onChange)="onCheckStatus()", [placeholder]="'Любой статус'", [modelOptions]="{standalone: true}", name='status')
+                    kof-select([(ngModel)]="searchParams.status", [items]="statuses", [placeholder]="'Любой статус'", [modelOptions]="{standalone: true}", name='status')
             .form-group
                 .col-xs-12.col-sm-4
                     label.control-label Номер
