@@ -12,16 +12,21 @@ export class SlimBarService {
     }
 
     public start() {
-        if (this.startedProcesses > 0) {
-            this.startedProcesses++;
-        } else {
+        if (this.startedProcesses === 0) {
             this.slimLoadingBarService.start();
-            this.startedProcesses = 1;
         }
+
+        this.startedProcesses++;
     }
 
     public stop() {
-        if (--this.startedProcesses === 0) {
+        if (this.startedProcesses === 0) {
+            return;
+        }
+
+        this.startedProcesses--;
+
+        if (this.startedProcesses === 0) {
             this.slimLoadingBarService.complete();
         }
     }
