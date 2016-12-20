@@ -21,11 +21,16 @@ export class AuthService {
     }
 
     public static getAccountInfo(): AuthInfo {
-        return new AuthInfo(this.koffingInstance.tokenParsed.name, this.koffingInstance.token);
+        const result = new AuthInfo();
+        if (this.koffingInstance) {
+            result.profileName = this.koffingInstance.tokenParsed.name;
+            result.token = this.koffingInstance.token;
+        }
+        return result;
     }
 
     public static getOfflineToken(): string {
-        return OfflineTokenService.getToken();
+        return OfflineTokenService.getToken(this.koffingInstance.sessionId);
     }
 
     private static initKoffing(): Promise<any> {
@@ -47,7 +52,7 @@ export class AuthService {
                         scope: 'offline_access'
                     });
                 } else {
-                    OfflineTokenService.setToken(keycloakAuth.refreshToken, '/tokenization');
+                    OfflineTokenService.setToken(keycloakAuth.refreshToken, keycloakAuth.sessionId, '/tokenization');
                     resolve();
                 }
             }).error(() => reject());
