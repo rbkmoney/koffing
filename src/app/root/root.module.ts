@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 import { GrowlModule } from 'primeng/primeng';
 
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -19,6 +20,8 @@ import { HttpErrorHandleComponent } from './components/http-error-handle/http-er
         ShopsModule,
         TokenizationModule,
         BrowserModule,
+        BroadcasterModule,
+        SlimLoadingBarModule.forRoot(),
         BroadcasterModule,
         GrowlModule
     ],

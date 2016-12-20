@@ -75,6 +75,8 @@ export class AuthHttpInterceptor extends Http {
                 observer.complete();
             }, (error: any) => {
                 this.httpErrorBroadcaster.fire(error.status);
+                observer.error(error);
+                observer.complete();
             });
         });
         return <Observable<Response>> Observable

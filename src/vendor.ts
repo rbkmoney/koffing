@@ -12,3 +12,4 @@ import 'primeng/resources/primeng.min.css';
 import 'primeng/resources/themes/omega/theme.css';
 import 'gentelella/build/css/custom.css';
 import './styles.less';
+import 'ng2-slim-loading-bar/style.css';
