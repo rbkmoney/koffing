@@ -17,15 +17,18 @@ module.exports = webpackMerge(commonConfig, {
     },
 
     htmlLoader: {
-        minimize: false // workaround for ng2
+        minimize: false
     },
 
     plugins: [
         new webpack.NoErrorsPlugin(),
         new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.UglifyJsPlugin({ // https://github.com/angular/angular/issues/10618
+        new webpack.optimize.UglifyJsPlugin({
             mangle: {
                 keep_fnames: true
+            },
+            compress: {
+                warnings: false
             }
         }),
         new ExtractTextPlugin('[name].[hash].css'),
@@ -34,5 +37,9 @@ module.exports = webpackMerge(commonConfig, {
                 'ENV': JSON.stringify(ENV)
             }
         })
-    ]
+    ],
+
+    devServer: {
+        historyApiFallback: true
+    }
 });

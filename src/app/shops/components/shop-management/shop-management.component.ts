@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 
-import { Category } from 'kof-modules/backend/backend.module';
-import { CategoryService } from 'kof-modules/backend/backend.module';
-import { Shop } from 'kof-modules/backend/backend.module';
-import { ShopService } from 'kof-modules/backend/backend.module';
+import { Category } from 'koffing/backend/backend.module';
+import { CategoryService } from 'koffing/backend/backend.module';
+import { Shop } from 'koffing/backend/backend.module';
+import { ShopService } from 'koffing/backend/backend.module';
 
 @Component({
     selector: 'kof-shops',

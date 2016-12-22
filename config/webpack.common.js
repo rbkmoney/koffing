@@ -22,7 +22,7 @@ module.exports = {
         alias: {
             'Keycloak': 'keycloak-js/dist/keycloak.js',
             'jquery': 'jquery/dist/jquery',
-            'kof-modules': __dirname + '/../src/app'
+            'koffing': __dirname + '/../src/app'
         },
         extensions: ['', '.ts', '.js']
     },
