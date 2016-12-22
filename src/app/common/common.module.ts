@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
-import { KofSelectComponent } from './components/kof-select/kof-select.component';
-import { KofLoadingComponent } from './components/kof-loading/kof-loading.component';
+import { SelectComponent } from './components/select/select.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
     imports: [
@@ -11,16 +11,16 @@ import { KofLoadingComponent } from './components/kof-loading/kof-loading.compon
         FormsModule
     ],
     declarations: [
-        KofSelectComponent,
-        KofLoadingComponent
+        SelectComponent,
+        LoadingComponent
     ],
     exports: [
-        KofSelectComponent,
-        KofLoadingComponent
+        SelectComponent,
+        LoadingComponent
     ]
 })
 export class CommonModule { }
 
-export * from './components/kof-loading/kof-loading.component';
-export * from './components/kof-select/kof-select.component';
-export * from './components/kof-select/kof-select.class';
+export * from './components/loading/loading.component';
+export * from './components/select/select.component';
+export * from './components/select/select.class';
