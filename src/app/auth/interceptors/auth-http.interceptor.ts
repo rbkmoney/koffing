@@ -2,7 +2,7 @@ import { Http, ConnectionBackend, RequestOptions, Request, RequestOptionsArgs, R
 import { Observable } from 'rxjs';
 
 import { AuthService } from '../services/auth.service';
-import { HttpErrorBroadcaster } from 'kof-modules/broadcaster/services/http-error-broadcaster.service';
+import { HttpErrorBroadcaster } from 'koffing/broadcaster/services/http-error-broadcaster.service';
 
 export class AuthHttpInterceptor extends Http {
 

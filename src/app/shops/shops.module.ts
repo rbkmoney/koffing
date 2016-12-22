@@ -10,8 +10,8 @@ import { ModificationDetailComponent } from './components/shop-management/claims
 import { AddShopComponent } from './components/shop-management/add-shop/add-shop.component';
 import { EditShopComponent } from './components/shop-management/edit-shop/edit-shop.component';
 import { ShopManagementComponent } from './components/shop-management/shop-management.component';
-import { CommonModule } from 'kof-modules/common/common.module';
-import { BackendModule } from 'kof-modules/backend/backend.module';
+import { CommonModule } from 'koffing/common/common.module';
+import { BackendModule } from 'koffing/backend/backend.module';
 
 @NgModule({
     imports: [

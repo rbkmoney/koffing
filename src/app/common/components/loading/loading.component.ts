@@ -2,9 +2,10 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'kof-loading',
-    templateUrl: './kof-loading.component.pug'
+    templateUrl: 'loading.component.pug'
 })
-export class KofLoadingComponent {
+export class LoadingComponent {
+
     @Input()
     public isLoading: boolean;
 }
