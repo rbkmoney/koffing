@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as _ from 'lodash';
 
-import { CategoryService } from 'kof-modules/backend/backend.module';
-import { ShopService } from 'kof-modules/backend/backend.module';
-import { SelectItem } from 'kof-modules/common/common.module';
-import { ShopArgs } from 'kof-modules/shops/shops.module';
+import { CategoryService } from 'koffing/backend/backend.module';
+import { ShopService } from 'koffing/backend/backend.module';
+import { SelectItem } from 'koffing/common/common.module';
+import { ShopArgs } from 'koffing/shops/shops.module';
 
 @Component({
     selector: 'kof-edit-shop',

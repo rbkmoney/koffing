@@ -11,7 +11,7 @@
     "suppressImplicitAnyIndexErrors": true,
     "baseUrl": ".",
     "paths": {
-      "kof-modules/*": ["src/app/*"]
+      "koffing/*": ["src/app/*"]
     }
   }
 }

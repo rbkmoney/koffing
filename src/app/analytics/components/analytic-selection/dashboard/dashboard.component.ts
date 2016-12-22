@@ -4,12 +4,12 @@ import * as _ from 'lodash';
 import * as moment from 'moment';
 
 import { ChartDataConversionService } from './chart-data-conversion.service';
-import { AccountService } from 'kof-modules/backend/backend.module';
-import { CustomerService } from 'kof-modules/backend/backend.module';
-import { RequestParams } from 'kof-modules/backend/backend.module';
-import { GeoData } from 'kof-modules/backend/backend.module';
-import { PaymentsService } from 'kof-modules/backend/backend.module';
-import { Conversion } from 'kof-modules/backend/backend.module';
+import { AccountService } from 'koffing/backend/backend.module';
+import { CustomerService } from 'koffing/backend/backend.module';
+import { RequestParams } from 'koffing/backend/backend.module';
+import { GeoData } from 'koffing/backend/backend.module';
+import { PaymentsService } from 'koffing/backend/backend.module';
+import { Conversion } from 'koffing/backend/backend.module';
 
 @Component({
     templateUrl: './dashboard.component.pug',

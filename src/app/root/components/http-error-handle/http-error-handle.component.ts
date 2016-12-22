@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Message } from 'primeng/primeng';
 
-import { HttpErrorBroadcaster } from 'kof-modules/broadcaster/broadcaster.module';
+import { HttpErrorBroadcaster } from 'koffing/broadcaster/broadcaster.module';
 
 @Component({
     selector: 'kof-http-error-handle',
