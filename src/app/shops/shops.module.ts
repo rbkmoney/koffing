@@ -12,6 +12,8 @@ import { EditShopComponent } from './components/shop-management/edit-shop/edit-s
 import { ShopManagementComponent } from './components/shop-management/shop-management.component';
 import { CommonModule } from 'koffing/common/common.module';
 import { BackendModule } from 'koffing/backend/backend.module';
+import { CreateContractComponent } from 'koffing/shops/components/create-contract/create-contract.component';
+import { CreatePayoutAccountComponent } from 'koffing/shops/components/create-payout-account/create-payout-account.component';
 
 @NgModule({
     imports: [
@@ -28,10 +30,16 @@ import { BackendModule } from 'koffing/backend/backend.module';
         ShopModificationComponent,
         ModificationDetailComponent,
         AddShopComponent,
-        EditShopComponent
+        EditShopComponent,
+        CreateContractComponent,
+        CreatePayoutAccountComponent
     ]
 })
 export class ShopsModule { }
 
 export * from './components/shop-management/shop-management.component';
 export * from './classes/shop-args.class';
+export * from './classes/bank-account.class';
+export * from './classes/russian-legal-entity.class';
+export * from './components/create-contract/create-contract.component';
+export * from './components/create-payout-account/create-payout-account.component';
