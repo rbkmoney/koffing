@@ -4,7 +4,7 @@ import { BankAccount } from 'koffing/shops/shops.module';
 
 @Component({
     selector: 'kof-create-payout-account',
-    templateUrl: './create-payout-account.component.pug'
+    templateUrl: 'create-payout-account.component.pug'
 })
 export class CreatePayoutAccountComponent implements OnInit {
 
@@ -16,6 +16,11 @@ export class CreatePayoutAccountComponent implements OnInit {
     ) { }
 
     public ngOnInit() {
+        this.currency = '';
+        this.bankAccountArgs = new BankAccount;
+    }
+
+    public hasError() {
 
     }
 }
