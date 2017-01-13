@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { AddShopComponent } from './components/shop-management/add-shop/add-shop.component';
 import { EditShopComponent } from './components/shop-management/edit-shop/edit-shop.component';
 import { ShopManagementComponent } from './components/shop-management/shop-management.component';
-import { CreateContractComponent } from './components/create-contract/create-contract.component';
-import { CreatePayoutAccountComponent } from './components/create-payout-account/create-payout-account.component';
+import { CreateContractComponent } from './components/shop-management/create-shop/create-contract/create-contract.component';
+import { CreatePayoutAccountComponent } from './components/shop-management/create-shop/create-payout-account/create-payout-account.component';
+import { CreateShopComponent } from './components/shop-management/create-shop/create-shop.component';
 
 @NgModule({
     imports: [
         RouterModule.forRoot([
             { path: 'shops', component: ShopManagementComponent },
-            { path: 'shops/add', component: AddShopComponent },
+            { path: 'shops/add', component: CreateShopComponent },
             { path: 'shops/edit/:shopID', component: EditShopComponent },
             { path: 'contracts/create', component: CreateContractComponent },
             { path: 'payacc/create', component: CreatePayoutAccountComponent }

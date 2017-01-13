@@ -9,7 +9,7 @@ import { ShopArgs } from 'koffing/shops/shops.module';
 
 @Component({
     selector: 'kof-add-shop',
-    templateUrl: './add-shop.component.pug'
+    templateUrl: 'add-shop.component.pug'
 })
 
 export class AddShopComponent implements OnInit {

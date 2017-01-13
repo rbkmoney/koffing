@@ -7,13 +7,16 @@ import { ClaimsComponent } from './components/shop-management/claims/claims.comp
 import { ShopCreationComponent } from './components/shop-management/claims/shop-creation/shop-creation.component';
 import { ShopModificationComponent } from './components/shop-management/claims/shop-modification/shop-modification.component';
 import { ModificationDetailComponent } from './components/shop-management/claims/modification-detail/modification-detail.component';
-import { AddShopComponent } from './components/shop-management/add-shop/add-shop.component';
+import { AddShopComponent } from './components/shop-management/create-shop/add-shop/add-shop.component';
 import { EditShopComponent } from './components/shop-management/edit-shop/edit-shop.component';
 import { ShopManagementComponent } from './components/shop-management/shop-management.component';
 import { CommonModule } from 'koffing/common/common.module';
 import { BackendModule } from 'koffing/backend/backend.module';
-import { CreateContractComponent } from 'koffing/shops/components/create-contract/create-contract.component';
-import { CreatePayoutAccountComponent } from 'koffing/shops/components/create-payout-account/create-payout-account.component';
+import { CreateContractComponent } from 'koffing/shops/components/shop-management/create-shop/create-contract/create-contract.component';
+import { CreatePayoutAccountComponent } from 'koffing/shops/components/shop-management/create-shop/create-payout-account/create-payout-account.component';
+import { CreateShopComponent } from 'koffing/shops/components/shop-management/create-shop/create-shop.component';
+import { SelectContractComponent } from 'koffing/shops/components/shop-management/create-shop/select-contract/select-contract.component';
+import { SelectPayoutAccountComponent } from 'koffing/shops/components/shop-management/create-shop/select-payout-account/select-payout-account.component';
 
 @NgModule({
     imports: [
@@ -32,7 +35,10 @@ import { CreatePayoutAccountComponent } from 'koffing/shops/components/create-pa
         AddShopComponent,
         EditShopComponent,
         CreateContractComponent,
-        CreatePayoutAccountComponent
+        CreatePayoutAccountComponent,
+        CreateShopComponent,
+        SelectContractComponent,
+        SelectPayoutAccountComponent
     ]
 })
 export class ShopsModule { }
@@ -41,5 +47,5 @@ export * from './components/shop-management/shop-management.component';
 export * from './classes/shop-args.class';
 export * from './classes/bank-account.class';
 export * from './classes/russian-legal-entity.class';
-export * from './components/create-contract/create-contract.component';
-export * from './components/create-payout-account/create-payout-account.component';
+export * from './components/shop-management/create-shop/create-contract/create-contract.component';
+export * from './components/shop-management/create-shop/create-payout-account/create-payout-account.component';

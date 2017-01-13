@@ -4,10 +4,10 @@ import { BankAccount } from 'koffing/shops/shops.module';
 import { RussianLegalEntity } from 'koffing/shops/shops.module';
 
 @Component({
-    selector: 'kof-create-contract',
-    templateUrl: './create-contract.component.pug'
+    selector: 'kof-select-contract',
+    templateUrl: 'select-contract.component.pug'
 })
-export class CreateContractComponent implements OnInit {
+export class SelectContractComponent implements OnInit {
 
     public bankAccountArgs: BankAccount;
     public entityArgs: RussianLegalEntity;
@@ -17,6 +17,11 @@ export class CreateContractComponent implements OnInit {
     ) { }
 
     public ngOnInit() {
+        this.bankAccountArgs = new BankAccount;
+        this.entityArgs = new RussianLegalEntity;
+    }
+
+    public hasError() {
 
     }
 }
