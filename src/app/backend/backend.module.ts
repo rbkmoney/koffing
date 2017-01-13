@@ -7,7 +7,6 @@ import { ContractService } from './services/contract.service';
 import { CustomerService } from './services/customer.service';
 import { InvoiceService } from './services/invoice.service';
 import { PaymentsService } from './services/payments.service';
-import { PayoutAccountService } from './services/payout-account.service';
 import { ShopService } from './services/shop.service';
 import { ConfigService } from './services/config.service';
 
@@ -20,7 +19,6 @@ import { ConfigService } from './services/config.service';
         CustomerService,
         InvoiceService,
         PaymentsService,
-        PayoutAccountService,
         ShopService,
         ConfigService
     ]
@@ -35,7 +33,6 @@ export * from './services/contract.service';
 export * from './services/customer.service';
 export * from './services/invoice.service';
 export * from './services/payments.service';
-export * from './services/payout-account.service';
 export * from './services/shop.service';
 
 export * from './classes/bank-account.class';
