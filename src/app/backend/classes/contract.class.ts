@@ -1,14 +1,10 @@
+import { Contractor } from './contractor.class';
+import { PayoutAccount } from './payout-account.class';
+
 export class Contract {
-
-    public number: string;
-
-    public systemContractorRef: string;
-
+    public id: number;
+    public contractor: Contractor;
     public concludedAt: string;
-
-    public validSince: string;
-
-    public validUntil: string;
-
     public terminatedAt: string;
+    public payoutAccouts: PayoutAccount[];
 }
