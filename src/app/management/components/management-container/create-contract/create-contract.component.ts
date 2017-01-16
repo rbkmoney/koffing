@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { BankAccount } from 'koffing/shops/shops.module';
-import { RussianLegalEntity } from 'koffing/shops/shops.module';
+import { BankAccount } from 'koffing/backend/backend.module';
+import { RussianLegalEntity } from 'koffing/backend/backend.module';
 
 @Component({
     selector: 'kof-create-contract',
@@ -12,16 +12,12 @@ export class CreateContractComponent implements OnInit {
     public bankAccountArgs: BankAccount;
     public entityArgs: RussianLegalEntity;
 
-    constructor(
-
-    ) { }
-
     public ngOnInit() {
-        this.bankAccountArgs = new BankAccount;
-        this.entityArgs = new RussianLegalEntity;
+        this.bankAccountArgs = new BankAccount();
+        this.entityArgs = new RussianLegalEntity();
     }
 
     public hasError() {
-
+        // logic later
     }
 }

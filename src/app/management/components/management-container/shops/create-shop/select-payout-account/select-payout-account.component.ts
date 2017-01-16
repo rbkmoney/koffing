@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { BankAccount } from 'koffing/shops/shops.module';
+import { BankAccount } from 'koffing/backend/backend.module';
 
 @Component({
     selector: 'kof-select-payout-account',
@@ -11,16 +11,12 @@ export class SelectPayoutAccountComponent implements OnInit {
     public currency: string;
     public bankAccountArgs: BankAccount;
 
-    constructor(
-
-    ) { }
-
     public ngOnInit() {
         this.currency = '';
-        this.bankAccountArgs = new BankAccount;
+        this.bankAccountArgs = new BankAccount();
     }
 
     public hasError() {
-
+        // logic later
     }
 }
