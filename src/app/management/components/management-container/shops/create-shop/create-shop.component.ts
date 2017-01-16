@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'kof-create-shop',
-    templateUrl: './create-shop.component.pug'
+    templateUrl: 'create-shop.component.pug'
 })
 export class CreateShopComponent implements OnInit {
 
@@ -14,10 +14,6 @@ export class CreateShopComponent implements OnInit {
 
     public currentStrategy: string;
     public isNewContractCreated: boolean = false;
-
-    constructor(
-
-    ) { }
 
     public ngOnInit() {
         this.currentWizardStep = 1;
