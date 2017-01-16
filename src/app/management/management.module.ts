@@ -51,3 +51,5 @@ import { EditShopComponent } from 'koffing/management/components/management-cont
 export class ManagementModule {}
 
 export * from './classes/shop-args.class';
+export * from './components/management-container/shops/edit-shop/edit-shop.component';
+export * from './components/management-container/shops/create-shop/create-shop.component';

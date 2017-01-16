@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'kof-create-shop',
@@ -15,12 +16,21 @@ export class CreateShopComponent implements OnInit {
     public currentStrategy: string;
     public isNewContractCreated: boolean = false;
 
+    constructor(
+        private router: Router
+    ) { }
+
     public ngOnInit() {
         this.currentWizardStep = 1;
         this.currentStrategy = 'no';
     }
 
     public stepBack() {
+        if (this.currentWizardStep === 1) {
+            this.router.navigate(['/management']);
+            return;
+        }
+
         this.currentWizardStep--;
     }
 

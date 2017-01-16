@@ -45,8 +45,8 @@
                 kof-create-payout-account(*ngIf="currentWizardStep === 2 && currentStrategy === 'new'")
                 kof-select-payout-account(*ngIf="currentWizardStep === 2 && currentStrategy === 'existing'")
                 kof-add-shop(*ngIf="currentWizardStep === 3")
-            .actionBar(*ngIf="currentStrategy !== 'no'")
+            .actionBar
                 .text-center
                     a.buttonPrevious.btn.btn-default((click)="stepBack()") Назад
-                    a.buttonNext.btn.btn-default((click)="stepForward()") Вперёд
-                    a.buttonFinish.btn.btn-default.buttonDisabled Завершить
+                    a.buttonNext.btn.btn-default((click)="stepForward()", *ngIf="currentStrategy !== 'no'") Вперёд
+                    a.buttonFinish.btn.btn-default.buttonDisabled(*ngIf="currentStrategy !== 'no'") Завершить
