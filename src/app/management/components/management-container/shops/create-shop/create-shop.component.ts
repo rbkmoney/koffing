@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { ContractService } from 'koffing/backend/services/contract.service';
+import { Contract } from 'koffing/backend/backend.module';
+import { PayoutAccount } from 'koffing/backend/backend.module';
+
 @Component({
     selector: 'kof-create-shop',
     templateUrl: 'create-shop.component.pug'
@@ -9,23 +13,32 @@ export class CreateShopComponent implements OnInit {
 
     public currentWizardStep: number;
 
-    public stepOneVisited: boolean = true;
-    public stepTwoVisited: boolean = false;
-    public stepThreeVisited: boolean = false;
+    public stepOneVisited: boolean;
+    public stepTwoVisited: boolean;
+    public stepThreeVisited: boolean;
 
     public currentStrategy: string;
-    public isNewContractCreated: boolean = false;
+    public isNewContractCreated: boolean;
+
+    public contracts: Contract[];
+    public selectedContract: Contract;
+    public newContract: Contract;
+    public selectedPayoutAccount: PayoutAccount;
+    public newPayoutAccount: PayoutAccount;
+
+    public isLoading: boolean;
 
     constructor(
-        private router: Router
+        private router: Router,
+        private contractService: ContractService
     ) { }
 
     public ngOnInit() {
-        this.currentWizardStep = 1;
-        this.currentStrategy = 'no';
+        this.initVariables();
+        this.loadContracts();
     }
 
-    public stepBack() {
+    public stepBackward() {
         if (this.currentWizardStep === 1) {
             this.router.navigate(['/management']);
             return;
@@ -35,13 +48,10 @@ export class CreateShopComponent implements OnInit {
     }
 
     public stepForward() {
+        debugger;
         this.currentWizardStep++;
         if (this.currentWizardStep === 2) {
-            if (this.currentStrategy === 'new') {
-                this.isNewContractCreated = true;
-            } else {
-                this.isNewContractCreated = false;
-            }
+            this.isNewContractCreated = this.currentStrategy === 'new';
 
             this.stepTwoVisited = true;
         }
@@ -56,5 +66,25 @@ export class CreateShopComponent implements OnInit {
 
     public setExistingStrategy() {
         this.currentStrategy = 'existing';
+    }
+
+    private initVariables() {
+        this.currentWizardStep = 1;
+        this.currentStrategy = 'no';
+        this.stepOneVisited = true;
+        this.stepTwoVisited = false;
+        this.stepThreeVisited = false;
+        this.isNewContractCreated = false;
+        this.isLoading = false;
+        this.newContract = new Contract();
+        this.newPayoutAccount = new PayoutAccount();
+    }
+
+    private loadContracts() {
+        this.isLoading = true;
+        this.contractService.getContracts().then((contracts) => {
+            this.contracts = contracts;
+            this.isLoading = false;
+        });
     }
 }

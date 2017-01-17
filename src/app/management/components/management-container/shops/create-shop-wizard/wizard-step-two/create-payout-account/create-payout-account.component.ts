@@ -1,0 +1,46 @@
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+
+import { BankAccount } from 'koffing/backend/backend.module';
+import { PayoutAccount } from 'koffing/backend/backend.module';
+import { PayoutToolBankAccount } from 'koffing/backend/backend.module';
+import { WizardArgs } from 'koffing/management/classes/wizard-args.class';
+
+@Component({
+    selector: 'kof-create-payout-account',
+    templateUrl: 'create-payout-account.component.pug'
+})
+export class CreatePayoutAccountComponent implements OnInit {
+
+    @Input()
+    public newPayoutAccount: PayoutAccount;
+
+    @Output()
+    public readyStateChange = new EventEmitter();
+
+    private isOnceValid: boolean;
+
+    public ngOnInit() {
+        this.isOnceValid = false;
+    }
+
+    public checkForm(form: any) {
+        let emit = () => {
+            this.readyStateChange.emit({
+                payoutAccount: this.newPayoutAccount,
+                valid: form.valid
+            });
+        };
+
+        if (form.valid) {
+            emit();
+            this.isOnceValid = true;
+        } else if (!form.valid && this.isOnceValid) {
+            emit();
+            this.isOnceValid = false;
+        }
+    }
+
+    public hasError(field: any): boolean {
+        return field.dirty && field.invalid;
+    }
+}
