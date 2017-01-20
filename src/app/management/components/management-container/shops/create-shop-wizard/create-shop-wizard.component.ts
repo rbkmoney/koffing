@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import * as _ from 'lodash';
 
 import { ContractService } from 'koffing/backend/services/contract.service';
 import { WizardSteps } from './wizard-steps.class';

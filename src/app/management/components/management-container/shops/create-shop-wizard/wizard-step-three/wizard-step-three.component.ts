@@ -1,6 +1,5 @@
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import * as _ from 'lodash';
 
 import { WizardArgs } from 'koffing/management/management.module';
 import { ShopService } from 'koffing/backend/services/shop.service';
