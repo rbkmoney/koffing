@@ -1,5 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import * as _ from 'lodash';
 
+import { ClaimService } from 'koffing/backend/services/claim.service';
+import { Claim } from 'koffing/backend/classes/claim.class';
 import { ContractService } from 'koffing/backend/services/contract.service';
 import { Contract } from 'koffing/backend/classes/contract.class';
 
@@ -8,24 +11,42 @@ import { Contract } from 'koffing/backend/classes/contract.class';
 })
 export class ContractsComponent implements OnInit {
 
-    @ViewChild('input')
-    public input: ElementRef;
-
     public contracts: Contract[] = [];
     public isLoading: boolean;
 
-    constructor(private contractService: ContractService) {}
+    constructor(
+        private claimService: ClaimService,
+        private contractService: ContractService
+    ) {}
 
     public ngOnInit() {
         this.isLoading = true;
-        this.contractService.getContracts().then(response => {
-            this.contracts = response;
+        this.getContracts().then((contracts: Contract[]) => {
+            this.contracts = contracts;
             this.isLoading = false;
         });
     }
 
-    public expandInfo(e: any) {
-        // console.log(e);
-        console.log(this.input);
+    private loadContracts(): Promise<Contract[]> {
+        return this.contractService.getContracts().then((contracts: Contract[]) => contracts);
+    }
+
+    private loadContractsClaimed(): Promise<Contract[]> {
+        return this.claimService.getClaim({status: 'pending'}).then((claim: Claim) => {
+            return _
+                .chain(claim.changeset)
+                .filter((changeSet) => changeSet.modificationType === 'ContractCreation')
+                .map((changeSet) => changeSet.contract)
+                .value();
+        });
+    }
+
+    private getContracts(): Promise<Contract[]> {
+        return Promise.all([
+            this.loadContracts(),
+            this.loadContractsClaimed()
+        ]).then((contracts: any) => {
+            return _.reduce(contracts, (current: Contract[], next: Contract[]) => _.concat(current, next));
+        });
     }
 }

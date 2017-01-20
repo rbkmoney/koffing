@@ -1,8 +1,6 @@
-.x_title
-    h4 Договоры
 .x_content
     kof-loading([isLoading]="isLoading")
-        table(*ngIf="contracts.length").table.table-hover.table-striped
+        table.table.table-striped(*ngIf="contracts.length")
             thead
                 tr
                     th ID договора
@@ -11,13 +9,14 @@
                     th Название организации
                     th ИНН организации
             tbody(*ngFor="let contract of contracts; let index = index")
-                tr((click)="selectedIndex = index")
+                tr((click)="selectedIndex = index", [ngClass]="{'success': true, 'warning': contract.terminatedAt, 'danger': !contract.concludedAt}")
                     td {{contract.id}}
                     td {{contract.concludedAt | date:"dd.MM.yyyy"}}
                     td.hidden-xs {{contract.terminatedAt | date:"dd.MM.yyyy"}}
                     td {{contract.contractor.entity.registeredName}}
                     td {{contract.contractor.entity.inn}}
                 tr(*ngIf="index === selectedIndex")
-                    td(colspan=5) asdasd asd ajhdg asdgaskj dgasjkdg kjsgklsa dgf lskdafg sdkjf gsadkfj gsajh
+                    td(colspan=5)
+                        kof-contract-view([contract]="contract")
         span(*ngIf="!contracts.length") Список договоров пуст
-    a.btn.btn-primary.pull-right([routerLink]="['/management']") Составить новый договор
+    a.btn.btn-primary.pull-right([routerLink]="['/management/contracts/create']") Составить новый договор
