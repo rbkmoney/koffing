@@ -26,11 +26,6 @@ export class WizardStepThreeComponent implements OnInit {
     @Input()
     private wizardArgs: WizardArgs;
 
-    constructor(
-        private shopService: ShopService,
-        private router: Router
-    ) { }
-
     public createNewShopFieldsInstance() {
         this.wizardArgs.shopFields = new ShopArgs();
         this.wizardArgs.shopFields.shopDetails = new ShopDetails();
@@ -43,27 +38,11 @@ export class WizardStepThreeComponent implements OnInit {
         this.createNewShopFieldsInstance();
     }
 
-    public createClaim() {
-        this.wizardArgs.isLoading = true;
-
-        this.shopService.createShop(_.merge(
-            this.wizardArgs.shopFields,
-            { contractID: this.wizardArgs.contract.id },
-            { payoutAccountID: this.wizardArgs.payoutAccount.id }
-        )).then(() => {
-            this.wizardArgs.isLoading = false;
-
-            this.router.navigate(['/management']);
-        });
-    }    
-
     public shopFieldsReady(params: any) {
         this.isShopFieldsReady = params.valid;
     }
 
     public finalizeWizard() {
-        this.createClaim();
-
         this.steppedForward.emit();
     }
 

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ContractService } from 'koffing/backend/services/contract.service';
 import { WizardSteps } from './wizard-steps.class';
 import { WizardArgs } from 'koffing/management/management.module';
+import { ShopService } from "koffing/backend/services/shop.service";
 
 @Component({
     templateUrl: './create-shop-wizard.component.pug'
@@ -21,7 +22,8 @@ export class CreateShopWizardComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private contractService: ContractService
+        private contractService: ContractService,
+        private shopService: ShopService
     ) { }    
     
     public returnToManagement() {
@@ -50,8 +52,22 @@ export class CreateShopWizardComponent implements OnInit {
         this.goToShopDetailsStep();
     }
 
-    public finishWizard() {
+    public createClaim() {
+        this.wizardArgs.isLoading = true;
 
+        this.shopService.createShop(_.merge(
+            this.wizardArgs.shopFields,
+            { contractID: this.wizardArgs.contract.id },
+            { payoutAccountID: this.wizardArgs.payoutAccount.id }
+        )).then(() => {
+            this.wizardArgs.isLoading = false;
+
+            this.router.navigate(['/management']);
+        });
+    }
+
+    public finishWizard() {
+        this.createClaim();
     }
 
     public returnToContractStep() {
