@@ -83,5 +83,5 @@
             .ln_solid
             .form-group
                 .col-xs-12.col-sm-6.col-sm-offset-3
-                    button.btn.btn-primary.pull-right(type="submit", [disabled]="form.invalid || form.pristine") Создать договор
+                    button.btn.btn-primary.pull-right(type="submit", [disabled]="form.invalid || form.pristine || isLoading") Создать договор
                     a.btn.btn-default(type="reset", [routerLink]="['/management/contracts']") Назад

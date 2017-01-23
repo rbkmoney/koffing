@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ContractService } from 'koffing/backend/services/contract.service';
+import { Contract } from 'koffing/backend/classes/contract.class';
+import { Contractor } from 'koffing/backend/classes/contractor.class';
+import { BankAccount } from 'koffing/backend/classes/bank-account.class';
+import { RussianLegalEntity } from 'koffing/backend/classes/russian-legal-entity.class';
 
 @Component({
     selector: 'kof-contract-create',
@@ -9,7 +13,8 @@ import { ContractService } from 'koffing/backend/services/contract.service';
 })
 export class ContractCreateComponent implements OnInit {
 
-    public newContract: any;
+    public newContract: Contract;
+    public isLoading: boolean = false;
     
     constructor(
         private router: Router,
@@ -17,32 +22,18 @@ export class ContractCreateComponent implements OnInit {
     ) {}
 
     public ngOnInit() {
-        this.newContract = {};
-        this.newContract.concludedAt = '';
-        this.newContract.terminatedAt = '';
-        this.newContract.payoutAccounts = [];
-        this.newContract.contractor = {};
-        this.newContract.contractor.bankAccount = {};
-        this.newContract.contractor.bankAccount.account = '';
-        this.newContract.contractor.bankAccount.bankBik = '';
-        this.newContract.contractor.bankAccount.bankName = '';
-        this.newContract.contractor.bankAccount.bankPostAccount = '';
-        this.newContract.contractor.entity = {};
-        this.newContract.contractor.entity.entityType = 'RussianLegalEntity';
-        this.newContract.contractor.entity.registeredName = '';
-        this.newContract.contractor.entity.registeredNumber = '';
-        this.newContract.contractor.entity.inn = '';
-        this.newContract.contractor.entity.actualAddress = '';
-        this.newContract.contractor.entity.postAddress = '';
-        this.newContract.contractor.entity.representativePosition = '';
-        this.newContract.contractor.entity.representativeFullName = '';
-        this.newContract.contractor.entity.representativeDocument = '';
+        this.newContract = new Contract();
+        this.newContract.contractor = new Contractor();
+        this.newContract.contractor.bankAccount = new BankAccount();
+        this.newContract.contractor.entity = new RussianLegalEntity();
     }
 
     public createContract(form: any) {
         if (form.valid) {
-            this.contractService.createContract(this.newContract.contractor).then((response) => {
+            this.isLoading = true;
+            this.contractService.createContract(this.newContract.contractor).then(() => {
                 this.router.navigate(['/management/contracts']);
+                this.isLoading = false;
             });
         }
     }

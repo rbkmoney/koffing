@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { ContractService } from 'koffing/backend/services/contract.service';
+import { PayoutAccount } from 'koffing/backend/classes/payout-account.class';
+import { PayoutToolBankAccount } from 'koffing/backend/classes/payout-tool-bank-account.class';
+import { BankAccount } from 'koffing/backend/classes/bank-account.class';
 
 @Component({
     selector: 'kof-payout-account-create',
@@ -9,7 +12,8 @@ import { ContractService } from 'koffing/backend/services/contract.service';
 })
 export class PayoutAccountCreateComponent implements OnInit {
 
-    public newPayoutAccount: any;
+    public newPayoutAccount: PayoutAccount;
+    public isLoading: boolean = false;
 
     private contractID: number = Number(this.route.snapshot.params['contractID']);
 
@@ -20,20 +24,18 @@ export class PayoutAccountCreateComponent implements OnInit {
     ) {}
 
     public ngOnInit() {
-        this.newPayoutAccount = {};
-        this.newPayoutAccount.currency = '';
-        this.newPayoutAccount.tool = {};
-        this.newPayoutAccount.tool.bankAccount = {};
-        this.newPayoutAccount.tool.bankAccount.bankName = '';
-        this.newPayoutAccount.tool.bankAccount.account = '';
-        this.newPayoutAccount.tool.bankAccount.bankPostAccount = '';
-        this.newPayoutAccount.tool.bankAccount.bankBik = '';
+        this.newPayoutAccount = new PayoutAccount();
+        const payoutToolBankAccount = new PayoutToolBankAccount();
+        payoutToolBankAccount.bankAccount = new BankAccount();
+        this.newPayoutAccount.tool = payoutToolBankAccount;
     }
 
     public createPayoutAccount(form: any) {
         if (form.valid) {
-            this.contractService.createPayoutAccount(this.contractID, this.newPayoutAccount).then((response) => {
+            this.isLoading = true;
+            this.contractService.createPayoutAccount(this.contractID, this.newPayoutAccount).then(() => {
                 this.router.navigate(['/management/contracts']);
+                this.isLoading = false;
             });
         }
     }
