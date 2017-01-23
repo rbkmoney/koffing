@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 
 import { CategoryService } from 'koffing/backend/backend.module';
 import { SelectItem } from 'koffing/common/common.module';
-import { ShopArgs } from 'koffing/management/management.module';
+import { Shop } from 'koffing/backend/backend.module';
 
 @Component({
     selector: 'kof-add-shop',
@@ -23,7 +23,7 @@ export class AddShopComponent implements OnInit {
     private latestFormState: any;
 
     @Input()
-    private shopFields: ShopArgs;
+    private shopFields: Shop;
 
     constructor(
         private categoryService: CategoryService
