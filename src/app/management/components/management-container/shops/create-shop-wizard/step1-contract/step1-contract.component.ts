@@ -46,8 +46,8 @@ export class Step1ContractComponent implements OnInit {
     }
 
     public createNewContractInstance() {
-        let bankAccountArgs = new BankAccount();
-        let entityArgs = new RussianLegalEntity();
+        const bankAccountArgs = new BankAccount();
+        const entityArgs = new RussianLegalEntity();
         this.wizardArgs.contract = new Contract();
         this.wizardArgs.contract.contractor = new Contractor();
         this.wizardArgs.contract.contractor.bankAccount = bankAccountArgs;

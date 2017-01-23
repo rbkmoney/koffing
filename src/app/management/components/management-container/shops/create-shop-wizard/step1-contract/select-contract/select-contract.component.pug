@@ -43,7 +43,7 @@
                     [(ngModel)]="selectedContract.contractor.entity.registeredName", #entity_registered_name="ngModel")
             .form-group
                 .col-xs-12.col-sm-3
-                    label.control-label Номер юр. лица
+                    label.control-label ОГРН
                 .col-xs-12.col-sm-6
                     input.form-control(disabled, type="text", name="entity_registered_number", required,
                     [(ngModel)]="selectedContract.contractor.entity.registeredNumber", #entity_registered_number="ngModel")
@@ -67,19 +67,19 @@
                     [(ngModel)]="selectedContract.contractor.entity.postAddress", #entity_post_address="ngModel")
             .form-group
                 .col-xs-12.col-sm-3
-                    label.control-label Позиция представителя
+                    label.control-label Должность ЕИО/представителя
                 .col-xs-12.col-sm-6
                     input.form-control(disabled, type="text", name="entity_representative_position", required,
                     [(ngModel)]="selectedContract.contractor.entity.representativePosition", #entity_representative_position="ngModel")
             .form-group
                 .col-xs-12.col-sm-3
-                    label.control-label ФИО представителя
+                    label.control-label ФИО ЕИО/представителя
                 .col-xs-12.col-sm-6
                     input.form-control(disabled, type="text", name="entity_representative_fullname", required,
                     [(ngModel)]="selectedContract.contractor.entity.representativeFullName", #entity_representative_fullname="ngModel")
             .form-group
                 .col-xs-12.col-sm-3
-                    label.control-label Документ представителя
+                    label.control-label Документ ЕИО/представителя
                 .col-xs-12.col-sm-6
                     input.form-control(disabled, type="text", name="entity_representative_document", required,
                     [(ngModel)]="selectedContract.contractor.entity.representativeDocument", #entity_representative_document="ngModel")

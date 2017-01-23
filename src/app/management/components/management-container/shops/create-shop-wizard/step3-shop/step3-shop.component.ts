@@ -1,8 +1,8 @@
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 
 import { WizardArgs } from 'koffing/management/management.module';
-import { ShopArgs } from 'koffing/management/classes/shop-args.class';
-import { ShopDetails } from 'koffing/management/classes/shop-details.class';
+import { Shop } from 'koffing/backend/backend.module';
+import { ShopDetail } from 'koffing/backend/backend.module';
 
 @Component({
     selector: 'kof-step3-shop',
@@ -20,8 +20,8 @@ export class Step3ShopComponent implements OnInit {
     private wizardArgs: WizardArgs;
 
     public createNewShopFieldsInstance() {
-        this.wizardArgs.shopFields = new ShopArgs();
-        this.wizardArgs.shopFields.shopDetails = new ShopDetails();
+        this.wizardArgs.shopFields = new Shop();
+        this.wizardArgs.shopFields.shopDetails = new ShopDetail();
         this.wizardArgs.shopFields.categoryRef = null;
     }
 

@@ -6,21 +6,15 @@
                     li
                         a([ngClass]="{'disabled': stepOneVisited === false, 'done': stepOneVisited === true && currentWizardStep !== wizardContractStep, 'selected': currentWizardStep === wizardContractStep}")
                             span.step_no 1
-                            span.step_descr Шаг 1
-                                br
-                                small Выбор контракта
+                            span.step_descr Контракт
                     li
                         a([ngClass]="{'disabled': stepTwoVisited === false, 'done': stepTwoVisited === true && currentWizardStep !== wizardAccountStep, 'selected': currentWizardStep === wizardAccountStep}")
                             span.step_no 2
-                            span.step_descr Шаг 2
-                                br
-                                small Выбор счета
+                            span.step_descr Счет
                     li
                         a([ngClass]="{'disabled': stepThreeVisited === false, 'done': stepThreeVisited === true && currentWizardStep !== wizardShopDetailsStep, 'selected': currentWizardStep === wizardShopDetailsStep}")
                             span.step_no 3
-                            span.step_descr Шаг 3
-                                br
-                                small Данные магазина
+                            span.step_descr Магазин
             kof-loading([isLoading]="wizardArgs.isLoading")
                 kof-step1-contract(
                     *ngIf="currentWizardStep === wizardContractStep",
@@ -30,13 +24,13 @@
                 )
                 kof-step2-account(
                     *ngIf="currentWizardStep === wizardAccountStep",
-                    (steppedBackward)="returnToContractStep()",
+                    (steppedBackward)="returnToManagement()",
                     (steppedForward)="proceedToShopDetailsStep()",
                     [wizardArgs]="wizardArgs"
                 )
                 kof-step3-shop(
                     *ngIf="currentWizardStep === wizardShopDetailsStep",
-                    (steppedBackward)="returnToAccountStep()",
+                    (steppedBackward)="returnToManagement()",
                     (steppedForward)="finishWizard()",
                     [wizardArgs]="wizardArgs"
                 )

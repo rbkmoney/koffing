@@ -49,8 +49,8 @@ export class Step2AccountComponent implements OnInit {
     }
 
     public createNewPayoutAccountInstance() {
-        let bankAccountArgs = new BankAccount();
-        let payoutToolBankAccount = new PayoutToolBankAccount();
+        const bankAccountArgs = new BankAccount();
+        const payoutToolBankAccount = new PayoutToolBankAccount();
         payoutToolBankAccount.bankAccount = bankAccountArgs;
         this.wizardArgs.payoutAccount = new PayoutAccount();
         this.wizardArgs.payoutAccount.tool = payoutToolBankAccount;
