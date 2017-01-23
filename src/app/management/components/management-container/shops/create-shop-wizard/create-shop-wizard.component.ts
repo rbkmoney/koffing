@@ -16,9 +16,6 @@ export class CreateShopWizardComponent implements OnInit {
     public wizardContractStep: number = WizardSteps.Contract;
     public wizardAccountStep: number = WizardSteps.PayoutAccount;
     public wizardShopDetailsStep: number = WizardSteps.ShopDetails;
-    public stepOneVisited: boolean = true;
-    public stepTwoVisited: boolean = false;
-    public stepThreeVisited: boolean = false;
     public wizardArgs: WizardArgs = new WizardArgs();
 
     constructor(
@@ -40,21 +37,15 @@ export class CreateShopWizardComponent implements OnInit {
     }
 
     public finishWizard() {
-        this.createClaim();
-    }
-
-    public returnToContractStep() {
-        this.goToContractStep();
-    }
-
-    public returnToAccountStep() {
-        this.goToAccountStep();
+        this.createClaim().then(() => {
+            this.returnToManagement();
+        });
     }
 
     public ngOnInit() {
         this.wizardArgs.isLoading = false;
-        this.goToContractStep();
         this.loadContracts();
+        this.goToContractStep();
     }
 
     private loadContracts() {
@@ -71,25 +62,25 @@ export class CreateShopWizardComponent implements OnInit {
 
     private goToAccountStep() {
         this.currentWizardStep = this.wizardAccountStep;
-        this.stepTwoVisited = true;
     }
 
     private goToShopDetailsStep() {
         this.currentWizardStep = this.wizardShopDetailsStep;
-        this.stepThreeVisited = true;
     }
 
-    private createClaim() {
+    private createClaim(): Promise<any> {
         this.wizardArgs.isLoading = true;
 
-        this.shopService.createShop(_.merge(
-            this.wizardArgs.shopFields,
-            { contractID: this.wizardArgs.contract.id },
-            { payoutAccountID: this.wizardArgs.payoutAccount.id }
-        )).then(() => {
-            this.wizardArgs.isLoading = false;
+        return new Promise((resolve) => {
+            this.shopService.createShop(_.merge(
+                this.wizardArgs.shopFields,
+                { contractID: this.wizardArgs.contract.id },
+                { payoutAccountID: this.wizardArgs.payoutAccount.id }
+            )).then(() => {
+                this.wizardArgs.isLoading = false;
 
-            this.router.navigate(['/management']);
+                resolve();
+            });
         });
     }
 }

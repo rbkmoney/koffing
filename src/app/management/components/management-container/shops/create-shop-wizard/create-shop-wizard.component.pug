@@ -4,15 +4,15 @@
             .form_wizard.wizard_horizontal
                 ul.wizard_steps.anchor
                     li
-                        a([ngClass]="{'disabled': stepOneVisited === false, 'done': stepOneVisited === true && currentWizardStep !== wizardContractStep, 'selected': currentWizardStep === wizardContractStep}")
+                        a([ngClass]="{'done': currentWizardStep > wizardContractStep, 'selected': currentWizardStep === wizardContractStep}")
                             span.step_no 1
                             span.step_descr Контракт
                     li
-                        a([ngClass]="{'disabled': stepTwoVisited === false, 'done': stepTwoVisited === true && currentWizardStep !== wizardAccountStep, 'selected': currentWizardStep === wizardAccountStep}")
+                        a([ngClass]="{'disabled': currentWizardStep < wizardAccountStep, 'done': currentWizardStep > wizardAccountStep, 'selected': currentWizardStep === wizardAccountStep}")
                             span.step_no 2
                             span.step_descr Счет
                     li
-                        a([ngClass]="{'disabled': stepThreeVisited === false, 'done': stepThreeVisited === true && currentWizardStep !== wizardShopDetailsStep, 'selected': currentWizardStep === wizardShopDetailsStep}")
+                        a([ngClass]="{'disabled': currentWizardStep < wizardShopDetailsStep, 'done': currentWizardStep > wizardShopDetailsStep, 'selected': currentWizardStep === wizardShopDetailsStep}")
                             span.step_no 3
                             span.step_descr Магазин
             kof-loading([isLoading]="wizardArgs.isLoading")
