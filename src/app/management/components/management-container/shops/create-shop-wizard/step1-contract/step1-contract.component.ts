@@ -8,14 +8,14 @@ import { ClaimService } from 'koffing/backend/backend.module';
 import { Claim } from 'koffing/backend/classes/claim.class';
 import { BankAccount } from 'koffing/backend/classes/bank-account.class';
 import { RussianLegalEntity } from 'koffing/backend/classes/russian-legal-entity.class';
-import {Contract} from "koffing/backend/classes/contract.class";
-import {Contractor} from "koffing/backend/classes/contractor.class";
+import { Contract } from 'koffing/backend/classes/contract.class';
+import { Contractor } from 'koffing/backend/classes/contractor.class';
 
 @Component({
-    selector: 'kof-wizard-step-one',
-    templateUrl: './wizard-step-one.component.pug'
+    selector: 'kof-step1-contract',
+    templateUrl: 'step1-contract.component.pug'
 })
-export class WizardStepOneComponent implements OnInit {
+export class Step1ContractComponent implements OnInit {
 
     public selectedOption: SelectionOptions;
     public optionNew: number = SelectionOptions.New;
@@ -65,13 +65,25 @@ export class WizardStepOneComponent implements OnInit {
     };
 
     public selectOptionNew() {
-        this.selectedOption = this.optionNew;
         this.createNewContractInstance();
+        this.selectedOption = this.optionNew;
     }
 
     public selectOptionExisting() {
-        this.selectedOption = this.optionExisting;
         this.removeContractInstance();
+        this.selectedOption = this.optionExisting;
+    }
+
+    public stepForward() {
+        if (this.selectedOption === this.optionNew) {
+            this.createContract();
+        } else {
+            this.confirmForward();
+        }
+    }
+
+    public stepBackward() {
+        this.confirmBackward();
     }
 
     private confirmForward() {
@@ -96,20 +108,8 @@ export class WizardStepOneComponent implements OnInit {
                         this.wizardArgs.isNewContract = true;
                         this.confirmForward();
                     }
-                )
+                );
             }
-        )
-    }
-
-    public stepForward() {
-        if (this.selectedOption === this.optionNew) {
-            this.createContract();
-        } else {
-            this.confirmForward();
-        }
-    }
-
-    public stepBackward() {
-        this.confirmBackward();
+        );
     }
 }

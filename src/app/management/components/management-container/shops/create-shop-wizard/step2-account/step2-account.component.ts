@@ -6,15 +6,15 @@ import { WizardArgs } from 'koffing/management/management.module';
 import { PayoutAccountService } from 'koffing/backend/services/payout-account.service';
 import { Claim } from 'koffing/backend/classes/claim.class';
 import { ClaimService } from 'koffing/backend/services/claim.service';
-import {BankAccount} from "koffing/backend/classes/bank-account.class";
-import {PayoutToolBankAccount} from "koffing/backend/classes/payout-tool-bank-account.class";
-import {PayoutAccount} from "koffing/backend/classes/payout-account.class";
+import { BankAccount } from 'koffing/backend/classes/bank-account.class';
+import { PayoutToolBankAccount } from 'koffing/backend/classes/payout-tool-bank-account.class';
+import { PayoutAccount } from 'koffing/backend/classes/payout-account.class';
 
 @Component({
-    selector: 'kof-wizard-step-two',
-    templateUrl: './wizard-step-two.component.pug'
+    selector: 'kof-step2-account',
+    templateUrl: 'step2-account.component.pug'
 })
-export class WizardStepTwoComponent implements OnInit {
+export class Step2AccountComponent implements OnInit {
 
     public selectedOption: SelectionOptions;
     public optionNew: number = SelectionOptions.New;
@@ -36,11 +36,10 @@ export class WizardStepTwoComponent implements OnInit {
 
     public ngOnInit() {
         this.wizardArgs.isNewPayoutAccount = false;
-        delete this.wizardArgs.payoutAccount;
+        this.removePayoutAccountInstance();
+
         if (this.wizardArgs.isNewContract) {
             this.selectOptionNew();
-        } else {
-            this.removePayoutAccountInstance();
         }
     }
 
@@ -59,13 +58,14 @@ export class WizardStepTwoComponent implements OnInit {
     }
 
     public selectOptionNew() {
-        this.selectedOption = this.optionNew;
         this.createNewPayoutAccountInstance();
+        this.selectedOption = this.optionNew;
     }
 
     public selectOptionExisting() {
-        this.selectedOption = this.optionExisting;
         this.removePayoutAccountInstance();
+        this.selectedOption = this.optionExisting;
+
     }
 
     public newPayoutAccountReady(params: any) {
@@ -91,13 +91,12 @@ export class WizardStepTwoComponent implements OnInit {
                         this.wizardArgs.isNewPayoutAccount = true;
                         this.confirmForward();
                     }
-                )
+                );
             }
-        )
+        );
     }
 
     public stepForward() {
-        debugger;
         if (this.selectedOption === this.optionNew) {
             this.createPayoutAccount();
         } else {

@@ -1,11 +1,9 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import * as _ from 'lodash';
 
 import { CategoryService } from 'koffing/backend/backend.module';
 import { SelectItem } from 'koffing/common/common.module';
 import { ShopArgs } from 'koffing/management/management.module';
-import { WizardArgs } from 'koffing/management/classes/wizard-args.class';
-import {Category} from "koffing/backend/classes/category.class";
 
 @Component({
     selector: 'kof-add-shop',
@@ -13,6 +11,9 @@ import {Category} from "koffing/backend/classes/category.class";
 })
 
 export class AddShopComponent implements OnInit {
+
+    @Output()
+    public readyStateChange = new EventEmitter();
 
     public categories: SelectItem[] = [];
 
@@ -23,9 +24,6 @@ export class AddShopComponent implements OnInit {
 
     @Input()
     private shopFields: ShopArgs;
-
-    @Output()
-    public readyStateChange = new EventEmitter();
 
     constructor(
         private categoryService: CategoryService

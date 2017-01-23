@@ -1,9 +1,8 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import * as _ from 'lodash';
 
-import { WizardArgs } from '../../../../../../classes/wizard-args.class';
 import { SelectItem } from 'koffing/common/common.module';
-import {Contract} from "koffing/backend/classes/contract.class";
+import { Contract } from 'koffing/backend/classes/contract.class';
 
 @Component({
     selector: 'kof-select-contract',

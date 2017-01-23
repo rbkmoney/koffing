@@ -22,19 +22,19 @@
                                 br
                                 small Данные магазина
             kof-loading([isLoading]="wizardArgs.isLoading")
-                kof-wizard-step-one(
+                kof-step1-contract(
                     *ngIf="currentWizardStep === wizardContractStep",
                     (steppedBackward)="returnToManagement()",
                     (steppedForward)="proceedToAccountStep()",
                     [wizardArgs]="wizardArgs"
                 )
-                kof-wizard-step-two(
+                kof-step2-account(
                     *ngIf="currentWizardStep === wizardAccountStep",
                     (steppedBackward)="returnToContractStep()",
                     (steppedForward)="proceedToShopDetailsStep()",
                     [wizardArgs]="wizardArgs"
                 )
-                kof-wizard-step-three(
+                kof-step3-shop(
                     *ngIf="currentWizardStep === wizardShopDetailsStep",
                     (steppedBackward)="returnToAccountStep()",
                     (steppedForward)="finishWizard()",

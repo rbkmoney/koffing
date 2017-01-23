@@ -1,20 +1,14 @@
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { WizardArgs } from 'koffing/management/management.module';
-import { ShopService } from 'koffing/backend/services/shop.service';
-import {ShopArgs} from "koffing/management/classes/shop-args.class";
-import {ShopDetails} from "koffing/management/classes/shop-details.class";
-import {SelectItem} from "koffing/common/components/select/select.class";
-import {CategoryService} from "koffing/backend/services/category.service";
-import {Category} from "koffing/backend/classes/category.class";
-
+import { ShopArgs } from 'koffing/management/classes/shop-args.class';
+import { ShopDetails } from 'koffing/management/classes/shop-details.class';
 
 @Component({
-    selector: 'kof-wizard-step-three',
-    templateUrl: './wizard-step-three.component.pug'
+    selector: 'kof-step3-shop',
+    templateUrl: 'step3-shop.component.pug'
 })
-export class WizardStepThreeComponent implements OnInit {
+export class Step3ShopComponent implements OnInit {
 
     @Output()
     public steppedForward = new EventEmitter();
@@ -31,9 +25,13 @@ export class WizardStepThreeComponent implements OnInit {
         this.wizardArgs.shopFields.categoryRef = null;
     }
 
-    public ngOnInit() {
+    public removeShopFieldsInstance() {
         delete this.wizardArgs.shopFields;
         this.isShopFieldsReady = false;
+    }
+
+    public ngOnInit() {
+        this.removeShopFieldsInstance();
         this.createNewShopFieldsInstance();
     }
 

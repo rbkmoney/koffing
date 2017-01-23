@@ -1,19 +1,15 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { BankAccount } from 'koffing/backend/backend.module';
-import { RussianLegalEntity } from 'koffing/backend/backend.module';
-import { Contract } from 'koffing/backend/backend.module';
-import { Contractor } from 'koffing/backend/backend.module';
-import { WizardArgs } from 'koffing/management/management.module';
+import { PayoutAccount } from 'koffing/backend/backend.module';
 
 @Component({
-    selector: 'kof-create-contract',
-    templateUrl: 'create-contract.component.pug'
+    selector: 'kof-create-payout-account',
+    templateUrl: 'create-payout-account.component.pug'
 })
-export class CreateContractComponent implements OnInit {
+export class CreatePayoutAccountComponent implements OnInit {
 
     @Input()
-    public newContract: Contract;
+    public newPayoutAccount: PayoutAccount;
 
     @Output()
     public readyStateChange = new EventEmitter();
@@ -27,7 +23,7 @@ export class CreateContractComponent implements OnInit {
     public checkForm(form: any) {
         let emit = () => {
             this.readyStateChange.emit({
-                contract: this.newContract,
+                payoutAccount: this.newPayoutAccount,
                 valid: form.valid
             });
         };

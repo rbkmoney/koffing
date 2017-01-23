@@ -1,10 +1,8 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import * as _ from 'lodash';
 
-import { BankAccount } from 'koffing/backend/backend.module';
-import { WizardArgs } from 'koffing/management/classes/wizard-args.class';
 import { SelectItem } from 'koffing/common/components/select/select.class';
-import {PayoutAccount} from "koffing/backend/classes/payout-account.class";
+import { PayoutAccount } from 'koffing/backend/classes/payout-account.class';
 
 @Component({
     selector: 'kof-select-payout-account',
