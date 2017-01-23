@@ -8,15 +8,17 @@
                     th.hidden-xs Дата завершения
                     th Название организации
                     th ИНН организации
+                    th Статус
             tbody(*ngFor="let contract of contracts; let index = index")
-                tr((click)="selectedIndex = index", [ngClass]="{'success': true, 'warning': contract.terminatedAt, 'danger': !contract.concludedAt}")
+                tr((click)="selectedIndex = index")
                     td {{contract.id}}
                     td {{contract.concludedAt | date:"dd.MM.yyyy"}}
                     td.hidden-xs {{contract.terminatedAt | date:"dd.MM.yyyy"}}
                     td {{contract.contractor.entity.registeredName}}
                     td {{contract.contractor.entity.inn}}
+                    td {{!!contract.terminatedAt ? 'завершен' : !contract.concludedAt ? 'в обработке' : 'активен'}}
                 tr(*ngIf="index === selectedIndex")
-                    td(colspan=5)
+                    td(colspan=6)
                         kof-contract-view([contract]="contract")
         span(*ngIf="!contracts.length") Список договоров пуст
     a.btn.btn-primary.pull-right([routerLink]="['/management/contracts/create']") Составить новый договор
