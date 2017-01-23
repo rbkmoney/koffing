@@ -16,7 +16,7 @@ export class CreateShopWizardComponent implements OnInit {
     public wizardContractStep: number = WizardSteps.Contract;
     public wizardAccountStep: number = WizardSteps.PayoutAccount;
     public wizardShopDetailsStep: number = WizardSteps.ShopDetails;
-    public stepOneVisited: boolean = false;
+    public stepOneVisited: boolean = true;
     public stepTwoVisited: boolean = false;
     public stepThreeVisited: boolean = false;
     public wizardArgs: WizardArgs = new WizardArgs();
