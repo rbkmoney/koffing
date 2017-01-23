@@ -6,7 +6,7 @@
                     th ID договора
                     th Дата заключения
                     th.hidden-xs Дата завершения
-                    th Название организации
+                    th.hidden-xs Название организации
                     th ИНН организации
                     th Статус
             tbody(*ngFor="let contract of contracts; let index = index")
@@ -14,9 +14,9 @@
                     td {{contract.id}}
                     td {{contract.concludedAt | date:"dd.MM.yyyy"}}
                     td.hidden-xs {{contract.terminatedAt | date:"dd.MM.yyyy"}}
-                    td {{contract.contractor.entity.registeredName}}
+                    td.hidden-xs {{contract.contractor.entity.registeredName}}
                     td {{contract.contractor.entity.inn}}
-                    td {{!!contract.terminatedAt ? 'завершен' : !contract.concludedAt ? 'в обработке' : 'активен'}}
+                    td {{!!contract.terminatedAt ? 'завершен' : !contract.concludedAt ? 'в&nbsp;обработке' : 'активен'}}
                 tr(*ngIf="index === selectedIndex")
                     td(colspan=6)
                         kof-contract-view([contract]="contract")
