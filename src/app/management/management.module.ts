@@ -31,7 +31,6 @@ import { Step1ContractComponent } from './components/management-container/shops/
 import { Step2AccountComponent } from './components/management-container/shops/create-shop-wizard/step2-account/step2-account.component';
 import { Step3ShopComponent } from './components/management-container/shops/create-shop-wizard/step3-shop/step3-shop.component';
 
-
 @NgModule({
     imports: [
         ManagementRoutingModule,
