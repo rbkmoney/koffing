@@ -8,6 +8,5 @@ export class WizardArgs {
     public payoutAccount: PayoutAccount;
     public shopFields: Shop;
     public isNewContract: boolean;
-    public isNewPayoutAccount: boolean;
     public isLoading: boolean;
 }

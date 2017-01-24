@@ -5,7 +5,7 @@
         .tile
             kof-select.col-xs-6(*ngIf="selectableItems.length", [(ngModel)]="selectedContractId", [items]="selectableItems", (onChange)="selectContract()", [modelOptions]="{standalone: true}", name='selectedContract')
         .ln_solid
-        form.form-horizontal.form-label-left.css-form(*ngIf="selectedContractId !== undefined", novalidate, (ngSubmit)="createClaim(form)", name="form", #form="ngForm")
+        form.form-horizontal.form-label-left.css-form(*ngIf="selectedContractId !== undefined", novalidate, (ngSubmit)="createShop(form)", name="form", #form="ngForm")
             h5 Банковские реквизиты
             .ln_solid
             .form-group

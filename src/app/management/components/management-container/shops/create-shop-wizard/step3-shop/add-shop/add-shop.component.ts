@@ -17,9 +17,9 @@ export class AddShopComponent implements OnInit {
 
     public categories: SelectItem[] = [];
 
-    public isCategorySelected: boolean;
-    private isOnceValid: boolean;
-    private isLoading: boolean;
+    public isCategorySelected: boolean = false;
+    private isOnceValid: boolean = false;
+    private isLoading: boolean = false;
     private latestFormState: any;
 
     @Input()
@@ -72,9 +72,6 @@ export class AddShopComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this.isCategorySelected = false;
-        this.isOnceValid = false;
-
         this.isLoading = true;
         this.getCategories().then(() => {
             this.isLoading = false;

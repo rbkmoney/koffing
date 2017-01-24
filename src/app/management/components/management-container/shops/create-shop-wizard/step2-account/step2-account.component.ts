@@ -3,12 +3,12 @@ import * as _ from 'lodash';
 
 import { SelectionOptions } from './../selection-options.class';
 import { WizardArgs } from 'koffing/management/management.module';
-import { PayoutAccountService } from 'koffing/backend/services/payout-account.service';
 import { Claim } from 'koffing/backend/classes/claim.class';
 import { ClaimService } from 'koffing/backend/services/claim.service';
 import { BankAccount } from 'koffing/backend/classes/bank-account.class';
 import { PayoutToolBankAccount } from 'koffing/backend/classes/payout-tool-bank-account.class';
 import { PayoutAccount } from 'koffing/backend/classes/payout-account.class';
+import { ContractService } from 'koffing/backend/services/contract.service';
 
 @Component({
     selector: 'kof-step2-account',
@@ -30,12 +30,11 @@ export class Step2AccountComponent implements OnInit {
     private wizardArgs: WizardArgs;
 
     constructor(
-        private payoutAccountService: PayoutAccountService,
+        private contractService: ContractService,
         private claimService: ClaimService
     ) { }
 
     public ngOnInit() {
-        this.wizardArgs.isNewPayoutAccount = false;
         this.removePayoutAccountInstance();
 
         if (this.wizardArgs.isNewContract) {
@@ -79,7 +78,7 @@ export class Step2AccountComponent implements OnInit {
 
     public createPayoutAccount() {
         this.wizardArgs.isLoading = true;
-        this.payoutAccountService.createPayoutAccount(this.wizardArgs.payoutAccount).then(
+        this.contractService.createPayoutAccount(this.wizardArgs.contract.id, this.wizardArgs.payoutAccount).then(
             (result: any) => {
                 this.claimService.getClaimById(result.claimID).then(
                     (claim: Claim) => {
@@ -88,7 +87,6 @@ export class Step2AccountComponent implements OnInit {
                             return set.modificationType === 'PayoutAccountCreation';
                         });
                         this.wizardArgs.payoutAccount = payoutAccountCreationChangeset.payoutAccount;
-                        this.wizardArgs.isNewPayoutAccount = true;
                         this.confirmForward();
                     }
                 );

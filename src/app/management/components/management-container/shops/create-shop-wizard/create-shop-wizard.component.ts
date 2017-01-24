@@ -37,7 +37,7 @@ export class CreateShopWizardComponent implements OnInit {
     }
 
     public finishWizard() {
-        this.createClaim().then(() => {
+        this.createShop().then(() => {
             this.returnToManagement();
         });
     }
@@ -68,7 +68,7 @@ export class CreateShopWizardComponent implements OnInit {
         this.currentWizardStep = this.wizardShopDetailsStep;
     }
 
-    private createClaim(): Promise<any> {
+    private createShop(): Promise<any> {
         this.wizardArgs.isLoading = true;
 
         return new Promise((resolve) => {

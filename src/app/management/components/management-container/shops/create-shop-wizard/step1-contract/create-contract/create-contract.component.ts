@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { Contract } from 'koffing/backend/backend.module';
 
@@ -6,7 +6,7 @@ import { Contract } from 'koffing/backend/backend.module';
     selector: 'kof-create-contract',
     templateUrl: 'create-contract.component.pug'
 })
-export class CreateContractComponent implements OnInit {
+export class CreateContractComponent {
 
     @Input()
     public newContract: Contract;
@@ -14,11 +14,7 @@ export class CreateContractComponent implements OnInit {
     @Output()
     public readyStateChange = new EventEmitter();
 
-    private isOnceValid: boolean;
-
-    public ngOnInit() {
-        this.isOnceValid = false;
-    }
+    private isOnceValid: boolean = false;
 
     public checkForm(form: any) {
         let emit = () => {
