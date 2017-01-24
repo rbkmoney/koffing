@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import * as _ from 'lodash';
 
 import { ContractService } from 'koffing/backend/services/contract.service';
-import { WizardSteps } from './wizard-steps.class';
 import { WizardArgs } from 'koffing/management/management.module';
 import { ShopService } from 'koffing/backend/services/shop.service';
 
@@ -12,10 +11,10 @@ import { ShopService } from 'koffing/backend/services/shop.service';
 })
 export class CreateShopWizardComponent implements OnInit {
 
-    public currentWizardStep: WizardSteps;
-    public wizardContractStep: number = WizardSteps.Contract;
-    public wizardAccountStep: number = WizardSteps.PayoutAccount;
-    public wizardShopDetailsStep: number = WizardSteps.ShopDetails;
+    public currentStep: number;
+    public contractStep: number = 1;
+    public accountStep: number = 2;
+    public shopDetailsStep: number = 3;
     public wizardArgs: WizardArgs = new WizardArgs();
 
     constructor(
@@ -28,12 +27,8 @@ export class CreateShopWizardComponent implements OnInit {
         this.router.navigate(['/management']);
     }
 
-    public proceedToAccountStep() {
-        this.goToAccountStep();
-    }
-
-    public proceedToShopDetailsStep() {
-        this.goToShopDetailsStep();
+    public goToStep(step: number) {
+        this.currentStep = step;
     }
 
     public finishWizard() {
@@ -45,7 +40,7 @@ export class CreateShopWizardComponent implements OnInit {
     public ngOnInit() {
         this.wizardArgs.isLoading = false;
         this.loadContracts();
-        this.goToContractStep();
+        this.goToStep(this.contractStep);
     }
 
     private loadContracts() {
@@ -54,18 +49,6 @@ export class CreateShopWizardComponent implements OnInit {
             this.wizardArgs.contracts = contracts;
             this.wizardArgs.isLoading = false;
         });
-    }
-
-    private goToContractStep() {
-        this.currentWizardStep = this.wizardContractStep;
-    }
-
-    private goToAccountStep() {
-        this.currentWizardStep = this.wizardAccountStep;
-    }
-
-    private goToShopDetailsStep() {
-        this.currentWizardStep = this.wizardShopDetailsStep;
     }
 
     private createShop(): Promise<any> {
