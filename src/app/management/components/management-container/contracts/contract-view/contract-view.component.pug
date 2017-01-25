@@ -91,24 +91,25 @@
                 .col-xs-12.col-sm-6
                     input.form-control(type="text", required, name="representativeDocument", #representativeDocument="ngModel",
                     [ngModel]="contract.contractor.entity.representativeDocument", [disabled]="true")
-            .ln_solid
-            h5 Счета
-            .ln_solid
-            table.table.table-striped(*ngIf="contract.payoutAccounts.length")
-                thead
-                    tr
-                        th ID счета
-                        th Валюта
-                        th Банк
-                        th Расчетный счет
-                tbody(*ngFor="let payoutAccount of contract.payoutAccounts; let index = index")
-                    tr((click)="selectedIndex = index")
-                        td {{payoutAccount.id}}
-                        td {{payoutAccount.currency}}
-                        td {{payoutAccount.tool.bankAccount.bankName}}
-                        td {{payoutAccount.tool.bankAccount.account}}
-                    tr(*ngIf="index === selectedIndex")
-                        td(colspan=4)
-                            kof-payout-account-view([payoutAccount]="payoutAccount")
-            span(*ngIf="!contract.payoutAccounts.length") Нет привязанных счетов
-            a.btn.btn-primary.pull-right([routerLink]="['/management/contracts', contract.id, 'payout-account', 'create']") Добавить счет
+            .container(*ngIf="showAccounts === true")
+                .ln_solid
+                h5 Счета
+                .ln_solid
+                table.table.table-striped(*ngIf="contract.payoutAccounts.length")
+                    thead
+                        tr
+                            th ID счета
+                            th Валюта
+                            th Банк
+                            th Расчетный счет
+                    tbody(*ngFor="let payoutAccount of contract.payoutAccounts; let index = index")
+                        tr((click)="selectedIndex = index")
+                            td {{payoutAccount.id}}
+                            td {{payoutAccount.currency}}
+                            td {{payoutAccount.tool.bankAccount.bankName}}
+                            td {{payoutAccount.tool.bankAccount.account}}
+                        tr(*ngIf="index === selectedIndex")
+                            td(colspan=4)
+                                kof-payout-account-view([payoutAccount]="payoutAccount")
+                span(*ngIf="!contract.payoutAccounts.length") Нет привязанных счетов
+                a.btn.btn-primary.pull-right([routerLink]="['/management/contracts', contract.id, 'payout-account', 'create']") Добавить счет
