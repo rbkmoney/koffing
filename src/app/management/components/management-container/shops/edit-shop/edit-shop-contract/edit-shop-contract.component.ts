@@ -8,14 +8,17 @@ import { ShopModificationArgs } from 'koffing/management/classes/shop-modificati
 import { Shop } from 'koffing/backend/classes/shop.class';
 
 @Component({
-    selector: 'kof-edit-shop-payout-account',
-    templateUrl: './edit-shop-payout-account.component.pug'
+    selector: 'kof-edit-shop-contract',
+    templateUrl: 'edit-shop-contract.component.pug',
+    styleUrls: ['edit-shop-contract.component.less']
 })
-export class EditShopPayoutAccountComponent implements OnInit {
+export class EditShopContractComponent implements OnInit {
 
+    public currentStep: number;
+    public contractStep: number = 1;
+    public accountStep: number = 2;
     public currentShopId: number = Number(this.route.snapshot.params['shopID']);
-    public currentContractId: number = Number(this.route.snapshot.params['contractID']);
-    public args: ShopModificationArgs = new ShopModificationArgs();
+    public wizardArgs: ShopModificationArgs = new ShopModificationArgs();
 
     constructor(
         private route: ActivatedRoute,
@@ -28,14 +31,20 @@ export class EditShopPayoutAccountComponent implements OnInit {
         this.router.navigate([`/shops/edit/${this.currentShopId}`]);
     }
 
+    public goToStep(step: number) {
+        this.currentStep = step;
+    }
+
     public ngOnInit() {
-        this.args.isLoading = true;
+        this.wizardArgs.isLoading = true;
 
         Promise.all([
-            this.loadShops(),
-            this.loadContract()
+            this.loadContracts(),
+            this.loadShops()
         ]).then(() => {
-            this.args.isLoading = false;
+            this.wizardArgs.isLoading = false;
+
+            this.goToStep(this.contractStep);
         });
     }
 
@@ -49,34 +58,33 @@ export class EditShopPayoutAccountComponent implements OnInit {
         return new Promise((resolve) => {
             this.shopService.getShops().then((shops: any) => {
                 const currentShop: Shop = _.find(shops, (shop: any) => shop.shopID === this.currentShopId);
-                this.args.shopFields = currentShop;
+                this.wizardArgs.shopFields = currentShop;
+
+                resolve();
+            });
+        });
+    }    
+    
+    private loadContracts() {
+        return new Promise((resolve) => {
+            this.contractService.getContracts().then((contracts) => {
+                this.wizardArgs.contracts = contracts;
 
                 resolve();
             });
         });
     }
-    
-    public loadContract() {
-        return new Promise((resolve) => {
-            this.contractService.getContract(this.currentContractId).then(
-                (contract) => {
-                    this.args.contract = contract;
-    
-                    resolve();
-            })
-        });
-    }
 
     private updateShop(): Promise<any> {
-        this.args.isLoading = true;
+        this.wizardArgs.isLoading = true;
 
         return new Promise((resolve) => {
             this.shopService.updateShop(this.currentShopId, _.merge(
-                this.args.shopFields,
-                { contractID: this.currentContractId },
-                { payoutAccountID: this.args.payoutAccount.id }
+                this.wizardArgs.shopFields,
+                { contractID: this.wizardArgs.contract.id },
+                { payoutAccountID: this.wizardArgs.payoutAccount.id }
             )).then(() => {
-                this.args.isLoading = false;
+                this.wizardArgs.isLoading = false;
 
                 resolve();
             });

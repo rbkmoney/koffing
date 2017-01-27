@@ -39,6 +39,10 @@ export class EditShopComponent implements OnInit {
         private contractService: ContractService
     ) {}
 
+    public returnToManagement() {
+        this.router.navigate(['/management']);
+    }
+
     public loadDetails(contractId: number, payoutAccountId: number): Promise<any> {
         return new Promise((resolve) => {
             this.contractService.getContract(contractId).then(
@@ -92,9 +96,19 @@ export class EditShopComponent implements OnInit {
             this.shopService.updateShop(this.currentShopId, this.args).then(() => {
                 this.isLoading = false;
 
-                this.router.navigate(['/shops']);
+                this.returnToManagement();
             });
         }
+    }
+
+    public suspendShop() {
+        this.isLoading = true;
+
+        this.shopService.suspendShop(this.currentShopId).then(() => {
+            this.isLoading = false;
+
+            this.returnToManagement();
+        });
     }
 
     public ngOnInit() {

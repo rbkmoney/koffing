@@ -6,6 +6,9 @@
             .x_content
                 kof-loading([isLoading]="isLoading")
                     form.form-horizontal.form-label-left.css-form(novalidate, (ngSubmit)="updateShop(form)", name="form", #form="ngForm")
+                        .form-group
+                            .col-xs-12.col-sm-6.col-sm-offset-3
+                                a.btn.btn-danger.pull-right((click)="suspendShop()") Заморозить магазин
                         .form-group([ngClass]="{'has-error': hasError(shop_details_name)}")
                             .col-xs-12.col-sm-3
                                 label.control-label Название магазина *

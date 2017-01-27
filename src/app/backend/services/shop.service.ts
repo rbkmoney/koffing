@@ -47,4 +47,10 @@ export class ShopService {
             .toPromise()
             .then(response => response.json());
     }
+
+    public suspendShop(shopID: any): Promise<string> {
+        return this.http.put(`${this.shopsUrl}/${shopID}/suspend`, {})
+            .toPromise()
+            .then(response => response.json());
+    }
 }
