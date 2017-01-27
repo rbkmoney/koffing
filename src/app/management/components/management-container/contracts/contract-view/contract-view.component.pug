@@ -18,7 +18,7 @@
             .ln_solid
             .form-group
                 .col-xs-12.col-sm-3
-                    label.text-left Банк
+                    label.text-left Наименование банка
                 .col-xs-12.col-sm-6
                     input.form-control(type="text", required, name="bankName", #bankName="ngModel",
                     [ngModel]="contract.contractor.bankAccount.bankName", [disabled]="true")
@@ -51,7 +51,7 @@
                     [ngModel]="contract.contractor.entity.registeredName", [disabled]="true")
             .form-group
                 .col-xs-12.col-sm-3
-                    label.text-left Номер юр. лица
+                    label.text-left ОГРН
                 .col-xs-12.col-sm-6
                     input.form-control(type="text", required, name="registeredNumber", #registeredNumber="ngModel",
                     [ngModel]="contract.contractor.entity.registeredNumber", [disabled]="true")
@@ -75,19 +75,19 @@
                     [ngModel]="contract.contractor.entity.postAddress", [disabled]="true")
             .form-group
                 .col-xs-12.col-sm-3
-                    label.text-left Позиция представителя
+                    label.text-left Должность ЕИО/представителя
                 .col-xs-12.col-sm-6
                     input.form-control(type="text", required, name="representativePosition", #representativePosition="ngModel",
                     [ngModel]="contract.contractor.entity.representativePosition", [disabled]="true")
             .form-group
                 .col-xs-12.col-sm-3
-                    label.text-left ФИО представителя
+                    label.text-left ФИО ЕИО/представителя
                 .col-xs-12.col-sm-6
                     input.form-control(type="text", required, name="representativeFullname", #representativeFullname="ngModel",
                     [ngModel]="contract.contractor.entity.representativeFullName", [disabled]="true")
             .form-group
                 .col-xs-12.col-sm-3
-                    label.text-left Документ представителя
+                    label.text-left Документ ЕИО/представителя
                 .col-xs-12.col-sm-6
                     input.form-control(type="text", required, name="representativeDocument", #representativeDocument="ngModel",
                     [ngModel]="contract.contractor.entity.representativeDocument", [disabled]="true")
