@@ -54,7 +54,7 @@ export class EditShopComponent implements OnInit {
 
                     resolve();
                 }
-            )
+            );
         });
     }
     
@@ -73,7 +73,6 @@ export class EditShopComponent implements OnInit {
             });
         });
     }
-    
 
     public loadCategories() {
         return new Promise((resolve) => {

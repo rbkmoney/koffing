@@ -63,7 +63,7 @@ export class EditShopPayoutAccountComponent implements OnInit {
                     this.args.contract = contract;
     
                     resolve();
-            })
+            });
         });
     }
 
