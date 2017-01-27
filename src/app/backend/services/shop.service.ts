@@ -33,7 +33,9 @@ export class ShopService {
     public updateShop(shopID: any, args: any): Promise<string> {
         const params = {
             categoryRef: Number(args.categoryRef),
-            shopDetails: args.shopDetails
+            shopDetails: args.shopDetails,
+            contractID: Number(args.contractID),
+            payoutAccountID: Number(args.payoutAccountID)
         };
         return this.http.post(`${this.shopsUrl}/${shopID}`, params)
             .toPromise()

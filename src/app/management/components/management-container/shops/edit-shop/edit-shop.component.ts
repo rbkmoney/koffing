@@ -12,7 +12,7 @@ import { ContractService } from 'koffing/backend/services/contract.service';
 
 @Component({
     selector: 'kof-edit-shop',
-    templateUrl: 'edit-shop.component.pug',
+    templateUrl: './edit-shop.component.pug',
 })
 export class EditShopComponent implements OnInit {
 
@@ -20,9 +20,9 @@ export class EditShopComponent implements OnInit {
     public currentShopId: number = Number(this.route.snapshot.params['shopID']);
     public args: any = {
         shopDetails: {},
-        categoryRef: null,
-        contractId: null,
-        payoutAccountId: null
+        categoryRef: 0,
+        contractId: 0,
+        payoutAccountId: 0
     };
     public shopContract: Contract;
     public shopPayoutAccount: PayoutAccount;

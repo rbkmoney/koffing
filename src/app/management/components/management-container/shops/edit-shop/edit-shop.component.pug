@@ -31,7 +31,7 @@
                                 a.btn.btn-dark((click)="showContractDetails = !showContractDetails")
                                     span(*ngIf="showContractDetails === false") Просмотр
                                     span(*ngIf="showContractDetails === true") Скрыть
-                                a.btn.btn-dark Изменение
+                                a.btn.btn-dark([routerLink]="['/shops/edit/', currentShopId, 'contract']") Изменение
                         .form-group(*ngIf="showContractDetails === true")
                             .col-xs-12.col-sm-3
                                 label.control-label Детали контракта
@@ -46,7 +46,7 @@
                                 a.btn.btn-dark((click)="showPayoutAccountDetails = !showPayoutAccountDetails")
                                     span(*ngIf="showPayoutAccountDetails === false") Просмотр
                                     span(*ngIf="showPayoutAccountDetails === true") Скрыть
-                                a.btn.btn-dark Изменение
+                                a.btn.btn-dark([routerLink]="['/shops/edit/', currentShopId, 'contract', args.contractId, 'account']") Изменение
                         .form-group(*ngIf="showPayoutAccountDetails === true")
                             .col-xs-12.col-sm-3
                                 label.control-label Детали счета
