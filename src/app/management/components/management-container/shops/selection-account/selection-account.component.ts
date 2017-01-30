@@ -76,7 +76,7 @@ export class SelectionAccountComponent implements OnInit {
     public payoutAccountSelected(params: any) {
         this.args.payoutAccount = params.payoutAccount;
         this.isPayoutAccountReady = true;
-    };
+    }
 
     public createPayoutAccount() {
         this.args.isLoading = true;

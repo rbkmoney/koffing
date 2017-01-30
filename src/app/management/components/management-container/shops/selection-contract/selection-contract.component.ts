@@ -64,7 +64,7 @@ export class SelectionContractComponent implements OnInit {
     public contractSelected(params: any) {
         this.args.contract = params.contract;
         this.isContractReady = true;
-    };
+    }
 
     public selectOptionNew() {
         this.createNewContractInstance();
