@@ -3,11 +3,12 @@ import * as _ from 'lodash';
 
 import { Category } from 'koffing/backend/backend.module';
 import { CategoryService } from 'koffing/backend/backend.module';
-import { Shop } from 'koffing/backend/backend.module';
 import { ShopService } from 'koffing/backend/backend.module';
+import { Shop } from 'koffing/backend/classes/shop.class';
 
 @Component({
-    templateUrl: 'shops.component.pug'
+    templateUrl: 'shops.component.pug',
+    styleUrls: ['./shops.component.less']
 })
 export class ShopsComponent implements OnInit {
 
@@ -15,6 +16,7 @@ export class ShopsComponent implements OnInit {
     public categories: Category[] = [];
 
     private isLoading: boolean;
+    private panelsVisibilities: any = {};
 
     constructor(
         private shopService: ShopService,
@@ -28,6 +30,15 @@ export class ShopsComponent implements OnInit {
             this.loadShops().then(() => {
                 this.isLoading = false;
             });
+        });
+    }
+
+    public handleShopSuspended() {
+        this.panelsVisibilities = {};
+        this.isLoading = true;
+
+        this.loadShops().then(() => {
+            this.isLoading = false;
         });
     }
 
@@ -49,6 +60,17 @@ export class ShopsComponent implements OnInit {
                 resolve();
             });
         });
+    }
+
+    public isDetailsPanelVisible(panelIndex: number) {
+        if (!this.panelsVisibilities.hasOwnProperty(panelIndex)) {
+            this.panelsVisibilities[panelIndex] = false;
+        }
+        return this.panelsVisibilities[panelIndex];
+    }
+
+    public showDetailsPanel(panelIndex: number) {
+        this.panelsVisibilities[panelIndex] = !this.panelsVisibilities[panelIndex];
     }
 
     public getCategory(categoryRef: number): Category {
