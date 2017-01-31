@@ -34,7 +34,6 @@ export class ShopsComponent implements OnInit {
     }
 
     public handleShopSuspended() {
-        this.panelsVisibilities = {};
         this.isLoading = true;
 
         this.loadShops().then(() => {
@@ -43,6 +42,8 @@ export class ShopsComponent implements OnInit {
     }
 
     public loadShops() {
+        this.panelsVisibilities = {};
+
         return new Promise((resolve) => {
             this.shopService.getShops().then(aShops => {
                 this.shops = aShops;
