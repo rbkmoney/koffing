@@ -29,7 +29,8 @@ export class ShopService {
             categoryRef: Number(args.categoryRef),
             shopDetails: args.details,
             contractID: Number(args.contractID),
-            payoutAccountID: Number(args.payoutAccountID)
+            payoutAccountID: Number(args.payoutAccountID),
+            callbackUrl: args.callbackHandler.url
         };
         return this.http.post(this.shopsUrl, params)
             .toPromise()
@@ -40,8 +41,9 @@ export class ShopService {
         const params = {
             categoryRef: Number(args.categoryRef),
             shopDetails: args.details,
-            contractID: Number(args.contractID),
-            payoutAccountID: Number(args.payoutAccountID)
+            contractID: Number(args.contractId),
+            payoutAccountID: Number(args.payoutAccountId),
+            callbackUrl: args.callbackHandlerUrl
         };
         return this.http.post(`${this.shopsUrl}/${shopID}`, params)
             .toPromise()

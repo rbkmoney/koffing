@@ -3,6 +3,7 @@ import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { ShopModificationArgs } from 'koffing/management/management.module';
 import { Shop } from 'koffing/backend/backend.module';
 import { ShopDetail } from 'koffing/backend/backend.module';
+import { CallbackHandler } from 'koffing/backend/classes/callback-handler';
 
 @Component({
     selector: 'kof-selection-shop-fields',
@@ -25,6 +26,7 @@ export class SelectionShopComponent implements OnInit {
         this.args.shopFields = new Shop();
         this.args.shopFields.details = new ShopDetail();
         this.args.shopFields.categoryID = null;
+        this.args.shopFields.callbackHandler = new CallbackHandler();
     }
 
     public removeShopFieldsInstance() {

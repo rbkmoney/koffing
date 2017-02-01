@@ -1,6 +1,6 @@
 import { ShopDetail } from './shop-detail.class';
+import { CallbackHandler } from './callback-handler';
 import { Account } from './account.class';
-import { CallbackHandler } from './callback-handler.class';
 
 export class Shop {
     public id: number;
