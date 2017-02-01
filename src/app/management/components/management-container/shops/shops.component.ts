@@ -42,7 +42,7 @@ export class ShopsComponent implements OnInit {
     }
 
     public loadShops() {
-        this.panelsVisibilities = {};
+        this.resetPanelsVisibilities();
 
         return new Promise((resolve) => {
             this.shopService.getShops().then(aShops => {
@@ -65,7 +65,7 @@ export class ShopsComponent implements OnInit {
 
     public isDetailsPanelVisible(panelIndex: number) {
         if (!this.panelsVisibilities.hasOwnProperty(panelIndex)) {
-            this.panelsVisibilities[panelIndex] = false;
+            this.initPanelVisibility(panelIndex);
         }
         return this.panelsVisibilities[panelIndex];
     }
@@ -90,5 +90,13 @@ export class ShopsComponent implements OnInit {
         ]).then(() => {
             this.isLoading = false;
         });
+    }
+
+    private initPanelVisibility(panelIndex: number) {
+        this.panelsVisibilities[panelIndex] = false;
+    }
+
+    private resetPanelsVisibilities() {
+        this.panelsVisibilities = {};
     }
 }
