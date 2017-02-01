@@ -38,7 +38,9 @@ export * from './services/payments.service';
 export * from './services/payout-account.service';
 export * from './services/shop.service';
 
+export * from './classes/account.class';
 export * from './classes/bank-account.class';
+export * from './classes/callback-handler.class';
 export * from './classes/category.class';
 export * from './classes/claim.class';
 export * from './classes/contract.class';

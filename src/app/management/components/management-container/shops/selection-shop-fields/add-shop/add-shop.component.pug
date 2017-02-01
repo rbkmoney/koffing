@@ -8,21 +8,21 @@
                     label.text-left Название магазина *
                 .col-xs-12.col-sm-6
                     input.form-control(type="text", required, name="shop_details_name",
-                    [(ngModel)]="shopFields.shopDetails.name", #shop_details_name="ngModel",
+                    [(ngModel)]="shopFields.details.name", #shop_details_name="ngModel",
                     (keyup)="checkForm(form)")
             .form-group
                 .col-xs-12.col-sm-3
                     label.text-left Описание магазина
                 .col-xs-12.col-sm-6
                     input.form-control(type="text", name="shop_details_description",
-                    [(ngModel)]="shopFields.shopDetails.description",
+                    [(ngModel)]="shopFields.details.description",
                     (keyup)="checkForm(form)")
             .form-group
                 .col-xs-12.col-sm-3
                     label.text-left Месторасположение
                 .col-xs-12.col-sm-6
                     input.form-control(type="text", name="shop_details_location",
-                    [(ngModel)]="shopFields.shopDetails.location",
+                    [(ngModel)]="shopFields.details.location",
                     (keyup)="checkForm(form)")
 
             .form-group

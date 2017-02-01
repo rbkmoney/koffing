@@ -48,9 +48,8 @@ export class EditShopPayoutAccountComponent implements OnInit {
     public loadShops() {
         return new Promise((resolve) => {
             this.shopService.getShops().then((shops: any) => {
-                const currentShop: Shop = _.find(shops, (shop: any) => shop.shopID === this.currentShopId);
+                const currentShop: Shop = _.find(shops, (shop: any) => shop.id === this.currentShopId);
                 this.args.shopFields = currentShop;
-
                 resolve();
             });
         });
@@ -61,7 +60,6 @@ export class EditShopPayoutAccountComponent implements OnInit {
             this.contractService.getContract(this.currentContractId).then(
                 (contract) => {
                     this.args.contract = contract;
-    
                     resolve();
             });
         });
@@ -77,7 +75,6 @@ export class EditShopPayoutAccountComponent implements OnInit {
                 { payoutAccountID: this.args.payoutAccount.id }
             )).then(() => {
                 this.args.isLoading = false;
-
                 resolve();
             });
         });

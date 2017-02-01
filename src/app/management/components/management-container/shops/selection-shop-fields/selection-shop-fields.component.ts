@@ -23,8 +23,8 @@ export class SelectionShopComponent implements OnInit {
 
     public createNewShopFieldsInstance() {
         this.args.shopFields = new Shop();
-        this.args.shopFields.shopDetails = new ShopDetail();
-        this.args.shopFields.categoryRef = null;
+        this.args.shopFields.details = new ShopDetail();
+        this.args.shopFields.categoryID = null;
     }
 
     public removeShopFieldsInstance() {

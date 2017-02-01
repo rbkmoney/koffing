@@ -20,7 +20,7 @@ export class EditShopComponent implements OnInit {
     public currentShopId: number = Number(this.route.snapshot.params['shopID']);
     public args: any = {
         shopDetails: {},
-        categoryRef: 0,
+        categoryID: 0,
         contractId: 0,
         payoutAccountId: 0
     };
@@ -61,9 +61,9 @@ export class EditShopComponent implements OnInit {
     public loadShops() {
         return new Promise((resolve) => {
             this.shopService.getShops().then((shops: any) => {
-                const currentShop: Shop = _.find(shops, (shop: any) => shop.shopID === this.currentShopId);
-                this.args.shopDetails = currentShop.shopDetails ? currentShop.shopDetails : {};
-                this.args.categoryRef = currentShop.categoryRef;
+                const currentShop: Shop = _.find(shops, (shop: any) => shop.id === this.currentShopId);
+                this.args.shopDetails = currentShop.details ? currentShop.details : {};
+                this.args.categoryID = currentShop.categoryID;
                 this.args.contractId = currentShop.contractID;
                 this.args.payoutAccountId = currentShop.payoutAccountID;
 
@@ -77,7 +77,7 @@ export class EditShopComponent implements OnInit {
     public loadCategories() {
         return new Promise((resolve) => {
             this.categoryService.getCategories().then(aCategories => {
-                this.categories = _.map(aCategories, (cat: any) => new SelectItem(cat.categoryRef, cat.name));
+                this.categories = _.map(aCategories, (cat: any) => new SelectItem(cat.categoryID, cat.name));
 
                 resolve();
             });

@@ -57,7 +57,7 @@ export class EditShopContractComponent implements OnInit {
     public loadShops() {
         return new Promise((resolve) => {
             this.shopService.getShops().then((shops: any) => {
-                const currentShop: Shop = _.find(shops, (shop: any) => shop.shopID === this.currentShopId);
+                const currentShop: Shop = _.find(shops, (shop: any) => shop.id === this.currentShopId);
                 this.wizardArgs.shopFields = currentShop;
 
                 resolve();

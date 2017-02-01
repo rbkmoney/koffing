@@ -25,7 +25,7 @@ export class AnalyticSelectionComponent implements OnInit {
     public ngOnInit() {
         this.shopService.getShops().then((shops: Shop[]) => {
             const routeShopID = this.route.snapshot.params['shopID'];
-            this.selectItems = _.map(shops, (shop: Shop) => new SelectItem(shop.shopID, shop.shopDetails.name));
+            this.selectItems = _.map(shops, (shop: Shop) => new SelectItem(shop.id, shop.details.name));
             this.selectedShopID = routeShopID ? routeShopID : this.selectItems[0].value;
             this.navigateToShop();
         });

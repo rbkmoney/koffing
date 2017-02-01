@@ -18,10 +18,16 @@ export class ShopService {
             .then(response => response.json() as Shop[]);
     }
 
+    public getShop(shopID: number): Promise<Shop> {
+        return this.http.get(`${this.shopsUrl}/${shopID}`)
+            .toPromise()
+            .then(response => response.json() as Shop);
+    }
+
     public createShop(args: any): Promise<string> {
         const params = {
             categoryRef: Number(args.categoryRef),
-            shopDetails: args.shopDetails,
+            shopDetails: args.details,
             contractID: Number(args.contractID),
             payoutAccountID: Number(args.payoutAccountID)
         };
@@ -33,7 +39,7 @@ export class ShopService {
     public updateShop(shopID: any, args: any): Promise<string> {
         const params = {
             categoryRef: Number(args.categoryRef),
-            shopDetails: args.shopDetails,
+            shopDetails: args.details,
             contractID: Number(args.contractID),
             payoutAccountID: Number(args.payoutAccountID)
         };

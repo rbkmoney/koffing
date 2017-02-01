@@ -15,7 +15,9 @@ export class InfoPanelComponent {
     @Input()
     public profit: any;
     @Input()
-    public account: any;
+    public settlementAccount: any;
+    @Input()
+    public guaranteeAccount: any;
     @Input()
     public isLoading: boolean;
 }

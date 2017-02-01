@@ -24,7 +24,7 @@ export class ShopsComponent implements OnInit {
     public activateShop(shop: any) {
         this.isLoading = true;
 
-        this.shopService.activateShop(shop.shopID).then(() => {
+        this.shopService.activateShop(shop.id).then(() => {
             this.loadShops().then(() => {
                 this.isLoading = false;
             });
@@ -33,9 +33,8 @@ export class ShopsComponent implements OnInit {
 
     public loadShops() {
         return new Promise((resolve) => {
-            this.shopService.getShops().then(aShops => {
-                this.shops = aShops;
-
+            this.shopService.getShops().then(shops => {
+                this.shops = shops;
                 resolve();
             });
         });
@@ -43,9 +42,8 @@ export class ShopsComponent implements OnInit {
 
     public loadCategories() {
         return new Promise((resolve) => {
-            this.categoryService.getCategories().then(aCategories => {
-                this.categories = aCategories;
-
+            this.categoryService.getCategories().then(categories => {
+                this.categories = categories;
                 resolve();
             });
         });
