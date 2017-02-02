@@ -6,32 +6,31 @@
             .x_content
                 kof-loading([isLoading]="isLoading")
                     form.form-horizontal.form-label-left.css-form(novalidate, (ngSubmit)="updateShop(form)", name="form", #form="ngForm")
-                        .form-group([ngClass]="{'has-error': hasError(shop_details_name)}")
+                        .form-group([ngClass]="{'has-error': hasError(shopName)}")
                             .col-xs-12.col-sm-3
                                 label.text-left Название магазина *
                             .col-xs-12.col-sm-6
-                                input.form-control(type="text", required, name="shop_details_name",
-                                                    [(ngModel)]="args.shopDetails.name", #shop_details_name="ngModel")
+                                input.form-control(type="text", [(ngModel)]="shopEditing.details.name", name="shopName", #shopName="ngModel", required)
                         .form-group
                             .col-xs-12.col-sm-3
                                 label.text-left Описание магазина
                             .col-xs-12.col-sm-6
-                                input.form-control(type="text", name="shop_details_description", [(ngModel)]="args.shopDetails.description")
+                                input.form-control(type="text", name="shopDescription", [(ngModel)]="shopEditing.details.description")
                         .form-group
                             .col-xs-12.col-sm-3
-                                label.text-left Месторасположение
+                                label.text-left Сайт
                             .col-xs-12.col-sm-6
-                                input.form-control(type="text", name="shop_details_location", [(ngModel)]="args.shopDetails.location")
+                                input.form-control(type="text", name="shopLocation", [(ngModel)]="shopEditing.details.location.url")
                         .form-group
                             .col-xs-12.col-sm-3
                                 label.text-left Контракт
                             .col-xs-12.col-sm-3
-                                input.form-control(disabled, type="text", name="contractId", [(ngModel)]="args.contractId")
+                                input.form-control(type="text", [(ngModel)]="shopEditing.contractID", name="contractID", disabled)
                             .col-xs-12.col-sm-3
                                 a.btn.btn-dark((click)="showContractDetails = !showContractDetails")
                                     span(*ngIf="showContractDetails === false") Просмотр
                                     span(*ngIf="showContractDetails === true") Скрыть
-                                a.btn.btn-dark([routerLink]="['/shops/edit/', currentShopId, 'contract']") Изменение
+                                a.btn.btn-dark([routerLink]="['/shops/edit/', shopID, 'contract']") Изменение
                         .form-group(*ngIf="showContractDetails === true")
                             .col-xs-12.col-sm-3
                                 label.text-left Детали контракта
@@ -41,12 +40,82 @@
                             .col-xs-12.col-sm-3
                                 label.text-left Счет
                             .col-xs-12.col-sm-3
-                                input.form-control(disabled, type="text", name="payoutAccountId", [(ngModel)]="args.payoutAccountId")
+                                input.form-control(disabled, type="text", name="payoutToolID", [(ngModel)]="shopEditing.payoutToolID")
                             .col-xs-12.col-sm-3
                                 a.btn.btn-dark((click)="showPayoutAccountDetails = !showPayoutAccountDetails")
                                     span(*ngIf="showPayoutAccountDetails === false") Просмотр
                                     span(*ngIf="showPayoutAccountDetails === true") Скрыть
-                                a.btn.btn-dark([routerLink]="['/shops/edit/', currentShopId, 'contract', args.contractId, 'account']") Изменение
+                                a.btn.btn-dark([routerLink]="['/shops/edit/', shopID, 'contract', shopEditing.contractID, 'account']") Изменение
+                        .form-group(*ngIf="showPayoutAccountDetails === true")
+                            .col-xs-12.col-sm-3
+                                label.text-left Детали счета
+                            .col-xs-12.col-sm-6
+                                kof-payout-tool-view([payoutTool]="shopPayoutTool")
+                        .form-group
+                            .col-xs-12.col-sm-3
+                                label.text-left Категория *
+                            .col-xs-12.col-sm-6
+                                kof-select([(ngModel)]="shopEditing.categoryID", [items]="categoryItems", [modelOptions]="{standalone: true}", name='category')
+                        .form-group
+                            .col-xs-12.col-sm-3
+                                label.text-left CallbackHandler URL
+                            .col-xs-12.col-sm-6
+                                input.form-control(type="text", name="callbackHandlerUrl", [(ngModel)]="shopEditing.callbackHandler.url")
+                        .ln_solid
+                        .form-group
+                            .col-xs-12.col-sm-6.col-sm-offset-3
+                                button.btn.btn-primary(type="submit", [disabled]="form.invalid || form.pristine") Создать заявку
+                                a.btn.btn-default.pull-right(type="reset", [routerLink]=["/management"]) Назад
+
+//.row
+    .col-xs-12
+        .x_panel.tile
+            .x_title
+                h4 Изменение данных магазина
+            .x_content
+                kof-loading([isLoading]="isLoading")
+                    form.form-horizontal.form-label-left.css-form(novalidate, (ngSubmit)="updateShop(form)", name="form", #form="ngForm")
+                        .form-group([ngClass]="{'has-error': hasError(shopDetailsName)}")
+                            .col-xs-12.col-sm-3
+                                label.text-left Название магазина *
+                            .col-xs-12.col-sm-6
+                                input.form-control(type="text", required, name="shopDetailsName",
+                                                    [(ngModel)]="args.shopDetails.name", #shopDetailsName="ngModel")
+                        .form-group
+                            .col-xs-12.col-sm-3
+                                label.text-left Описание магазина
+                            .col-xs-12.col-sm-6
+                                input.form-control(type="text", name="shopDetailsDescription", [(ngModel)]="args.shopDetails.description")
+                        .form-group
+                            .col-xs-12.col-sm-3
+                                label.text-left Сайт
+                            .col-xs-12.col-sm-6
+                                input.form-control(type="text", name="shopDetailsLocation", [(ngModel)]="args.shopDetails.location")
+                        .form-group
+                            .col-xs-12.col-sm-3
+                                label.text-left Контракт
+                            .col-xs-12.col-sm-3
+                                input.form-control(disabled, type="text", name="contractID", [(ngModel)]="args.contractID")
+                            .col-xs-12.col-sm-3
+                                a.btn.btn-dark((click)="showContractDetails = !showContractDetails")
+                                    span(*ngIf="showContractDetails === false") Просмотр
+                                    span(*ngIf="showContractDetails === true") Скрыть
+                                a.btn.btn-dark([routerLink]="['/shops/edit/', shopID, 'contract']") Изменение
+                        .form-group(*ngIf="showContractDetails === true")
+                            .col-xs-12.col-sm-3
+                                label.text-left Детали контракта
+                            .col-xs-12.col-sm-6
+                                kof-contract-view([contract]="shopContract", [showAccounts]="false")
+                        .form-group
+                            .col-xs-12.col-sm-3
+                                label.text-left Счет
+                            .col-xs-12.col-sm-3
+                                input.form-control(disabled, type="text", name="payoutToolID", [(ngModel)]="args.payoutToolID")
+                            .col-xs-12.col-sm-3
+                                a.btn.btn-dark((click)="showPayoutAccountDetails = !showPayoutAccountDetails")
+                                    span(*ngIf="showPayoutAccountDetails === false") Просмотр
+                                    span(*ngIf="showPayoutAccountDetails === true") Скрыть
+                                a.btn.btn-dark([routerLink]="['/shops/edit/', shopID, 'contract', args.contractID, 'account']") Изменение
                         .form-group(*ngIf="showPayoutAccountDetails === true")
                             .col-xs-12.col-sm-3
                                 label.text-left Детали счета
@@ -56,12 +125,12 @@
                             .col-xs-12.col-sm-3
                                 label.text-left Категория *
                             .col-xs-12.col-sm-6
-                                kof-select([(ngModel)]="args.categoryRef", [items]="categories", [modelOptions]="{standalone: true}", name='category')
+                                kof-select([(ngModel)]="args.categoryID", [items]="categories", [modelOptions]="{standalone: true}", name='category')
                         .form-group
                             .col-xs-12.col-sm-3
                                 label.text-left URL для CallbackHandler
                             .col-xs-12.col-sm-6
-                                input.form-control(type="text", name="callback_handler_url", [(ngModel)]="args.callbackHandlerUrl")
+                                input.form-control(type="text", name="callbackHandlerUrl", [(ngModel)]="args.callbackHandlerUrl")
                         .ln_solid
                         .form-group
                             .col-xs-12.col-sm-6.col-sm-offset-3

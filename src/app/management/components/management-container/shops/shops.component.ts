@@ -23,64 +23,11 @@ export class ShopsComponent implements OnInit {
         private categoryService: CategoryService
     ) {}
 
-    public activateShop(shop: any) {
-        this.isLoading = true;
-
-        this.shopService.activateShop(shop.id).then(() => {
-            this.loadShops().then(() => {
-                this.isLoading = false;
-            });
-        });
-    }
-
-    public handleShopSuspended() {
-        this.isLoading = true;
-
-        this.loadShops().then(() => {
-            this.isLoading = false;
-        });
-    }
-
-    public loadShops() {
-        this.resetPanelsVisibilities();
-
-        return new Promise((resolve) => {
-            this.shopService.getShops().then(shops => {
-                this.shops = shops;
-                resolve();
-            });
-        });
-    }
-
-    public loadCategories() {
-        return new Promise((resolve) => {
-            this.categoryService.getCategories().then(categories => {
-                this.categories = categories;
-                resolve();
-            });
-        });
-    }
-
-    public isDetailsPanelVisible(panelIndex: number) {
-        if (!this.panelsVisibilities.hasOwnProperty(panelIndex)) {
-            this.initPanelVisibility(panelIndex);
-        }
-        return this.panelsVisibilities[panelIndex];
-    }
-
-    public showDetailsPanel(panelIndex: number) {
-        this.panelsVisibilities[panelIndex] = !this.panelsVisibilities[panelIndex];
-    }
-
-    public getCategory(categoryRef: number): Category {
-        let result = new Category();
-        if (this.categories.length > 0) {
-            result = _.find(this.categories, (category: Category) => category.categoryRef === categoryRef);
-        }
-        return result;
-    }
-
     public ngOnInit() {
+        this.loadData();
+    }
+
+    public loadData() {
         this.isLoading = true;
         Promise.all([
             this.loadShops(),
@@ -90,11 +37,48 @@ export class ShopsComponent implements OnInit {
         });
     }
 
-    private initPanelVisibility(panelIndex: number) {
-        this.panelsVisibilities[panelIndex] = false;
+    public activateShop(shop: any) {
+        this.isLoading = true;
+        this.shopService.activateShop(shop.id).then(() => {
+            this.loadShops().then(() => {
+                this.isLoading = false;
+            });
+        });
     }
 
-    private resetPanelsVisibilities() {
+    public loadShops(): Promise<Shop[]> {
         this.panelsVisibilities = {};
+        return new Promise((resolve) => {
+            this.shopService.getShops().then(shops => {
+                this.shops = shops;
+                resolve();
+            });
+        });
+    }
+
+    public loadCategories(): Promise<Category[]> {
+        return new Promise((resolve) => {
+            this.categoryService.getCategories().then(categories => {
+                this.categories = categories;
+                resolve();
+            });
+        });
+    }
+
+    public isDetailsPanelVisible(panelIndex: number): boolean {
+        if (!this.panelsVisibilities.hasOwnProperty(panelIndex)) {
+            this.panelsVisibilities[panelIndex] = false;
+        }
+        return this.panelsVisibilities[panelIndex];
+    }
+
+    public showDetailsPanel(panelIndex: number) {
+        this.panelsVisibilities[panelIndex] = !this.panelsVisibilities[panelIndex];
+    }
+
+    public getCategoryName(categoryID: number): string {
+        if (this.categories.length > 0) {
+            return (_.find(this.categories, (category: Category) => category.categoryID === categoryID)).name;
+        }
     }
 }

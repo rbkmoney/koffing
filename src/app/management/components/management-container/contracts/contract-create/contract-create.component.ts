@@ -25,7 +25,7 @@ export class ContractCreateComponent implements OnInit {
         this.newContract = new Contract();
         this.newContract.contractor = new Contractor();
         this.newContract.contractor.bankAccount = new BankAccount();
-        this.newContract.contractor.entity = new RussianLegalEntity();
+        // this.newContract.contractor.entity = new RussianLegalEntity();
     }
 
     public createContract(form: any) {

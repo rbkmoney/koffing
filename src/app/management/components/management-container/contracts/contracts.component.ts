@@ -27,6 +27,15 @@ export class ContractsComponent implements OnInit {
         });
     }
 
+    private getContracts(): Promise<Contract[]> {
+        return Promise.all([
+            this.loadContracts(),
+            this.loadContractsClaimed()
+        ]).then((contracts: any) => {
+            return _.reduce(contracts, (current: Contract[], next: Contract[]) => _.concat(current, next));
+        });
+    }
+
     private loadContracts(): Promise<Contract[]> {
         return this.contractService.getContracts().then((contracts: Contract[]) => contracts);
     }
@@ -38,15 +47,6 @@ export class ContractsComponent implements OnInit {
                 .filter((changeSet) => changeSet.modificationType === 'ContractCreation')
                 .map((changeSet) => changeSet.contract)
                 .value();
-        });
-    }
-
-    private getContracts(): Promise<Contract[]> {
-        return Promise.all([
-            this.loadContracts(),
-            this.loadContractsClaimed()
-        ]).then((contracts: any) => {
-            return _.reduce(contracts, (current: Contract[], next: Contract[]) => _.concat(current, next));
         });
     }
 }

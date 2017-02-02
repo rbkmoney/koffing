@@ -1,40 +1,33 @@
 .x_panel.tile
-    .x_title
-        h3 Создание нового счета
     .x_content
-        form.form-horizontal.form-label-left.css-form(novalidate, (ngSubmit)="createPayoutAccount(form)", name="form", #form="ngForm")
+        form.form-horizontal.form-label-left.css-form
             .form-group
                 .col-xs-12.col-sm-3
                     label.text-left Валюта
                 .col-xs-12.col-sm-6
                     input.form-control(type="text", required, name="currency", #currency="ngModel",
-                    [(ngModel)]="newPayoutAccount.currency")
+                    [(ngModel)]="payoutTool.params.currency", [disabled]="true")
             .form-group
                 .col-xs-12.col-sm-3
-                    label.text-left Банк
+                    label.text-left Наименование банка
                 .col-xs-12.col-sm-6
                     input.form-control(type="text", required, name="bankName", #bankName="ngModel",
-                    [(ngModel)]="newPayoutAccount.tool.bankAccount.bankName")
+                    [(ngModel)]="payoutTool.params.bankAccount.bankName", [disabled]="true")
             .form-group
                 .col-xs-12.col-sm-3
                     label.text-left Расчетный счет
                 .col-xs-12.col-sm-6
                     input.form-control(type="text", required, name="bankAccount", #bankAccount="ngModel",
-                    [(ngModel)]="newPayoutAccount.tool.bankAccount.account")
+                    [(ngModel)]="payoutTool.params.bankAccount.account", [disabled]="true")
             .form-group
                 .col-xs-12.col-sm-3
                     label.text-left Корреспондентский счет
                 .col-xs-12.col-sm-6
                     input.form-control(type="text", required, name="bankPostAccount", #bankPostAccount="ngModel",
-                    [(ngModel)]="newPayoutAccount.tool.bankAccount.bankPostAccount")
+                    [(ngModel)]="payoutTool.params.bankAccount.bankPostAccount", [disabled]="true")
             .form-group
                 .col-xs-12.col-sm-3
                     label.text-left БИК
                 .col-xs-12.col-sm-6
                     input.form-control(type="text", required, name="bankBik", #bankBik="ngModel",
-                    [(ngModel)]="newPayoutAccount.tool.bankAccount.bankBik")
-            .ln_solid
-            .form-group
-                .col-xs-12.col-sm-6.col-sm-offset-3
-                    button.btn.btn-primary.pull-right(type="submit", [disabled]="form.invalid || form.pristine || isLoading") Добавить счет
-                    a.btn.btn-default(type="reset", [routerLink]="['/management/contracts']") Назад
+                    [(ngModel)]="payoutTool.params.bankAccount.bankBik", [disabled]="true")

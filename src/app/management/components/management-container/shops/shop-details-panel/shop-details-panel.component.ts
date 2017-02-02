@@ -21,7 +21,7 @@ export class ShopDetailsPanelComponent {
     ) { }
     
     public suspendShop() {
-        this.shopService.suspendShop(this.shop.shopID).then(() => {
+        this.shopService.suspendShop(this.shop.id).then(() => {
             this.shopSuspended.emit();
         });
     }

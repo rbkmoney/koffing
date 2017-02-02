@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import * as _ from 'lodash';
 
 import { SelectItem } from 'koffing/common/components/select/select.class';
-import { PayoutAccount } from 'koffing/backend/classes/payout-account.class';
+import { PayoutTool } from 'koffing/backend/classes/payout-tool.class';
 
 @Component({
     selector: 'kof-select-payout-account',
@@ -18,9 +18,9 @@ export class SelectPayoutAccountComponent implements OnInit {
     public payoutAccountSelected = new EventEmitter();
 
     @Input()
-    private payoutAccounts: PayoutAccount[];
+    private payoutAccounts: PayoutTool[];
 
-    private selectedPayoutAccount: PayoutAccount;
+    private selectedPayoutAccount: PayoutTool;
 
     public selectPayoutAccount() {
         this.selectedPayoutAccount = _.find(this.payoutAccounts, (payoutAccount) => {

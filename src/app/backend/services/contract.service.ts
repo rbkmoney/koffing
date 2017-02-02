@@ -5,7 +5,8 @@ import 'rxjs/add/operator/toPromise';
 import { ConfigService } from './config.service';
 import { Contract } from '../classes/contract.class';
 import { Contractor } from '../classes/contractor.class';
-import { PayoutAccount } from '../classes/payout-account.class';
+import { PayoutTool } from '../classes/payout-tool.class';
+import { PayoutToolParams } from '../classes/payout-tool-params.class';
 
 @Injectable()
 export class ContractService {
@@ -32,12 +33,14 @@ export class ContractService {
             .then(response => response.json());
     }
 
-    public createPayoutAccount(contractID: number, payoutAccount: PayoutAccount): Promise<any> {
-        const params = {
-            currency: payoutAccount.currency,
-            tool: payoutAccount.tool
-        };
-        return this.http.post(`${this.contractsUrl}/${contractID}/accounts`, params)
+    public getPayoutTools(contractID: number): Promise<PayoutTool[]> {
+        return this.http.get(`${this.contractsUrl}/${contractID}/payout_tools`)
+            .toPromise()
+            .then(response => response.json() as PayoutTool[]);
+    }
+
+    public createPayoutTool(contractID: number, payoutToolParams: PayoutToolParams): Promise<any> {
+        return this.http.post(`${this.contractsUrl}/${contractID}/payout_tools`, payoutToolParams)
             .toPromise()
             .then(response => response.json());
     }

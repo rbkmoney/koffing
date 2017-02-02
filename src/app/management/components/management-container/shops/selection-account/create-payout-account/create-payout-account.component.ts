@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { PayoutAccount } from 'koffing/backend/backend.module';
+import { PayoutToolParams } from 'koffing/backend/backend.module';
 
 @Component({
     selector: 'kof-create-payout-account',
@@ -9,7 +9,7 @@ import { PayoutAccount } from 'koffing/backend/backend.module';
 export class CreatePayoutAccountComponent {
 
     @Input()
-    public newPayoutAccount: PayoutAccount;
+    public newPayoutAccount: PayoutToolParams;
 
     @Output()
     public readyStateChange = new EventEmitter();

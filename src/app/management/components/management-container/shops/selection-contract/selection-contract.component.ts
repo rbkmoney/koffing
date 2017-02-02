@@ -53,7 +53,7 @@ export class SelectionContractComponent implements OnInit {
         this.args.contract = new Contract();
         this.args.contract.contractor = new Contractor();
         this.args.contract.contractor.bankAccount = bankAccountArgs;
-        this.args.contract.contractor.entity = entityArgs;
+        // this.args.contract.contractor.entity = entityArgs;
         this.isContractReady = false;
     }
 

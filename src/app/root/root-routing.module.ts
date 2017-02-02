@@ -19,6 +19,11 @@ import { EditShopPayoutAccountComponent } from 'koffing/management/management.mo
                 component: CreateShopWizardComponent
             },
             {
+                path: 'shops/edit',
+                redirectTo: '/management/shops',
+                pathMatch: 'full'
+            },
+            {
                 path: 'shops/edit/:shopID',
                 component: EditShopComponent
             },

@@ -2,20 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { ContractService } from 'koffing/backend/services/contract.service';
-import { PayoutAccount } from 'koffing/backend/classes/payout-account.class';
+import { PayoutTool } from 'koffing/backend/classes/payout-tool.class';
 import { PayoutToolBankAccount } from 'koffing/backend/classes/payout-tool-bank-account.class';
 import { BankAccount } from 'koffing/backend/classes/bank-account.class';
 
 @Component({
-    selector: 'kof-payout-account-create',
-    templateUrl: 'payout-account-create.component.pug'
+    selector: 'kof-payout-tool-create',
+    templateUrl: 'payout-tool-create.component.pug'
 })
-export class PayoutAccountCreateComponent implements OnInit {
+export class PayoutToolCreateComponent implements OnInit {
 
-    public newPayoutAccount: PayoutAccount;
+    public contractID: number = Number(this.route.snapshot.params['contractID']);
+    public newPayoutTool: PayoutTool;
     public isLoading: boolean = false;
-
-    private contractID: number = Number(this.route.snapshot.params['contractID']);
 
     constructor(
         private route: ActivatedRoute,
@@ -24,18 +23,18 @@ export class PayoutAccountCreateComponent implements OnInit {
     ) {}
 
     public ngOnInit() {
-        this.newPayoutAccount = new PayoutAccount();
+        this.newPayoutTool = new PayoutTool();
         const payoutToolBankAccount = new PayoutToolBankAccount();
         payoutToolBankAccount.bankAccount = new BankAccount();
-        this.newPayoutAccount.tool = payoutToolBankAccount;
+        this.newPayoutTool.params = payoutToolBankAccount;
     }
 
-    public createPayoutAccount(form: any) {
+    public createPayoutTool(form: any) {
         if (form.valid) {
             this.isLoading = true;
-            this.contractService.createPayoutAccount(this.contractID, this.newPayoutAccount).then(() => {
-                this.router.navigate(['/management/contracts']);
+            this.contractService.createPayoutTool(this.contractID, this.newPayoutTool.params).then(() => {
                 this.isLoading = false;
+                this.router.navigate(['/management/contracts']);
             });
         }
     }

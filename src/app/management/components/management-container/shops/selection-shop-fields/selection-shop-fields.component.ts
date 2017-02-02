@@ -3,7 +3,7 @@ import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { ShopModificationArgs } from 'koffing/management/management.module';
 import { Shop } from 'koffing/backend/backend.module';
 import { ShopDetail } from 'koffing/backend/backend.module';
-import { CallbackHandler } from 'koffing/backend/classes/callback-handler';
+import { CallbackHandler } from 'koffing/backend/classes/callback-handler.class';
 
 @Component({
     selector: 'kof-selection-shop-fields',

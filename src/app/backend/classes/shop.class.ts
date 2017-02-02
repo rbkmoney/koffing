@@ -1,6 +1,6 @@
 import { ShopDetail } from './shop-detail.class';
-import { CallbackHandler } from './callback-handler';
 import { Account } from './account.class';
+import { CallbackHandler } from './callback-handler.class';
 
 export class Shop {
     public id: number;
@@ -12,4 +12,10 @@ export class Shop {
     public details: ShopDetail;
     public account: Account;
     public callbackHandler: CallbackHandler;
+
+    constructor() {
+        this.details = new ShopDetail();
+        this.account = new Account();
+        this.callbackHandler = new CallbackHandler();
+    }
 }

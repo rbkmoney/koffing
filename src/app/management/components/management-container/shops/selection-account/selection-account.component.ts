@@ -7,7 +7,7 @@ import { Claim } from 'koffing/backend/classes/claim.class';
 import { ClaimService } from 'koffing/backend/services/claim.service';
 import { BankAccount } from 'koffing/backend/classes/bank-account.class';
 import { PayoutToolBankAccount } from 'koffing/backend/classes/payout-tool-bank-account.class';
-import { PayoutAccount } from 'koffing/backend/classes/payout-account.class';
+import { PayoutTool } from 'koffing/backend/classes/payout-tool.class';
 import { ContractService } from 'koffing/backend/services/contract.service';
 
 @Component({
@@ -53,8 +53,7 @@ export class SelectionAccountComponent implements OnInit {
         const bankAccountArgs = new BankAccount();
         const payoutToolBankAccount = new PayoutToolBankAccount();
         payoutToolBankAccount.bankAccount = bankAccountArgs;
-        this.args.payoutAccount = new PayoutAccount();
-        this.args.payoutAccount.tool = payoutToolBankAccount;
+        this.args.payoutAccount = new PayoutTool();
         this.isPayoutAccountReady = false;
     }
 
@@ -80,20 +79,20 @@ export class SelectionAccountComponent implements OnInit {
 
     public createPayoutAccount() {
         this.args.isLoading = true;
-        this.contractService.createPayoutAccount(this.args.contract.id, this.args.payoutAccount).then(
-            (result: any) => {
-                this.claimService.getClaimById(result.claimID).then(
-                    (claim: Claim) => {
-                        this.args.isLoading = false;
-                        let payoutAccountCreationChangeset = _.find(claim.changeset, (set) => {
-                            return set.modificationType === 'PayoutAccountCreation';
-                        });
-                        this.args.payoutAccount = payoutAccountCreationChangeset.payoutAccount;
-                        this.confirmForward();
-                    }
-                );
-            }
-        );
+        // this.contractService.createPayoutTool(this.args.contract.id, this.args.payoutAccount).then(
+        //     (result: any) => {
+        //         this.claimService.getClaimById(result.claimID).then(
+        //             (claim: Claim) => {
+        //                 this.args.isLoading = false;
+        //                 let payoutAccountCreationChangeset = _.find(claim.changeset, (set) => {
+        //                     return set.modificationType === 'PayoutAccountCreation';
+        //                 });
+        //                 this.args.payoutAccount = payoutAccountCreationChangeset.payoutAccount;
+        //                 this.confirmForward();
+        //             }
+        //         );
+        //     }
+        // );
     }
 
     public stepForward() {

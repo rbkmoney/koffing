@@ -1,3 +1,3 @@
-export class Entity {
+export class LegalEntity {
     public entityType: string;
 }
