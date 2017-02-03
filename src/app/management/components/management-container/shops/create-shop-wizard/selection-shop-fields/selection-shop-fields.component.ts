@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 
-import { ShopModificationArgs } from 'koffing/management/management.module';
+import { WizardArgs } from 'koffing/management/management.module';
 import { Shop } from 'koffing/backend/backend.module';
 import { ShopDetail } from 'koffing/backend/backend.module';
 import { CallbackHandler } from 'koffing/backend/classes/callback-handler.class';
@@ -20,22 +20,16 @@ export class SelectionShopComponent implements OnInit {
     public isShopFieldsReady: boolean = false;
 
     @Input()
-    private args: ShopModificationArgs;
+    private args: WizardArgs;
 
     public createNewShopFieldsInstance() {
-        this.args.shopFields = new Shop();
-        this.args.shopFields.details = new ShopDetail();
-        this.args.shopFields.categoryID = null;
-        this.args.shopFields.callbackHandler = new CallbackHandler();
-    }
-
-    public removeShopFieldsInstance() {
-        delete this.args.shopFields;
-        this.isShopFieldsReady = false;
+        this.args.creatingShop.details = new ShopDetail();
+        this.args.creatingShop.categoryID = null;
+        this.args.creatingShop.callbackHandler = new CallbackHandler();
     }
 
     public ngOnInit() {
-        this.removeShopFieldsInstance();
+        this.isShopFieldsReady = false;
         this.createNewShopFieldsInstance();
     }
 

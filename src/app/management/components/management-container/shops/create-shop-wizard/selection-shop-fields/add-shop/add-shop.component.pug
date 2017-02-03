@@ -8,28 +8,28 @@
                     label.text-left Название магазина *
                 .col-xs-12.col-sm-6
                     input.form-control(type="text", required, name="shop_details_name",
-                    [(ngModel)]="shopFields.details.name", #shop_details_name="ngModel",
+                    [(ngModel)]="shop.details.name", #shop_details_name="ngModel",
                     (keyup)="checkForm(form)")
             .form-group
                 .col-xs-12.col-sm-3
                     label.text-left Описание магазина
                 .col-xs-12.col-sm-6
                     input.form-control(type="text", name="shop_details_description",
-                    [(ngModel)]="shopFields.details.description",
+                    [(ngModel)]="shop.details.description",
                     (keyup)="checkForm(form)")
             .form-group
                 .col-xs-12.col-sm-3
-                    label.text-left Месторасположение
+                    label.text-left Сайт
                 .col-xs-12.col-sm-6
                     input.form-control(type="text", name="shop_details_location",
-                    [(ngModel)]="shopFields.details.location",
+                    [(ngModel)]="shop.details.location.url",
                     (keyup)="checkForm(form)")
             .form-group
                 .col-xs-12.col-sm-3
                     label.text-left URL для CallbackHandler
                 .col-xs-12.col-sm-6
                     input.form-control(type="text", name="callback_handler_url",
-                    [(ngModel)]="shopFields.callbackHandler.url",
+                    [(ngModel)]="shop.callbackHandler.url",
                     (keyup)="checkForm(form)")
 
             .form-group
@@ -37,7 +37,7 @@
                     label.text-left Категория *
                 .col-xs-12.col-sm-6
                     kof-select(
-                        [(ngModel)]="shopFields.categoryRef",
+                        [(ngModel)]="shop.categoryID",
                         [items]="categories",
                         (onChange)="selectCategory()",
                         [modelOptions]="{standalone: true}",

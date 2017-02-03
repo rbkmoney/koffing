@@ -23,7 +23,7 @@ export class AddShopComponent implements OnInit {
     private latestFormState: any;
 
     @Input()
-    private shopFields: Shop;
+    private shop: Shop;
 
     constructor(
         private categoryService: CategoryService
@@ -32,7 +32,7 @@ export class AddShopComponent implements OnInit {
     public getCategories() {
         return new Promise((resolve) => {
             this.categoryService.getCategories().then(aCategories => {
-                this.categories = _.map(aCategories, (cat: any) => new SelectItem(cat.categoryRef, cat.name));
+                this.categories = _.map(aCategories, (cat: any) => new SelectItem(cat.categoryID, cat.name));
 
                 resolve();
             });
@@ -57,7 +57,7 @@ export class AddShopComponent implements OnInit {
 
         let emit = () => {
             this.readyStateChange.emit({
-                shopFields: this.shopFields,
+                shop: this.shop,
                 valid: form.valid
             });
         };
