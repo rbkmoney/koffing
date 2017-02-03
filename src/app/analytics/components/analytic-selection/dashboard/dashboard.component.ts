@@ -9,7 +9,6 @@ import { CustomerService } from 'koffing/backend/backend.module';
 import { PaymentsService } from 'koffing/backend/backend.module';
 import { RequestParams } from 'koffing/backend/backend.module';
 import { PaymentGeoStat } from 'koffing/backend/backend.module';
-import { PaymentsService } from 'koffing/backend/backend.module';
 import { Conversion } from 'koffing/backend/backend.module';
 import { GeolocationService } from 'koffing/backend/backend.module';
 import { LocationName } from 'koffing/backend/backend.module';
