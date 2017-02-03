@@ -1,15 +1,15 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { PayoutToolParams } from 'koffing/backend/backend.module';
+import { PayoutTool } from 'koffing/backend/classes/payout-tool.class';
 
 @Component({
-    selector: 'kof-create-payout-account',
-    templateUrl: 'create-payout-account.component.pug'
+    selector: 'kof-create-paytool',
+    templateUrl: 'create-paytool.component.pug'
 })
-export class CreatePayoutAccountComponent {
+export class CreatePayoutToolComponent {
 
     @Input()
-    public newPayoutAccount: PayoutToolParams;
+    public newPayoutTool: PayoutTool;
 
     @Output()
     public readyStateChange = new EventEmitter();
@@ -19,7 +19,7 @@ export class CreatePayoutAccountComponent {
     public checkForm(form: any) {
         let emit = () => {
             this.readyStateChange.emit({
-                payoutAccount: this.newPayoutAccount,
+                payoutTool: this.newPayoutTool,
                 valid: form.valid
             });
         };

@@ -40,46 +40,46 @@
                     label.text-left Наименование юр. лица
                 .col-xs-12.col-sm-6
                     input.form-control(disabled, type="text", name="entity_registered_name", required,
-                    [(ngModel)]="selectedContract.contractor.entity.registeredName", #entity_registered_name="ngModel")
+                    [(ngModel)]="selectedContract.contractor.legalEntity.registeredName", #entity_registered_name="ngModel")
             .form-group
                 .col-xs-12.col-sm-3
                     label.text-left ОГРН
                 .col-xs-12.col-sm-6
                     input.form-control(disabled, type="text", name="entity_registered_number", required,
-                    [(ngModel)]="selectedContract.contractor.entity.registeredNumber", #entity_registered_number="ngModel")
+                    [(ngModel)]="selectedContract.contractor.legalEntity.registeredNumber", #entity_registered_number="ngModel")
             .form-group
                 .col-xs-12.col-sm-3
                     label.text-left ИНН
                 .col-xs-12.col-sm-6
                     input.form-control(disabled, type="text", name="entity_inn", required,
-                    [(ngModel)]="selectedContract.contractor.entity.inn", #entity_inn="ngModel")
+                    [(ngModel)]="selectedContract.contractor.legalEntity.inn", #entity_inn="ngModel")
             .form-group
                 .col-xs-12.col-sm-3
                     label.text-left Фактический адрес
                 .col-xs-12.col-sm-6
                     input.form-control(disabled, type="text", name="entity_actual_address", required,
-                    [(ngModel)]="selectedContract.contractor.entity.actualAddress", #entity_actual_address="ngModel")
+                    [(ngModel)]="selectedContract.contractor.legalEntity.actualAddress", #entity_actual_address="ngModel")
             .form-group
                 .col-xs-12.col-sm-3
                     label.text-left Почтовый адрес
                 .col-xs-12.col-sm-6
                     input.form-control(disabled, type="text", name="entity_post_address", required,
-                    [(ngModel)]="selectedContract.contractor.entity.postAddress", #entity_post_address="ngModel")
+                    [(ngModel)]="selectedContract.contractor.legalEntity.postAddress", #entity_post_address="ngModel")
             .form-group
                 .col-xs-12.col-sm-3
                     label.text-left Должность ЕИО/представителя
                 .col-xs-12.col-sm-6
                     input.form-control(disabled, type="text", name="entity_representative_position", required,
-                    [(ngModel)]="selectedContract.contractor.entity.representativePosition", #entity_representative_position="ngModel")
+                    [(ngModel)]="selectedContract.contractor.legalEntity.representativePosition", #entity_representative_position="ngModel")
             .form-group
                 .col-xs-12.col-sm-3
                     label.text-left ФИО ЕИО/представителя
                 .col-xs-12.col-sm-6
                     input.form-control(disabled, type="text", name="entity_representative_fullname", required,
-                    [(ngModel)]="selectedContract.contractor.entity.representativeFullName", #entity_representative_fullname="ngModel")
+                    [(ngModel)]="selectedContract.contractor.legalEntity.representativeFullName", #entity_representative_fullname="ngModel")
             .form-group
                 .col-xs-12.col-sm-3
                     label.text-left Документ ЕИО/представителя
                 .col-xs-12.col-sm-6
                     input.form-control(disabled, type="text", name="entity_representative_document", required,
-                    [(ngModel)]="selectedContract.contractor.entity.representativeDocument", #entity_representative_document="ngModel")
+                    [(ngModel)]="selectedContract.contractor.legalEntity.representativeDocument", #entity_representative_document="ngModel")

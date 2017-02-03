@@ -1,4 +1,4 @@
-.tile(*ngIf="!args.isNewContract")
+.tile
     .text-center
         h4 Выберите
         .btn-group(data-toggle="buttons")
@@ -11,22 +11,22 @@
         br
         br
 .tile
-    kof-create-payout-account(
+    kof-create-contract(
         *ngIf="selectedOption === optionNew",
-        [newPayoutAccount]="args.payoutAccount",
-        (readyStateChange)="newPayoutAccountReady($event)"
+        [newContract]="newContract",
+        (readyStateChange)="newContractReady($event)"
     )
-    kof-select-payout-account(
+    kof-select-contract(
         *ngIf="selectedOption === optionExisting",
-        [payoutAccounts]="args.contract.payoutAccounts",
-        (payoutAccountSelected)="payoutAccountSelected($event)"
+        [contracts]="contracts",
+        (contractSelected)="contractSelected($event)"
     )
 .actionBar
     .text-center
         a.btn.btn-primary((click)="stepBackward()") Отмена
-        a.btn.btn-success(
+        a.btn(
             (click)="stepForward()",
-            [ngClass]="{'buttonDisabled': isPayoutAccountReady === false, " +
+            [ngClass]="{'buttonDisabled': isContractReady === false, " +
             "'btn-default': showFinishButton === true," +
             "'btn-success': showFinishButton === false}"
         )

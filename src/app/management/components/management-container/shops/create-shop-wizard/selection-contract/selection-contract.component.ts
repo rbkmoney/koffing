@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import * as _ from 'lodash';
 
 import { SelectionOptions } from '../selection-options.class';
-import { ShopModificationArgs } from 'koffing/management/management.module';
+import { WizardArgs } from 'koffing/management/management.module';
 import { ContractService } from 'koffing/backend/services/contract.service';
 import { ClaimService } from 'koffing/backend/backend.module';
 import { Claim } from 'koffing/backend/classes/claim.class';
@@ -18,19 +18,21 @@ import { Contractor } from 'koffing/backend/classes/contractor.class';
 export class SelectionContractComponent implements OnInit {
 
     @Input()
+    public args: WizardArgs;
+    @Input()
+    public contracts: Contract[];
+    @Input()
     public showFinishButton: boolean = false;
     public selectedOption: SelectionOptions;
     public optionNew: number = SelectionOptions.New;
     public optionExisting: number = SelectionOptions.Existing;
     public isContractReady: boolean = false;
+    public newContract: Contract;
     
     @Output()
     public steppedForward = new EventEmitter();
     @Output()
     public steppedBackward = new EventEmitter();
-
-    @Input()
-    private args: ShopModificationArgs;
 
     constructor(
         private contractService: ContractService,
@@ -39,22 +41,16 @@ export class SelectionContractComponent implements OnInit {
 
     public ngOnInit() {
         this.args.isNewContract = false;
-        this.removeContractInstance();
-    }
-
-    public removeContractInstance() {
-        delete this.args.contract;
         this.isContractReady = false;
     }
 
     public createNewContractInstance() {
         const bankAccountArgs = new BankAccount();
         const entityArgs = new RussianLegalEntity();
-        this.args.contract = new Contract();
-        this.args.contract.contractor = new Contractor();
-        this.args.contract.contractor.bankAccount = bankAccountArgs;
-        // todo
-        // this.args.contract.contractor.entity = entityArgs;
+        this.newContract = new Contract();
+        this.newContract.contractor = new Contractor();
+        this.newContract.contractor.bankAccount = bankAccountArgs;
+        this.newContract.contractor.legalEntity = entityArgs;
         this.isContractReady = false;
     }
 
@@ -63,7 +59,7 @@ export class SelectionContractComponent implements OnInit {
     }
 
     public contractSelected(params: any) {
-        this.args.contract = params.contract;
+        this.args.creatingShop.contractID = params.contract.id;
         this.isContractReady = true;
     }
 
@@ -73,8 +69,8 @@ export class SelectionContractComponent implements OnInit {
     }
 
     public selectOptionExisting() {
-        this.removeContractInstance();
         this.selectedOption = this.optionExisting;
+        this.isContractReady = false;
     }
 
     public stepForward() {
@@ -99,15 +95,15 @@ export class SelectionContractComponent implements OnInit {
 
     private createContract() {
         this.args.isLoading = true;
-        this.contractService.createContract(this.args.contract.contractor).then(
+        this.contractService.createContract(this.newContract.contractor).then(
             (result: any) => {
                 this.claimService.getClaimById(result.claimID).then(
                     (claim: Claim) => {
                         this.args.isLoading = false;
                         let contractCreationChangeset = _.find(claim.changeset, (set) => {
-                            return set.modificationType === 'ContractCreation';
+                            return set.partyModificationType === 'ContractCreation';
                         });
-                        this.args.contract = contractCreationChangeset.contract;
+                        this.args.creatingShop.contractID = contractCreationChangeset.contract.id;
                         this.args.isNewContract = true;
                         this.confirmForward();
                     }
