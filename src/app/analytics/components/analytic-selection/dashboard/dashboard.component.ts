@@ -8,8 +8,12 @@ import { AccountService } from 'koffing/backend/backend.module';
 import { CustomerService } from 'koffing/backend/backend.module';
 import { PaymentsService } from 'koffing/backend/backend.module';
 import { RequestParams } from 'koffing/backend/backend.module';
-import { GeoData } from 'koffing/backend/backend.module';
+import { PaymentGeoStat } from 'koffing/backend/backend.module';
+import { PaymentsService } from 'koffing/backend/backend.module';
 import { Conversion } from 'koffing/backend/backend.module';
+import { GeolocationService } from 'koffing/backend/backend.module';
+import { LocationName } from 'koffing/backend/backend.module';
+import { GeoChartLabeled } from './geo-chart-labeled.class';
 import { Shop } from 'koffing/backend/classes/shop.class';
 
 @Component({
@@ -31,7 +35,7 @@ export class DashboardComponent implements OnInit {
     public settlementBalance: any;
     public revenueChartData: any;
     public conversionChartData: any;
-    public geoChartData: GeoData[] = [];
+    public geoChartData: GeoChartLabeled = new GeoChartLabeled([], []);
     public paymentMethodChartData: any;
 
     private shopID: number;
@@ -41,7 +45,8 @@ export class DashboardComponent implements OnInit {
         private customerService: CustomerService,
         private paymentsService: PaymentsService,
         private accountService: AccountService,
-        private shopService: ShopService
+        private shopService: ShopService,
+        private geolocation: GeolocationService
     ) {}
 
     public ngOnInit() {
@@ -76,15 +81,6 @@ export class DashboardComponent implements OnInit {
         });
     }
 
-    private loadGeoChartData() {
-        this.paymentsService.getGeoChartData(
-            this.shopID,
-            new RequestParams(this.fromTime, this.toTime, 'day', '1')
-        ).then((geoData: GeoData[]) => {
-            this.geoChartData = ChartDataConversionService.toGeoChartData(geoData);
-        });
-    }
-
     private loadRate() {
         this.customerService.getRate(
             this.shopID,
@@ -103,6 +99,21 @@ export class DashboardComponent implements OnInit {
             this.successfulCount = paymentCountInfo.successfulCount;
             this.unfinishedCount = paymentCountInfo.unfinishedCount;
             this.conversionChartData = ChartDataConversionService.toConversionChartData(conversionStat);
+        });
+    }
+
+    private loadGeoChartData() {
+        this.geolocation.getGeoChartData(
+            this.shopID,
+            new RequestParams(this.fromTime, this.toTime, 'day', '1')
+        ).then((geoData: PaymentGeoStat[]) => {
+            let unlabeledGeoChartData = ChartDataConversionService.toGeoChartData(geoData);
+
+            this.geolocation.getLocationNames(unlabeledGeoChartData.geoIDs, 'ru').then(
+                (locationNames: LocationName[]) => {
+                    this.geoChartData = ChartDataConversionService.toLabeledGeoChartData(unlabeledGeoChartData, locationNames);
+                }
+            );
         });
     }
 
