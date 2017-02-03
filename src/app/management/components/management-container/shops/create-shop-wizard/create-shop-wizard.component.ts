@@ -7,7 +7,7 @@ import { ShopModificationArgs } from 'koffing/management/management.module';
 import { ShopService } from 'koffing/backend/services/shop.service';
 
 @Component({
-    templateUrl: './create-shop-wizard.component.pug'
+    templateUrl: 'create-shop-wizard.component.pug'
 })
 export class CreateShopWizardComponent implements OnInit {
 

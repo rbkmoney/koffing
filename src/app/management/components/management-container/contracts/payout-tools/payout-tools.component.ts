@@ -14,6 +14,7 @@ export class PayoutToolsComponent implements OnInit {
 
     public payoutTools: PayoutTool[] = [];
     public isLoading: boolean = false;
+    public selectedPayoutTool: PayoutTool;
 
     constructor(
         private contractService: ContractService
@@ -25,5 +26,13 @@ export class PayoutToolsComponent implements OnInit {
             this.payoutTools = payoutTools;
             this.isLoading = false;
         });
+    }
+
+    public selectPayoutTool(payoutTool: PayoutTool) {
+        if (this.selectedPayoutTool === payoutTool) {
+            this.selectedPayoutTool = new PayoutTool();
+        } else {
+            this.selectedPayoutTool = payoutTool;
+        }
     }
 }

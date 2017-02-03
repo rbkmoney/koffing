@@ -5,8 +5,7 @@ import { ShopService } from 'koffing/backend/services/shop.service';
 
 @Component({
     selector: 'kof-shop-details-panel',
-    templateUrl: 'shop-details-panel.component.pug',
-    styleUrls: ['./shop-details-panel.component.less']
+    templateUrl: 'shop-details-panel.component.pug'
 })
 export class ShopDetailsPanelComponent {
     

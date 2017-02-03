@@ -9,7 +9,7 @@ import { Contract } from 'koffing/backend/classes/contract.class';
 export class ContractViewComponent {
 
     @Input()
-    public showAccounts: boolean = true;
+    public isShowPayoutTools: boolean = true;
 
     @Input()
     public contract: Contract;

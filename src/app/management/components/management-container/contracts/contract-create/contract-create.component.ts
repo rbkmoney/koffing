@@ -23,17 +23,15 @@ export class ContractCreateComponent implements OnInit {
 
     public ngOnInit() {
         this.newContract = new Contract();
-        this.newContract.contractor = new Contractor();
-        this.newContract.contractor.bankAccount = new BankAccount();
-        // this.newContract.contractor.entity = new RussianLegalEntity();
+        this.newContract.contractor.legalEntity = new RussianLegalEntity();
     }
 
     public createContract(form: any) {
         if (form.valid) {
             this.isLoading = true;
             this.contractService.createContract(this.newContract.contractor).then(() => {
-                this.router.navigate(['/management/contracts']);
                 this.isLoading = false;
+                this.router.navigate(['/management/contracts']);
             });
         }
     }

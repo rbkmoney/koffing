@@ -14,9 +14,8 @@ export class ShopsComponent implements OnInit {
 
     public shops: Shop[] = [];
     public categories: Category[] = [];
-
-    private isLoading: boolean;
-    private panelsVisibilities: {[key: number]: boolean} = {};
+    public isLoading: boolean;
+    public panelsVisibilities: {[key: number]: boolean} = {};
 
     constructor(
         private shopService: ShopService,

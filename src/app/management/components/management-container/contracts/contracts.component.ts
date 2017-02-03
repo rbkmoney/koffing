@@ -12,7 +12,8 @@ import { Contract } from 'koffing/backend/classes/contract.class';
 export class ContractsComponent implements OnInit {
 
     public contracts: Contract[] = [];
-    public isLoading: boolean;
+    public isLoading: boolean = false;
+    public selectedContract: Contract;
 
     constructor(
         private claimService: ClaimService,
@@ -25,6 +26,14 @@ export class ContractsComponent implements OnInit {
             this.contracts = contracts;
             this.isLoading = false;
         });
+    }
+
+    public selectContract(contract: Contract) {
+        if (this.selectedContract === contract) {
+            this.selectedContract = new Contract();
+        } else {
+            this.selectedContract = contract;
+        }
     }
 
     private getContracts(): Promise<Contract[]> {

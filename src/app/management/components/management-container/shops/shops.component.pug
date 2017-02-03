@@ -25,7 +25,7 @@
                     td(*ngIf="!shop.isSuspended && !shop.isBlocked")
                         div.pull-right.small-container
                             i.fa.custom-chevron([ngClass]="{'fa-chevron-down': isDetailsPanelVisible(i), 'fa-chevron-right': !isDetailsPanelVisible(i)}")
-                        a.btn.btn-default.btn-xs.pull-right([routerLink]="['/shops/edit', shop.id]") Изменить данные
+                        a.btn.btn-default.btn-xs.pull-right([routerLink]="['/', 'shops', shop.id, 'edit']") Изменить данные
                     td(*ngIf="shop.isBlocked")
                         span.pull-right Заблокирован
                 tr(*ngIf="isDetailsPanelVisible(i)")

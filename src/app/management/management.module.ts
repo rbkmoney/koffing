@@ -31,8 +31,6 @@ import { CreateShopWizardComponent } from './components/management-container/sho
 import { SelectionContractComponent } from './components/management-container/shops/selection-contract/selection-contract.component';
 import { SelectionAccountComponent } from './components/management-container/shops/selection-account/selection-account.component';
 import { SelectionShopComponent } from './components/management-container/shops/selection-shop-fields/selection-shop-fields.component';
-import { EditShopContractComponent } from 'koffing/management/components/management-container/shops/edit-shop/edit-shop-contract/edit-shop-contract.component';
-import { EditShopPayoutAccountComponent } from 'koffing/management/components/management-container/shops/edit-shop/edit-shop-payout-account/edit-shop-payout-account.component';
 import { ShopDetailsPanelComponent } from 'koffing/management/components/management-container/shops/shop-details-panel/shop-details-panel.component';
 
 @NgModule({
@@ -74,8 +72,6 @@ import { ShopDetailsPanelComponent } from 'koffing/management/components/managem
         SelectionContractComponent,
         SelectionAccountComponent,
         SelectionShopComponent,
-        EditShopContractComponent,
-        EditShopPayoutAccountComponent,
         ShopDetailsPanelComponent
     ]
 })
@@ -84,5 +80,5 @@ export class ManagementModule { }
 export * from './classes/shop-modification-args.class';
 export * from './components/management-container/shops/edit-shop/edit-shop.component';
 export * from './components/management-container/shops/create-shop-wizard/create-shop-wizard.component';
-export * from './components/management-container/shops/edit-shop/edit-shop-contract/edit-shop-contract.component';
-export * from './components/management-container/shops/edit-shop/edit-shop-payout-account/edit-shop-payout-account.component';
+export * from './components/management-container/contracts/contract-create/contract-create.component';
+export * from './components/management-container/contracts/payout-tool-create/payout-tool-create.component';

@@ -18,18 +18,17 @@ export class SelectionAccountComponent implements OnInit {
 
     @Input()
     public showFinishButton: boolean = false;
-    public selectedOption: SelectionOptions;
-    public optionNew: number = SelectionOptions.New;
-    public optionExisting: number = SelectionOptions.Existing;
-    public isPayoutAccountReady: boolean = false;
-
+    @Input()
+    public args: ShopModificationArgs;
     @Output()
     public steppedForward = new EventEmitter();
     @Output()
     public steppedBackward = new EventEmitter();
 
-    @Input()
-    private args: ShopModificationArgs;
+    public selectedOption: SelectionOptions;
+    public optionNew: number = SelectionOptions.New;
+    public optionExisting: number = SelectionOptions.Existing;
+    public isPayoutAccountReady: boolean = false;
 
     constructor(
         private contractService: ContractService,
@@ -79,6 +78,7 @@ export class SelectionAccountComponent implements OnInit {
 
     public createPayoutAccount() {
         this.args.isLoading = true;
+        // todo
         // this.contractService.createPayoutTool(this.args.contract.id, this.args.payoutAccount).then(
         //     (result: any) => {
         //         this.claimService.getClaimById(result.claimID).then(

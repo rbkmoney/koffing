@@ -39,8 +39,8 @@ export class ContractService {
             .then(response => response.json() as PayoutTool[]);
     }
 
-    public createPayoutTool(contractID: number, payoutToolParams: PayoutToolParams): Promise<any> {
-        return this.http.post(`${this.contractsUrl}/${contractID}/payout_tools`, payoutToolParams)
+    public createPayoutTool(contractID: number, payoutTool: PayoutTool): Promise<any> {
+        return this.http.post(`${this.contractsUrl}/${contractID}/payout_tools`, payoutTool.params)
             .toPromise()
             .then(response => response.json());
     }

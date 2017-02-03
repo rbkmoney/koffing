@@ -32,7 +32,7 @@ export class PayoutToolCreateComponent implements OnInit {
     public createPayoutTool(form: any) {
         if (form.valid) {
             this.isLoading = true;
-            this.contractService.createPayoutTool(this.contractID, this.newPayoutTool.params).then(() => {
+            this.contractService.createPayoutTool(this.contractID, this.newPayoutTool).then(() => {
                 this.isLoading = false;
                 this.router.navigate(['/management/contracts']);
             });

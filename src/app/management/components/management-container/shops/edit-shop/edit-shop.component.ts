@@ -13,7 +13,7 @@ import { SelectItem } from 'koffing/common/common.module';
 
 @Component({
     selector: 'kof-edit-shop',
-    templateUrl: './edit-shop.component.pug',
+    templateUrl: 'edit-shop.component.pug',
 })
 export class EditShopComponent implements OnInit {
 
@@ -21,9 +21,15 @@ export class EditShopComponent implements OnInit {
     public shopEditing: Shop = new Shop();
     public shopContract: Contract = new Contract();
     public shopPayoutTool: PayoutTool = new PayoutTool();
+    public contracts: Contract[] = [];
+    public payoutTools: PayoutTool[] = [];
+
+    public contractItems: SelectItem[] = [];
+    public payoutToolItems: SelectItem[] = [];
     public categoryItems: SelectItem[] = [];
-    public showContractDetails: boolean = false;
-    public showPayoutAccountDetails: boolean = false;
+
+    public isShowContractDetails: boolean = false;
+    public isShowPayoutAccountDetails: boolean = false;
     public isLoading: boolean = false;
 
     constructor(
@@ -47,8 +53,8 @@ export class EditShopComponent implements OnInit {
     public loadCategories(): Promise<Category[]> {
         return new Promise((resolve) => {
             this.categoryService.getCategories().then((categories: Category[]) => {
-                this.categoryItems = _.map(categories, (category: any) => new SelectItem(category.categoryID, category.name));
-                resolve();
+                this.categoryItems = _.map(categories, (category) => new SelectItem(category.categoryID, category.name));
+                resolve(categories);
             });
         });
     }
@@ -57,38 +63,64 @@ export class EditShopComponent implements OnInit {
         return new Promise((resolve) => {
             this.shopService.getShop(this.shopID).then((shop: Shop) => {
                 this.shopEditing = shop;
-                console.log(shop);
-                this.contractService.getContract(this.shopEditing.contractID).then((contract: Contract) => {
-                    this.shopContract = contract;
-                    console.log(contract);
-                    resolve();
+                Promise.all([
+                    this.loadShopContracts(),
+                    this.loadShopPayoutTools()
+                ]).then(() => {
+                    resolve(shop);
                 });
-
             });
         });
     }
 
-    // public loadDetails(contractID: number): Promise<any> {
-    //     return new Promise((resolve) => {
-    //         this.contractService.getContract(contractID).then((contract) => {
-    //             this.shopContract = contract;
-    //             resolve();
-    //         });
-    //     });
-    // }
+    public loadShopContracts(): Promise<Contract[]> {
+        return new Promise((resolve) => {
+            this.contractService.getContracts().then((contracts: Contract[]) => {
+                this.contracts = contracts;
+                this.shopContract = _.find(contracts, (contract) => contract.id === this.shopEditing.contractID);
+                this.contractItems = _.map(contracts, (contract) => new SelectItem(contract.id, contract.id));
+                resolve(contracts);
+            });
+        });
+    }
+
+    public loadShopPayoutTools(): Promise<PayoutTool[]> {
+        return new Promise((resolve) => {
+            this.contractService.getPayoutTools(this.shopEditing.contractID).then((payoutTools: PayoutTool[]) => {
+                this.payoutTools = payoutTools;
+                this.shopPayoutTool = _.find(payoutTools, (payoutTool) => payoutTool.id === this.shopEditing.payoutToolID);
+                if (!this.shopPayoutTool) {
+                    this.shopPayoutTool = payoutTools[0];
+                    this.shopEditing.payoutToolID = this.shopPayoutTool.id;
+                }
+                this.payoutToolItems = _.map(payoutTools, (payoutTool) => new SelectItem(payoutTool.id, payoutTool.id));
+                resolve(payoutTools);
+            });
+        });
+    }
+
+    public selectContract(contractID: string) {
+        this.shopEditing.contractID = Number(contractID);
+        this.shopContract = _.find(this.contracts, (contract) => contract.id === this.shopEditing.contractID);
+        this.loadShopPayoutTools();
+    }
+
+    public selectPayoutTool(payoutToolID: string) {
+        this.shopEditing.payoutToolID = Number(payoutToolID);
+        this.shopPayoutTool = _.find(this.payoutTools, (payoutTool) => payoutTool.id === this.shopEditing.payoutToolID);
+    }
 
     public hasError(field: any): boolean {
         return field.dirty && field.invalid;
     }
 
     public updateShop(form: any) {
-        console.log('updateShop');
-        // if (form.valid) {
-        //     this.isLoading = true;
-        //     this.shopService.updateShop(this.shopID, this.args).then(() => {
-        //         this.isLoading = false;
-        //         this.router.navigate(['/management']);
-        //     });
-        // }
+        if (form.valid) {
+            this.isLoading = true;
+            this.shopService.updateShop(this.shopEditing).then(() => {
+                this.isLoading = false;
+                this.router.navigate(['/management']);
+            });
+        }
     }
 }

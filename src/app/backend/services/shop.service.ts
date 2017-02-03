@@ -24,28 +24,28 @@ export class ShopService {
             .then(response => response.json() as Shop);
     }
 
-    public createShop(args: any): Promise<string> {
+    public createShop(shop: Shop): Promise<string> {
         const params = {
-            categoryRef: Number(args.categoryRef),
-            shopDetails: args.details,
-            contractID: Number(args.contractID),
-            payoutAccountID: Number(args.payoutAccountID),
-            callbackUrl: args.callbackHandler.url
+            categoryID: shop.categoryID,
+            contractID: shop.contractID,
+            payoutToolID: shop.payoutToolID,
+            details: shop.details,
+            callbackUrl: shop.callbackHandler.url
         };
         return this.http.post(this.shopsUrl, params)
             .toPromise()
             .then(response => response.json());
     }
 
-    public updateShop(shopID: any, args: any): Promise<string> {
+    public updateShop(shop: Shop): Promise<string> {
         const params = {
-            categoryRef: Number(args.categoryRef),
-            shopDetails: args.details,
-            contractID: Number(args.contractId),
-            payoutAccountID: Number(args.payoutAccountId),
-            callbackUrl: args.callbackHandlerUrl
+            categoryID: shop.categoryID,
+            contractID: shop.contractID,
+            payoutToolID: shop.payoutToolID,
+            details: shop.details,
+            callbackUrl: shop.callbackHandler.url
         };
-        return this.http.post(`${this.shopsUrl}/${shopID}`, params)
+        return this.http.post(`${this.shopsUrl}/${shop.id}`, params)
             .toPromise()
             .then(response => response.json());
     }
