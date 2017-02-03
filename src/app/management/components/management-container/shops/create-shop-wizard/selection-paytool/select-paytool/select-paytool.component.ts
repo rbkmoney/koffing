@@ -23,8 +23,8 @@ export class SelectPaytoolComponent implements OnInit {
     private selectedPayoutTool: PayoutTool;
 
     public selectPayoutAccount() {
-        this.selectedPayoutTool = _.find(this.payoutTools, (payoutAccount) => {
-            return payoutAccount.id === Number(this.selectedPayoutToolId);
+        this.selectedPayoutTool = _.find(this.payoutTools, (payoutTool) => {
+            return payoutTool.id === Number(this.selectedPayoutToolId);
         });
         this.payoutToolSelected.emit({
             payoutTool: this.selectedPayoutTool
@@ -32,8 +32,8 @@ export class SelectPaytoolComponent implements OnInit {
     }
 
     public prepareSelectableItems() {
-        this.selectableItems = _.map(this.payoutTools, (payoutAccount) => {
-            return new SelectItem(payoutAccount.id, String(payoutAccount.id));
+        this.selectableItems = _.map(this.payoutTools, (payoutTool) => {
+            return new SelectItem(payoutTool.id, String(payoutTool.id));
         });
     }
 

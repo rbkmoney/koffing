@@ -71,7 +71,7 @@ export class SelectionPaytoolComponent implements OnInit {
     }
 
     public payoutToolSelected(params: any) {
-        this.args.creatingShop.payoutToolID = params.payoutAccount;
+        this.args.creatingShop.payoutToolID = params.payoutTool.id;
 
         this.isPayoutAccountReady = true;
     }
