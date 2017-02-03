@@ -53,8 +53,8 @@ export class DashboardComponent implements OnInit {
         this.fromTimeDate = new Date();
         this.fromTimeDate.setMonth(this.fromTimeDate.getMonth() - 1);
 
-        this.fromTime = moment(this.fromTimeDate).format();
         this.toTime = moment(this.toTimeDate).format();
+        this.fromTime = moment(this.fromTimeDate).format();
 
         this.route.parent.params.subscribe((params: Params) => {
             this.shopID = Number(params['shopID']);
@@ -106,8 +106,7 @@ export class DashboardComponent implements OnInit {
             this.shopID,
             new RequestParams(this.fromTime, this.toTime, 'day', '1')
         ).then((geoData: PaymentGeoStat[]) => {
-            let unlabeledGeoChartData = ChartDataConversionService.toGeoChartData(geoData);
-
+            const unlabeledGeoChartData = ChartDataConversionService.toGeoChartData(geoData);
             this.geolocation.getLocationNames(unlabeledGeoChartData.geoIDs, 'ru').then(
                 (locationNames: LocationName[]) => {
                     this.geoChartData = ChartDataConversionService.toLabeledGeoChartData(unlabeledGeoChartData, locationNames);

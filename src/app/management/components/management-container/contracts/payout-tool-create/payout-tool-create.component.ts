@@ -13,6 +13,7 @@ import { BankAccount } from 'koffing/backend/classes/bank-account.class';
 export class PayoutToolCreateComponent implements OnInit {
 
     public contractID: number = Number(this.route.snapshot.params['contractID']);
+    public shopEditID: number = Number(this.route.snapshot.params['shopID']);
     public newPayoutTool: PayoutTool;
     public isLoading: boolean = false;
 
@@ -34,8 +35,16 @@ export class PayoutToolCreateComponent implements OnInit {
             this.isLoading = true;
             this.contractService.createPayoutTool(this.contractID, this.newPayoutTool).then(() => {
                 this.isLoading = false;
-                this.router.navigate(['/management/contracts']);
+                this.navigateBack();
             });
+        }
+    }
+
+    public navigateBack() {
+        if (this.shopEditID) {
+            this.router.navigate(['/shops', this.shopEditID, 'edit']);
+        } else {
+            this.router.navigate(['/management/contracts']);
         }
     }
 }
