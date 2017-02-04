@@ -62,7 +62,6 @@ export class EditShopComponent implements OnInit {
     public loadShop(): Promise<Shop> {
         return new Promise((resolve) => {
             this.shopService.getShop(this.shopID).then((shop: Shop) => {
-                this.shopEditing = shop;
                 Promise.all([
                     this.loadShopContracts(),
                     this.loadShopPayoutTools()
@@ -86,16 +85,20 @@ export class EditShopComponent implements OnInit {
 
     public loadShopPayoutTools(): Promise<PayoutTool[]> {
         return new Promise((resolve) => {
-            this.contractService.getPayoutTools(this.shopEditing.contractID).then((payoutTools: PayoutTool[]) => {
-                this.payoutTools = payoutTools;
-                this.shopPayoutTool = _.find(payoutTools, (payoutTool) => payoutTool.id === this.shopEditing.payoutToolID);
-                if (!this.shopPayoutTool) {
-                    this.shopPayoutTool = payoutTools[0];
-                    this.shopEditing.payoutToolID = this.shopPayoutTool.id;
-                }
-                this.payoutToolItems = _.map(payoutTools, (payoutTool) => new SelectItem(payoutTool.id, payoutTool.id));
-                resolve(payoutTools);
-            });
+            if (this.shopEditing.contractID) {
+                this.contractService.getPayoutTools(this.shopEditing.contractID).then((payoutTools: PayoutTool[]) => {
+                    this.payoutTools = payoutTools;
+                    this.shopPayoutTool = _.find(payoutTools, (payoutTool) => payoutTool.id === this.shopEditing.payoutToolID);
+                    if (!this.shopPayoutTool) {
+                        this.shopPayoutTool = payoutTools[0];
+                        this.shopEditing.payoutToolID = this.shopPayoutTool.id;
+                    }
+                    this.payoutToolItems = _.map(payoutTools, (payoutTool) => new SelectItem(payoutTool.id, payoutTool.id));
+                    resolve(payoutTools);
+                });
+            } else {
+                resolve();
+            }
         });
     }
 

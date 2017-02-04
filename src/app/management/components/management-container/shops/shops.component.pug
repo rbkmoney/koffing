@@ -8,7 +8,7 @@
                     th ID магазина
                     th Название магазина
                     th.hidden-xs Описание
-                    th.hidden-xs Сайт
+                    th.hidden-xs Адрес
                     th Категория
                     th
             tbody(*ngFor="let shop of shops; let i = index")
@@ -16,7 +16,7 @@
                     td {{shop.id}}
                     td {{shop.details.name}}
                     td.hidden-xs {{shop.details.description}}
-                    td.hidden-xs {{shop.details.location.url}}
+                    td.hidden-xs {{shop.details.location ? shop.details.location.url : ''}}
                     td {{getCategoryName(shop.categoryID)}}
                     td(*ngIf="shop.isSuspended && !shop.isBlocked")
                         div.pull-right.small-container
@@ -25,7 +25,6 @@
                     td(*ngIf="!shop.isSuspended && !shop.isBlocked")
                         div.pull-right.small-container
                             i.fa.custom-chevron([ngClass]="{'fa-chevron-down': isDetailsPanelVisible(i), 'fa-chevron-right': !isDetailsPanelVisible(i)}")
-                        a.btn.btn-default.btn-xs.pull-right([routerLink]="['/', 'shops', shop.id, 'edit']") Изменить данные
                     td(*ngIf="shop.isBlocked")
                         span.pull-right Заблокирован
                 tr(*ngIf="isDetailsPanelVisible(i)")

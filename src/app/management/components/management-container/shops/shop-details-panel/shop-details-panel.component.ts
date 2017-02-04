@@ -24,5 +24,4 @@ export class ShopDetailsPanelComponent {
             this.shopSuspended.emit();
         });
     }
-
 }

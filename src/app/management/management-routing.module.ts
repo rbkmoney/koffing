@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 
 import { ManagementComponent } from './components/management-container/management.component';
 import { ShopsComponent } from './components/management-container/shops/shops.component';
-import { EditShopComponent } from './components/management-container/shops/edit-shop/edit-shop.component';
 import { ContractsComponent } from './components/management-container/contracts/contracts.component';
 import { ContractCreateComponent } from './components/management-container/contracts/contract-create/contract-create.component';
 import { PayoutToolCreateComponent } from './components/management-container/contracts/payout-tool-create/payout-tool-create.component';

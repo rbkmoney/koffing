@@ -74,7 +74,7 @@ export class DashboardComponent implements OnInit {
     private loadPaymentMethod() {
         this.customerService.getPaymentMethod(
             this.shopID,
-            new RequestParams(this.fromTime, this.toTime, 'minute', '1', 'bank_card')
+            new RequestParams(this.fromTime, this.toTime, 'minute', '1', 'bankCard')
         ).then((paymentMethodState: any) => {
             this.paymentMethodChartData = ChartDataConversionService.toPaymentMethodChartData(paymentMethodState);
         });
@@ -107,11 +107,13 @@ export class DashboardComponent implements OnInit {
             new RequestParams(this.fromTime, this.toTime, 'day', '1')
         ).then((geoData: PaymentGeoStat[]) => {
             const unlabeledGeoChartData = ChartDataConversionService.toGeoChartData(geoData);
-            this.geolocation.getLocationNames(unlabeledGeoChartData.geoIDs, 'ru').then(
-                (locationNames: LocationName[]) => {
-                    this.geoChartData = ChartDataConversionService.toLabeledGeoChartData(unlabeledGeoChartData, locationNames);
-                }
-            );
+            if (unlabeledGeoChartData.geoIDs.length > 0 && unlabeledGeoChartData.data.length > 0) {
+                this.geolocation.getLocationNames(unlabeledGeoChartData.geoIDs, 'ru').then(
+                    (locationNames: LocationName[]) => {
+                        this.geoChartData = ChartDataConversionService.toLabeledGeoChartData(unlabeledGeoChartData, locationNames);
+                    }
+                );
+            }
         });
     }
 
