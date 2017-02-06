@@ -1,39 +1,40 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 
-import { Contract } from 'koffing/backend/backend.module';
+import { Contractor } from 'koffing/backend/classes/contractor.class';
+import { BankAccount } from 'koffing/backend/classes/bank-account.class';
+import { RussianLegalEntity } from 'koffing/backend/classes/russian-legal-entity.class';
 
 @Component({
     selector: 'kof-create-contract',
     templateUrl: 'create-contract.component.pug'
 })
-export class CreateContractComponent {
-
-    @Input()
-    public newContract: Contract;
+export class CreateContractComponent implements OnInit {
 
     @Output()
-    public readyStateChange = new EventEmitter();
+    public onContractorReady = new EventEmitter();
 
-    private isOnceValid: boolean = false;
+    public contractor: Contractor;
+
+    public ngOnInit() {
+        this.contractor = this.createInstance();
+    }
 
     public checkForm(form: any) {
-        let emit = () => {
-            this.readyStateChange.emit({
-                contract: this.newContract,
-                valid: form.valid
-            });
-        };
-
         if (form.valid) {
-            emit();
-            this.isOnceValid = true;
-        } else if (!form.valid && this.isOnceValid) {
-            emit();
-            this.isOnceValid = false;
+            this.onContractorReady.emit(this.contractor);
         }
     }
 
     public hasError(field: any): boolean {
         return field.dirty && field.invalid;
+    }
+
+    private createInstance() {
+        const bankAccountArgs = new BankAccount();
+        const entityArgs = new RussianLegalEntity();
+        const instance = new Contractor();
+        instance.bankAccount = bankAccountArgs;
+        instance.legalEntity = entityArgs;
+        return instance;
     }
 }

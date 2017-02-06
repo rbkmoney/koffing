@@ -1,39 +1,37 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 
-import { PayoutTool } from 'koffing/backend/classes/payout-tool.class';
+import { PayoutToolBankAccount } from 'koffing/backend/classes/payout-tool-bank-account.class';
+import { BankAccount } from 'koffing/backend/classes/bank-account.class';
 
 @Component({
     selector: 'kof-create-paytool',
     templateUrl: 'create-paytool.component.pug'
 })
-export class CreatePayoutToolComponent {
-
-    @Input()
-    public newPayoutTool: PayoutTool;
+export class CreatePayoutToolComponent implements OnInit {
 
     @Output()
-    public readyStateChange = new EventEmitter();
+    public onPayoutToolReady = new EventEmitter();
 
-    private isOnceValid: boolean = false;
+    public payoutTool: PayoutToolBankAccount;
+
+    public ngOnInit() {
+        this.payoutTool = this.getInstance();
+    }
 
     public checkForm(form: any) {
-        let emit = () => {
-            this.readyStateChange.emit({
-                payoutTool: this.newPayoutTool,
-                valid: form.valid
-            });
-        };
-
         if (form.valid) {
-            emit();
-            this.isOnceValid = true;
-        } else if (!form.valid && this.isOnceValid) {
-            emit();
-            this.isOnceValid = false;
+            this.onPayoutToolReady.emit(this.payoutTool);
         }
     }
 
     public hasError(field: any): boolean {
         return field.dirty && field.invalid;
+    }
+
+    private getInstance() {
+        const bankAccount = new BankAccount();
+        const instance = new PayoutToolBankAccount();
+        instance.bankAccount = bankAccount;
+        return instance;
     }
 }

@@ -19,7 +19,9 @@ export class CreateShopWizardComponent implements OnInit {
     public shopDetailsStep: number = 3;
     public wizardArgs: WizardArgs;
     public contracts: Contract[];
-    public payoutTools: PayoutTool[];
+    // public payoutTools: PayoutTool[];
+
+    public contractor: any;
 
     constructor(
         private router: Router,
@@ -35,8 +37,11 @@ export class CreateShopWizardComponent implements OnInit {
         this.currentStep = this.contractStep;
     }
 
-    public goToPaytoolStep() {
-        this.loadShopPayoutTools().then(() => this.currentStep = this.paytoolStep);
+    public goToPaytoolStep(contractor: any) {
+        this.currentStep = this.paytoolStep;
+        this.contractor = contractor;
+        // this.loadShopPayoutTools().then(() => this.currentStep = this.paytoolStep);
+
     }
 
     public goToShopDetailsStep() {
@@ -65,19 +70,19 @@ export class CreateShopWizardComponent implements OnInit {
         });
     }
 
-    public loadShopPayoutTools(): Promise<PayoutTool[]> {
-        return new Promise((resolve) => {
-            this.wizardArgs.isLoading = true;
-
-            this.contractService.getPayoutTools(this.wizardArgs.creatingShop.contractID).then((payoutTools: PayoutTool[]) => {
-                this.payoutTools = payoutTools;
-
-                this.wizardArgs.isLoading = false;
-
-                resolve();
-            });
-        });
-    }
+    // public loadShopPayoutTools(): Promise<PayoutTool[]> {
+    //     return new Promise((resolve) => {
+    //         this.wizardArgs.isLoading = true;
+    //
+    //         this.contractService.getPayoutTools(this.wizardArgs.creatingShop.contractID).then((payoutTools: PayoutTool[]) => {
+    //             this.payoutTools = payoutTools;
+    //
+    //             this.wizardArgs.isLoading = false;
+    //
+    //             resolve();
+    //         });
+    //     });
+    // }
 
     private createShop(): Promise<any> {
         this.wizardArgs.isLoading = true;

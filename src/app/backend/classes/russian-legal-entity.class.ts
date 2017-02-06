@@ -9,4 +9,9 @@ export class RussianLegalEntity extends LegalEntity {
     public representativePosition: string;
     public representativeFullName: string;
     public representativeDocument: string;
+
+    constructor() {
+        super();
+        this.entityType = 'RussianLegalEntity';
+    }
 }

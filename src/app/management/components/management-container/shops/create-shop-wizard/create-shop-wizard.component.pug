@@ -9,11 +9,11 @@
                         li
                             a([ngClass]="{'done': currentStep > contractStep, 'selected': currentStep === contractStep}")
                                 span.step_no 1
-                                span.step_descr Выбор контракта
+                                span.step_descr Контракт
                         li
                             a([ngClass]="{'disabled': currentStep < paytoolStep, 'done': currentStep > paytoolStep, 'selected': currentStep === paytoolStep}")
                                 span.step_no 2
-                                span.step_descr Выбор счета
+                                span.step_descr Средство вывода
                         li
                             a([ngClass]="{'disabled': currentStep < shopDetailsStep, 'done': currentStep > shopDetailsStep, 'selected': currentStep === shopDetailsStep}")
                                 span.step_no 3
@@ -22,7 +22,7 @@
                     kof-selection-contract(
                         *ngIf="currentStep === contractStep",
                         (steppedBackward)="returnToManagement()",
-                        (steppedForward)="goToPaytoolStep()",
+                        (steppedForward)="goToPaytoolStep($event)",
                         [args]="wizardArgs",
                         [contracts]="contracts"
                     )
@@ -31,7 +31,9 @@
                         (steppedBackward)="returnToManagement()",
                         (steppedForward)="goToShopDetailsStep()",
                         [args]="wizardArgs",
-                        [payoutTools]="payoutTools"
+                        [payoutTools]="payoutTools",
+
+                        [contractor]="contractor"
                     )
                     kof-selection-shop-fields(
                         *ngIf="currentStep === shopDetailsStep",
