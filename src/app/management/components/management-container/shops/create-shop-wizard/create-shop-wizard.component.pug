@@ -29,7 +29,7 @@
                     kof-selection-paytool(
                         *ngIf="currentStep === paytoolStep",
                         (steppedBackward)="returnToManagement()",
-                        (steppedForward)="goToShopDetailsStep()",
+                        (steppedForward)="goToShopDetailsStep($event)",
                         [args]="wizardArgs",
                         [payoutTools]="payoutTools",
 
@@ -38,7 +38,10 @@
                     kof-selection-shop-fields(
                         *ngIf="currentStep === shopDetailsStep",
                         (steppedBackward)="returnToManagement()",
-                        (steppedForward)="finishWizard()",
+                        (steppedForward)="finishWizard($event)",
                         [args]="wizardArgs",
-                        [showFinishButton]="true"
+                        [showFinishButton]="true",
+
+                        [contractId]="contractId",
+                        [payoutToolId]="payoutToolId"
                     )

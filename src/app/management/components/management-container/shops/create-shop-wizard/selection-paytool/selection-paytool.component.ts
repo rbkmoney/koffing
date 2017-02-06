@@ -1,4 +1,5 @@
 import { Component, Output, EventEmitter, OnInit, Input } from '@angular/core';
+import * as _ from 'lodash';
 
 import { SelectionOptions } from '../selection-options.class';
 import { WizardArgs } from 'koffing/management/management.module';
@@ -36,10 +37,9 @@ export class SelectionPaytoolComponent implements OnInit {
     @Output()
     public steppedBackward = new EventEmitter();
 
-    constructor(
-        private contractService: ContractService,
-        private claimService: ClaimService
-    ) { }
+    constructor(private contractService: ContractService,
+                private claimService: ClaimService) {
+    }
 
     public ngOnInit() {
         // if (this.args.isNewContract) {
@@ -73,32 +73,17 @@ export class SelectionPaytoolComponent implements OnInit {
             const contractParams = new ContractParams();
             contractParams.contractor = this.contractor;
             contractParams.payoutToolParams = this.payoutToolsParams;
-
             this.contractService.createContract(contractParams).then((result) => {
                 this.claimService.getClaimById(result.claimID).then(
                     (claim: Claim) => {
                         this.args.isLoading = false;
-                        console.log(claim);
+                        const contractId = this.getContractId(claim.changeset);
+                        const payoutToolId = this.getPayoutToolId(contractId, claim.changeset);
+                        this.steppedForward.emit({contractId, payoutToolId});
                     }
                 );
             });
         }
-
-        // this.args.isLoading = true;
-        // this.contractService.createPayoutTool(this.args.creatingShop.contractID, this.newPayoutTool).then(
-        //     (result: any) => {
-        //         this.claimService.getClaimById(result.claimID).then(
-        //             (claim: Claim) => {
-        //                 this.args.isLoading = false;
-        //                 let payoutToolCreationChangeset = _.find(claim.changeset, (set) => {
-        //                     return set.contractModificationType === 'ContractPayoutToolCreation';
-        //                 });
-        //                 this.args.creatingShop.payoutToolID = payoutToolCreationChangeset.payoutTool.id;
-        //                 this.confirmForward();
-        //             }
-        //         );
-        //     }
-        // );
     }
 
     public stepForward() {
@@ -119,5 +104,19 @@ export class SelectionPaytoolComponent implements OnInit {
 
     private confirmBackward() {
         this.steppedBackward.emit();
+    }
+
+    private getContractId(changeset: any[]): number {
+        const contractCreationChangeset = _.filter(changeset, (item) => item.partyModificationType === 'ContractCreation');
+        const sortedChangeset = _.sortBy(contractCreationChangeset, (item) => item.contract.id);
+        const last = _.last(sortedChangeset);
+        return last.contract.id;
+    }
+
+    private getPayoutToolId(contractId: number, changeset: any[]): number {
+        const payoutChangeset = _.filter(changeset, (item) =>
+        item.partyModificationType === 'ContractModification' && item.contractModificationType === 'ContractPayoutToolCreation');
+        const found = _.find(payoutChangeset, (item) => item.contractID === contractId);
+        return found.payoutTool.id;
     }
 }

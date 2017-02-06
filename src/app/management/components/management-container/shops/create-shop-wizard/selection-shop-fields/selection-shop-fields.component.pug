@@ -1,8 +1,5 @@
 .tile
-    kof-add-shop(
-        [shop]="args.creatingShop",
-        (readyStateChange)="shopFieldsReady($event)"
-    )
+    kof-add-shop((onShopReady)="shopFieldsReady($event)")
 .actionBar
     .text-center
         a.btn.btn-primary((click)="stepBackward()") Отмена
@@ -12,5 +9,5 @@
             "'btn-default': showFinishButton === true," +
             "'btn-success': showFinishButton === false}"
         )
-            span(*ngIf="showFinishButton === true") Завершить
+            span(*ngIf="showFinishButton === true") Создать заявку
             span(*ngIf="showFinishButton === false") Вперед

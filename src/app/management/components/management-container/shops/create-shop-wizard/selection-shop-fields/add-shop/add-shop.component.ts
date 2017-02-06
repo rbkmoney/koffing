@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import * as _ from 'lodash';
 
 import { CategoryService } from 'koffing/backend/backend.module';
 import { SelectItem } from 'koffing/common/common.module';
-import { Shop } from 'koffing/backend/backend.module';
+import { ShopDetail } from 'koffing/backend/classes/shop-detail.class';
+import { ShopLocationUrl } from 'koffing/backend/classes/shop-location-url.class';
 
 @Component({
     selector: 'kof-add-shop',
@@ -13,35 +14,37 @@ import { Shop } from 'koffing/backend/backend.module';
 export class AddShopComponent implements OnInit {
 
     @Output()
-    public readyStateChange = new EventEmitter();
+    public onShopReady = new EventEmitter();
 
     public categories: SelectItem[] = [];
 
     public isCategorySelected: boolean = false;
-    private isOnceValid: boolean = false;
-    private isLoading: boolean = false;
-    private latestFormState: any;
+    public isLoading: boolean = false;
+    public latestFormState: any;
 
-    @Input()
-    private shop: Shop;
+    public shopDetail: ShopDetail;
+    public categoryId: number;
+    public callbackUrl: string;
 
     constructor(
         private categoryService: CategoryService
     ) { }
 
+    public ngOnInit() {
+        this.isLoading = true;
+        this.getCategories().then(() => {
+            this.isLoading = false;
+        });
+        this.shopDetail = this.getInstance();
+    }
+
     public getCategories() {
         return new Promise((resolve) => {
-            this.categoryService.getCategories().then(aCategories => {
-                this.categories = _.map(aCategories, (cat: any) => new SelectItem(cat.categoryID, cat.name));
-
+            this.categoryService.getCategories().then(categories => {
+                this.categories = _.map(categories, (category: any) => new SelectItem(category.categoryID, category.name));
                 resolve();
             });
         });
-    }
-
-    public selectCategory() {
-        this.isCategorySelected = true;
-        this.checkForm(this.latestFormState);
     }
 
     public hasError(field: any): boolean {
@@ -49,32 +52,18 @@ export class AddShopComponent implements OnInit {
     }
 
     public checkForm(form: any) {
-        this.latestFormState = form;
-
-        if (!this.isCategorySelected) {
-            return;
-        }
-
-        let emit = () => {
-            this.readyStateChange.emit({
-                shop: this.shop,
-                valid: form.valid
-            });
-        };
-
         if (form.valid) {
-            emit();
-            this.isOnceValid = true;
-        } else if (!form.valid && this.isOnceValid) {
-            emit();
-            this.isOnceValid = false;
+            this.onShopReady.emit({
+                shopDetail: this.shopDetail,
+                categoryId: _.toNumber(this.categoryId),
+                callbackUrl: this.callbackUrl
+            });
         }
     }
 
-    public ngOnInit() {
-        this.isLoading = true;
-        this.getCategories().then(() => {
-            this.isLoading = false;
-        });
+    private getInstance(): ShopDetail {
+        const instance = new ShopDetail();
+        instance.location = new ShopLocationUrl();
+        return instance;
     }
 }

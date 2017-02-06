@@ -5,8 +5,9 @@ import { ContractService } from 'koffing/backend/services/contract.service';
 import { WizardArgs } from 'koffing/management/management.module';
 import { ShopService } from 'koffing/backend/services/shop.service';
 import { Contract } from 'koffing/backend/classes/contract.class';
-import { PayoutTool } from 'koffing/backend/classes/payout-tool.class';
 import { Shop } from 'koffing/backend/classes/shop.class';
+import { Contractor } from 'koffing/backend/classes/contractor.class';
+import { CreateShopArgs } from 'koffing/backend/classes/create-shop-args.class';
 
 @Component({
     templateUrl: 'create-shop-wizard.component.pug'
@@ -21,7 +22,9 @@ export class CreateShopWizardComponent implements OnInit {
     public contracts: Contract[];
     // public payoutTools: PayoutTool[];
 
-    public contractor: any;
+    public contractor: Contractor;
+    public contractId: number;
+    public payoutToolId: number;
 
     constructor(
         private router: Router,
@@ -37,19 +40,21 @@ export class CreateShopWizardComponent implements OnInit {
         this.currentStep = this.contractStep;
     }
 
-    public goToPaytoolStep(contractor: any) {
+    public goToPaytoolStep(contractor: Contractor) {
         this.currentStep = this.paytoolStep;
         this.contractor = contractor;
         // this.loadShopPayoutTools().then(() => this.currentStep = this.paytoolStep);
 
     }
 
-    public goToShopDetailsStep() {
+    public goToShopDetailsStep(ids: any) {
+        this.contractId = ids.contractId;
+        this.payoutToolId = ids.payoutToolId;
         this.currentStep = this.shopDetailsStep;
     }
 
-    public finishWizard() {
-        this.createShop().then(() => {
+    public finishWizard(createShopArgs: CreateShopArgs) {
+        this.createShop(createShopArgs).then(() => {
             this.returnToManagement();
         });
     }
@@ -84,13 +89,11 @@ export class CreateShopWizardComponent implements OnInit {
     //     });
     // }
 
-    private createShop(): Promise<any> {
+    private createShop(createShopArgs: CreateShopArgs): Promise<any> {
         this.wizardArgs.isLoading = true;
-
         return new Promise((resolve) => {
-            this.shopService.createShop(this.wizardArgs.creatingShop).then(() => {
+            this.shopService.createShop(createShopArgs).then(() => {
                 this.wizardArgs.isLoading = false;
-
                 resolve();
             });
         });
