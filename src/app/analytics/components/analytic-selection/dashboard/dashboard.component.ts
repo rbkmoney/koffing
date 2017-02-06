@@ -14,6 +14,7 @@ import { GeolocationService } from 'koffing/backend/backend.module';
 import { LocationName } from 'koffing/backend/backend.module';
 import { GeoChartLabeled } from './geo-chart-labeled.class';
 import { Shop } from 'koffing/backend/classes/shop.class';
+import { GeoChartData } from './geo-chart-data.class';
 
 @Component({
     templateUrl: './dashboard.component.pug',
@@ -34,7 +35,7 @@ export class DashboardComponent implements OnInit {
     public settlementBalance: any;
     public revenueChartData: any;
     public conversionChartData: any;
-    public geoChartData: GeoChartLabeled = new GeoChartLabeled([], []);
+    public geoChartData: GeoChartLabeled;
     public paymentMethodChartData: any;
 
     private shopID: number;
@@ -106,13 +107,16 @@ export class DashboardComponent implements OnInit {
             this.shopID,
             new RequestParams(this.fromTime, this.toTime, 'day', '1')
         ).then((geoData: PaymentGeoStat[]) => {
-            const unlabeledGeoChartData = ChartDataConversionService.toGeoChartData(geoData);
+            const unlabeledGeoChartData: GeoChartData = ChartDataConversionService.toGeoChartData(geoData);
+
             if (unlabeledGeoChartData.geoIDs.length > 0 && unlabeledGeoChartData.data.length > 0) {
                 this.geolocation.getLocationNames(unlabeledGeoChartData.geoIDs, 'ru').then(
                     (locationNames: LocationName[]) => {
                         this.geoChartData = ChartDataConversionService.toLabeledGeoChartData(unlabeledGeoChartData, locationNames);
                     }
                 );
+            } else {
+                this.geoChartData = new GeoChartLabeled([], []);
             }
         });
     }

@@ -17,35 +17,35 @@
             .col-xs-6.col-sm-4.col-md-2.tile_stats_count
                 span.count_top Оборот
                     .dashboard_stats_count
-                        kof-loading([isLoading]="!profit")
+                        kof-loading([isLoading]="profit === undefined")
                             div {{profit | kofRoubleCurrency}}
                 span.count_bottom Рублей
             .col-xs-6.col-sm-4.col-md-2.tile_stats_count
                 span.count_top Основной счет
                     .dashboard_stats_count
-                        kof-loading([isLoading]="!settlementBalance")
+                        kof-loading([isLoading]="settlementBalance === undefined")
                             div {{settlementBalance | kofRoubleCurrency}}
                 span.count_bottom Рублей
             .col-xs-6.col-sm-4.col-md-2.tile_stats_count
                 span.count_top Гарантийный счет
                     .dashboard_stats_count
-                        kof-loading([isLoading]="!guaranteeBalance")
+                        kof-loading([isLoading]="guaranteeBalance === undefined")
                             div {{guaranteeBalance | kofRoubleCurrency}}
                 span.count_bottom Рублей
             .col-xs-6.col-sm-4.col-md-2.tile_stats_count
                 span.count_top Успешных платежей
                 .dashboard_stats_count
-                    kof-loading([isLoading]="!successfulCount")
+                    kof-loading([isLoading]="successfulCount === undefined")
                         div {{successfulCount}}
             .col-xs-6.col-sm-4.col-md-2.tile_stats_count
                 span.count_top Незавершенных платежей
                 .dashboard_stats_count
-                    kof-loading([isLoading]="!unfinishedCount")
+                    kof-loading([isLoading]="unfinishedCount === undefined")
                         div {{unfinishedCount}}
             .col-xs-6.col-sm-4.col-md-2.tile_stats_count
                 span.count_top Уникальных плательщиков
                 .dashboard_stats_count
-                    kof-loading([isLoading]="!uniqueCount")
+                    kof-loading([isLoading]="uniqueCount === undefined")
                         div {{uniqueCount}}
 .row
     .col-xs-12
