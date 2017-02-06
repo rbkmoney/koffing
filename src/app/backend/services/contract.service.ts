@@ -27,8 +27,8 @@ export class ContractService {
             .then(response => response.json() as Contract);
     }
 
-    public createContract(contractor: Contractor): Promise<any> {
-        return this.http.post(this.contractsUrl, {contractor})
+    public createContract(request: any): Promise<any> {
+        return this.http.post(this.contractsUrl, request)
             .toPromise()
             .then(response => response.json());
     }

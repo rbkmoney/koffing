@@ -50,9 +50,9 @@ export class ContractsComponent implements OnInit {
     }
 
     private loadContractsClaimed(): Promise<Contract[]> {
-        return this.claimService.getClaim({status: 'pending'}).then((claim: Claim) => {
-            return _
-                .chain(claim.changeset)
+        return this.claimService.getClaim({status: 'pending'}).then((claims: Claim[]) => {
+            const claim = claims[0];
+            return _.chain(claim.changeset)
                 .filter((changeSet) => changeSet.modificationType === 'ContractCreation')
                 .map((changeSet) => changeSet.contract)
                 .value();
