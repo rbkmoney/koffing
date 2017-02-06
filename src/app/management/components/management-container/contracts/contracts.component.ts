@@ -53,7 +53,7 @@ export class ContractsComponent implements OnInit {
         return this.claimService.getClaim({status: 'pending'}).then((claims: Claim[]) => {
             const claim = claims[0];
             return _.chain(claim.changeset)
-                .filter((changeSet) => changeSet.modificationType === 'ContractCreation')
+                .filter((changeSet) => changeSet.partyModificationType === 'ContractCreation')
                 .map((changeSet) => changeSet.contract)
                 .value();
         });

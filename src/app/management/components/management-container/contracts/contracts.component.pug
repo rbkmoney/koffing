@@ -14,8 +14,8 @@
                     td {{contract.id}}
                     td {{contract.validSince | date:"dd.MM.yyyy"}}
                     td.hidden-xs {{contract.validUntil | date:"dd.MM.yyyy"}}
-                    td.hidden-xs {{contract.contractor.legalEntity.registeredName}}
-                    td {{contract.contractor.legalEntity.inn}}
+                    td.hidden-xs {{(contract.contractor && contract.contractor.legalEntity) ? contract.contractor.legalEntity.registeredName : null}}
+                    td {{(contract.contractor && contract.contractor.legalEntity) ? contract.contractor.legalEntity.inn : null}}
                     td {{!!contract.terminatedAt ? 'завершен' : !contract.validSince ? 'в&nbsp;обработке' : 'активен'}}
                 tr(*ngIf="contract === selectedContract")
                     td(colspan=6)
