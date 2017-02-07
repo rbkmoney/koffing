@@ -22,6 +22,7 @@ export class EditShopComponent implements OnInit {
 
     public shopID: number = Number(this.route.snapshot.params['shopID']);
     public shopEditing: CreateShopArgs;
+    public shop: Shop;
     public shopContract: Contract = new Contract();
     public shopPayoutTool: PayoutTool = new PayoutTool();
     public contracts: Contract[] = [];
@@ -53,6 +54,15 @@ export class EditShopComponent implements OnInit {
         });
     }
 
+    public onFieldChange(path: string, value: any) {
+        _.set(this.shopEditing, path, value);
+        if (path === 'details.location.url') { // TODO fix it
+            const location = new ShopLocationUrl();
+            location.url = value;
+            this.shopEditing.details.location = location;
+        }
+    }
+
     public loadCategories(): Promise<Category[]> {
         return new Promise((resolve) => {
             this.categoryService.getCategories().then((categories: Category[]) => {
@@ -69,6 +79,7 @@ export class EditShopComponent implements OnInit {
                     this.loadShopContracts(),
                     this.loadShopPayoutTools()
                 ]).then(() => {
+                    this.shop = shop;
                     resolve(shop);
                 });
             });
@@ -107,8 +118,8 @@ export class EditShopComponent implements OnInit {
 
     public selectContract(contractID: string) {
         this.shopEditing.contractID = Number(contractID);
-        this.shopContract = _.find(this.contracts, (contract) => contract.id === this.shopEditing.contractID);
-        this.loadShopPayoutTools();
+        // this.shopContract = _.find(this.contracts, (contract) => contract.id === this.shopEditing.contractID);
+        // this.loadShopPayoutTools();
     }
 
     public selectPayoutTool(payoutToolID: string) {
@@ -123,6 +134,8 @@ export class EditShopComponent implements OnInit {
     public updateShop(form: any) {
         if (form.valid) {
             this.isLoading = true;
+            const detailsName = this.shopEditing.details.name;
+            this.shopEditing.details.name = detailsName ? detailsName : this.shop.details.name; // TODO fix it
             if (this.shopEditing.categoryID) { // TODO fix it
                 this.shopEditing.categoryID = _.toNumber(this.shopEditing.categoryID);
             }
@@ -133,10 +146,12 @@ export class EditShopComponent implements OnInit {
         }
     }
 
+    public onSelectCategory(categoryID: string) {
+        this.shopEditing.categoryID = _.toNumber(categoryID);
+    }
+
     private getInstance(): CreateShopArgs {
-        const location = new ShopLocationUrl();
         const shopDetail = new ShopDetail();
-        shopDetail.location = location;
         const instance = new CreateShopArgs();
         instance.details = shopDetail;
         return instance;

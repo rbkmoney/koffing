@@ -30,6 +30,8 @@ export class SelectionPaytoolComponent implements OnInit {
     public payoutToolsParams: PayoutToolBankAccount;
     public payoutToolID: number;
 
+    public isLoading: boolean = false;
+
     @Output()
     public steppedForward = new EventEmitter();
     @Output()
@@ -68,12 +70,16 @@ export class SelectionPaytoolComponent implements OnInit {
     public stepForward() {
         // new contract and new payout tools
         if (!_.isUndefined(this.contractDecision.contractor) && !_.isUndefined(this.payoutToolsParams)) {
+            this.isLoading = true;
             this.createContract(this.contractDecision.contractor, this.payoutToolsParams).then((decision: PaytoolDecision) => {
+                this.isLoading = false;
                 this.steppedForward.emit(decision);
             });
         // selected contract and new payout tools
         } else if (!_.isUndefined(this.contractDecision.contractID) && !_.isUndefined(this.payoutToolsParams)) {
+            this.isLoading = true;
             this.createPayoutTool(this.contractDecision.contractID, this.payoutToolsParams).then((decision: PaytoolDecision) => {
+                this.isLoading = false;
                 this.steppedForward.emit(decision);
             });
         // selected contract and selected payout tools

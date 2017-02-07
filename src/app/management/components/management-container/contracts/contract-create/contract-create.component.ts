@@ -41,8 +41,12 @@ export class ContractCreateComponent {
             contractParams.payoutToolParams = this.payoutTool;
             this.contractService.createContract(contractParams).then(() => {
                 this.isLoading = false;
-                this.router.navigate(['/management/contracts']);
+                this.navigateBack();
             });
         }
+    }
+
+    public navigateBack() {
+        this.router.navigate(['/management/contracts']);
     }
 }
