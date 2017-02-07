@@ -1,47 +1,34 @@
-import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 
-import { WizardArgs } from 'koffing/management/management.module';
-import { ShopDetail } from 'koffing/backend/backend.module';
-import { CallbackHandler } from 'koffing/backend/classes/callback-handler.class';
 import { CreateShopArgs } from 'koffing/backend/classes/create-shop-args.class';
 import { PaytoolDecision } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-paytool/paytool-decision.class';
+import { ShopService } from 'koffing/backend/services/shop.service';
 
 @Component({
     selector: 'kof-selection-shop-fields',
     templateUrl: 'selection-shop-fields.component.pug'
 })
-export class SelectionShopComponent implements OnInit {
+export class SelectionShopComponent {
 
-    @Input()
-    public showFinishButton: boolean = false;
-    @Output()
-    public steppedForward = new EventEmitter();
-    @Output()
-    public steppedBackward = new EventEmitter();
     public isShopFieldsReady: boolean = false;
+
+    public isLoading = false;
 
     @Input()
     public payoutToolDecision: PaytoolDecision;
 
-    @Input()
-    private args: WizardArgs;
+    @Output()
+    public steppedBackward = new EventEmitter();
+
+    @Output()
+    public onCreated = new EventEmitter();
 
     private createShopArgs: CreateShopArgs;
 
-    public createNewShopFieldsInstance() {
-        this.args.creatingShop.details = new ShopDetail();
-        this.args.creatingShop.categoryID = null;
-        this.args.creatingShop.callbackHandler = new CallbackHandler();
-    }
-
-    public ngOnInit() {
-        this.isShopFieldsReady = false;
-        this.createNewShopFieldsInstance();
-    }
+    constructor(private shopService: ShopService) { }
 
     public shopFieldsReady(params: any) {
         this.isShopFieldsReady = true;
-        this.showFinishButton = true;
         this.createShopArgs = new CreateShopArgs();
         this.createShopArgs.contractID = this.payoutToolDecision.contractID;
         this.createShopArgs.payoutToolID = this.payoutToolDecision.payoutToolID;
@@ -50,8 +37,14 @@ export class SelectionShopComponent implements OnInit {
         this.createShopArgs.details = params.shopDetail;
     }
 
-    public stepForward() {
-        this.steppedForward.emit(this.createShopArgs);
+    public createShop() {
+        this.isLoading = true;
+        if (this.isShopFieldsReady) {
+            this.shopService.createShop(this.createShopArgs).then(() => {
+                this.isLoading = false;
+                this.onCreated.emit();
+            });
+        }
     }
 
     public stepBackward() {
