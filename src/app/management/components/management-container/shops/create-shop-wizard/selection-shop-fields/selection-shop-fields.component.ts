@@ -4,6 +4,7 @@ import { WizardArgs } from 'koffing/management/management.module';
 import { ShopDetail } from 'koffing/backend/backend.module';
 import { CallbackHandler } from 'koffing/backend/classes/callback-handler.class';
 import { CreateShopArgs } from 'koffing/backend/classes/create-shop-args.class';
+import { PaytoolDecision } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-paytool/paytool-decision.class';
 
 @Component({
     selector: 'kof-selection-shop-fields',
@@ -20,9 +21,7 @@ export class SelectionShopComponent implements OnInit {
     public isShopFieldsReady: boolean = false;
 
     @Input()
-    public contractId: number;
-    @Input()
-    public payoutToolId: number;
+    public payoutToolDecision: PaytoolDecision;
 
     @Input()
     private args: WizardArgs;
@@ -44,8 +43,8 @@ export class SelectionShopComponent implements OnInit {
         this.isShopFieldsReady = true;
         this.showFinishButton = true;
         this.createShopArgs = new CreateShopArgs();
-        this.createShopArgs.contractID = this.contractId;
-        this.createShopArgs.payoutToolID = this.payoutToolId;
+        this.createShopArgs.contractID = this.payoutToolDecision.contractID;
+        this.createShopArgs.payoutToolID = this.payoutToolDecision.payoutToolID;
         this.createShopArgs.categoryID = params.categoryId;
         this.createShopArgs.callbackUrl = params.callbackUrl;
         this.createShopArgs.details = params.shopDetail;

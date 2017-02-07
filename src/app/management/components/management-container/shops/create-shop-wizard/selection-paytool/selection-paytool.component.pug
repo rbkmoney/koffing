@@ -1,15 +1,15 @@
-//.tile(*ngIf="!args.isNewContract")
-//    .text-center
-//        h4 Выберите
-//        .btn-group(data-toggle="buttons")
-//            label.btn.btn-default((click)="selectOptionNew()")
-//                input(type="radio", name="way", value="new")
-//                span Новый
-//            label.btn.btn-default((click)="selectOptionExisting()")
-//                input(type="radio", name="way", value="existing")
-//                span Существующий
-//        br
-//        br
+.tile(*ngIf="contractDecision.contractID !== undefined")
+    .text-center
+        h4 Выберите
+        .btn-group(data-toggle="buttons")
+            label.btn.btn-default((click)="selectOptionNew()")
+                input(type="radio", name="way", value="new")
+                span Добавить новое средство вывода
+            label.btn.btn-default((click)="selectOptionExisting()")
+                input(type="radio", name="way", value="existing")
+                span Выбрать существующее
+        br
+        br
 .tile
     kof-create-paytool(
         *ngIf="selectedOption === optionNew",
@@ -17,8 +17,8 @@
     )
     kof-select-paytool(
         *ngIf="selectedOption === optionExisting",
-        [payoutTools]="payoutTools",
-        (payoutToolSelected)="payoutToolSelected($event)"
+        [contractID]="contractDecision.contractID",
+        (onPayoutToolSelected)="onPayoutToolSelected($event)"
     )
 .actionBar
     .text-center

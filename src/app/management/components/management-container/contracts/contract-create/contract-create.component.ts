@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { ContractService } from 'koffing/backend/services/contract.service';
 import { Contractor } from 'koffing/backend/classes/contractor.class';
@@ -12,7 +12,6 @@ import { ContractParams } from 'koffing/backend/classes/contract-params.class';
 })
 export class ContractCreateComponent {
 
-    public shopEditID: number = Number(this.route.snapshot.params['shopID']);
     public isLoading: boolean = false;
     public isContractorReady: boolean = false;
     public contractor: Contractor;
@@ -20,7 +19,6 @@ export class ContractCreateComponent {
     public payoutTool: PayoutToolBankAccount;
 
     constructor(
-        private route: ActivatedRoute,
         private router: Router,
         private contractService: ContractService
     ) {}
@@ -43,16 +41,8 @@ export class ContractCreateComponent {
             contractParams.payoutToolParams = this.payoutTool;
             this.contractService.createContract(contractParams).then(() => {
                 this.isLoading = false;
-                this.navigateBack();
+                this.router.navigate(['/management/contracts']);
             });
-        }
-    }
-
-    public navigateBack() {
-        if (this.shopEditID) {
-            this.router.navigate(['/shops', this.shopEditID, 'edit']);
-        } else {
-            this.router.navigate(['/management/contracts']);
         }
     }
 }

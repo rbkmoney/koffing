@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ContractService } from 'koffing/backend/services/contract.service';
 import { WizardArgs } from 'koffing/management/management.module';
 import { ShopService } from 'koffing/backend/services/shop.service';
-import { Contract } from 'koffing/backend/classes/contract.class';
 import { Shop } from 'koffing/backend/classes/shop.class';
-import { Contractor } from 'koffing/backend/classes/contractor.class';
 import { CreateShopArgs } from 'koffing/backend/classes/create-shop-args.class';
+import { ContractDecision } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-contract/contract-decision.class';
+import { PaytoolDecision } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-paytool/paytool-decision.class';
 
 @Component({
     templateUrl: 'create-shop-wizard.component.pug'
@@ -19,16 +18,12 @@ export class CreateShopWizardComponent implements OnInit {
     public paytoolStep: number = 2;
     public shopDetailsStep: number = 3;
     public wizardArgs: WizardArgs;
-    public contracts: Contract[];
-    // public payoutTools: PayoutTool[];
 
-    public contractor: Contractor;
-    public contractId: number;
-    public payoutToolId: number;
+    public contractDecision: ContractDecision;
+    public payoutToolDecision: PaytoolDecision;
 
     constructor(
         private router: Router,
-        private contractService: ContractService,
         private shopService: ShopService
     ) { }    
     
@@ -40,16 +35,13 @@ export class CreateShopWizardComponent implements OnInit {
         this.currentStep = this.contractStep;
     }
 
-    public goToPaytoolStep(contractor: Contractor) {
+    public goToPaytoolStep(contractDecision: ContractDecision) {
         this.currentStep = this.paytoolStep;
-        this.contractor = contractor;
-        // this.loadShopPayoutTools().then(() => this.currentStep = this.paytoolStep);
-
+        this.contractDecision = contractDecision;
     }
 
-    public goToShopDetailsStep(ids: any) {
-        this.contractId = ids.contractId;
-        this.payoutToolId = ids.payoutToolId;
+    public goToShopDetailsStep(payoutToolDecision: PaytoolDecision) {
+        this.payoutToolDecision = payoutToolDecision;
         this.currentStep = this.shopDetailsStep;
     }
 
@@ -63,31 +55,8 @@ export class CreateShopWizardComponent implements OnInit {
         this.wizardArgs = new WizardArgs();
         this.wizardArgs.isLoading = false;
         this.wizardArgs.creatingShop = new Shop();
-        this.loadContracts();
         this.goToContractStep();
     }
-
-    public loadContracts() {
-        this.wizardArgs.isLoading = true;
-        this.contractService.getContracts().then((contracts) => {
-            this.contracts = contracts;
-            this.wizardArgs.isLoading = false;
-        });
-    }
-
-    // public loadShopPayoutTools(): Promise<PayoutTool[]> {
-    //     return new Promise((resolve) => {
-    //         this.wizardArgs.isLoading = true;
-    //
-    //         this.contractService.getPayoutTools(this.wizardArgs.creatingShop.contractID).then((payoutTools: PayoutTool[]) => {
-    //             this.payoutTools = payoutTools;
-    //
-    //             this.wizardArgs.isLoading = false;
-    //
-    //             resolve();
-    //         });
-    //     });
-    // }
 
     private createShop(createShopArgs: CreateShopArgs): Promise<any> {
         this.wizardArgs.isLoading = true;

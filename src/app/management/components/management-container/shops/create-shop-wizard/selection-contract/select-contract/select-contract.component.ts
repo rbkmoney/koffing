@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import * as _ from 'lodash';
 
 import { SelectItem } from 'koffing/common/common.module';
 import { Contract } from 'koffing/backend/classes/contract.class';
+import { ContractService } from 'koffing/backend/services/contract.service';
 
 @Component({
     selector: 'kof-select-contract',
@@ -10,34 +11,39 @@ import { Contract } from 'koffing/backend/classes/contract.class';
 })
 export class SelectContractComponent implements OnInit {
 
+    @Output()
+    public onContractSelected = new EventEmitter();
+
     public selectableItems: SelectItem[] = [];
-    
+
     public selectedContractId: number;
 
-    @Output()
-    public contractSelected = new EventEmitter();
-
-    @Input()
     public contracts: Contract[];
 
-    private selectedContract: Contract;
+    public selectedContract: Contract;
+
+    public isLoading: boolean = true;
+
+    constructor(private contractService: ContractService) { }
+
+    public ngOnInit() {
+         this.contractService.getContracts().then((contracts) => {
+             this.isLoading = false;
+             this.contracts = contracts;
+             this.selectableItems = this.prepareSelectableItems(contracts);
+         });
+    }
 
     public selectContract() {
-        this.selectedContract = _.find(this.contracts, (contract) => {
-            return contract.id === Number(this.selectedContractId);
-        });
-        this.contractSelected.emit({
-            contract: this.selectedContract
-        });
+        this.selectedContract = this.findSelectedContract(this.contracts, this.selectedContractId);
+        this.onContractSelected.emit(_.toNumber(this.selectedContractId));
     }
 
-    public prepareSelectableItems() {
-        this.selectableItems = _.map(this.contracts, (contract) => {
-            return new SelectItem(contract.id, String(contract.id));
-        });
+    private prepareSelectableItems(contracts: Contract[]) {
+        return _.map(contracts, (contract) => new SelectItem(contract.id, String(contract.id)));
     }
-    
-    public ngOnInit() {
-        this.prepareSelectableItems();
+
+    private findSelectedContract(contracts: Contract[], contractId: number) {
+        return _.find(contracts, (contract) => contract.id === Number(contractId));
     }
 }

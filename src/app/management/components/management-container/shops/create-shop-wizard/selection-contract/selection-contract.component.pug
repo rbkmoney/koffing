@@ -16,8 +16,7 @@
     )
     kof-select-contract(
         *ngIf="selectedOption === optionExisting",
-        [contracts]="contracts",
-        (contractSelected)="contractSelected($event)"
+        (onContractSelected)="onContractSelected($event)"
     )
 .actionBar
     .text-center

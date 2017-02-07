@@ -1,50 +1,40 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 
 import { SelectionOptions } from '../selection-options.class';
-import { WizardArgs } from 'koffing/management/management.module';
-import { Contract } from 'koffing/backend/classes/contract.class';
 import { Contractor } from 'koffing/backend/classes/contractor.class';
+import { ContractDecision } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-contract/contract-decision.class';
 
 @Component({
     selector: 'kof-selection-contract',
     templateUrl: 'selection-contract.component.pug'
 })
-export class SelectionContractComponent implements OnInit {
+export class SelectionContractComponent {
 
-    @Input()
-    public args: WizardArgs;
-    @Input()
-    public contracts: Contract[];
     @Input()
     public showFinishButton: boolean = false;
     public selectedOption: SelectionOptions;
     public optionNew: number = SelectionOptions.New;
     public optionExisting: number = SelectionOptions.Existing;
     public isContractorReady: boolean = false;
-
-    public contractor: Contractor;
+    public decision: ContractDecision = new ContractDecision();
     
     @Output()
     public steppedForward = new EventEmitter();
     @Output()
     public steppedBackward = new EventEmitter();
 
-    public ngOnInit() {
-        this.args.isNewContract = false;
-    }
-
     public onContractorReady(contractor: Contractor) {
         this.isContractorReady = true;
-        this.contractor = contractor;
+        this.decision.contractor = contractor;
+    }
+
+    public onContractSelected(contractID: number) {
+        this.isContractorReady = true;
+        this.decision.contractID = contractID;
     }
 
     public newContractReady(params: any) {
         this.isContractorReady = params.valid;
-    }
-
-    public contractSelected(params: any) {
-        this.args.creatingShop.contractID = params.contract.id;
-        this.isContractorReady = true;
     }
 
     public selectOptionNew() {
@@ -58,7 +48,7 @@ export class SelectionContractComponent implements OnInit {
 
     public stepForward() {
         if (this.isContractorReady) {
-            this.steppedForward.emit(this.contractor);
+            this.steppedForward.emit(this.decision);
         }
     }
 

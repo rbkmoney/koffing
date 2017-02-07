@@ -2,14 +2,15 @@ import { Component, Output, EventEmitter, OnInit, Input } from '@angular/core';
 import * as _ from 'lodash';
 
 import { SelectionOptions } from '../selection-options.class';
-import { WizardArgs } from 'koffing/management/management.module';
 import { Claim } from 'koffing/backend/classes/claim.class';
 import { ClaimService } from 'koffing/backend/services/claim.service';
 import { PayoutToolBankAccount } from 'koffing/backend/classes/payout-tool-bank-account.class';
-import { PayoutTool } from 'koffing/backend/classes/payout-tool.class';
 import { ContractService } from 'koffing/backend/services/contract.service';
-import { Contractor } from 'koffing/backend/classes/contractor.class';
 import { ContractParams } from 'koffing/backend/classes/contract-params.class';
+import { ContractDecision } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-contract/contract-decision.class';
+import { Contractor } from 'koffing/backend/classes/contractor.class';
+import { PayoutToolParams } from 'koffing/backend/classes/payout-tool-params.class';
+import { PaytoolDecision } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-paytool/paytool-decision.class';
 
 @Component({
     selector: 'kof-selection-paytool',
@@ -18,19 +19,16 @@ import { ContractParams } from 'koffing/backend/classes/contract-params.class';
 export class SelectionPaytoolComponent implements OnInit {
 
     @Input()
-    public payoutTools: PayoutTool[];
-    @Input()
     public showFinishButton: boolean = false;
     @Input()
-    public args: WizardArgs;
-    @Input()
-    public contractor: Contractor;
+    public contractDecision: ContractDecision;
 
     public selectedOption: SelectionOptions;
     public optionNew: number = SelectionOptions.New;
     public optionExisting: number = SelectionOptions.Existing;
     public isPayoutAccountReady: boolean = false;
     public payoutToolsParams: PayoutToolBankAccount;
+    public payoutToolID: number;
 
     @Output()
     public steppedForward = new EventEmitter();
@@ -42,10 +40,9 @@ export class SelectionPaytoolComponent implements OnInit {
     }
 
     public ngOnInit() {
-        // if (this.args.isNewContract) {
-        //     this.selectOptionNew();
-        // }
-        this.selectOptionNew();
+        if (!_.isUndefined(this.contractDecision.contractor)) {
+            this.selectedOption = this.optionNew;
+        }
     }
 
     public onPayoutToolReady(payoutTool: PayoutToolBankAccount) {
@@ -53,8 +50,9 @@ export class SelectionPaytoolComponent implements OnInit {
         this.payoutToolsParams = payoutTool;
     }
 
-    public selectOptionNew() {
-        this.selectedOption = this.optionNew;
+    public onPayoutToolSelected(payoutToolID: number) {
+        this.isPayoutAccountReady = true;
+        this.payoutToolID = payoutToolID;
     }
 
     public selectOptionExisting() {
@@ -62,48 +60,57 @@ export class SelectionPaytoolComponent implements OnInit {
         this.isPayoutAccountReady = false;
     }
 
-    public payoutToolSelected(params: any) {
-        this.args.creatingShop.payoutToolID = params.payoutTool.id;
-        this.isPayoutAccountReady = true;
-    }
-
-    public createPayoutAccount() {
-        this.args.isLoading = true;
-        if (this.isPayoutAccountReady) {
-            const contractParams = new ContractParams();
-            contractParams.contractor = this.contractor;
-            contractParams.payoutToolParams = this.payoutToolsParams;
-            this.contractService.createContract(contractParams).then((result) => {
-                this.claimService.getClaimById(result.claimID).then(
-                    (claim: Claim) => {
-                        this.args.isLoading = false;
-                        const contractId = this.getContractId(claim.changeset);
-                        const payoutToolId = this.getPayoutToolId(contractId, claim.changeset);
-                        this.steppedForward.emit({contractId, payoutToolId});
-                    }
-                );
-            });
-        }
+    public selectOptionNew() {
+        this.selectedOption = this.optionNew;
+        this.isPayoutAccountReady = false;
     }
 
     public stepForward() {
-        if (this.selectedOption === this.optionNew) {
-            this.createPayoutAccount();
-        } else {
-            this.confirmForward();
+        // new contract and new payout tools
+        if (!_.isUndefined(this.contractDecision.contractor) && !_.isUndefined(this.payoutToolsParams)) {
+            this.createContract(this.contractDecision.contractor, this.payoutToolsParams).then((decision: PaytoolDecision) => {
+                this.steppedForward.emit(decision);
+            });
+        // selected contract and new payout tools
+        } else if (!_.isUndefined(this.contractDecision.contractID) && !_.isUndefined(this.payoutToolsParams)) {
+            this.createPayoutTool(this.contractDecision.contractID, this.payoutToolsParams).then((decision: PaytoolDecision) => {
+                this.steppedForward.emit(decision);
+            });
+        // selected contract and selected payout tools
+        } else if (!_.isUndefined(this.contractDecision.contractID) && !_.isUndefined(this.payoutToolID)) {
+            this.steppedForward.emit(new PaytoolDecision(this.contractDecision.contractID, this.payoutToolID));
         }
     }
 
     public stepBackward() {
-        this.confirmBackward();
-    }
-
-    private confirmForward() {
-        this.steppedForward.emit();
-    }
-
-    private confirmBackward() {
         this.steppedBackward.emit();
+    }
+
+    private createPayoutTool(contractID: number, payoutToolsParams: PayoutToolBankAccount) {
+        return new Promise((resolve) => {
+            this.contractService.createPayoutTool(contractID, payoutToolsParams).then((result: any) => {
+                this.claimService.getClaimById(result.claimID).then((claim: Claim) => {
+                    const payoutToolID = this.getPayoutToolId(contractID, claim.changeset);
+                    resolve(new PaytoolDecision(contractID, payoutToolID));
+                });
+            });
+        });
+    }
+
+    private createContract(contractor: Contractor, payoutToolsParams: PayoutToolParams): Promise<PaytoolDecision> {
+        const contractParams = new ContractParams();
+        contractParams.contractor = contractor;
+        contractParams.payoutToolParams = payoutToolsParams;
+        return new Promise((resolve) => {
+            this.contractService.createContract(contractParams).then((result: any) => {
+                this.claimService.getClaimById(result.claimID).then((claim: Claim) => {
+                        const contractID = this.getContractId(claim.changeset);
+                        const payoutToolID = this.getPayoutToolId(contractID, claim.changeset);
+                        resolve(new PaytoolDecision(contractID, payoutToolID));
+                    }
+                );
+            });
+        });
     }
 
     private getContractId(changeset: any[]): number {
