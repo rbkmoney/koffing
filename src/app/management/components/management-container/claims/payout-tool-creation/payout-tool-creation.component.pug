@@ -1,6 +1,6 @@
 .panel.panel-default
     .panel-heading((click)="show()")
-        a Создание счета
+        a Создание средства вывода
         i.fa.pull-right.custom-chevron([ngClass]="{'fa-chevron-down': showPanel, 'fa-chevron-right': !showPanel}")
     .panel-body(*ngIf="showPanel")
         kof-modification-detail([displayName]="'Валюта'", [value]="payoutTool.params.currency")

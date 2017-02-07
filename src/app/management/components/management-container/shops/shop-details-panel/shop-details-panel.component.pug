@@ -7,7 +7,7 @@ div(*ngIf="shop.callbackHandler")
         dd {{shop.callbackHandler.url}}
     dl
         dt CallbackHandler public key
-        dd {{shop.callbackHandler.publicKey}}
+        dd.public-key-container {{shop.callbackHandler.publicKey}}
 
 .modal.fade.suspend-modal(tabindex="-1" role="dialog")
     .modal-dialog.modal-sm

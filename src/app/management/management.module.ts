@@ -77,7 +77,6 @@ import { ShopDetailsPanelComponent } from 'koffing/management/components/managem
 })
 export class ManagementModule { }
 
-export * from './components/management-container/shops/create-shop-wizard/wizard-args.class';
 export * from './components/management-container/shops/edit-shop/edit-shop.component';
 export * from './components/management-container/shops/create-shop-wizard/create-shop-wizard.component';
 export * from './components/management-container/contracts/contract-create/contract-create.component';
