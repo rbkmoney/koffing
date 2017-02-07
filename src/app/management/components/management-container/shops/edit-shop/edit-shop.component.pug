@@ -53,14 +53,14 @@
                                 kof-payout-tool-view([payoutTool]="shopPayoutTool")
                         .form-group
                             .col-xs-12.col-sm-3
-                                label.text-left Категория *
+                                label.text-left Категория
                             .col-xs-12.col-sm-6
                                 kof-select([(ngModel)]="shopEditing.categoryID", [items]="categoryItems", [modelOptions]="{standalone: true}", name='category')
                         .form-group
                             .col-xs-12.col-sm-3
                                 label.text-left CallbackHandler URL
                             .col-xs-12.col-sm-6
-                                input.form-control(type="text", [(ngModel)]="shopEditing.callbackHandler.url", name="callbackHandlerUrl")
+                                input.form-control(type="text", [(ngModel)]="shopEditing.callbackUrl", name="callbackHandlerUrl")
                         .ln_solid
                         .form-group
                             .col-xs-12.col-sm-6.col-sm-offset-3

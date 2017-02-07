@@ -3,9 +3,7 @@
         h4 Активная заявка
     .x_content
         div(*ngFor="let set of changeset")
-            //kof-shop-modification(*ngIf="set.partyModificationType === 'ShopModification' && set.details.modificationType === 'ShopUpdate'", [shop]="set.details.details")
-            //kof-shop-suspension(*ngIf="set.partyModificationType === 'ShopModificationUnit' && set.details.modificationType === 'ShopSuspension'", [suspension]="set.details.details")
-
+            kof-shop-modification(*ngIf="set.partyModificationType === 'ShopModification' && set.shopModificationType === 'ShopUpdate'", [shop]="set.details")
             kof-shop-account-creation(*ngIf="set.partyModificationType === 'ShopModification' && set.shopModificationType === 'ShopAccountCreation'")
             kof-shop-creation(*ngIf="set.partyModificationType === 'ShopCreation'", [shop]="set.shop")
             kof-contract-creation(*ngIf="set.partyModificationType === 'ContractCreation'", [contract]="set.contract")

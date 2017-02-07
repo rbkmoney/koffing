@@ -31,15 +31,8 @@ export class ShopService {
             .then(response => response.json());
     }
 
-    public updateShop(shop: Shop): Promise<string> {
-        const params = {
-            categoryID: shop.categoryID,
-            contractID: shop.contractID,
-            payoutToolID: shop.payoutToolID,
-            details: shop.details,
-            callbackUrl: shop.callbackHandler.url
-        };
-        return this.http.post(`${this.shopsUrl}/${shop.id}`, params)
+    public updateShop(shopID: number, args: CreateShopArgs): Promise<string> {
+        return this.http.post(`${this.shopsUrl}/${shopID}`, args)
             .toPromise()
             .then(response => response.json());
     }
