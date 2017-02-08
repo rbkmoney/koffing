@@ -42,6 +42,7 @@ export class AddShopComponent implements OnInit {
         return new Promise((resolve) => {
             this.categoryService.getCategories().then(categories => {
                 this.categories = _.map(categories, (category: any) => new SelectItem(category.categoryID, category.name));
+                this.categoryId = categories[0].categoryID;
                 resolve();
             });
         });

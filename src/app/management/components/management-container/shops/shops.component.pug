@@ -29,5 +29,4 @@
                 tr(*ngIf="isDetailsPanelVisible(i)")
                     td(colspan=6)
                         kof-shop-details-panel([shop]="shop", (shopSuspended)="loadData()")
-    span(*ngIf="!shops.length") Список магазинов пуст
     a.btn.btn-primary.pull-right([routerLink]="['/shops/create']") Добавить новый магазин

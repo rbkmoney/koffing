@@ -5,6 +5,7 @@ import { ContractService } from 'koffing/backend/services/contract.service';
 import { Contractor } from 'koffing/backend/classes/contractor.class';
 import { PayoutToolBankAccount } from 'koffing/backend/classes/payout-tool-bank-account.class';
 import { ContractParams } from 'koffing/backend/classes/contract-params.class';
+import { ClaimReceiveBroadcaster } from 'koffing/broadcaster/services/claim-receive.broadcaster.service';
 
 @Component({
     selector: 'kof-contract-create',
@@ -20,7 +21,8 @@ export class ContractCreateComponent {
 
     constructor(
         private router: Router,
-        private contractService: ContractService
+        private contractService: ContractService,
+        private claimReceiveBroadcaster: ClaimReceiveBroadcaster
     ) {}
 
     public onContractorReady(contractor: Contractor) {
@@ -41,6 +43,7 @@ export class ContractCreateComponent {
             contractParams.payoutToolParams = this.payoutTool;
             this.contractService.createContract(contractParams).then(() => {
                 this.isLoading = false;
+                this.claimReceiveBroadcaster.fire();
                 this.navigateBack();
             });
         }

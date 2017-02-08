@@ -1,11 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ContractDecision } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-contract/contract-decision.class';
-import { PaytoolDecision } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-paytool/paytool-decision.class';
+import { ContractDecision } from './selection-contract/contract-decision.class';
+import { PaytoolDecision } from './selection-paytool/paytool-decision.class';
 
 @Component({
-    templateUrl: 'create-shop-wizard.component.pug'
+    templateUrl: 'create-shop-wizard.component.pug',
+    styleUrls: [` 
+        .wizard_steps {
+            padding-left: 0;
+        }
+        .first_step {
+            width: 33%;
+        }
+    `]
 })
 export class CreateShopWizardComponent implements OnInit {
 
