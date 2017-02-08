@@ -2,6 +2,7 @@
     .x_title
         h4 Активная заявка
     .x_content
+        label Детали:
         div(*ngFor="let set of changeset")
             kof-shop-modification(*ngIf="set.partyModificationType === 'ShopModification' && set.shopModificationType === 'ShopUpdate'", [shop]="set.details")
             kof-shop-account-creation(*ngIf="set.partyModificationType === 'ShopModification' && set.shopModificationType === 'ShopAccountCreation'")
