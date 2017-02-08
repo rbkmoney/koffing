@@ -11,10 +11,11 @@ build('koffing', 'docker-host') {
   }
 
   pipeDefault() {
-    //ToDo: npm stuff should be in a cache, when caching is implemented!
     runStage('init') {
       withGithubSshCredentials {
-        sh 'make wc_init'
+        withWsCache("node_modules") {
+          sh 'make wc_init'
+        }
       }
     }
     runStage('build') {
