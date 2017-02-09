@@ -9,11 +9,9 @@ import { ManagementComponent } from './components/management-container/managemen
 import { ClaimsComponent } from './components/management-container/claims/claims.component';
 import { ModificationDetailComponent } from './components/management-container/claims/modification-detail/modification-detail.component';
 import { ShopModificationComponent } from './components/management-container/claims/shop-modification/shop-modification.component';
-import { ShopCreationComponent } from './components/management-container/claims/shop-creation/shop-creation.component';
 import { ShopsComponent } from './components/management-container/shops/shops.component';
 import { ContractsComponent } from './components/management-container/contracts/contracts.component';
 import { ShopAccountCreationComponent } from './components/management-container/claims/shop-account-creation/shop-account-creation.component';
-import { ShopSuspensionComponent } from './components/management-container/claims/shop-suspension/shop-suspension.component';
 import { ContractCreationComponent } from './components/management-container/claims/contract-creation/contract-creation.component';
 import { PayoutToolCreationComponent } from './components/management-container/claims/payout-tool-creation/payout-tool-creation.component';
 import { CreateContractComponent } from './components/management-container/shops/create-shop-wizard/selection-contract/create-contract/create-contract.component';
@@ -44,11 +42,9 @@ import { ShopDetailsPanelComponent } from 'koffing/management/components/managem
     declarations: [
         ManagementComponent,
         ClaimsComponent,
-        ShopCreationComponent,
         ShopModificationComponent,
         ModificationDetailComponent,
         ShopAccountCreationComponent,
-        ShopSuspensionComponent,
         ContractCreationComponent,
         PayoutToolCreationComponent,
         ShopsComponent,

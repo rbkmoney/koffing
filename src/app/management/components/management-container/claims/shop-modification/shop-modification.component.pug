@@ -1,6 +1,6 @@
 .panel.panel-default
     .panel-heading((click)="show()")
-        a Изменение магазина: {{shop.details.name}}
+        a {{title}}: {{shop.details.name}}
         i.fa.pull-right.custom-chevron([ngClass]="{'fa-chevron-down': showPanel, 'fa-chevron-right': !showPanel}")
     .panel-body(*ngIf="showPanel")
         kof-modification-detail([displayName]="'Название магазина'", [value]="shop.details.name")
