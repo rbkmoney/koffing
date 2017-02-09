@@ -10,8 +10,9 @@ import { PaytoolDecision } from './selection-paytool/paytool-decision.class';
         .wizard_steps {
             padding-left: 0;
         }
-        .first_step {
+        .wizard_horizontal ul.wizard_steps li {
             width: 33%;
+            display: table-cell!important;
         }
     `]
 })
