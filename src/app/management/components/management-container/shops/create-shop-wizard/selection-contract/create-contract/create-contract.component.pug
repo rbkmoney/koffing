@@ -42,35 +42,35 @@
                 .col-xs-12.col-sm-6
                     input.form-control(type="text", name="entityRegisteredName", required,
                     [(ngModel)]="contractor.legalEntity.registeredName", #entityRegisteredName="ngModel",
-                    (keyup)="checkForm()")
+                    (keyup)="checkForm()", class="contractor-suggestions")
             .form-group([ngClass]="{'has-error': hasError(entityRegisteredNumber)}")
                 .col-xs-12.col-sm-3
                     label.text-left ОГРН
                 .col-xs-12.col-sm-6
                     input.form-control(type="text", name="entityRegisteredNumber", required,
                     [(ngModel)]="contractor.legalEntity.registeredNumber", #entityRegisteredNumber="ngModel",
-                    (keyup)="checkForm()")
+                    (keyup)="checkForm()", class="contractor-suggestions")
             .form-group([ngClass]="{'has-error': hasError(entityInn)}")
                 .col-xs-12.col-sm-3
                     label.text-left ИНН
                 .col-xs-12.col-sm-6
                     input.form-control(type="text", name="entityInn", required,
                     [(ngModel)]="contractor.legalEntity.inn", #entityInn="ngModel",
-                    (keyup)="checkForm()")
+                    (keyup)="checkForm()", class="contractor-suggestions")
             .form-group([ngClass]="{'has-error': hasError(entityActualAddress)}")
                 .col-xs-12.col-sm-3
                     label.text-left Фактический адрес
                 .col-xs-12.col-sm-6
                     input.form-control(type="text", name="entityActualAddress", required,
                     [(ngModel)]="contractor.legalEntity.actualAddress", #entityActualAddress="ngModel",
-                    (keyup)="checkForm()")
+                    (keyup)="checkForm()", class="contractor-suggestions")
             .form-group([ngClass]="{'has-error': hasError(entityPostAddress)}")
                 .col-xs-12.col-sm-3
                     label.text-left Почтовый адрес
                 .col-xs-12.col-sm-6
                     input.form-control(type="text", name="entityPostAddress", required,
                     [(ngModel)]="contractor.legalEntity.postAddress", #entityPostAddress="ngModel",
-                    (keyup)="checkForm()")
+                    (keyup)="checkForm()", class="contractor-suggestions")
             .form-group([ngClass]="{'has-error': hasError(entityRepresentativePosition)}")
                 .col-xs-12.col-sm-3
                     label.text-left Должность ЕИО/представителя

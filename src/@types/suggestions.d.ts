@@ -3,7 +3,7 @@ interface SuggestionsParams {
     token: string;
     type: string;
     count: number;
-    onSelect: (suggestion: BankSuggestion) => void
+    onSelect: (suggestion: BankSuggestion | OgranizationSuggestion) => void
 }
 
 interface JQuerySuggestions extends JQuery {

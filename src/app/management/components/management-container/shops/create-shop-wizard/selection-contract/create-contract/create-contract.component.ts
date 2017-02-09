@@ -23,6 +23,7 @@ export class CreateContractComponent implements OnInit {
     public ngOnInit() {
         this.contractor = this.createInstance();
         this.initBankSuggestions();
+        this.initContractorSuggestions();
     }
 
     public checkForm() {
@@ -51,12 +52,47 @@ export class CreateContractComponent implements OnInit {
 
         if (suggestion) {
             bankNameControl.setValue(suggestion.unrestricted_value);
-            bankPostAccountControl.setValue(suggestion.data.correspondent_account);
-            bankBikControl.setValue(suggestion.data.bic);
+            if (suggestion.data) {
+                bankPostAccountControl.setValue(suggestion.data.correspondent_account);
+                bankBikControl.setValue(suggestion.data.bic);
+            }
         } else {
             bankNameControl.setValue('');
             bankPostAccountControl.setValue('');
             bankBikControl.setValue('');
+        }
+
+        this.checkForm();
+    }
+
+    private handleContractorSuggestion(suggestion: OgranizationSuggestion) {
+        const entityRegisteredNameControl = this.form.controls['entityRegisteredName'];
+        const entityRegisteredNumberControl = this.form.controls['entityRegisteredNumber'];
+        const entityInnControl = this.form.controls['entityInn'];
+        const entityPostAddressControl = this.form.controls['entityPostAddress'];
+        const entityRepresentativePositionControl = this.form.controls['entityRepresentativePosition'];
+        const entityRepresentativeFullnameControl = this.form.controls['entityRepresentativeFullname'];
+
+        if (suggestion) {
+            entityRegisteredNameControl.setValue(suggestion.unrestricted_value);
+            if (suggestion.data) {
+                entityRegisteredNumberControl.setValue(suggestion.data.ogrn);
+                entityInnControl.setValue(suggestion.data.inn);
+                if (suggestion.data.address) {
+                    entityPostAddressControl.setValue(suggestion.data.address.unrestricted_value);
+                }
+                if (suggestion.data.management) {
+                    entityRepresentativePositionControl.setValue(suggestion.data.management.post);
+                    entityRepresentativeFullnameControl.setValue(suggestion.data.management.name);
+                }
+            }
+        } else {
+            entityRegisteredNameControl.setValue('');
+            entityRegisteredNumberControl.setValue('');
+            entityInnControl.setValue('');
+            entityPostAddressControl.setValue('');
+            entityRepresentativePositionControl.setValue('');
+            entityRepresentativeFullnameControl.setValue('');
         }
 
         this.checkForm();
@@ -69,6 +105,16 @@ export class CreateContractComponent implements OnInit {
             type: SuggestionSettings.bankType,
             count: 5,
             onSelect: this.handleBankSuggestion.bind(this)
+        });
+    }
+
+    private initContractorSuggestions() {
+        (<JQuerySuggestions> $('input.contractor-suggestions')).suggestions(<SuggestionsParams> {
+            serviceUrl: SuggestionSettings.serviceUrl,
+            token: SuggestionSettings.token,
+            type: SuggestionSettings.partyType,
+            count: 5,
+            onSelect: this.handleContractorSuggestion.bind(this)
         });
     }
 }
