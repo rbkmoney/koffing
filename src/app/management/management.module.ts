@@ -30,6 +30,7 @@ import { SelectionContractComponent } from './components/management-container/sh
 import { SelectionPaytoolComponent } from './components/management-container/shops/create-shop-wizard/selection-paytool/selection-paytool.component';
 import { SelectionShopComponent } from './components/management-container/shops/create-shop-wizard/selection-shop-fields/selection-shop-fields.component';
 import { ShopDetailsPanelComponent } from 'koffing/management/components/management-container/shops/shop-details-panel/shop-details-panel.component';
+import { PaytoolDecisionService } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-paytool/paytool-decision.service';
 
 @NgModule({
     imports: [
@@ -69,7 +70,8 @@ import { ShopDetailsPanelComponent } from 'koffing/management/components/managem
         SelectionPaytoolComponent,
         SelectionShopComponent,
         ShopDetailsPanelComponent
-    ]
+    ],
+    providers: [PaytoolDecisionService]
 })
 export class ManagementModule { }
 

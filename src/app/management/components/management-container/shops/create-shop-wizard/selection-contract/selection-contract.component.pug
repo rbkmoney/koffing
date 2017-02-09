@@ -12,7 +12,7 @@ br
 .tile
     kof-create-contract(
         *ngIf="selectedOption === optionNew",
-        (onContractorReady)="onContractorReady($event)"
+        (onChange)="onChangeContractor($event)"
     )
     kof-select-contract(
         *ngIf="selectedOption === optionExisting",
@@ -23,7 +23,7 @@ br
         a.btn.btn-primary((click)="stepBackward()") Отмена
         a.btn(
             (click)="stepForward()",
-            [ngClass]="{'buttonDisabled': isContractorReady === false, " +
+            [ngClass]="{'buttonDisabled': isContractorValid === false, " +
             "'btn-default': showFinishButton === true," +
             "'btn-success': showFinishButton === false}"
         )

@@ -14,7 +14,7 @@ kof-loading([isLoading]="isLoading")
     .tile
         kof-create-paytool(
             *ngIf="selectedOption === optionNew",
-            (onPayoutToolReady)="onPayoutToolReady($event)"
+            (onChange)="onPayoutToolChange($event)"
         )
         kof-select-paytool(
             *ngIf="selectedOption === optionExisting",
@@ -26,7 +26,7 @@ kof-loading([isLoading]="isLoading")
             a.btn.btn-primary((click)="stepBackward()") Отмена
             a.btn.btn-success(
                 (click)="stepForward()",
-                [ngClass]="{'buttonDisabled': isPayoutAccountReady === false, " +
+                [ngClass]="{'buttonDisabled': isPayoutToolValid === false, " +
                 "'btn-default': showFinishButton === true," +
                 "'btn-success': showFinishButton === false}"
             )
