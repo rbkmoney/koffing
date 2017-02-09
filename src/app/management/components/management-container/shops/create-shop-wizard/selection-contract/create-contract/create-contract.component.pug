@@ -5,13 +5,6 @@
         form.form-horizontal.form-label-left.css-form(novalidate, name="form", #form="ngForm")
             h5 Банковские реквизиты
             .ln_solid
-            .form-group([ngClass]="{'has-error': hasError(bankName)}")
-                .col-xs-12.col-sm-3
-                    label.text-left Наименование банка
-                .col-xs-12.col-sm-6
-                    input.form-control(type="text", required, name="bankName",
-                    [(ngModel)]="contractor.bankAccount.bankName", #bankName="ngModel",
-                    (keyup)="checkForm()", class="bank-suggestions")
             .form-group([ngClass]="{'has-error': hasError(bankAccount)}")
                 .col-xs-12.col-sm-3
                     label.text-left Расчетный счет
@@ -19,6 +12,13 @@
                     input.form-control(type="text", required, name="bankAccount",
                     [(ngModel)]="contractor.bankAccount.account", #bankAccount="ngModel",
                     (keyup)="checkForm()")
+            .form-group([ngClass]="{'has-error': hasError(bankName)}")
+                .col-xs-12.col-sm-3
+                    label.text-left Наименование банка
+                .col-xs-12.col-sm-6
+                    input.form-control(type="text", required, name="bankName",
+                    [(ngModel)]="contractor.bankAccount.bankName", #bankName="ngModel",
+                    (keyup)="checkForm()", class="bank-suggestions")
             .form-group([ngClass]="{'has-error': hasError(bankPostAccount)}")
                 .col-xs-12.col-sm-3
                     label.text-left Корреспондентский счет
