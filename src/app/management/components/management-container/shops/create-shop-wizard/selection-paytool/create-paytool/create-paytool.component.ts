@@ -53,17 +53,21 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
         const bankPostAccountControl = this.form.controls['bankPostAccount'];
         const bankBikControl = this.form.controls['bankBik'];
 
+        let bankName = '';
+        let bankPostAccount = '';
+        let bankBik = '';
+
         if (suggestion) {
-            bankNameControl.setValue(suggestion.unrestricted_value);
+            bankName = suggestion.unrestricted_value;
             if (suggestion.data) {
-                bankPostAccountControl.setValue(suggestion.data.correspondent_account);
-                bankBikControl.setValue(suggestion.data.bic);
+                bankPostAccount = suggestion.data.correspondent_account;
+                bankBik = suggestion.data.bic;
             }
-        } else {
-            bankNameControl.setValue('');
-            bankPostAccountControl.setValue('');
-            bankBikControl.setValue('');
         }
+
+        bankNameControl.setValue(bankName);
+        bankPostAccountControl.setValue(bankPostAccount);
+        bankBikControl.setValue(bankBik);
 
         this.checkForm();
     }

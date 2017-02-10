@@ -57,17 +57,21 @@ export class CreateContractComponent implements OnInit, AfterViewInit {
         const bankPostAccountControl = this.form.controls['bankPostAccount'];
         const bankBikControl = this.form.controls['bankBik'];
 
+        let bankName = '';
+        let bankPostAccount = '';
+        let bankBik = '';
+
         if (suggestion) {
-            bankNameControl.setValue(suggestion.unrestricted_value);
+            bankName = suggestion.unrestricted_value;
             if (suggestion.data) {
-                bankPostAccountControl.setValue(suggestion.data.correspondent_account);
-                bankBikControl.setValue(suggestion.data.bic);
+                bankPostAccount = suggestion.data.correspondent_account;
+                bankBik = suggestion.data.bic;
             }
-        } else {
-            bankNameControl.setValue('');
-            bankPostAccountControl.setValue('');
-            bankBikControl.setValue('');
         }
+
+        bankNameControl.setValue(bankName);
+        bankPostAccountControl.setValue(bankPostAccount);
+        bankBikControl.setValue(bankBik);
 
         this.checkForm();
     }
@@ -80,27 +84,34 @@ export class CreateContractComponent implements OnInit, AfterViewInit {
         const entityRepresentativePositionControl = this.form.controls['entityRepresentativePosition'];
         const entityRepresentativeFullnameControl = this.form.controls['entityRepresentativeFullname'];
 
+        let entityRegisteredName = '';
+        let entityRegisteredNumber = '';
+        let entityInn = '';
+        let entityPostAddress = '';
+        let entityRepresentativePosition = '';
+        let entityRepresentativeFullname = '';
+
         if (suggestion) {
-            entityRegisteredNameControl.setValue(suggestion.unrestricted_value);
+            entityRegisteredName = suggestion.unrestricted_value;
             if (suggestion.data) {
-                entityRegisteredNumberControl.setValue(suggestion.data.ogrn);
-                entityInnControl.setValue(suggestion.data.inn);
+                entityRegisteredNumber = suggestion.data.ogrn;
+                entityInn = suggestion.data.inn;
                 if (suggestion.data.address) {
-                    entityPostAddressControl.setValue(suggestion.data.address.unrestricted_value);
+                    entityPostAddress = suggestion.data.address.unrestricted_value;
                 }
                 if (suggestion.data.management) {
-                    entityRepresentativePositionControl.setValue(suggestion.data.management.post);
-                    entityRepresentativeFullnameControl.setValue(suggestion.data.management.name);
+                    entityRepresentativePosition = suggestion.data.management.post;
+                    entityRepresentativeFullname = suggestion.data.management.name;
                 }
             }
-        } else {
-            entityRegisteredNameControl.setValue('');
-            entityRegisteredNumberControl.setValue('');
-            entityInnControl.setValue('');
-            entityPostAddressControl.setValue('');
-            entityRepresentativePositionControl.setValue('');
-            entityRepresentativeFullnameControl.setValue('');
         }
+
+        entityRegisteredNameControl.setValue(entityRegisteredName);
+        entityRegisteredNumberControl.setValue(entityRegisteredNumber);
+        entityInnControl.setValue(entityInn);
+        entityPostAddressControl.setValue(entityPostAddress);
+        entityRepresentativePositionControl.setValue(entityRepresentativePosition);
+        entityRepresentativeFullnameControl.setValue(entityRepresentativeFullname);
 
         this.checkForm();
     }
