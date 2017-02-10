@@ -75,6 +75,7 @@ import { PaytoolDecisionService } from 'koffing/management/components/management
 })
 export class ManagementModule { }
 
+export * from '../common/classes/suggestion-settings.const';
 export * from './components/management-container/shops/edit-shop/edit-shop.component';
 export * from './components/management-container/shops/create-shop-wizard/create-shop-wizard.component';
 export * from './components/management-container/contracts/contract-create/contract-create.component';
