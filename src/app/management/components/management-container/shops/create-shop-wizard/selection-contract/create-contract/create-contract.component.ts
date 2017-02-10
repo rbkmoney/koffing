@@ -1,16 +1,17 @@
-import { Component, Output, EventEmitter, OnInit, ViewChild } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { Contractor } from 'koffing/backend/classes/contractor.class';
 import { BankAccount } from 'koffing/backend/classes/bank-account.class';
 import { RussianLegalEntity } from 'koffing/backend/classes/russian-legal-entity.class';
-import { SuggestionSettings } from 'koffing/management/classes/suggestion-settings.const';
+import { SuggestionSettings } from 'koffing/common/classes/suggestion-settings.const';
+import { SuggestionsService } from 'koffing/common/services/suggestions.service';
 
 @Component({
     selector: 'kof-create-contract',
     templateUrl: 'create-contract.component.pug'
 })
-export class CreateContractComponent implements OnInit {
+export class CreateContractComponent implements OnInit, AfterViewInit {
 
     @Output()
     public onContractorReady = new EventEmitter();
@@ -20,8 +21,15 @@ export class CreateContractComponent implements OnInit {
     @ViewChild('form')
     private form: NgForm;
 
+    constructor(
+        private suggestionsService: SuggestionsService
+    ) { }
+    
     public ngOnInit() {
         this.contractor = this.createInstance();
+    }
+
+    public ngAfterViewInit() {
         this.initBankSuggestions();
         this.initContractorSuggestions();
     }
@@ -99,22 +107,18 @@ export class CreateContractComponent implements OnInit {
     }
 
     private initBankSuggestions() {
-        (<JQuerySuggestions> $('input.bank-suggestions')).suggestions(<SuggestionsParams> {
-            serviceUrl: SuggestionSettings.serviceUrl,
-            token: SuggestionSettings.token,
-            type: SuggestionSettings.bankType,
-            count: 5,
-            onSelect: this.handleBankSuggestion.bind(this)
-        });
+        this.suggestionsService.initSuggestions(
+            SuggestionSettings.bankType,
+            'input.bank-suggestions',
+            this.handleBankSuggestion.bind(this)
+        );
     }
 
     private initContractorSuggestions() {
-        (<JQuerySuggestions> $('input.contractor-suggestions')).suggestions(<SuggestionsParams> {
-            serviceUrl: SuggestionSettings.serviceUrl,
-            token: SuggestionSettings.token,
-            type: SuggestionSettings.partyType,
-            count: 5,
-            onSelect: this.handleContractorSuggestion.bind(this)
-        });
+        this.suggestionsService.initSuggestions(
+            SuggestionSettings.partyType,
+            'input.contractor-suggestions',
+            this.handleContractorSuggestion.bind(this)
+        );
     }
 }

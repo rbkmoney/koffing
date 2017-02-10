@@ -1,9 +1,11 @@
+type SuggestionsTypes = BankSuggestion | OgranizationSuggestion;
+
 interface SuggestionsParams {
     serviceUrl: string;
     token: string;
     type: string;
     count: number;
-    onSelect: (suggestion: BankSuggestion | OgranizationSuggestion) => void
+    onSelect: (suggestion: SuggestionsTypes) => void
 }
 
 interface JQuerySuggestions extends JQuery {

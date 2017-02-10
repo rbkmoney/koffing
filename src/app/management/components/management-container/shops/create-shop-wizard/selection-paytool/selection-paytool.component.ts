@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, OnInit, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import * as _ from 'lodash';
 
 import { SelectionOptions } from '../selection-options.class';
@@ -16,7 +16,7 @@ import { PaytoolDecision } from 'koffing/management/components/management-contai
     selector: 'kof-selection-paytool',
     templateUrl: 'selection-paytool.component.pug'
 })
-export class SelectionPaytoolComponent implements OnInit {
+export class SelectionPaytoolComponent implements AfterViewInit {
 
     @Input()
     public showFinishButton: boolean = false;
@@ -38,12 +38,14 @@ export class SelectionPaytoolComponent implements OnInit {
     public steppedBackward = new EventEmitter();
 
     constructor(private contractService: ContractService,
-                private claimService: ClaimService) {
+                private claimService: ClaimService,
+                private changeDetector: ChangeDetectorRef) {
     }
 
-    public ngOnInit() {
+    public ngAfterViewInit() {
         if (!_.isUndefined(this.contractDecision.contractor)) {
             this.selectedOption = this.optionNew;
+            this.changeDetector.detectChanges();
         }
     }
 

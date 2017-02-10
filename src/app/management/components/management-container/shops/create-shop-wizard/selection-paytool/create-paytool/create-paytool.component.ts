@@ -1,15 +1,16 @@
-import { Component, Output, EventEmitter, OnInit, ViewChild } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { PayoutToolBankAccount } from 'koffing/backend/classes/payout-tool-bank-account.class';
 import { BankAccount } from 'koffing/backend/classes/bank-account.class';
-import { SuggestionSettings } from 'koffing/management/classes/suggestion-settings.const';
+import { SuggestionSettings } from 'koffing/common/classes/suggestion-settings.const';
+import { SuggestionsService } from 'koffing/common/services/suggestions.service';
 
 @Component({
     selector: 'kof-create-paytool',
     templateUrl: 'create-paytool.component.pug'
 })
-export class CreatePayoutToolComponent implements OnInit {
+export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
 
     @Output()
     public onPayoutToolReady = new EventEmitter();
@@ -17,10 +18,17 @@ export class CreatePayoutToolComponent implements OnInit {
     public payoutTool: PayoutToolBankAccount;
 
     @ViewChild('form')
-    private form: NgForm;    
+    private form: NgForm;
+
+    constructor(
+        private suggestionsService: SuggestionsService
+    ) { }    
     
     public ngOnInit() {
         this.payoutTool = this.getInstance();
+    }
+
+    public ngAfterViewInit() {
         this.initBankSuggestions();
     }
 
@@ -62,13 +70,11 @@ export class CreatePayoutToolComponent implements OnInit {
     }
 
     private initBankSuggestions() {
-        (<JQuerySuggestions> $('input.bank-suggestions')).suggestions(<SuggestionsParams> {
-            serviceUrl: SuggestionSettings.serviceUrl,
-            token: SuggestionSettings.token,
-            type: SuggestionSettings.bankType,
-            count: 5,
-            onSelect: this.handleBankSuggestion.bind(this)
-        });
+        this.suggestionsService.initSuggestions(
+            SuggestionSettings.bankType,
+            'input.bank-suggestions',
+            this.handleBankSuggestion.bind(this)
+        );
     }    
     
 }
