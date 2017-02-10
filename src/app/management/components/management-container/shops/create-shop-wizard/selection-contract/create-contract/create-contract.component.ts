@@ -5,8 +5,7 @@ import { Contractor } from 'koffing/backend/classes/contractor.class';
 import { BankAccount } from 'koffing/backend/classes/bank-account.class';
 import { RussianLegalEntity } from 'koffing/backend/classes/russian-legal-entity.class';
 import { ContractorTransfer } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-contract/create-contract/contractor-transfer.class';
-import { SuggestionSettings } from 'koffing/common/classes/suggestion-settings.const';
-import { SuggestionsService } from 'koffing/common/services/suggestions.service';
+import { SuggestionsService } from 'koffing/suggestions/services/suggestions.service';
 
 @Component({
     selector: 'kof-create-contract',
@@ -19,7 +18,7 @@ export class CreateContractComponent implements OnInit, AfterViewInit {
 
     public contractor: Contractor;
 
-    @ViewChild('form')
+    @ViewChild('createContractForm')
     private form: NgForm;
 
     constructor(
@@ -53,9 +52,7 @@ export class CreateContractComponent implements OnInit, AfterViewInit {
     }
 
     private handleBankSuggestion(suggestion: BankSuggestion) {
-        const bankNameControl = this.form.controls['bankName'];
-        const bankPostAccountControl = this.form.controls['bankPostAccount'];
-        const bankBikControl = this.form.controls['bankBik'];
+        const ctrls = this.form.controls;
 
         let bankName = '';
         let bankPostAccount = '';
@@ -69,20 +66,15 @@ export class CreateContractComponent implements OnInit, AfterViewInit {
             }
         }
 
-        bankNameControl.setValue(bankName);
-        bankPostAccountControl.setValue(bankPostAccount);
-        bankBikControl.setValue(bankBik);
+        ctrls['bankName'].setValue(bankName);
+        ctrls['bankPostAccount'].setValue(bankPostAccount);
+        ctrls['bankBik'].setValue(bankBik);
 
         this.checkForm();
     }
 
     private handleContractorSuggestion(suggestion: OgranizationSuggestion) {
-        const entityRegisteredNameControl = this.form.controls['entityRegisteredName'];
-        const entityRegisteredNumberControl = this.form.controls['entityRegisteredNumber'];
-        const entityInnControl = this.form.controls['entityInn'];
-        const entityPostAddressControl = this.form.controls['entityPostAddress'];
-        const entityRepresentativePositionControl = this.form.controls['entityRepresentativePosition'];
-        const entityRepresentativeFullnameControl = this.form.controls['entityRepresentativeFullname'];
+        const ctrls = this.form.controls;
 
         let entityRegisteredName = '';
         let entityRegisteredNumber = '';
@@ -106,27 +98,25 @@ export class CreateContractComponent implements OnInit, AfterViewInit {
             }
         }
 
-        entityRegisteredNameControl.setValue(entityRegisteredName);
-        entityRegisteredNumberControl.setValue(entityRegisteredNumber);
-        entityInnControl.setValue(entityInn);
-        entityPostAddressControl.setValue(entityPostAddress);
-        entityRepresentativePositionControl.setValue(entityRepresentativePosition);
-        entityRepresentativeFullnameControl.setValue(entityRepresentativeFullname);
+        ctrls['entityRegisteredName'].setValue(entityRegisteredName);
+        ctrls['entityRegisteredNumber'].setValue(entityRegisteredNumber);
+        ctrls['entityInn'].setValue(entityInn);
+        ctrls['entityPostAddress'].setValue(entityPostAddress);
+        ctrls['entityRepresentativePosition'].setValue(entityRepresentativePosition);
+        ctrls['entityRepresentativeFullname'].setValue(entityRepresentativeFullname);
 
         this.checkForm();
     }
 
     private initBankSuggestions() {
-        this.suggestionsService.initSuggestions(
-            SuggestionSettings.bankType,
+        this.suggestionsService.initBankSuggestions(
             'input.bank-suggestions',
             this.handleBankSuggestion.bind(this)
         );
     }
 
     private initContractorSuggestions() {
-        this.suggestionsService.initSuggestions(
-            SuggestionSettings.partyType,
+        this.suggestionsService.initContractorSuggestions(
             'input.contractor-suggestions',
             this.handleContractorSuggestion.bind(this)
         );

@@ -4,8 +4,7 @@ import { NgForm } from '@angular/forms';
 import { PayoutToolBankAccount } from 'koffing/backend/classes/payout-tool-bank-account.class';
 import { BankAccount } from 'koffing/backend/classes/bank-account.class';
 import { PaytoolTransfer } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-paytool/create-paytool/paytool-transfer.class';
-import { SuggestionSettings } from 'koffing/common/classes/suggestion-settings.const';
-import { SuggestionsService } from 'koffing/common/services/suggestions.service';
+import { SuggestionsService } from 'koffing/suggestions/services/suggestions.service';
 
 @Component({
     selector: 'kof-create-paytool',
@@ -18,7 +17,7 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
 
     public payoutTool: PayoutToolBankAccount;
 
-    @ViewChild('form')
+    @ViewChild('CreatePaytoolForm')
     private form: NgForm;
 
     constructor(
@@ -49,9 +48,7 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
     }
 
     private handleBankSuggestion(suggestion: BankSuggestion) {
-        const bankNameControl = this.form.controls['bankName'];
-        const bankPostAccountControl = this.form.controls['bankPostAccount'];
-        const bankBikControl = this.form.controls['bankBik'];
+        const ctrls = this.form.controls;
 
         let bankName = '';
         let bankPostAccount = '';
@@ -65,16 +62,15 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
             }
         }
 
-        bankNameControl.setValue(bankName);
-        bankPostAccountControl.setValue(bankPostAccount);
-        bankBikControl.setValue(bankBik);
+        ctrls['bankName'].setValue(bankName);
+        ctrls['bankPostAccount'].setValue(bankPostAccount);
+        ctrls['bankBik'].setValue(bankBik);
 
         this.checkForm();
     }
 
     private initBankSuggestions() {
-        this.suggestionsService.initSuggestions(
-            SuggestionSettings.bankType,
+        this.suggestionsService.initBankSuggestions(
             'input.bank-suggestions',
             this.handleBankSuggestion.bind(this)
         );
