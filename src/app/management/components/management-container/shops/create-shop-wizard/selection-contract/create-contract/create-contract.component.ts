@@ -61,17 +61,13 @@ export class CreateContractComponent implements OnInit, AfterViewInit {
 
     private handleBankSuggestion(suggestion: BankSuggestion) {
         const suggestionAccount = SuggestionConverterService.toBankAccount(suggestion);
-
         _.assign(this.contractor.bankAccount, suggestionAccount);
-
         this.emitDataDelayed();
     }
 
     private handleContractorSuggestion(suggestion: OgranizationSuggestion) {
         const suggestionEntity = SuggestionConverterService.toRussianLegalEntity(suggestion);
-
         _.assign(this.contractor.legalEntity, suggestionEntity);
-
         this.emitDataDelayed();
     }
 

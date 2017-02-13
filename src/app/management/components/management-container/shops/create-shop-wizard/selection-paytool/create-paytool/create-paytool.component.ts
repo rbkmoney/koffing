@@ -51,9 +51,7 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
 
     private handleBankSuggestion(suggestion: BankSuggestion) {
         const suggestionAccount = SuggestionConverterService.toBankAccount(suggestion);
-
         _.assign(this.payoutTool.bankAccount, suggestionAccount);
-
         _.delay(() => {
             this.emitData();
         }, 0);

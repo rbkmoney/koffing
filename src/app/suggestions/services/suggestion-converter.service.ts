@@ -7,8 +7,7 @@ import { RussianLegalEntity } from 'koffing/backend/classes/russian-legal-entity
 export class SuggestionConverterService {
 
     public static toBankAccount(suggestion: BankSuggestion): BankAccount {
-        let bankAccount = new BankAccount();
-
+        const bankAccount = new BankAccount();
         if (suggestion) {
             bankAccount.bankName = suggestion.unrestricted_value;
             if (suggestion.data) {
@@ -16,13 +15,11 @@ export class SuggestionConverterService {
                 bankAccount.bankBik = suggestion.data.bic;
             }
         }
-
         return bankAccount;
     }
 
     public static toRussianLegalEntity(suggestion: OgranizationSuggestion): RussianLegalEntity {
-        let russianLegalEntity = new RussianLegalEntity();
-
+        const russianLegalEntity = new RussianLegalEntity();
         if (suggestion) {
             russianLegalEntity.registeredName = suggestion.unrestricted_value;
             if (suggestion.data) {
@@ -37,7 +34,6 @@ export class SuggestionConverterService {
                 }
             }
         }
-
         return russianLegalEntity;
     }
 
