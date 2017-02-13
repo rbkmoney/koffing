@@ -34,7 +34,7 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
         this.initBankSuggestions();
     }
 
-    public checkForm() {
+    public emitData() {
         this.onChange.emit(new PaytoolTransfer(this.payoutTool, this.form.valid));
     }
 
@@ -55,7 +55,7 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
         _.assign(this.payoutTool.bankAccount, suggestionAccount);
 
         _.delay(() => {
-            this.checkForm();
+            this.emitData();
         }, 0);
     }
 

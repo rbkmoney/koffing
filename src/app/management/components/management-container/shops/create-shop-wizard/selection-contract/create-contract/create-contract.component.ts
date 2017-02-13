@@ -36,13 +36,13 @@ export class CreateContractComponent implements OnInit, AfterViewInit {
         this.initContractorSuggestions();
     }
 
-    public checkForm() {
+    public emitData() {
         this.onChange.emit(new ContractorTransfer(this.contractor, this.form.valid));
     }
 
-    public checkFormDelayed() {
+    public emitDataDelayed() {
         _.delay(() => {
-            this.checkForm();
+            this.emitData();
         }, 0);
     }
 
@@ -64,7 +64,7 @@ export class CreateContractComponent implements OnInit, AfterViewInit {
 
         _.assign(this.contractor.bankAccount, suggestionAccount);
 
-        this.checkFormDelayed();
+        this.emitDataDelayed();
     }
 
     private handleContractorSuggestion(suggestion: OgranizationSuggestion) {
@@ -72,7 +72,7 @@ export class CreateContractComponent implements OnInit, AfterViewInit {
 
         _.assign(this.contractor.legalEntity, suggestionEntity);
 
-        this.checkFormDelayed();
+        this.emitDataDelayed();
     }
 
     private initBankSuggestions() {
