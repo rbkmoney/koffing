@@ -18,7 +18,7 @@
                 .col-xs-12.col-sm-6
                     input.form-control(type="text", required, name="bankName",
                     [(ngModel)]="contractor.bankAccount.bankName", #bankName="ngModel",
-                    (keyup)="checkForm()", class="bank-suggestions")
+                    (keyup)="checkForm()", class="contract-bank-suggestions")
             .form-group([ngClass]="{'has-error': hasError(bankPostAccount)}")
                 .col-xs-12.col-sm-3
                     label.text-left Корреспондентский счет
@@ -32,7 +32,7 @@
                 .col-xs-12.col-sm-6
                     input.form-control(type="text", required, name="bankBik",
                     [(ngModel)]="contractor.bankAccount.bankBik", #bankBik="ngModel",
-                    (keyup)="checkForm()", class="bank-suggestions")
+                    (keyup)="checkForm()", class="contract-bank-suggestions")
             .ln_solid
             h5 Реквизиты юр. лица
             .ln_solid

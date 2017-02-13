@@ -71,7 +71,7 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
 
     private initBankSuggestions() {
         this.suggestionsService.initBankSuggestions(
-            'input.bank-suggestions',
+            'input.paytool-bank-suggestions',
             this.handleBankSuggestion.bind(this)
         );
     }

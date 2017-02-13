@@ -110,7 +110,7 @@ export class CreateContractComponent implements OnInit, AfterViewInit {
 
     private initBankSuggestions() {
         this.suggestionsService.initBankSuggestions(
-            'input.bank-suggestions',
+            'input.contract-bank-suggestions',
             this.handleBankSuggestion.bind(this)
         );
     }
