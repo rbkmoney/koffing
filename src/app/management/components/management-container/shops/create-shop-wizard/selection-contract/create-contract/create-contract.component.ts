@@ -1,11 +1,13 @@
 import { Component, Output, EventEmitter, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import * as _ from 'lodash';
 
 import { Contractor } from 'koffing/backend/classes/contractor.class';
 import { BankAccount } from 'koffing/backend/classes/bank-account.class';
 import { RussianLegalEntity } from 'koffing/backend/classes/russian-legal-entity.class';
 import { ContractorTransfer } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-contract/create-contract/contractor-transfer.class';
 import { SuggestionsService } from 'koffing/suggestions/services/suggestions.service';
+import { SuggestionConverterService } from 'koffing/suggestions/services/suggestion-converter.service';
 
 @Component({
     selector: 'kof-create-contract',
@@ -38,6 +40,12 @@ export class CreateContractComponent implements OnInit, AfterViewInit {
         this.onChange.emit(new ContractorTransfer(this.contractor, this.form.valid));
     }
 
+    public checkFormDelayed() {
+        _.delay(() => {
+            this.checkForm();
+        }, 0);
+    }
+
     public hasError(field: any): boolean {
         return field.dirty && field.invalid;
     }
@@ -52,60 +60,19 @@ export class CreateContractComponent implements OnInit, AfterViewInit {
     }
 
     private handleBankSuggestion(suggestion: BankSuggestion) {
-        const ctrls = this.form.controls;
+        const suggestionAccount = SuggestionConverterService.toBankAccount(suggestion);
 
-        let bankName = '';
-        let bankPostAccount = '';
-        let bankBik = '';
+        _.assign(this.contractor.bankAccount, suggestionAccount);
 
-        if (suggestion) {
-            bankName = suggestion.unrestricted_value;
-            if (suggestion.data) {
-                bankPostAccount = suggestion.data.correspondent_account;
-                bankBik = suggestion.data.bic;
-            }
-        }
-
-        ctrls['bankName'].setValue(bankName);
-        ctrls['bankPostAccount'].setValue(bankPostAccount);
-        ctrls['bankBik'].setValue(bankBik);
-
-        this.checkForm();
+        this.checkFormDelayed();
     }
 
     private handleContractorSuggestion(suggestion: OgranizationSuggestion) {
-        const ctrls = this.form.controls;
+        const suggestionEntity = SuggestionConverterService.toRussianLegalEntity(suggestion);
 
-        let entityRegisteredName = '';
-        let entityRegisteredNumber = '';
-        let entityInn = '';
-        let entityPostAddress = '';
-        let entityRepresentativePosition = '';
-        let entityRepresentativeFullname = '';
+        _.assign(this.contractor.legalEntity, suggestionEntity);
 
-        if (suggestion) {
-            entityRegisteredName = suggestion.unrestricted_value;
-            if (suggestion.data) {
-                entityRegisteredNumber = suggestion.data.ogrn;
-                entityInn = suggestion.data.inn;
-                if (suggestion.data.address) {
-                    entityPostAddress = suggestion.data.address.unrestricted_value;
-                }
-                if (suggestion.data.management) {
-                    entityRepresentativePosition = suggestion.data.management.post;
-                    entityRepresentativeFullname = suggestion.data.management.name;
-                }
-            }
-        }
-
-        ctrls['entityRegisteredName'].setValue(entityRegisteredName);
-        ctrls['entityRegisteredNumber'].setValue(entityRegisteredNumber);
-        ctrls['entityInn'].setValue(entityInn);
-        ctrls['entityPostAddress'].setValue(entityPostAddress);
-        ctrls['entityRepresentativePosition'].setValue(entityRepresentativePosition);
-        ctrls['entityRepresentativeFullname'].setValue(entityRepresentativeFullname);
-
-        this.checkForm();
+        this.checkFormDelayed();
     }
 
     private initBankSuggestions() {

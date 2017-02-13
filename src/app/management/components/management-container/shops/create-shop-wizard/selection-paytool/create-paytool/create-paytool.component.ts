@@ -1,10 +1,12 @@
 import { Component, Output, EventEmitter, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import * as _ from 'lodash';
 
 import { PayoutToolBankAccount } from 'koffing/backend/classes/payout-tool-bank-account.class';
 import { BankAccount } from 'koffing/backend/classes/bank-account.class';
 import { PaytoolTransfer } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-paytool/create-paytool/paytool-transfer.class';
 import { SuggestionsService } from 'koffing/suggestions/services/suggestions.service';
+import { SuggestionConverterService } from 'koffing/suggestions/services/suggestion-converter.service';
 
 @Component({
     selector: 'kof-create-paytool',
@@ -17,7 +19,7 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
 
     public payoutTool: PayoutToolBankAccount;
 
-    @ViewChild('CreatePaytoolForm')
+    @ViewChild('createPaytoolForm')
     private form: NgForm;
 
     constructor(
@@ -48,25 +50,13 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
     }
 
     private handleBankSuggestion(suggestion: BankSuggestion) {
-        const ctrls = this.form.controls;
+        const suggestionAccount = SuggestionConverterService.toBankAccount(suggestion);
 
-        let bankName = '';
-        let bankPostAccount = '';
-        let bankBik = '';
+        _.assign(this.payoutTool.bankAccount, suggestionAccount);
 
-        if (suggestion) {
-            bankName = suggestion.unrestricted_value;
-            if (suggestion.data) {
-                bankPostAccount = suggestion.data.correspondent_account;
-                bankBik = suggestion.data.bic;
-            }
-        }
-
-        ctrls['bankName'].setValue(bankName);
-        ctrls['bankPostAccount'].setValue(bankPostAccount);
-        ctrls['bankBik'].setValue(bankBik);
-
-        this.checkForm();
+        _.delay(() => {
+            this.checkForm();
+        }, 0);
     }
 
     private initBankSuggestions() {

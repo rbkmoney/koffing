@@ -2,7 +2,7 @@
     .x_title
         h4 Добавление нового средства вывода
     .x_content
-        form.form-horizontal.form-label-left.css-form(novalidate, name="CreatePaytoolForm", #CreatePaytoolForm="ngForm")
+        form.form-horizontal.form-label-left.css-form(novalidate, name="createPaytoolForm", #createPaytoolForm="ngForm")
             h5 Валюта
             .ln_solid
             .form-group([ngClass]="{'has-error': hasError(currencySelected)}")
@@ -26,9 +26,9 @@
                 .col-xs-12.col-sm-3
                     label.text-left Наименование банка
                 .col-xs-12.col-sm-6
-                    input.form-control(type="text", required, name="bankName",
+                    input.form-control.paytool-bank-suggestions(type="text", required, name="bankName",
                     [(ngModel)]="payoutTool.bankAccount.bankName", #bankName="ngModel",
-                    (keyup)="checkForm()", class="paytool-bank-suggestions")
+                    (keyup)="checkForm()")
             .form-group([ngClass]="{'has-error': hasError(bankPostAccount)}")
                 .col-xs-12.col-sm-3
                     label.text-left Корреспондентский счет
@@ -40,6 +40,6 @@
                 .col-xs-12.col-sm-3
                     label.text-left БИК
                 .col-xs-12.col-sm-6
-                    input.form-control(type="text", required, name="bankBik",
+                    input.form-control.paytool-bank-suggestions(type="text", required, name="bankBik",
                     [(ngModel)]="payoutTool.bankAccount.bankBik", #bankBik="ngModel",
-                    (keyup)="checkForm()", class="paytool-bank-suggestions")
+                    (keyup)="checkForm()")
