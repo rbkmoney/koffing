@@ -14,6 +14,7 @@ kof-loading([isLoading]="isLoading")
     .tile
         kof-create-paytool(
             *ngIf="selectedOption === optionNew",
+            [contractBankAccount]="contractDecision.contractor.bankAccount",
             (onChange)="onPayoutToolChange($event)"
         )
         kof-select-paytool(

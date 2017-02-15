@@ -32,14 +32,23 @@
                 .col-xs-12.col-sm-6
                     input.form-control.contractor-suggestions(type="text", name="entityPostAddress", required,
                     [(ngModel)]="contractor.legalEntity.postAddress", #entityPostAddress="ngModel",
-                    (keyup)="emitData()")
+                    (keyup)="emitAddress()")
             .form-group([ngClass]="{'has-error': hasError(entityActualAddress)}")
                 .col-xs-12.col-sm-3
                     label.text-left Фактический адрес *
                 .col-xs-12.col-sm-6
-                    input.form-control(type="text", name="entityActualAddress", required,
-                    [(ngModel)]="contractor.legalEntity.actualAddress", #entityActualAddress="ngModel",
-                    (keyup)="emitData()")
+                    .row
+                        .col-xs-12.col-sm-12
+                            input.form-control(type="text", name="entityActualAddress", required,
+                            [(ngModel)]="contractor.legalEntity.actualAddress", #entityActualAddress="ngModel",
+                            (keyup)="emitAddress()")
+                    .row
+                        .col-xs-12.col-sm-12
+                            .checkbox
+                                label
+                                    input(type="checkbox", name="sameActualAddressChecked", [(ngModel)]="sameActualAddressChecked",
+                                        disabled="{{isCopyPostAddressAvailable()}}", (click)="copyPostAddress()")
+                                    | Совпадает с почтовым адресом
             .form-group([ngClass]="{'has-error': hasError(entityRepresentativePosition)}")
                 .col-xs-12.col-sm-3
                     label.text-left Должность ЕИО/представителя *

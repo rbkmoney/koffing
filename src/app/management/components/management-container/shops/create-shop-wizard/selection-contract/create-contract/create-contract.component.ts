@@ -21,11 +21,11 @@ export class CreateContractComponent implements OnInit, AfterViewInit {
     public contractor: Contractor;
 
     @ViewChild('createContractForm')
-    private form: NgForm;
+    public form: NgForm;
 
-    constructor(
-        private suggestionsService: SuggestionsService
-    ) { }
+    public sameActualAddressChecked: boolean;
+
+    constructor(private suggestionsService: SuggestionsService) { }
 
     public ngOnInit() {
         this.contractor = this.createInstance();
@@ -36,18 +36,32 @@ export class CreateContractComponent implements OnInit, AfterViewInit {
         this.initContractorSuggestions();
     }
 
+    public emitAddress() {
+        const legalEntity = this.contractor.legalEntity as RussianLegalEntity;
+        this.sameActualAddressChecked = _.chain(legalEntity.actualAddress)
+            .trim().isEqual(_.trim(legalEntity.postAddress)).value();
+        this.emitData();
+    }
+
+    public isCopyPostAddressAvailable() {
+        const legalEntity = this.contractor.legalEntity as RussianLegalEntity;
+        return _.isUndefined(legalEntity.postAddress);
+    }
+
     public emitData() {
         this.onChange.emit(new ContractorTransfer(this.contractor, this.form.valid));
     }
 
-    public emitDataDelayed() {
-        _.delay(() => {
-            this.emitData();
-        }, 0);
-    }
-
     public hasError(field: any): boolean {
         return field.dirty && field.invalid;
+    }
+
+    public copyPostAddress() {
+        if (!this.sameActualAddressChecked) {
+            const legalEntity = this.contractor.legalEntity as RussianLegalEntity;
+            legalEntity.actualAddress = legalEntity.postAddress;
+            this.emitData();
+        }
     }
 
     private createInstance() {
@@ -71,17 +85,17 @@ export class CreateContractComponent implements OnInit, AfterViewInit {
         this.emitDataDelayed();
     }
 
+    private emitDataDelayed() {
+        _.delay(() => this.emitData(), 0);
+    }
+
     private initBankSuggestions() {
-        this.suggestionsService.initBankSuggestions(
-            'input.contract-bank-suggestions',
-            this.handleBankSuggestion.bind(this)
-        );
+        const selector = '.contract-bank-suggestions';
+        this.suggestionsService.initBankSuggestions(selector, this.handleBankSuggestion.bind(this));
     }
 
     private initContractorSuggestions() {
-        this.suggestionsService.initContractorSuggestions(
-            'input.contractor-suggestions',
-            this.handleContractorSuggestion.bind(this)
-        );
+        const selector = '.contractor-suggestions';
+        this.suggestionsService.initContractorSuggestions(selector, this.handleContractorSuggestion.bind(this));
     }
 }
