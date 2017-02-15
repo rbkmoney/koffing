@@ -3,16 +3,6 @@
         h4 Добавление нового средства вывода
     .x_content
         form.form-horizontal.form-label-left.css-form(novalidate, name="createPaytoolForm", #createPaytoolForm="ngForm")
-            h5 Валюта
-            .ln_solid
-            .form-group([ngClass]="{'has-error': hasError(currencySelected)}")
-                .col-xs-12.col-sm-3
-                    label.text-left Валюта
-                .col-xs-12.col-sm-6
-                    input.form-control(type="text", required, name="currencySelected",
-                    [(ngModel)]="payoutTool.currency", #currencySelected="ngModel",
-                    (keyup)="emitData()")
-            .ln_solid
             h5 Банковские реквизиты
             .ln_solid
             .form-group([ngClass]="{'has-error': hasError(bankBik)}")

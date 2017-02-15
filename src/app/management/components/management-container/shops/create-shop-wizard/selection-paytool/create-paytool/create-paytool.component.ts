@@ -45,6 +45,7 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
     private getInstance() {
         const bankAccount = new BankAccount();
         const instance = new PayoutToolBankAccount();
+        instance.currency = 'rub';
         instance.bankAccount = bankAccount;
         return instance;
     }
