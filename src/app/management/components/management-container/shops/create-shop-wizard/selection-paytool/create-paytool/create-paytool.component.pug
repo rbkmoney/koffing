@@ -15,12 +15,12 @@
             .ln_solid
             h5 Банковские реквизиты
             .ln_solid
-            .form-group([ngClass]="{'has-error': hasError(bankAccount)}")
+            .form-group([ngClass]="{'has-error': hasError(bankBik)}")
                 .col-xs-12.col-sm-3
-                    label.text-left Расчетный счет *
+                    label.text-left БИК *
                 .col-xs-12.col-sm-6
-                    input.form-control(type="text", required, name="bankAccount",
-                    [(ngModel)]="payoutTool.bankAccount.account", #bankAccount="ngModel",
+                    input.form-control.paytool-bank-suggestions(type="text", required, name="bankBik",
+                    [(ngModel)]="payoutTool.bankAccount.bankBik", #bankBik="ngModel",
                     (keyup)="emitData()")
             .form-group([ngClass]="{'has-error': hasError(bankName)}")
                 .col-xs-12.col-sm-3
@@ -36,10 +36,10 @@
                     input.form-control(type="text", required, name="bankPostAccount",
                     [(ngModel)]="payoutTool.bankAccount.bankPostAccount", #bankPostAccount="ngModel",
                     (keyup)="emitData()")
-            .form-group([ngClass]="{'has-error': hasError(bankBik)}")
+            .form-group([ngClass]="{'has-error': hasError(bankAccount)}")
                 .col-xs-12.col-sm-3
-                    label.text-left БИК *
+                    label.text-left Расчетный счет *
                 .col-xs-12.col-sm-6
-                    input.form-control.paytool-bank-suggestions(type="text", required, name="bankBik",
-                    [(ngModel)]="payoutTool.bankAccount.bankBik", #bankBik="ngModel",
+                    input.form-control(type="text", required, name="bankAccount",
+                    [(ngModel)]="payoutTool.bankAccount.account", #bankAccount="ngModel",
                     (keyup)="emitData()")
