@@ -4,9 +4,10 @@ import * as _ from 'lodash';
 
 import { PayoutToolBankAccount } from 'koffing/backend/classes/payout-tool-bank-account.class';
 import { BankAccount } from 'koffing/backend/classes/bank-account.class';
-import { PaytoolTransfer } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-paytool/create-paytool/paytool-transfer.class';
+import { PaytoolTransfer } from './paytool-transfer.class';
 import { SuggestionsService } from 'koffing/suggestions/services/suggestions.service';
 import { SuggestionConverterService } from 'koffing/suggestions/services/suggestion-converter.service';
+import { PayoutToolComparator } from './payout-tool-comparator.service';
 
 @Component({
     selector: 'kof-create-paytool',
@@ -41,7 +42,7 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
     }
 
     public emitData() {
-        this.sameBankAccountChecked = false; // TODO need true object comparing
+        this.sameBankAccountChecked = PayoutToolComparator.isEqual(this.payoutTool.bankAccount, this.contractBankAccount);
         const transfer = new PaytoolTransfer(this.payoutTool, this.form.valid);
         this.onChange.emit(transfer);
     }
