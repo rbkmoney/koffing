@@ -53,7 +53,7 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
 
     public copyContractBankAccount() {
         if (!this.sameBankAccountChecked) {
-            this.payoutTool.bankAccount = _.clone(this.contractBankAccount);
+            this.setFormControls(this.contractBankAccount);
             this.emitData();
         }
     }
@@ -68,8 +68,17 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
 
     private handleBankSuggestion(suggestion: BankSuggestion) {
         const suggestionAccount = SuggestionConverterService.toBankAccount(suggestion);
-        _.assign(this.payoutTool.bankAccount, suggestionAccount);
-        _.delay(() => this.emitData(), 0);
+        this.setFormControls(suggestionAccount);
+        this.emitData();
+    }
+
+    private setFormControls(object: any) {
+        _.forEach(object, (value, fieldName) => {
+            const control = this.form.controls[fieldName];
+            if (control) {
+                control.setValue(value);
+            }
+        });
     }
 
     private initBankSuggestions() {

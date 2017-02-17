@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import { Contractor } from 'koffing/backend/classes/contractor.class';
 import { BankAccount } from 'koffing/backend/classes/bank-account.class';
 import { RussianLegalEntity } from 'koffing/backend/classes/russian-legal-entity.class';
-import { ContractorTransfer } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-contract/create-contract/contractor-transfer.class';
+import { ContractorTransfer } from './contractor-transfer.class';
 import { SuggestionsService } from 'koffing/suggestions/services/suggestions.service';
 import { SuggestionConverterService } from 'koffing/suggestions/services/suggestion-converter.service';
 
@@ -60,6 +60,7 @@ export class CreateContractComponent implements OnInit, AfterViewInit {
         if (!this.sameActualAddressChecked) {
             const legalEntity = this.contractor.legalEntity as RussianLegalEntity;
             legalEntity.actualAddress = legalEntity.postAddress;
+            this.form.controls['actualAddress'].setValue(legalEntity.actualAddress);
             this.emitData();
         }
     }
@@ -75,18 +76,23 @@ export class CreateContractComponent implements OnInit, AfterViewInit {
 
     private handleBankSuggestion(suggestion: BankSuggestion) {
         const suggestionAccount = SuggestionConverterService.toBankAccount(suggestion);
-        _.assign(this.contractor.bankAccount, suggestionAccount);
-        this.emitDataDelayed();
+        this.setFormControls(suggestionAccount);
+        this.emitData();
     }
 
     private handleContractorSuggestion(suggestion: OgranizationSuggestion) {
         const suggestionEntity = SuggestionConverterService.toRussianLegalEntity(suggestion);
-        _.assign(this.contractor.legalEntity, suggestionEntity);
-        this.emitDataDelayed();
+        this.setFormControls(suggestionEntity);
+        this.emitData();
     }
 
-    private emitDataDelayed() {
-        _.delay(() => this.emitData(), 0);
+    private setFormControls(object: any) {
+        _.forEach(object, (value, fieldName) => {
+            const control = this.form.controls[fieldName];
+            if (control) {
+                control.setValue(value);
+            }
+        });
     }
 
     private initBankSuggestions() {

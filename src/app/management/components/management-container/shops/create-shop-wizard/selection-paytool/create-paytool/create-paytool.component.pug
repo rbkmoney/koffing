@@ -24,28 +24,24 @@
                     label.text-left БИК *
                 .col-xs-12.col-sm-6
                     input.form-control.has-feedback-right.paytool-bank-suggestions(type="text", required, name="bankBik",
-                    [(ngModel)]="payoutTool.bankAccount.bankBik", #bankBik="ngModel",
-                    (keyup)="emitData()")
+                        [(ngModel)]="payoutTool.bankAccount.bankBik", #bankBik="ngModel", (keyup)="emitData()")
                     span.fa.fa-magic.form-control-feedback.right(aria-hidden="true")
             .form-group([ngClass]="{'has-error': hasError(bankName)}")
                 .col-xs-12.col-sm-3
                     label.text-left Наименование банка *
                 .col-xs-12.col-sm-6
                     input.form-control.has-feedback-right.paytool-bank-suggestions(type="text", required, name="bankName",
-                    [(ngModel)]="payoutTool.bankAccount.bankName", #bankName="ngModel",
-                    (keyup)="emitData()")
+                        [(ngModel)]="payoutTool.bankAccount.bankName", #bankName="ngModel", (keyup)="emitData()")
                     span.fa.fa-magic.form-control-feedback.right(aria-hidden="true")
             .form-group([ngClass]="{'has-error': hasError(bankPostAccount)}")
                 .col-xs-12.col-sm-3
                     label.text-left Корреспондентский счет *
                 .col-xs-12.col-sm-6
                     input.form-control(type="text", required, name="bankPostAccount",
-                    [(ngModel)]="payoutTool.bankAccount.bankPostAccount", #bankPostAccount="ngModel",
-                    (keyup)="emitData()")
+                        [(ngModel)]="payoutTool.bankAccount.bankPostAccount", #bankPostAccount="ngModel", (keyup)="emitData()")
             .form-group([ngClass]="{'has-error': hasError(bankAccount)}")
                 .col-xs-12.col-sm-3
                     label.text-left Расчетный счет *
                 .col-xs-12.col-sm-6
-                    input.form-control(type="text", required, name="bankAccount",
-                    [(ngModel)]="payoutTool.bankAccount.account", #bankAccount="ngModel",
-                    (keyup)="emitData()")
+                    input.form-control(type="text", required, name="account",
+                        [(ngModel)]="payoutTool.bankAccount.account", #bankAccount="ngModel", (keyup)="emitData()")
