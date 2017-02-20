@@ -14,7 +14,7 @@
                     name="category")
             .form-group([ngClass]="{'has-error': hasError(shop_details_name)}")
                 .col-xs-12.col-sm-3
-                    label.text-left Название магазина *
+                    label.text-left Название магазина в системе *
                 .col-xs-12.col-sm-6
                     input.form-control(type="text", required, name="shop_details_name",
                     [(ngModel)]="shopDetail.name", #shop_details_name="ngModel",
@@ -28,7 +28,7 @@
                     (keyup)="keyup(form)")
             .form-group
                 .col-xs-12.col-sm-3
-                    label.text-left Адрес
+                    label.text-left URL адрес
                 .col-xs-12.col-sm-6
                     input.form-control(type="text", name="shop_details_location",
                     [ngModel]="url", (ngModelChange)="setLocation($event, form)")

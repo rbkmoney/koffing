@@ -39,7 +39,6 @@ export class SelectionPaytoolComponent implements AfterViewInit {
     }
 
     public ngAfterViewInit() {
-        console.log(this.contractDecision);
         if (!_.isUndefined(this.contractDecision.contractor)) {
             this.selectedOption = this.optionNew;
             this.changeDetector.detectChanges();
