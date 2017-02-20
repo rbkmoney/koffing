@@ -3,6 +3,7 @@ import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { SelectionOptions } from '../selection-options.class';
 import { ContractDecision } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-contract/contract-decision.class';
 import { ContractorTransfer } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-contract/create-contract/contractor-transfer.class';
+import { Contract } from 'koffing/backend/classes/contract.class';
 
 @Component({
     selector: 'kof-selection-contract',
@@ -28,9 +29,9 @@ export class SelectionContractComponent {
         this.decision.contractor = value.contractor;
     }
 
-    public onContractSelected(contractID: number) {
+    public onContractSelected(contract: Contract) {
         this.isContractorValid = true;
-        this.decision.contractID = contractID;
+        this.decision.contract = contract;
     }
 
     public newContractReady(params: any) {

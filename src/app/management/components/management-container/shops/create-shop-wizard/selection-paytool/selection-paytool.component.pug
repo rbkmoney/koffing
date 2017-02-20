@@ -1,5 +1,5 @@
 kof-loading([isLoading]="isLoading")
-    .tile(*ngIf="contractDecision.contractID !== undefined")
+    .tile(*ngIf="contractDecision.contract !== undefined")
         .row
             .col-md-12
                 .text-center
@@ -14,12 +14,12 @@ kof-loading([isLoading]="isLoading")
     .tile
         kof-create-paytool(
             *ngIf="selectedOption === optionNew",
-            [contractBankAccount]="contractDecision.contractor.bankAccount",
+            [contractBankAccount]="getContractBankAccount()",
             (onChange)="onPayoutToolChange($event)"
         )
         kof-select-paytool(
             *ngIf="selectedOption === optionExisting",
-            [contractID]="contractDecision.contractID",
+            [contractID]="contractDecision.contract.id",
             (onPayoutToolSelected)="onPayoutToolSelected($event)"
         )
     .actionBar
