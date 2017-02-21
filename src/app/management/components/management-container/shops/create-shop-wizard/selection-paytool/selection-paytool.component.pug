@@ -15,6 +15,7 @@ kof-loading([isLoading]="isLoading")
         kof-create-paytool(
             *ngIf="selectedOption === optionNew",
             [contractBankAccount]="getContractBankAccount()",
+            [isCopyBankAccountAvailable]="isCopyBankAccountAvailable()",
             (onChange)="onPayoutToolChange($event)"
         )
         kof-select-paytool(

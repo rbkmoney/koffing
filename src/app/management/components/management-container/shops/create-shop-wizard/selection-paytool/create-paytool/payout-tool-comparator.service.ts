@@ -2,9 +2,12 @@ import * as _ from 'lodash';
 
 import { BankAccount } from 'koffing/backend/classes/bank-account.class';
 
-export class PayoutToolComparator {
+export class BankAccountComparator {
 
     public static isEqual(value: BankAccount, other: BankAccount): boolean {
+        if (_.isNil(value) || _.isNil(other)) {
+            return false;
+        }
         return _.isEqualWith(value, other, this.customizer);
     }
 

@@ -13,7 +13,7 @@
             .form-group
                 .col-xs-12.col-sm-3
                     label.text-left.title-label Банковские реквизиты
-                .col-xs-12.col-sm-6
+                .col-xs-12.col-sm-6(*ngIf="isCopyBankAccountAvailable")
                     .checkbox
                         label
                             input(type="checkbox", name="sameBankAccountChecked", [(ngModel)]="sameBankAccountChecked", (click)="copyContractBankAccount()")

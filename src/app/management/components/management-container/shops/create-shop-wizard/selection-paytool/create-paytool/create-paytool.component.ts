@@ -7,7 +7,7 @@ import { BankAccount } from 'koffing/backend/classes/bank-account.class';
 import { PaytoolTransfer } from './paytool-transfer.class';
 import { SuggestionsService } from 'koffing/suggestions/services/suggestions.service';
 import { SuggestionConverterService } from 'koffing/suggestions/services/suggestion-converter.service';
-import { PayoutToolComparator } from './payout-tool-comparator.service';
+import { BankAccountComparator } from './payout-tool-comparator.service';
 
 @Component({
     selector: 'kof-create-paytool',
@@ -18,6 +18,9 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
 
     @Input()
     public contractBankAccount: BankAccount;
+
+    @Input()
+    public isCopyBankAccountAvailable: boolean = true;
 
     @Output()
     public onChange = new EventEmitter();
@@ -42,7 +45,7 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
     }
 
     public emitData() {
-        this.sameBankAccountChecked = PayoutToolComparator.isEqual(this.payoutTool.bankAccount, this.contractBankAccount);
+        this.compare();
         const transfer = new PaytoolTransfer(this.payoutTool, this.form.valid);
         this.onChange.emit(transfer);
     }
@@ -55,6 +58,12 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
         if (!this.sameBankAccountChecked) {
             this.setFormControls(this.contractBankAccount);
             this.emitData();
+        }
+    }
+
+    private compare() {
+        if (this.payoutTool) {
+            this.sameBankAccountChecked = BankAccountComparator.isEqual(this.payoutTool.bankAccount, this.contractBankAccount);
         }
     }
 
@@ -72,7 +81,10 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
         this.emitData();
     }
 
-    private setFormControls(object: any) {
+    private setFormControls(object: BankAccount) {
+        if (_.isNil(object)) {
+            return;
+        }
         _.forEach(object, (value, fieldName) => {
             const control = this.form.controls[fieldName];
             if (control) {

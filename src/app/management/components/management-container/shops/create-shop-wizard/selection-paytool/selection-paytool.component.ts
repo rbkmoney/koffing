@@ -63,6 +63,7 @@ export class SelectionPaytoolComponent implements AfterViewInit {
         this.selectedOption = this.optionNew;
     }
 
+    // TODO need separate decision classes
     public getContractBankAccount(): BankAccount {
         let result;
         if (this.contractDecision.contract) {
@@ -71,6 +72,10 @@ export class SelectionPaytoolComponent implements AfterViewInit {
             result = this.contractDecision.contractor.bankAccount;
         }
         return result;
+    }
+
+    public isCopyBankAccountAvailable(): boolean {
+        return !!this.contractDecision.contractor;
     }
 
     public stepForward() {
