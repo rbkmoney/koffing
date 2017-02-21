@@ -10,11 +10,11 @@
                 span &nbsp;поддерживают автозаполнение
     .x_content
         form.form-horizontal.form-label-left.css-form(novalidate, name="createContractForm", #createContractForm="ngForm")
-            h5 Реквизиты юр. лица
+            h5 Реквизиты юр.лица
             .ln_solid
             .form-group([ngClass]="{'has-error': hasError(registeredName)}")
                 .col-xs-12.col-sm-3
-                    label.text-left Наименование юр. лица *
+                    label.text-left Наименование юр.лица *
                 .col-xs-12.col-sm-6
                     input.form-control.has-feedback-right.contractor-suggestions(type="text", name="registeredName", required,
                         [(ngModel)]="contractor.legalEntity.registeredName", #registeredName="ngModel", (keyup)="emitData()")
