@@ -12,6 +12,7 @@ import { Category } from 'koffing/backend/classes/category.class';
 import { SelectItem } from 'koffing/common/common.module';
 import { CreateShopArgs } from 'koffing/backend/classes/create-shop-args.class';
 import { ShopDetail } from 'koffing/backend/classes/shop-detail.class';
+import { ShopLocationUrl } from 'koffing/backend/classes/shop-location-url.class';
 
 @Component({
     selector: 'kof-edit-shop',
@@ -55,6 +56,9 @@ export class EditShopComponent implements OnInit {
     public onFieldChange(path: string, value: any) {
         if (_.startsWith(path, 'details')) {
             this.shopEditing.details = this.shop.details;
+        }
+        if (_.startsWith(path, 'details.location')) {
+            this.shopEditing.details.location = new ShopLocationUrl();
         }
         _.set(this.shopEditing, path, value);
     }
@@ -104,14 +108,15 @@ export class EditShopComponent implements OnInit {
         });
     }
 
-    public selectContract(contractID: string) {
+    public onSelectContract(contractID: string) {
         const id = Number(contractID);
         this.shopEditing.contractID = id;
+        this.shopEditing.payoutToolID = this.payoutTools[0].id;
         this.shopContract = this.findContract(id);
         this.loadShopPayoutTools(id);
     }
 
-    public selectPayoutTool(payoutToolID: string) {
+    public onSelectPayoutTool(payoutToolID: string) {
         const id = Number(payoutToolID);
         this.shopEditing.payoutToolID = Number(id);
         this.shopPayoutTool = this.findPayoutTool(id);

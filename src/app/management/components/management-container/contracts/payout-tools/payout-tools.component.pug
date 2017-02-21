@@ -3,13 +3,11 @@ kof-loading([isLoading]="isLoading")
         thead
             tr
                 th ID счета
-                th Валюта
                 th Банк
                 th Расчетный счет
         tbody(*ngFor="let payoutTool of payoutTools")
             tr((click)="selectPayoutTool(payoutTool)")
                 td {{payoutTool.id}}
-                td {{payoutTool.params.currency}}
                 td {{payoutTool.params.bankAccount.bankName}}
                 td {{payoutTool.params.bankAccount.account}}
             tr(*ngIf="payoutTool === selectedPayoutTool")

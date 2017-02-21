@@ -31,8 +31,6 @@ export class SelectionPaytoolComponent implements AfterViewInit {
 
     @Output()
     public steppedForward = new EventEmitter();
-    @Output()
-    public steppedBackward = new EventEmitter();
 
     constructor(private paytoolDecisionService: PaytoolDecisionService,
                 private changeDetector: ChangeDetectorRef) {
@@ -100,9 +98,5 @@ export class SelectionPaytoolComponent implements AfterViewInit {
         } else if (!_.isUndefined(this.contractDecision.contract) && !_.isUndefined(this.payoutToolID)) {
             this.steppedForward.emit(new PaytoolDecision(this.contractDecision.contract.id, this.payoutToolID));
         }
-    }
-
-    public stepBackward() {
-        this.steppedBackward.emit();
     }
 }

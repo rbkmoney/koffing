@@ -36,6 +36,5 @@
                 .col-xs-12.col-sm-3
                     label.text-left CallbackHandler URL
                 .col-xs-12.col-sm-6
-                    input.form-control(type="text", name="callback_handler_url",
-                    [(ngModel)]="callbackUrl",
-                    (keyup)="keyup(form)")
+                    input.form-control(type="text", name="callback_handler_url", placeholder="https://example.com",
+                    [(ngModel)]="callbackUrl", (keyup)="keyup(form)")

@@ -9,7 +9,7 @@ dl(*ngIf="shop.details && shop.details.description")
     dd {{shop.details.description}}
 div(*ngIf="shop.callbackHandler")
     dl
-        dt CallbackHandler url
+        dt CallbackHandler URL
         dd {{shop.callbackHandler.url}}
     dl
         dt CallbackHandler public key
@@ -19,11 +19,12 @@ div(*ngIf="shop.callbackHandler")
     .modal-dialog.modal-sm
         .modal-content.modal-wide
             .modal-header
-                h5.modal-title Подтверждение заморозки магазина {{shop.shopID}}
+                h5.modal-title Подтверждение
+            .modal-body Заморозить магазин {{shop.shopID}}?
             .modal-footer
                 .btn-toolbar.pull-left
                     .btn-group.btn-group-sm
                         button.btn.btn-default(type="button", data-dismiss="modal") Назад
                 .btn-toolbar.pull-right
                     .btn-group.btn-group-sm
-                        button.btn.btn-danger(type="button", data-dismiss="modal",(click)="suspendShop(reason)") Заморозить магазин
+                        button.btn.btn-danger(type="button", data-dismiss="modal",(click)="suspendShop(reason)") Заморозить

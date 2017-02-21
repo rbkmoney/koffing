@@ -21,8 +21,6 @@ export class SelectionContractComponent {
     
     @Output()
     public steppedForward = new EventEmitter();
-    @Output()
-    public steppedBackward = new EventEmitter();
 
     public onChangeContractor(value: ContractorTransfer) {
         this.isContractorValid = value.valid;
@@ -50,9 +48,5 @@ export class SelectionContractComponent {
         if (this.isContractorValid) {
             this.steppedForward.emit(this.decision);
         }
-    }
-
-    public stepBackward() {
-        this.steppedBackward.emit();
     }
 }
