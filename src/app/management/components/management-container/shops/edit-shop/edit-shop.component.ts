@@ -43,13 +43,13 @@ export class EditShopComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this.shopEditing = this.getInstance();
         this.isLoading = true;
         Promise.all([
             this.loadCategories(),
             this.loadShop()
         ]).then(() => {
             this.isLoading = false;
+            this.shopEditing = this.getInstance(this.shop.details);
         });
     }
 
@@ -129,7 +129,6 @@ export class EditShopComponent implements OnInit {
     public updateShop(form: any) {
         if (form.valid) {
             this.isLoading = true;
-            this.shopEditing.details.name = this.fillShopName();
             this.shopService.updateShop(this.shopID, this.shopEditing).then(() => {
                 this.isLoading = false;
                 this.router.navigate(['/management']);
@@ -141,11 +140,6 @@ export class EditShopComponent implements OnInit {
         this.shopEditing.categoryID = _.toNumber(categoryID);
     }
 
-    private fillShopName() {
-        const detailsName = this.shopEditing.details.name;
-        return detailsName ? detailsName : this.shop.details.name;
-    }
-
     private findPayoutTool(payoutToolID: number) {
         return _.find(this.payoutTools, (payoutTool) => payoutTool.id === payoutToolID);
     }
@@ -154,10 +148,9 @@ export class EditShopComponent implements OnInit {
         return _.find(this.contracts, (contract) => contract.id === contractID);
     }
 
-    private getInstance(): CreateShopArgs {
-        const shopDetail = new ShopDetail();
+    private getInstance(details: ShopDetail): CreateShopArgs {
         const instance = new CreateShopArgs();
-        instance.details = shopDetail;
+        instance.details = details;
         return instance;
     }
 }

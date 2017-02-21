@@ -54,10 +54,12 @@ export class SelectionPaytoolComponent implements AfterViewInit {
     }
 
     public selectOptionExisting() {
+        this.isPayoutToolValid = false;
         this.selectedOption = this.optionExisting;
     }
 
     public selectOptionNew() {
+        this.isPayoutToolValid = false;
         this.selectedOption = this.optionNew;
     }
 

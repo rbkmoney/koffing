@@ -37,10 +37,12 @@ export class SelectionContractComponent {
     }
 
     public selectOptionNew() {
+        this.isContractorValid = false;
         this.selectedOption = this.optionNew;
     }
 
     public selectOptionExisting() {
+        this.isContractorValid = false;
         this.selectedOption = this.optionExisting;
     }
 
