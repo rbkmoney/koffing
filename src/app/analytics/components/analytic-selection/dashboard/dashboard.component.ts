@@ -24,8 +24,6 @@ import { GeoChartData } from './geo-chart-data.class';
 export class DashboardComponent implements OnInit {
 
     public shopID: number;
-    public fromTime: any;
-    public toTime: any;
     public fromTimeDate: Date;
     public toTimeDate: Date;
     public uniqueCount: any;
@@ -45,6 +43,7 @@ export class DashboardComponent implements OnInit {
     public rateLoading: boolean;
     public guaranteeLoading: boolean;
     public settlementLoading: boolean;
+    public isInvalidDate = false;
 
     constructor(
         private route: ActivatedRoute,
@@ -68,12 +67,14 @@ export class DashboardComponent implements OnInit {
 
     private loadData() {
         if (this.fromTimeDate.getTime() >= this.toTimeDate.getTime()) {
+            this.isInvalidDate = true;
             return false;
         }
 
         const shopID = this.shopID;
         const fromTime = moment(this.fromTimeDate).format();
         const toTime = moment(this.toTimeDate).format();
+        this.isInvalidDate = false;
 
         this.loadPaymentMethod(shopID, fromTime, toTime);
         this.loadGeoChartData(shopID, fromTime, toTime);
@@ -83,45 +84,41 @@ export class DashboardComponent implements OnInit {
         this.loadAccounts(shopID);
     }
 
-    private loadPaymentMethod(shopID: number, fromTime: any, toTime: any) {
+    private loadPaymentMethod(shopID: number, fromTime: string, toTime: string) {
         this.paymentMethodLoading = true;
-        this.customerService.getPaymentMethod(shopID, new RequestParams(fromTime, toTime, 'minute', '1', 'bankCard')
-        ).then((paymentMethodState: any) => {
+        this.customerService.getPaymentMethod(shopID, new RequestParams(fromTime, toTime)).then((paymentMethodState: any) => {
             this.paymentMethodLoading = false;
             this.paymentMethodChartData = ChartDataConversionService.toPaymentMethodChartData(paymentMethodState);
         });
     }
 
-    private loadRate(shopID: number, fromTime: any, toTime: any) {
+    private loadRate(shopID: number, fromTime: string, toTime: string) {
         this.rateLoading = true;
-        this.customerService.getRate(shopID, new RequestParams(fromTime, toTime)
-        ).then((rateStat: any) => {
+        this.customerService.getRate(shopID, new RequestParams(fromTime, toTime)).then((rateStat: any) => {
             this.rateLoading = false;
             this.uniqueCount = rateStat ? rateStat.uniqueCount : 0;
         });
     }
 
-    private loadConversionStat(shopID: number, fromTime: any, toTime: any) {
+    private loadConversionStat(shopID: number, fromTime: string, toTime: string) {
         this.conversionLoading = true;
-        this.paymentsService.getConversionStat(shopID, new RequestParams(fromTime, toTime, 'minute', '1')
-        ).then((conversionStat: Conversion[]) => {
+        this.paymentsService.getConversionStat(shopID, new RequestParams(fromTime, toTime)).then((conversion: Conversion[]) => {
             this.conversionLoading = false;
-            const paymentCountInfo = ChartDataConversionService.toPaymentCountInfo(conversionStat);
+            const paymentCountInfo = ChartDataConversionService.toPaymentCountInfo(conversion);
             this.successfulCount = paymentCountInfo.successfulCount;
             this.unfinishedCount = paymentCountInfo.unfinishedCount;
-            this.conversionChartData = ChartDataConversionService.toConversionChartData(conversionStat);
+            this.conversionChartData = ChartDataConversionService.toConversionChartData(conversion);
         });
     }
 
-    private loadGeoChartData(shopID: number, fromTime: any, toTime: any) {
+    private loadGeoChartData(shopID: number, fromTime: string, toTime: string) {
         this.geoLoading = true;
-        this.geolocation.getGeoChartData(shopID, new RequestParams(fromTime, toTime, 'day', '1')
+        this.geolocation.getGeoChartData(shopID, new RequestParams(fromTime, toTime, 'day')
         ).then((geoData: PaymentGeoStat[]) => {
             this.geoLoading = false;
             const unlabeledGeoChartData: GeoChartData = ChartDataConversionService.toGeoChartData(geoData);
             if (unlabeledGeoChartData.geoIDs.length > 0 && unlabeledGeoChartData.data.length > 0) {
-                this.geolocation.getLocationNames(unlabeledGeoChartData.geoIDs, 'ru'
-                ).then((locationNames: LocationName[]) => {
+                this.geolocation.getLocationNames(unlabeledGeoChartData.geoIDs, 'ru').then((locationNames: LocationName[]) => {
                     this.geoChartData = ChartDataConversionService.toLabeledGeoChartData(unlabeledGeoChartData, locationNames);
                 });
             } else {
@@ -130,10 +127,9 @@ export class DashboardComponent implements OnInit {
         });
     }
 
-    private loadRevenueStat(shopID: number, fromTime: any, toTime: any) {
+    private loadRevenueStat(shopID: number, fromTime: string, toTime: string) {
         this.revenueLoading = true;
-        this.paymentsService.getRevenueStat(shopID, new RequestParams(fromTime, toTime, 'minute', '1')
-        ).then((revenueStat: any) => {
+        this.paymentsService.getRevenueStat(shopID, new RequestParams(fromTime, toTime)).then((revenueStat: any) => {
             this.revenueLoading = false;
             this.revenueChartData = ChartDataConversionService.toRevenueChartData(revenueStat);
             this.profit = ChartDataConversionService.toTotalProfit(revenueStat);
