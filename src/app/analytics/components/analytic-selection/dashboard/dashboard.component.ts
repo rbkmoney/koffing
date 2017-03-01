@@ -70,11 +70,11 @@ export class DashboardComponent implements OnInit {
             this.isInvalidDate = true;
             return false;
         }
+        this.isInvalidDate = false;
 
         const shopID = this.shopID;
         const fromTime = moment(this.fromTimeDate).format();
         const toTime = moment(this.toTimeDate).format();
-        this.isInvalidDate = false;
 
         this.loadPaymentMethod(shopID, fromTime, toTime);
         this.loadGeoChartData(shopID, fromTime, toTime);
