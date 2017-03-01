@@ -24,4 +24,7 @@
                             label Средства вывода
                             .x_content
                                 kof-payout-tools([contractID]="contract.id")
-    a.btn.btn-primary.pull-right([routerLink]="['/management/contracts/create']") Создать контракт
+        a.btn.btn-primary.pull-right(
+            *ngIf="!claimFound",
+            [routerLink]="['/management/contracts/create']"
+        ) Создать контракт

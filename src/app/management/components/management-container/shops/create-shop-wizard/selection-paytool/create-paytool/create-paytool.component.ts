@@ -32,12 +32,18 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
 
     public sameBankAccountChecked: boolean;
 
+    @Input()
+    private defaultPayoutTool: PayoutToolBankAccount;
+
     constructor(
         private suggestionsService: SuggestionsService
     ) { }
 
     public ngOnInit() {
         this.payoutTool = this.getInstance();
+        if (this.defaultPayoutTool) {
+            _.assign(this.payoutTool, this.defaultPayoutTool);
+        }
     }
 
     public ngAfterViewInit() {

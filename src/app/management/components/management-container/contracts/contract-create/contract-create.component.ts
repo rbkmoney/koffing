@@ -43,7 +43,7 @@ export class ContractCreateComponent {
     }
 
     public createContract() {
-        if (this.isContractorReady && this.isContractorReady) {
+        if (this.isContractorReady && this.isPayoutToolReady) {
             this.isLoading = true;
             const contractParams = new ContractParams();
             contractParams.contractor = this.contractor;

@@ -6,4 +6,18 @@ export class CreateShopArgs {
     public contractID: number;
     public payoutToolID: number;
     public callbackUrl: string;
+
+    constructor(
+        categoryID?: number,
+        details?: ShopDetail,
+        contractID?: number,
+        payoutToolID?: number,
+        callbackUrl?: string
+    ) {
+        this.categoryID = categoryID;
+        this.details = details;
+        this.contractID = contractID;
+        this.payoutToolID = payoutToolID;
+        this.callbackUrl = callbackUrl;
+    }
 }

@@ -1,0 +1,23 @@
+.x_panel.tile
+    .x_content
+        kof-loading([isLoading]="isLoading")
+            kof-create-contract(
+                *ngIf="contractor !== undefined",
+                (onChange)="onContractorChange($event)",
+                [defaultContractor]="contractor"
+            )
+            kof-create-paytool(
+                *ngIf="payoutTool !== undefined",
+                (onChange)="onPayoutToolChange($event)",
+                [contractBankAccount]="contractor.bankAccount",
+                [defaultPayoutTool]="payoutTool"
+            )
+            kof-add-shop(
+                *ngIf="shop !== undefined",
+                (onChange)="onShopFieldsChange($event)",
+                [defaultShop]="shop"
+            )
+            .form-group
+                .col-xs-12.col-sm-6.col-sm-offset-3
+                    button.btn.btn-primary.pull-right(type="button", [disabled]="!canSubmit()", (click)="saveChanges()") Сохранить изменения
+                    a.btn.btn-default(type="reset", (click)="returnToManagement()") Назад
