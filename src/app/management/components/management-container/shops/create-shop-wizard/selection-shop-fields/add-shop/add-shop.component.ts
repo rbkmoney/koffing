@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import * as _ from 'lodash';
 
 import { CategoryService } from 'koffing/backend/backend.module';
@@ -7,6 +7,7 @@ import { ShopDetail } from 'koffing/backend/classes/shop-detail.class';
 import { ShopLocationUrl } from 'koffing/backend/classes/shop-location-url.class';
 import { ShopDetailTransfer } from './shop-detail-transfer.class';
 import { Category } from 'koffing/backend/classes/category.class';
+import { Shop } from 'koffing/backend/classes/shop.class';
 
 @Component({
     selector: 'kof-add-shop',
@@ -29,6 +30,9 @@ export class AddShopComponent implements OnInit {
     public categoryId: number;
     public callbackUrl: string;
 
+    @Input()
+    private defaultShop: Shop;
+
     constructor(
         private categoryService: CategoryService
     ) { }
@@ -36,9 +40,25 @@ export class AddShopComponent implements OnInit {
     public ngOnInit() {
         this.isLoading = true;
         this.getCategories().then(() => {
+            if (this.defaultShop) {
+                this.categoryId = this.defaultShop.categoryID;
+            }
             this.isLoading = false;
         });
         this.shopDetail = new ShopDetail();
+        if (this.defaultShop) {
+            this.assignDefault();
+        }
+    }
+
+    public assignDefault() {
+        _.assign(this.shopDetail, this.defaultShop.details);
+        if (this.defaultShop.details.location) {
+            this.url = (<ShopLocationUrl> this.defaultShop.details.location).url;
+        }
+        if (this.defaultShop.callbackHandler) {
+            this.callbackUrl = this.defaultShop.callbackHandler.url;
+        }
     }
 
     public getCategories() {
@@ -64,6 +84,10 @@ export class AddShopComponent implements OnInit {
 
     public setLocation(url: string, form: any) {
         this.shopDetail.location = new ShopLocationUrl(url);
+        this.keyup(form);
+    }
+
+    public onCategoryChange(categoryId: string, form: any) {
         this.keyup(form);
     }
 }
