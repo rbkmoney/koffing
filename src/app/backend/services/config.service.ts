@@ -6,7 +6,6 @@ export class ConfigService {
 
     public capiUrl: string;
     public suggestionsToken: string;
-    public keycloakUrl: string;
 
     constructor(private http: Http) { }
 
@@ -16,7 +15,6 @@ export class ConfigService {
                 .subscribe(data => {
                     this.capiUrl = `${data.capiEndpoint}/v1`;
                     this.suggestionsToken = data.suggestionsToken;
-                    this.keycloakUrl = data.keycloakUrl;
                     resolve();
                 });
         });
