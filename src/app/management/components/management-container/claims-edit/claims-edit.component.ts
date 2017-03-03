@@ -127,7 +127,7 @@ export class ClaimsEditComponent implements OnInit {
                         this.shop.details,
                         decision.contractID,
                         decision.payoutToolID,
-                        this.shop.callbackHandler.url
+                        this.shop.callbackHandler ? this.shop.callbackHandler.url : undefined
                     )).then(() => {
                         this.returnToManagement();
                     });
