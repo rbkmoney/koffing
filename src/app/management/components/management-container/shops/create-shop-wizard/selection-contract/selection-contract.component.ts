@@ -1,9 +1,11 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
+import * as _ from 'lodash';
 
 import { SelectionOptions } from '../selection-options.class';
 import { ContractDecision } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-contract/contract-decision.class';
 import { ContractorTransfer } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-contract/create-contract/contractor-transfer.class';
 import { Contract } from 'koffing/backend/classes/contract.class';
+import { Contractor } from 'koffing/backend/classes/contractor.class';
 
 @Component({
     selector: 'kof-selection-contract',
@@ -11,16 +13,14 @@ import { Contract } from 'koffing/backend/classes/contract.class';
 })
 export class SelectionContractComponent {
 
-    @Input()
-    public showFinishButton: boolean = false;
+    @Output()
+    public steppedForward = new EventEmitter();
+
     public selectedOption: SelectionOptions;
     public optionNew: number = SelectionOptions.New;
     public optionExisting: number = SelectionOptions.Existing;
     public isContractorValid: boolean = false;
     public decision: ContractDecision = new ContractDecision();
-    
-    @Output()
-    public steppedForward = new EventEmitter();
 
     public onChangeContractor(value: ContractorTransfer) {
         this.isContractorValid = value.valid;
@@ -30,10 +30,9 @@ export class SelectionContractComponent {
     public onContractSelected(contract: Contract) {
         this.isContractorValid = true;
         this.decision.contract = contract;
-    }
-
-    public newContractReady(params: any) {
-        this.isContractorValid = params.valid;
+        if (_.isUndefined(this.decision.contract.contractor)) {
+            this.decision.contract.contractor = new Contractor();
+        }
     }
 
     public selectOptionNew() {

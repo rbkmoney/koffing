@@ -16,9 +16,10 @@ import { BankAccount } from 'koffing/backend/classes/bank-account.class';
 export class SelectionPaytoolComponent implements AfterViewInit {
 
     @Input()
-    public showFinishButton: boolean = false;
-    @Input()
     public contractDecision: ContractDecision;
+
+    @Output()
+    public steppedForward = new EventEmitter();
 
     public selectedOption: SelectionOptions;
     public optionNew: number = SelectionOptions.New;
@@ -26,15 +27,12 @@ export class SelectionPaytoolComponent implements AfterViewInit {
     public isPayoutToolValid: boolean = false;
     public payoutToolsParams: PayoutToolBankAccount;
     public payoutToolID: number;
-
     public isLoading: boolean = false;
 
-    @Output()
-    public steppedForward = new EventEmitter();
-
-    constructor(private paytoolDecisionService: PaytoolDecisionService,
-                private changeDetector: ChangeDetectorRef) {
-    }
+    constructor(
+        private paytoolDecisionService: PaytoolDecisionService,
+        private changeDetector: ChangeDetectorRef
+    ) {}
 
     public ngAfterViewInit() {
         if (!_.isUndefined(this.contractDecision.contractor)) {
