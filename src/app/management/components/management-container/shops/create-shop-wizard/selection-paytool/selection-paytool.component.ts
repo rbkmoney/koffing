@@ -64,9 +64,9 @@ export class SelectionPaytoolComponent implements AfterViewInit {
     // TODO need separate decision classes
     public getContractBankAccount(): BankAccount {
         let result;
-        if (this.contractDecision.contract) {
+        if (this.contractDecision.contract && this.contractDecision.contract.contractor) {
             result = this.contractDecision.contract.contractor.bankAccount;
-        } else {
+        } else if (this.contractDecision.contractor) {
             result = this.contractDecision.contractor.bankAccount;
         }
         return result;

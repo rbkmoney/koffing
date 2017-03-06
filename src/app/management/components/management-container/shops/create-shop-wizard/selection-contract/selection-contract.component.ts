@@ -1,11 +1,9 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import * as _ from 'lodash';
 
 import { SelectionOptions } from '../selection-options.class';
-import { ContractDecision } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-contract/contract-decision.class';
-import { ContractorTransfer } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-contract/create-contract/contractor-transfer.class';
+import { ContractDecision } from './contract-decision.class';
+import { ContractorTransfer } from './create-contract/contractor-transfer.class';
 import { Contract } from 'koffing/backend/classes/contract.class';
-import { Contractor } from 'koffing/backend/classes/contractor.class';
 
 @Component({
     selector: 'kof-selection-contract',
@@ -30,9 +28,6 @@ export class SelectionContractComponent {
     public onContractSelected(contract: Contract) {
         this.isContractorValid = true;
         this.decision.contract = contract;
-        if (_.isUndefined(this.decision.contract.contractor)) {
-            this.decision.contract.contractor = new Contractor();
-        }
     }
 
     public selectOptionNew() {
