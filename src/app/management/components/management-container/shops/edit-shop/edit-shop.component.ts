@@ -11,7 +11,7 @@ import { ContractService } from 'koffing/backend/services/contract.service';
 import { Category } from 'koffing/backend/classes/category.class';
 import { SelectItem } from 'koffing/common/common.module';
 import { CreateShopArgs } from 'koffing/backend/classes/create-shop-args.class';
-import { ShopDetail } from 'koffing/backend/classes/shop-detail.class';
+import { ShopDetails } from 'koffing/backend/backend.module';
 import { ShopLocationUrl } from 'koffing/backend/classes/shop-location-url.class';
 
 @Component({
@@ -148,7 +148,7 @@ export class EditShopComponent implements OnInit {
         return _.find(this.contracts, (contract) => contract.id === contractID);
     }
 
-    private getInstance(details: ShopDetail): CreateShopArgs {
+    private getInstance(details: ShopDetails): CreateShopArgs {
         const instance = new CreateShopArgs();
         instance.details = details;
         return instance;

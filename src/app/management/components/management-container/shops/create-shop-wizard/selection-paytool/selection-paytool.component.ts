@@ -63,21 +63,6 @@ export class SelectionPaytoolComponent implements AfterViewInit {
         this.selectedOption = this.optionNew;
     }
 
-    // TODO need separate decision classes
-    public getContractBankAccount(): BankAccount {
-        let result;
-        if (this.contractDecision.contract) {
-            result = this.contractDecision.contract.contractor.bankAccount;
-        } else {
-            result = this.contractDecision.contractor.bankAccount;
-        }
-        return result;
-    }
-
-    public isCopyBankAccountAvailable(): boolean {
-        return !!this.contractDecision.contractor;
-    }
-
     public stepForward() {
         if (!this.isPayoutToolValid) {
             return;

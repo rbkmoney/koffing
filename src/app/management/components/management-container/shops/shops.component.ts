@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
-
 import { Category } from 'koffing/backend/backend.module';
 import { CategoryService } from 'koffing/backend/backend.module';
 import { ShopService } from 'koffing/backend/backend.module';
 import { Shop } from 'koffing/backend/classes/shop.class';
 import { ClaimService } from 'koffing/backend/services/claim.service';
-import { Claim } from 'koffing/backend/classes/claim.class';
 import { ClaimRevokeBroadcaster } from 'koffing/broadcaster/services/claim-revoke-broadcaster.service';
+import { Claim } from 'koffing/backend/classes/claim/claim.class';
 
 @Component({
     templateUrl: 'shops.component.pug',

@@ -3,12 +3,12 @@ import * as _ from 'lodash';
 
 import { PaytoolDecision } from './paytool-decision.class';
 import { PayoutToolBankAccount } from 'koffing/backend/classes/payout-tool-bank-account.class';
-import { Claim } from 'koffing/backend/classes/claim.class';
 import { Contractor } from 'koffing/backend/classes/contractor.class';
 import { ContractParams } from 'koffing/backend/classes/contract-params.class';
 import { PayoutToolParams } from 'koffing/backend/classes/payout-tool-params.class';
 import { ContractService } from 'koffing/backend/services/contract.service';
 import { ClaimService } from 'koffing/backend/services/claim.service';
+import { Claim } from 'koffing/backend/classes/claim/claim.class';
 
 @Injectable()
 export class PaytoolDecisionService {

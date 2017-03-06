@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { ContractService } from 'koffing/backend/services/contract.service';
 import { Contract } from 'koffing/backend/classes/contract.class';
 import { ClaimRevokeBroadcaster } from 'koffing/broadcaster/services/claim-revoke-broadcaster.service';
-import { Claim } from 'koffing/backend/classes/claim.class';
 import { ClaimService } from 'koffing/backend/services/claim.service';
+import { Claim } from 'koffing/backend/classes/claim/claim.class';
 
 @Component({
     templateUrl: 'contracts.component.pug'
