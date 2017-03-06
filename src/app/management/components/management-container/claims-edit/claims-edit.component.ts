@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import * as _ from 'lodash';
 
 import { ClaimService } from 'koffing/backend/services/claim.service';
-import { Claim } from 'koffing/backend/classes/claim.class';
 import { Contractor } from 'koffing/backend/classes/contractor.class';
 import { PayoutToolBankAccount } from 'koffing/backend/classes/payout-tool-bank-account.class';
 import { Shop } from 'koffing/backend/classes/shop.class';
@@ -13,6 +13,13 @@ import { PaytoolDecisionService } from 'koffing/management/components/management
 import { PaytoolDecision } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-paytool/paytool-decision.class';
 import { CreateShopArgs } from 'koffing/backend/classes/create-shop-args.class';
 import { ShopService } from 'koffing/backend/services/shop.service';
+import { Claim } from 'koffing/backend/classes/claim/claim.class';
+import { ContractCreation } from 'koffing/backend/classes/claim/contract-creation.class';
+import { ContractModification } from 'koffing/backend/classes/claim/contract-modification.class';
+import { ContractPayoutToolCreation } from 'koffing/backend/classes/claim/contract-payout-tool-creation.class';
+import { ShopCreation } from 'koffing/backend/classes/claim/shop-creation.class';
+import { ShopModification } from 'koffing/backend/classes/claim/shop-modification.class';
+import { ShopUpdate } from 'koffing/backend/classes/claim/shop-update.class';
 
 @Component({
     selector: 'kof-claims-edit',
@@ -23,6 +30,7 @@ export class ClaimsEditComponent implements OnInit {
     public claimId: number;
     public contractor: Contractor;
     public payoutTool: PayoutToolBankAccount;
+    public contractID: number;
     public shop: Shop;
     public isLoading: boolean = false;
     private contractorReady: boolean;
@@ -38,36 +46,7 @@ export class ClaimsEditComponent implements OnInit {
     ) { }
 
     public ngOnInit() {
-        this.isLoading = true;
-        this.claimService.getClaim({status: 'pending'}).then((claims: Claim[]) => {
-            if (claims.length > 0) {
-                this.claimId = claims[0].id;
-                for (let set of claims[0].changeset) {
-                    if (!set.hasOwnProperty('partyModificationType')) {
-                        continue;
-                    }
-                    switch (set.partyModificationType) {
-                        case 'ContractCreation':
-                            this.contractor = <Contractor> set.contract.contractor;
-                            this.contractorReady = true;
-                            break;
-                        case 'ContractModification':
-                            if (set.contractModificationType === 'ContractPayoutToolCreation') {
-                                this.payoutTool = <PayoutToolBankAccount> set.payoutTool.params;
-                                this.paytoolReady = true;
-                            }
-                            break;
-                        case 'ShopCreation':
-                            this.shop = <Shop> set.shop;
-                            this.shopReady = true;
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
-            this.isLoading = false;
-        });
+        this.getClaim();
     }
 
     public onContractorChange(value: ContractorTransfer) {
@@ -101,10 +80,10 @@ export class ClaimsEditComponent implements OnInit {
     public canSubmit(): boolean {
         let canSubmit = false;
         if (this.formsTouched) {
-            canSubmit = this.contractorReady && this.paytoolReady;
-            if (this.shop) {
-                canSubmit = canSubmit && this.shopReady;
-            }
+            canSubmit = true;
+            canSubmit = canSubmit && this.contractor ? this.contractorReady : true;
+            canSubmit = canSubmit && this.payoutTool ? this.paytoolReady : true;
+            canSubmit = canSubmit && this.shop ? this.shopReady : true;
         }
         return canSubmit;
     }
@@ -113,26 +92,145 @@ export class ClaimsEditComponent implements OnInit {
         this.router.navigate(['/management']);
     }
 
+    //  TODO: логика ниже предполагает всего 4 кейса, если количество кейсов будет расти, нужно все в этом файле дорабатывать
     public saveChanges() {
         this.isLoading = true;
         this.claimService.revokeClaim(this.claimId, {
             reason: 'edit claim'
         }).then(() => {
-            this.paytoolDecisionService.createContract(this.contractor, this.payoutTool).then((decision: PaytoolDecision) => {
-                if (!this.shop) {
+            if (this.shop && !this.contractor) {
+                this.updateShop().then(() => {
                     this.returnToManagement();
-                } else {
-                    this.shopService.createShop(new CreateShopArgs(
-                        this.shop.categoryID,
-                        this.shop.details,
-                        decision.contractID,
-                        decision.payoutToolID,
-                        this.shop.callbackHandler ? this.shop.callbackHandler.url : undefined
-                    )).then(() => {
-                        this.returnToManagement();
-                    });
-                }
+                });
+            } else
+            if (this.contractor && !this.shop) {
+                this.createContract().then(() => {
+                    this.returnToManagement();
+                });
+            } else
+            if (this.contractor && this.shop) {
+                this.createContractAndShop().then(() => {
+                    this.returnToManagement();
+                });
+            } else
+            if (this.payoutTool && !this.contractor && !this.shop) {
+                this.createPayoutTool().then(() => {
+                    this.returnToManagement();
+                });
+            }
+        });
+    }
+
+    private createContract(): Promise<PaytoolDecision> {
+        return new Promise((resolve) => {
+            this.paytoolDecisionService.createContract(this.contractor, this.payoutTool).then((decision: PaytoolDecision) => {
+                resolve(decision);
             });
+        });
+    }
+
+    private createContractAndShop(): Promise<any> {
+        return new Promise((resolve) => {
+            this.paytoolDecisionService.createContract(this.contractor, this.payoutTool).then((decision: PaytoolDecision) => {
+                this.shopService.createShop(new CreateShopArgs(
+                    this.shop.categoryID,
+                    this.shop.details,
+                    decision.contractID,
+                    decision.payoutToolID,
+                    this.shop.callbackHandler ? this.shop.callbackHandler.url : undefined
+                )).then(() => {
+                    resolve();
+                });
+            });
+        });
+    }
+
+    private createPayoutTool(): Promise<PaytoolDecision> {
+        return new Promise((resolve) => {
+            this.paytoolDecisionService.createPayoutTool(this.contractID, this.payoutTool).then((decision: PaytoolDecision) => {
+                resolve(decision);
+            });
+        });
+    }
+
+    private updateShop(): Promise<any> {
+        return new Promise((resolve) => {
+            this.shopService.updateShop(this.shop.id, new CreateShopArgs(
+                this.shop.categoryID,
+                this.shop.details,
+                this.shop.contractID,
+                this.shop.payoutToolID,
+                this.shop.callbackHandler ? this.shop.callbackHandler.url : undefined
+            )).then(() => {
+                resolve();
+            });
+        });
+    }
+
+    private handleClaim(claim: Claim) {
+        let setCounter = claim.changeset.length;
+        const setCountdown = () => {
+            if (--setCounter === 0) {
+                this.isLoading = false;
+            }
+        };
+
+        this.claimId = claim.id;
+        for (let set of claim.changeset) {
+            switch (set.partyModificationType) {
+                case 'ContractCreation': {
+                    let currentSet: ContractCreation = <ContractCreation> set;
+                    this.contractor = <Contractor> currentSet.contract.contractor;
+                    this.contractorReady = true;
+                    setCountdown();
+                    break;
+                }
+                case 'ContractModification': {
+                    let currentSet: ContractModification = <ContractModification> set;
+                    if (currentSet.contractModificationType === 'ContractPayoutToolCreation') {
+                        let currentSet: ContractPayoutToolCreation = <ContractPayoutToolCreation> set;
+                        this.contractID = currentSet.contractID;
+                        this.payoutTool = <PayoutToolBankAccount> currentSet.payoutTool.params;
+                        this.paytoolReady = true;
+                        setCountdown();
+                    }
+                    break;
+                }
+                case 'ShopCreation': {
+                    let currentSet: ShopCreation = <ShopCreation> set;
+                    this.shop = <Shop> currentSet.shop;
+                    this.shopReady = true;
+                    setCountdown();
+                    break;
+                }
+                case 'ShopModification': {
+                    let currentSet: ShopModification = <ShopModification> set;
+                    if (currentSet.shopModificationType === 'ShopUpdate') {
+                        let currentSet: ShopUpdate = <ShopUpdate> set;
+                        this.shopService.getShop(currentSet.shopID).then((shop: Shop) => {
+                            this.shop = new Shop();
+                            _.assign(this.shop, shop);
+                            this.shop.updateShop(currentSet.details);
+                            this.shopReady = true;
+                            setCountdown();
+                        });
+                    }
+                    break;
+                }
+                default: {
+                    setCountdown();
+                    break;
+                }
+            }
+        }
+    }
+
+    private getClaim() {
+        this.isLoading = true;
+        this.claimService.getClaim({status: 'pending'}).then((claims: Claim[]) => {
+            if (claims.length > 0) {
+                this.handleClaim(claims[0]);
+            }
         });
     }
 }

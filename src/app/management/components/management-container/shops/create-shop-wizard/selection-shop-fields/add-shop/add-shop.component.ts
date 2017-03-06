@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 
 import { CategoryService } from 'koffing/backend/backend.module';
 import { SelectItem } from 'koffing/common/common.module';
-import { ShopDetail } from 'koffing/backend/classes/shop-detail.class';
+import { ShopDetails } from 'koffing/backend/backend.module';
 import { ShopLocationUrl } from 'koffing/backend/classes/shop-location-url.class';
 import { ShopDetailTransfer } from './shop-detail-transfer.class';
 import { Category } from 'koffing/backend/classes/category.class';
@@ -20,9 +20,11 @@ export class AddShopComponent implements OnInit {
     public onChange = new EventEmitter();
 
     public categories: SelectItem[] = [];
+
     public isLoading: boolean = false;
     public url: string;
-    public shopDetail: ShopDetail;
+
+    public shopDetail: ShopDetails;
     public categoryId: number;
     public callbackUrl: string;
 
@@ -41,7 +43,7 @@ export class AddShopComponent implements OnInit {
             }
             this.isLoading = false;
         });
-        this.shopDetail = new ShopDetail();
+        this.shopDetail = new ShopDetails();
         if (this.defaultShop) {
             this.assignDefault();
         }

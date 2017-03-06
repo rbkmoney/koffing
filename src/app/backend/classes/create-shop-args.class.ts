@@ -1,15 +1,15 @@
-import { ShopDetail } from 'koffing/backend/classes/shop-detail.class';
+import { ShopDetails } from 'koffing/backend/backend.module';
 
 export class CreateShopArgs {
     public categoryID: number;
-    public details: ShopDetail;
+    public details: ShopDetails;
     public contractID: number;
     public payoutToolID: number;
     public callbackUrl: string;
 
     constructor(
         categoryID?: number,
-        details?: ShopDetail,
+        details?: ShopDetails,
         contractID?: number,
         payoutToolID?: number,
         callbackUrl?: string
