@@ -29,6 +29,7 @@ export class AuthService {
         if (this.authInstance) {
             result.profileName = this.authInstance.tokenParsed.name;
             result.token = this.authInstance.token;
+            result.authUrl = this.authInstance.authServerUrl;
         }
         return result;
     }
