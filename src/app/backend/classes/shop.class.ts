@@ -29,4 +29,20 @@ export class Shop {
         this.payoutToolID = _.defaultTo(params.payoutToolID, this.payoutToolID);
         this.callbackHandler.url = _.defaultTo(params.callbackUrl, this.callbackHandler.url);
     }
+
+    public getDifference(other: Shop): Shop {
+        const updateShopParams = new UpdateShopParams();
+        const result = new Shop();
+        updateShopParams.categoryID = !_.isEqual(this.categoryID, other.categoryID) ? other.categoryID : void 0;
+        updateShopParams.contractID = !_.isEqual(this.contractID, other.contractID) ? other.contractID : void 0;
+        updateShopParams.payoutToolID = !_.isEqual(this.payoutToolID, other.payoutToolID) ? other.payoutToolID : void 0;
+        if (other.callbackHandler) {
+            updateShopParams.callbackUrl = !_.isEqual(this.callbackHandler.url, other.callbackHandler.url) ? other.callbackHandler.url : void 0;
+        }
+        if (!_.isEqual(this.details, other.details)) {
+            this.details = this.details.getUpdated(other.details);
+        }
+        result.updateShop(updateShopParams);
+        return result;
+    }
 }
