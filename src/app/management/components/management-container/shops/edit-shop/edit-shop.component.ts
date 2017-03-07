@@ -51,16 +51,6 @@ export class EditShopComponent implements OnInit {
         });
     }
 
-    public onFieldChange(path: string, value: any) {
-        if (_.startsWith(path, 'details')) {
-            this.shopEditing.details = this.shop.details;
-        }
-        if (_.startsWith(path, 'details.location')) {
-            this.shopEditing.details.location = new ShopLocationUrl();
-        }
-        _.set(this.shopEditing, path, value);
-    }
-
     public loadCategories(): Promise<Category[]> {
         return new Promise((resolve) => {
             this.categoryService.getCategories().then((categories: Category[]) => {
@@ -109,15 +99,27 @@ export class EditShopComponent implements OnInit {
     public onSelectContract(contractID: string) {
         const id = Number(contractID);
         this.shopEditing.contractID = id;
-        this.shopEditing.payoutToolID = this.payoutTools[0].id;
+        if (this.payoutTools.length) {
+            this.shopEditing.payoutToolID = this.payoutTools[0].id;
+        }
         this.shopContract = this.findContract(id);
         this.loadShopPayoutTools(id);
     }
 
     public onSelectPayoutTool(payoutToolID: string) {
         const id = Number(payoutToolID);
-        this.shopEditing.payoutToolID = Number(id);
+        this.shopEditing.payoutToolID = id;
         this.shopPayoutTool = this.findPayoutTool(id);
+    }
+
+    public onFieldChange(path: string, value: any) {
+        if (_.startsWith(path, 'details')) {
+            this.shopEditing.details = this.shop.details;
+        }
+        if (_.startsWith(path, 'details.location')) {
+            this.shopEditing.details.location = new ShopLocationUrl();
+        }
+        _.set(this.shopEditing, path, value);
     }
 
     public hasError(field: any): boolean {
