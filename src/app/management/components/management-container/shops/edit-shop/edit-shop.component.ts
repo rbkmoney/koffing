@@ -31,6 +31,7 @@ export class EditShopComponent implements OnInit {
     public payoutToolItems: SelectItem[] = [];
     public categoryItems: SelectItem[] = [];
     public isLoading: boolean = false;
+    public isValidPayoutTool: boolean = true;
 
     constructor(
         private route: ActivatedRoute,
@@ -99,11 +100,16 @@ export class EditShopComponent implements OnInit {
     public onSelectContract(contractID: string) {
         const id = Number(contractID);
         this.shopEditing.contractID = id;
-        if (this.payoutTools.length) {
-            this.shopEditing.payoutToolID = this.payoutTools[0].id;
-        }
         this.shopContract = this.findContract(id);
-        this.loadShopPayoutTools(id);
+        this.loadShopPayoutTools(id).then(payoutTools => {
+            if (payoutTools.length) {
+                this.shopEditing.payoutToolID = payoutTools[0].id;
+                this.isValidPayoutTool = true;
+            } else {
+                this.shopEditing.payoutToolID = undefined;
+                this.isValidPayoutTool = false;
+            }
+        });
     }
 
     public onSelectPayoutTool(payoutToolID: string) {
