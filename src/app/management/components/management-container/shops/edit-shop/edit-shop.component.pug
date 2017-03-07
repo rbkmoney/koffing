@@ -45,7 +45,7 @@
                             .col-xs-12.col-sm-9.col-md-6(*ngIf="shopPayoutTool")
                                 kof-select([ngModel]="shop.payoutToolID", (onChange)="onSelectPayoutTool($event)", [items]="payoutToolItems", name='payoutToolID')
                             .col-xs-12.col-sm-9.col-md-6(*ngIf="!shopPayoutTool")
-                                | В данном контракте нет средств вывода
+                                | Нет средств вывода
                         .form-group(*ngIf="shopPayoutTool")
                             .col-xs-12.col-sm-9.col-md-6.col-sm-offset-3
                                 kof-payout-tool-view([payoutTool]="shopPayoutTool")
