@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, EventEmitter, Output, ViewChild, AfterViewInit} from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ViewChild, AfterViewInit } from '@angular/core';
 import * as _ from 'lodash';
 
 import { CategoryService } from 'koffing/backend/backend.module';
@@ -66,7 +66,7 @@ export class EditShopComponent implements OnInit, AfterViewInit {
     }
 
     public emitData() {
-        const transfer = new ShopEditingTransfer(this.shopEditing, (this.form.valid && this.form.dirty));
+        const transfer = new ShopEditingTransfer(this.shopEditing, this.form.valid, this.form.dirty);
         this.onChange.emit(transfer);
     }
 

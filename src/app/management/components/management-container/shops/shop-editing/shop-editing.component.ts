@@ -48,7 +48,7 @@ export class ShopEditingComponent implements OnInit {
 
     public onShopEditingChange(transfer: ShopEditingTransfer) {
         this.shopEditing = transfer.shopEditing;
-        this.shopEditingReady = transfer.ready;
+        this.shopEditingReady = transfer.valid && transfer.dirty;
     }
 
 }
