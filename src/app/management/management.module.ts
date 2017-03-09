@@ -19,7 +19,7 @@ import { CreatePayoutToolComponent } from './components/management-container/sho
 import { SelectContractComponent } from './components/management-container/shops/create-shop-wizard/selection-contract/select-contract/select-contract.component';
 import { SelectPaytoolComponent } from './components/management-container/shops/create-shop-wizard/selection-paytool/select-paytool/select-paytool.component';
 import { AddShopComponent } from './components/management-container/shops/create-shop-wizard/selection-shop-fields/add-shop/add-shop.component';
-import { EditShopComponent } from './components/management-container/shops/edit-shop/edit-shop.component';
+import { EditShopComponent } from './components/management-container/shops/shop-editing/edit-shop/edit-shop.component';
 import { ContractViewComponent } from './components/management-container/contracts/contract-view/contract-view.component';
 import { ContractCreateComponent } from './components/management-container/contracts/contract-create/contract-create.component';
 import { PayoutToolsComponent } from './components/management-container/contracts/payout-tools/payout-tools.component';
@@ -33,6 +33,7 @@ import { ShopDetailsPanelComponent } from 'koffing/management/components/managem
 import { PaytoolDecisionService } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-paytool/paytool-decision.service';
 import { SuggestionsModule } from 'koffing/suggestions/suggestions.module';
 import { ClaimsEditComponent } from 'koffing/management/components/management-container/claims-edit/claims-edit.component';
+import { ShopEditingComponent } from 'koffing/management/components/management-container/shops/shop-editing/shop-editing.component';
 
 @NgModule({
     imports: [
@@ -73,14 +74,15 @@ import { ClaimsEditComponent } from 'koffing/management/components/management-co
         SelectionPaytoolComponent,
         SelectionShopComponent,
         ShopDetailsPanelComponent,
-        ClaimsEditComponent
+        ClaimsEditComponent,
+        ShopEditingComponent
     ],
     providers: [PaytoolDecisionService]
 })
 export class ManagementModule { }
 
 export * from '../suggestions/classes/suggestion-settings.const';
-export * from './components/management-container/shops/edit-shop/edit-shop.component';
+export * from './components/management-container/shops/shop-editing/edit-shop/edit-shop.component';
 export * from './components/management-container/shops/create-shop-wizard/create-shop-wizard.component';
 export * from './components/management-container/contracts/contract-create/contract-create.component';
 export * from './components/management-container/contracts/payout-tool-create/payout-tool-create.component';

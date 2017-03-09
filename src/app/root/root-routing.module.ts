@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { EditShopComponent } from 'koffing/management/management.module';
 import { CreateShopWizardComponent } from 'koffing/management/management.module';
 import { ContractCreateComponent } from 'koffing/management/components/management-container/contracts/contract-create/contract-create.component';
 import { PayoutToolCreateComponent } from 'koffing/management/components/management-container/contracts/payout-tool-create/payout-tool-create.component';
 import { ClaimsEditComponent } from 'koffing/management/management.module';
+import { ShopEditingComponent } from 'koffing/management/components/management-container/shops/shop-editing/shop-editing.component';
 
 @NgModule({
     imports: [
@@ -21,7 +21,7 @@ import { ClaimsEditComponent } from 'koffing/management/management.module';
             },
             {
                 path: 'shops/:shopID/edit',
-                component: EditShopComponent
+                component: ShopEditingComponent
             },
             {
                 path: 'shops/:shopID/edit/contract/create',
