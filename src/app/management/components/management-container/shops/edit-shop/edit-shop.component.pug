@@ -38,18 +38,18 @@
                                 kof-select([ngModel]="shop.contractID", (onChange)="onSelectContract($event)", [items]="contractItems", name='contractID')
                         .form-group
                             .col-xs-12.col-sm-9.col-md-6.col-sm-offset-3
-                                kof-contract-view([contract]="shopContract")
+                                kof-contract-view([contract]="selectedContract")
                         .form-group
                             .col-xs-12.col-sm-3
                                 label.text-left Средство вывода
                             .col-xs-12.col-sm-9.col-md-6(*ngIf="payoutToolItems.length")
-                                kof-select([ngModel]="shopPayoutTool.id", (onChange)="onSelectPayoutTool($event)", [items]="payoutToolItems", name='payoutToolID')
+                                kof-select([ngModel]="selectedPayoutTool.id", (onChange)="onSelectPayoutTool($event)", [items]="payoutToolItems", name='payoutToolID')
                             .col-xs-12.col-sm-9.col-md-6(*ngIf="!payoutToolItems.length") Нет средств вывода
-                        .form-group(*ngIf="shopPayoutTool")
+                        .form-group(*ngIf="selectedPayoutTool")
                             .col-xs-12.col-sm-9.col-md-6.col-sm-offset-3
-                                kof-payout-tool-view([payoutTool]="shopPayoutTool")
+                                kof-payout-tool-view([payoutTool]="selectedPayoutTool")
                         .ln_solid
                         .form-group
                             .col-xs-12.col-sm-9.col-md-6.col-sm-offset-3
                                 a.btn.btn-default(type="reset", [routerLink]=["/management"]) Назад
-                                button.btn.btn-primary.pull-right(type="submit", [disabled]="form.invalid || form.pristine || !isValidPayoutTool") Создать заявку
+                                button.btn.btn-primary.pull-right(type="submit", [disabled]="form.invalid || form.pristine || !shopEditing.payoutToolID") Создать заявку
