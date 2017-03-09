@@ -20,6 +20,8 @@ import { ContractPayoutToolCreation } from 'koffing/backend/classes/claim/contra
 import { ShopCreation } from 'koffing/backend/classes/claim/shop-creation.class';
 import { ShopModification } from 'koffing/backend/classes/claim/shop-modification.class';
 import { ShopUpdate } from 'koffing/backend/classes/claim/shop-update.class';
+import { ShopEditingTransfer } from 'koffing/management/components/management-container/shops/shop-editing/edit-shop/shop-editing-transfer.class';
+import { EditableShop } from './editable-shop.class';
 
 @Component({
     selector: 'kof-claims-edit',
@@ -32,6 +34,7 @@ export class ClaimsEditComponent implements OnInit {
     public payoutTool: PayoutToolBankAccount;
     public contractID: number;
     public shop: Shop;
+    public editableShop: EditableShop;
     public isLoading: boolean = false;
     private contractorReady: boolean;
     private paytoolReady: boolean;
@@ -76,6 +79,17 @@ export class ClaimsEditComponent implements OnInit {
             }
         }
     }
+    
+    public onShopEditingChange(value: ShopEditingTransfer) {
+        this.editableShop.valid = value.valid;
+        this.editableShop.dirty = value.dirty;
+        if (value.dirty) {
+            this.formsTouched = true;
+        }
+        if (value.valid) {
+            this.editableShop.createShopArgs = value.shopEditing;
+        }
+    }
 
     public canSubmit(): boolean {
         let canSubmit = false;
@@ -84,6 +98,13 @@ export class ClaimsEditComponent implements OnInit {
             canSubmit = canSubmit && this.contractor ? this.contractorReady : true;
             canSubmit = canSubmit && this.payoutTool ? this.paytoolReady : true;
             canSubmit = canSubmit && this.shop ? this.shopReady : true;
+            if (this.editableShop) {
+                if (!this.contractor && !this.payoutTool && !this.shop) {
+                    canSubmit = canSubmit && this.editableShop.dirty && this.editableShop.valid;
+                } else {
+                    canSubmit = canSubmit && this.editableShop.valid;
+                }
+            }
         }
         return canSubmit;
     }
@@ -98,11 +119,6 @@ export class ClaimsEditComponent implements OnInit {
         this.claimService.revokeClaim(this.claimId, {
             reason: 'edit claim'
         }).then(() => {
-            if (this.shop && !this.contractor) {
-                this.updateShop().then(() => {
-                    this.returnToManagement();
-                });
-            } else
             if (this.contractor && !this.shop) {
                 this.createContract().then(() => {
                     this.returnToManagement();
@@ -115,6 +131,11 @@ export class ClaimsEditComponent implements OnInit {
             } else
             if (this.payoutTool && !this.contractor && !this.shop) {
                 this.createPayoutTool().then(() => {
+                    this.returnToManagement();
+                });
+            } else
+            if (this.editableShop && !this.shop && !this.contractor) {
+                this.updateShop().then(() => {
                     this.returnToManagement();
                 });
             }
@@ -155,13 +176,7 @@ export class ClaimsEditComponent implements OnInit {
 
     private updateShop(): Promise<any> {
         return new Promise((resolve) => {
-            this.shopService.updateShop(this.shop.id, new CreateShopArgs(
-                this.shop.categoryID,
-                this.shop.details,
-                this.shop.contractID,
-                this.shop.payoutToolID,
-                this.shop.callbackHandler ? this.shop.callbackHandler.url : undefined
-            )).then(() => {
+            this.shopService.updateShop(this.editableShop.shop.id, this.editableShop.createShopArgs).then(() => {
                 resolve();
             });
         });
@@ -208,10 +223,9 @@ export class ClaimsEditComponent implements OnInit {
                     if (currentSet.shopModificationType === 'ShopUpdate') {
                         let currentSet: ShopUpdate = <ShopUpdate> set;
                         this.shopService.getShop(currentSet.shopID).then((shop: Shop) => {
-                            this.shop = new Shop();
-                            _.assign(this.shop, shop);
-                            this.shop.updateShop(currentSet.details);
-                            this.shopReady = true;
+                            this.editableShop = new EditableShop();
+                            _.assign(this.editableShop.shop, shop);
+                            this.editableShop.shop.updateShop(currentSet.details);
                             setCountdown();
                         });
                     }
