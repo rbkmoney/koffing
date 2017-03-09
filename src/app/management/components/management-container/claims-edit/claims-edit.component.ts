@@ -32,7 +32,6 @@ export class ClaimsEditComponent implements OnInit {
     public payoutTool: PayoutToolBankAccount;
     public contractID: number;
     public shop: Shop;
-    public defaultShop: Shop;
     public isLoading: boolean = false;
     private contractorReady: boolean;
     private paytoolReady: boolean;
@@ -155,14 +154,13 @@ export class ClaimsEditComponent implements OnInit {
     }
 
     private updateShop(): Promise<any> {
-        const differentShop = this.defaultShop.getDifference(this.shop);
         return new Promise((resolve) => {
             this.shopService.updateShop(this.shop.id, new CreateShopArgs(
-                differentShop.categoryID,
-                differentShop.details,
-                differentShop.contractID,
-                differentShop.payoutToolID,
-                differentShop.callbackHandler.url
+                this.shop.categoryID,
+                this.shop.details,
+                this.shop.contractID,
+                this.shop.payoutToolID,
+                this.shop.callbackHandler ? this.shop.callbackHandler.url : undefined
             )).then(() => {
                 resolve();
             });
@@ -211,11 +209,8 @@ export class ClaimsEditComponent implements OnInit {
                         let currentSet: ShopUpdate = <ShopUpdate> set;
                         this.shopService.getShop(currentSet.shopID).then((shop: Shop) => {
                             this.shop = new Shop();
-                            this.defaultShop = new Shop();
                             _.assign(this.shop, shop);
-                            _.assign(this.defaultShop, shop);
                             this.shop.updateShop(currentSet.details);
-                            this.defaultShop.updateShop(currentSet.details);
                             this.shopReady = true;
                             setCountdown();
                         });
