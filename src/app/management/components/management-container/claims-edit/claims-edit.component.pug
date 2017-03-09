@@ -2,23 +2,23 @@
     .x_content
         kof-loading([isLoading]="isLoading")
             kof-create-contract(
-                *ngIf="contractor",
+                *ngIf="showContent && contractor",
                 (onChange)="onContractorChange($event)",
                 [defaultContractor]="contractor"
             )
             kof-create-paytool(
-                *ngIf="payoutTool",
+                *ngIf="showContent && payoutTool",
                 (onChange)="onPayoutToolChange($event)",
                 [contractBankAccount]="contractor && contractor.bankAccount",
                 [defaultPayoutTool]="payoutTool"
             )
             kof-add-shop(
-                *ngIf="shop",
+                *ngIf="showContent && shop",
                 (onChange)="onShopFieldsChange($event)",
                 [defaultShop]="shop"
             )
             kof-edit-shop(
-                *ngIf="editableShop && editableShop.shop",
+                *ngIf="showContent && editableShop && editableShop.shop",
                 [shop]="editableShop.shop",
                 (onChange)="onShopEditingChange($event)"
             )

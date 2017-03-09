@@ -36,6 +36,7 @@ export class ClaimsEditComponent implements OnInit {
     public shop: Shop;
     public editableShop: EditableShop;
     public isLoading: boolean = false;
+    public showContent: boolean = false;
     private contractorReady: boolean;
     private paytoolReady: boolean;
     private shopReady: boolean;
@@ -95,9 +96,9 @@ export class ClaimsEditComponent implements OnInit {
         let canSubmit = false;
         if (this.formsTouched) {
             canSubmit = true;
-            canSubmit = canSubmit && this.contractor ? this.contractorReady : true;
-            canSubmit = canSubmit && this.payoutTool ? this.paytoolReady : true;
-            canSubmit = canSubmit && this.shop ? this.shopReady : true;
+            canSubmit = canSubmit && (this.contractor ? this.contractorReady : true);
+            canSubmit = canSubmit && (this.payoutTool ? this.paytoolReady : true);
+            canSubmit = canSubmit && (this.shop ? this.shopReady : true);
             if (this.editableShop) {
                 if (!this.contractor && !this.payoutTool && !this.shop) {
                     canSubmit = canSubmit && this.editableShop.dirty && this.editableShop.valid;
@@ -182,11 +183,16 @@ export class ClaimsEditComponent implements OnInit {
         });
     }
 
+    private showChildren(show: boolean) {
+        this.showContent = show;
+    }
+
     private handleClaim(claim: Claim) {
         let setCounter = claim.changeset.length;
         const setCountdown = () => {
             if (--setCounter === 0) {
                 this.isLoading = false;
+                _.delay(this.showChildren.bind(this, true), 0);
             }
         };
 
@@ -207,8 +213,8 @@ export class ClaimsEditComponent implements OnInit {
                         this.contractID = currentSet.contractID;
                         this.payoutTool = <PayoutToolBankAccount> currentSet.payoutTool.params;
                         this.paytoolReady = true;
-                        setCountdown();
                     }
+                    setCountdown();
                     break;
                 }
                 case 'ShopCreation': {
@@ -226,9 +232,9 @@ export class ClaimsEditComponent implements OnInit {
                             this.editableShop = new EditableShop();
                             _.assign(this.editableShop.shop, shop);
                             this.editableShop.shop.updateShop(currentSet.details);
-                            setCountdown();
                         });
                     }
+                    setCountdown();
                     break;
                 }
                 default: {
