@@ -199,6 +199,7 @@ export class ClaimsEditComponent implements OnInit {
 
         this.claimId = claim.id;
         for (let set of claim.changeset) {
+            debugger;
             switch (set.partyModificationType) {
                 case 'ContractCreation': {
                     let currentSet: ContractCreation = <ContractCreation> set;
