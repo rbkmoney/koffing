@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { ShopService } from 'koffing/backend/services/shop.service';
 import { Shop } from 'koffing/backend/classes/shop.class';
-import { CreateShopArgs } from 'koffing/backend/classes/create-shop-args.class';
+import { UpdateShopParams } from 'koffing/backend/classes/update-shop-params.class';
 import { ShopEditingTransfer } from 'koffing/management/components/management-container/shops/shop-editing/edit-shop/shop-editing-transfer.class';
 
 @Component({
@@ -15,7 +15,7 @@ export class ShopEditingComponent implements OnInit {
     public shopID: number = Number(this.route.snapshot.params['shopID']);
     public isLoading: boolean = false;
     public shop: Shop;
-    public shopEditing: CreateShopArgs;
+    public shopEditing: UpdateShopParams;
     public shopEditingReady: boolean = false;
     
     constructor(
