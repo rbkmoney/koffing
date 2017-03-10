@@ -23,7 +23,7 @@
                         .x_panel.tile
                             label Средства вывода
                             .x_content
-                                kof-payout-tools([contractID]="contract.id")
+                                kof-payout-tools([contractID]="contract.id", [claimFound]="claimFound")
         a.btn.btn-primary.pull-right(
             *ngIf="!claimFound",
             [routerLink]="['/management/contracts/create']"
