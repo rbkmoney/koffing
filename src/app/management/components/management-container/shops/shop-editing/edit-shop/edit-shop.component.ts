@@ -11,7 +11,7 @@ import { SelectItem } from 'koffing/common/common.module';
 import { UpdateShopParams } from 'koffing/backend/classes/update-shop-params.class';
 import { ShopDetails } from 'koffing/backend/backend.module';
 import { ShopLocationUrl } from 'koffing/backend/classes/shop-location-url.class';
-import { ShopEditingTransfer } from 'koffing/management/components/management-container/shops/shop-editing/edit-shop/shop-editing-transfer.class';
+import { ShopEditingTransfer } from './shop-editing-transfer.class';
 import { NgForm } from '@angular/forms';
 
 @Component({
