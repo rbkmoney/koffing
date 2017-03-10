@@ -115,7 +115,6 @@ export class ClaimsEditComponent implements OnInit {
         this.router.navigate(['/management']);
     }
 
-    //  TODO: логика ниже предполагает всего 4 кейса, если количество кейсов будет расти, нужно все в этом файле дорабатывать
     public saveChanges() {
         this.isLoading = true;
         this.claimService.revokeClaim(this.claimId, {
@@ -136,11 +135,22 @@ export class ClaimsEditComponent implements OnInit {
                     this.returnToManagement();
                 });
             } else
+            if (this.payoutTool && this.shop && !this.contractor) {
+                this.createPaytoolAndShop().then(() => {
+                    this.returnToManagement();
+                });
+            } else
             if (this.editableShop && !this.shop && !this.contractor) {
                 this.updateShop().then(() => {
                     this.returnToManagement();
                 });
             }
+        });
+    }
+
+    private createShop(args: UpdateShopParams): Promise<any> {
+        return new Promise((resolve) => {
+            this.shopService.createShop(args).then(() => resolve());
         });
     }
 
@@ -155,7 +165,7 @@ export class ClaimsEditComponent implements OnInit {
     private createContractAndShop(): Promise<any> {
         return new Promise((resolve) => {
             this.paytoolDecisionService.createContract(this.contractor, this.payoutTool).then((decision: PaytoolDecision) => {
-                this.shopService.createShop(new UpdateShopParams(
+                this.createShop(new UpdateShopParams(
                     this.shop.categoryID,
                     this.shop.details,
                     decision.contractID,
@@ -172,6 +182,22 @@ export class ClaimsEditComponent implements OnInit {
         return new Promise((resolve) => {
             this.paytoolDecisionService.createPayoutTool(this.contractID, this.payoutTool).then((decision: PaytoolDecision) => {
                 resolve(decision);
+            });
+        });
+    }
+
+    private createPaytoolAndShop(): Promise<any> {
+        return new Promise((resolve) => {
+            this.createPayoutTool().then((decision: PaytoolDecision) => {
+                this.createShop(new UpdateShopParams(
+                    this.shop.categoryID,
+                    this.shop.details,
+                    decision.contractID,
+                    decision.payoutToolID,
+                    this.shop.callbackHandler ? this.shop.callbackHandler.url : undefined
+                )).then(() => {
+                    resolve();
+                });
             });
         });
     }
@@ -199,7 +225,6 @@ export class ClaimsEditComponent implements OnInit {
 
         this.claimId = claim.id;
         for (let set of claim.changeset) {
-            debugger;
             switch (set.partyModificationType) {
                 case 'ContractCreation': {
                     let currentSet: ContractCreation = <ContractCreation> set;
