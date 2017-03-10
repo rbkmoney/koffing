@@ -11,7 +11,7 @@ import { PaytoolTransfer } from 'koffing/management/components/management-contai
 import { ShopDetailTransfer } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-shop-fields/add-shop/shop-detail-transfer.class';
 import { PaytoolDecisionService } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-paytool/paytool-decision.service';
 import { PaytoolDecision } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-paytool/paytool-decision.class';
-import { CreateShopArgs } from 'koffing/backend/classes/create-shop-args.class';
+import { UpdateShopParams } from 'koffing/backend/classes/update-shop-params.class';
 import { ShopService } from 'koffing/backend/services/shop.service';
 import { Claim } from 'koffing/backend/classes/claim/claim.class';
 import { ContractCreation } from 'koffing/backend/classes/claim/contract-creation.class';
@@ -35,6 +35,7 @@ export class ClaimsEditComponent implements OnInit {
     public contractID: number;
     public shop: Shop;
     public editableShop: EditableShop;
+    public shopChanges: UpdateShopParams;
     public isLoading: boolean = false;
     public showContent: boolean = false;
     private contractorReady: boolean;
@@ -88,7 +89,7 @@ export class ClaimsEditComponent implements OnInit {
             this.formsTouched = true;
         }
         if (value.valid) {
-            this.editableShop.createShopArgs = value.shopEditing;
+            this.editableShop.updateShopParams = value.shopEditing;
         }
     }
 
@@ -154,7 +155,7 @@ export class ClaimsEditComponent implements OnInit {
     private createContractAndShop(): Promise<any> {
         return new Promise((resolve) => {
             this.paytoolDecisionService.createContract(this.contractor, this.payoutTool).then((decision: PaytoolDecision) => {
-                this.shopService.createShop(new CreateShopArgs(
+                this.shopService.createShop(new UpdateShopParams(
                     this.shop.categoryID,
                     this.shop.details,
                     decision.contractID,
@@ -177,7 +178,7 @@ export class ClaimsEditComponent implements OnInit {
 
     private updateShop(): Promise<any> {
         return new Promise((resolve) => {
-            this.shopService.updateShop(this.editableShop.shop.id, this.editableShop.createShopArgs).then(() => {
+            this.shopService.updateShop(this.editableShop.shop.id, this.editableShop.updateShopParams).then(() => {
                 resolve();
             });
         });
@@ -228,6 +229,7 @@ export class ClaimsEditComponent implements OnInit {
                     let currentSet: ShopModification = <ShopModification> set;
                     if (currentSet.shopModificationType === 'ShopUpdate') {
                         let currentSet: ShopUpdate = <ShopUpdate> set;
+                        this.shopChanges = currentSet.details;
                         this.shopService.getShop(currentSet.shopID).then((shop: Shop) => {
                             this.editableShop = new EditableShop();
                             _.assign(this.editableShop.shop, shop);

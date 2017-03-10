@@ -20,6 +20,7 @@
             kof-edit-shop(
                 *ngIf="showContent && editableShop && editableShop.shop",
                 [shop]="editableShop.shop",
+                [defaultShopChanges]="shopChanges",
                 (onChange)="onShopEditingChange($event)"
             )
             .form-group
