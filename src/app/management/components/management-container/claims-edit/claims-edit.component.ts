@@ -29,7 +29,7 @@ import { EditableShop } from './editable-shop.class';
 })
 export class ClaimsEditComponent implements OnInit {
 
-    public claimId: number;
+    public claimID: number;
     public contractor: Contractor;
     public payoutTool: PayoutToolBankAccount;
     public contractID: number;
@@ -117,7 +117,7 @@ export class ClaimsEditComponent implements OnInit {
 
     public saveChanges() {
         this.isLoading = true;
-        this.claimService.revokeClaim(this.claimId, {
+        this.claimService.revokeClaim(this.claimID, {
             reason: 'edit claim'
         }).then(() => {
             if (this.contractor && !this.shop) {
@@ -223,7 +223,7 @@ export class ClaimsEditComponent implements OnInit {
             }
         };
 
-        this.claimId = claim.id;
+        this.claimID = claim.id;
         for (let set of claim.changeset) {
             switch (set.partyModificationType) {
                 case 'ContractCreation': {
