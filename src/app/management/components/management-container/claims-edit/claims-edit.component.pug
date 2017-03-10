@@ -9,7 +9,7 @@
             kof-create-paytool(
                 *ngIf="showContent && payoutTool",
                 (onChange)="onPayoutToolChange($event)",
-                [contractBankAccount]="contractor && contractor.bankAccount",
+                [contractBankAccount]="contractor?.bankAccount",
                 [defaultPayoutTool]="payoutTool"
             )
             kof-add-shop(
@@ -18,7 +18,7 @@
                 [defaultShop]="shop"
             )
             kof-edit-shop(
-                *ngIf="showContent && editableShop && editableShop.shop",
+                *ngIf="showContent && editableShop?.shop",
                 [shop]="editableShop.shop",
                 [defaultShopChanges]="shopChanges",
                 (onChange)="onShopEditingChange($event)"

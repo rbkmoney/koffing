@@ -7,7 +7,7 @@ div(*ngIf="!shop.isBlocked")
         *ngIf="!claimFound",
         [routerLink]="['/', 'shops', shop.id, 'edit']"
     ) Изменить данные
-dl(*ngIf="shop.details && shop.details.description")
+dl(*ngIf="shop?.details?.description")
     dt Описание
     dd {{shop.details.description}}
 div(*ngIf="shop.callbackHandler")
