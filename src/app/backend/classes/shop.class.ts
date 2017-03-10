@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 
 import { ShopDetails } from './shop-details.class';
-import { Account } from './account.class';
+import { ShopAccount } from './account.class';
 import { CallbackHandler } from './callback-handler.class';
 import { UpdateShopParams } from './update-shop-params.class';
 
@@ -13,12 +13,12 @@ export class Shop {
     public contractID: number;
     public payoutToolID: number;
     public details: ShopDetails;
-    public account: Account;
+    public account: ShopAccount;
     public callbackHandler: CallbackHandler;
 
     constructor() {
         this.details = new ShopDetails();
-        this.account = new Account();
+        this.account = new ShopAccount();
         this.callbackHandler = new CallbackHandler();
     }
 
