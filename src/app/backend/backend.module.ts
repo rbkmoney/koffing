@@ -60,7 +60,7 @@ export * from './classes/shop-details.class';
 export * from './classes/shop-item.class';
 export * from './classes/shop-location.class';
 export * from './classes/location-name.class';
-export * from './classes/update-shop-params.class';
+export * from './classes/shop-params.class';
 export * from './classes/claim/contract-creation.class';
 export * from './classes/claim/contract-modification.class';
 export * from './classes/claim/contract-payout-tool-creation.class';

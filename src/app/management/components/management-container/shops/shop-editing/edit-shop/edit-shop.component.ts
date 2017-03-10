@@ -8,7 +8,7 @@ import { PayoutTool } from 'koffing/backend/classes/payout-tool.class';
 import { ContractService } from 'koffing/backend/services/contract.service';
 import { Category } from 'koffing/backend/classes/category.class';
 import { SelectItem } from 'koffing/common/common.module';
-import { UpdateShopParams } from 'koffing/backend/classes/update-shop-params.class';
+import { ShopParams } from 'koffing/backend/classes/shop-params.class';
 import { ShopDetails } from 'koffing/backend/backend.module';
 import { ShopLocationUrl } from 'koffing/backend/classes/shop-location-url.class';
 import { ShopEditingTransfer } from './shop-editing-transfer.class';
@@ -23,8 +23,8 @@ export class EditShopComponent implements OnInit, AfterViewInit {
     @Input()
     public shop: Shop;
     @Input()
-    public defaultShopChanges: UpdateShopParams;
-    public shopEditing: UpdateShopParams;
+    public defaultShopChanges: ShopParams;
+    public shopEditing: ShopParams;
     public selectedContract: Contract;
     public selectedPayoutTool: PayoutTool;
     public contracts: Contract[] = [];
@@ -147,8 +147,8 @@ export class EditShopComponent implements OnInit, AfterViewInit {
         return _.find(this.contracts, (contract) => contract.id === contractID);
     }
 
-    private getInstance(details: ShopDetails): UpdateShopParams {
-        const instance = new UpdateShopParams();
+    private getInstance(details: ShopDetails): ShopParams {
+        const instance = new ShopParams();
         instance.details = details;
         if (this.defaultShopChanges) {
             instance.update(this.defaultShopChanges);
