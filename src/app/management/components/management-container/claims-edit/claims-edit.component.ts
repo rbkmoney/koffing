@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
 
@@ -22,6 +22,7 @@ import { ShopModification } from 'koffing/backend/classes/claim/shop-modificatio
 import { ShopUpdate } from 'koffing/backend/classes/claim/shop-update.class';
 import { ShopEditingTransfer } from 'koffing/management/components/management-container/shops/shop-editing/edit-shop/shop-editing-transfer.class';
 import { EditableShop } from './editable-shop.class';
+import { CreatePayoutToolComponent } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-paytool/create-paytool/create-paytool.component';
 
 @Component({
     selector: 'kof-claims-edit',
@@ -42,6 +43,8 @@ export class ClaimsEditComponent implements OnInit {
     private paytoolReady: boolean;
     private shopReady: boolean;
     private formsTouched: boolean = false;
+    @ViewChild('createPaytool')
+    private createPaytoolComponent: CreatePayoutToolComponent;
 
     constructor(
         private claimService: ClaimService,
@@ -57,28 +60,25 @@ export class ClaimsEditComponent implements OnInit {
     public onContractorChange(value: ContractorTransfer) {
         this.formsTouched = true;
         this.contractorReady = value.valid;
-        if (value.valid) {
-            this.contractor = value.contractor;
+        this.contractor = value.contractor;
+        if (this.createPaytoolComponent) {
+            this.createPaytoolComponent.compareAccounts();
         }
     }
 
     public onPayoutToolChange(value: PaytoolTransfer) {
         this.formsTouched = true;
         this.paytoolReady = value.valid;
-        if (value.valid) {
-            this.payoutTool = value.payoutTool;
-        }
+        this.payoutTool = value.payoutTool;
     }
 
     public onShopFieldsChange(value: ShopDetailTransfer) {
         this.formsTouched = true;
         this.shopReady = value.valid;
-        if (value.valid) {
-            this.shop.details = value.shopDetail;
-            this.shop.categoryID = value.categoryID;
-            if (this.shop.callbackHandler) {
-                this.shop.callbackHandler.url = value.callbackUrl;
-            }
+        this.shop.details = value.shopDetail;
+        this.shop.categoryID = value.categoryID;
+        if (this.shop.callbackHandler) {
+            this.shop.callbackHandler.url = value.callbackUrl;
         }
     }
     
@@ -88,9 +88,7 @@ export class ClaimsEditComponent implements OnInit {
         if (value.dirty) {
             this.formsTouched = true;
         }
-        if (value.valid) {
-            this.editableShop.updateShopParams = value.shopEditing;
-        }
+        this.editableShop.updateShopParams = value.shopEditing;
     }
 
     public canSubmit(): boolean {

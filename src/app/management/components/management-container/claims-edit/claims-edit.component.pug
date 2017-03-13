@@ -1,3 +1,4 @@
+doctype html
 .x_panel.tile
     .x_content
         kof-loading([isLoading]="isLoading")
@@ -7,6 +8,7 @@
                 [defaultContractor]="contractor"
             )
             kof-create-paytool(
+                #createPaytool,
                 *ngIf="showContent && payoutTool",
                 (onChange)="onPayoutToolChange($event)",
                 [contractBankAccount]="contractor?.bankAccount",

@@ -41,6 +41,7 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
         if (this.defaultPayoutTool) {
             _.assign(this.payoutTool, this.defaultPayoutTool);
         }
+        this.compareAccounts();
     }
 
     public ngAfterViewInit() {
@@ -48,6 +49,7 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
     }
 
     public emitData() {
+        this.compareAccounts();
         const transfer = new PaytoolTransfer(this.payoutTool, this.form.valid);
         this.onChange.emit(transfer);
     }
@@ -60,6 +62,16 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
         if (this.sameBankAccountChecked) {
             this.setFormControls(this.contractBankAccount);
             this.emitData();
+        }
+    }
+
+    public contractBankAccountReady(): boolean {
+        return !_.isNil(this.contractBankAccount) && !_.isEmpty(this.contractBankAccount);
+    }
+
+    public compareAccounts() {
+        if (this.payoutTool) {
+            this.sameBankAccountChecked = BankAccountComparator.isEqual(this.payoutTool.bankAccount, this.contractBankAccount);
         }
     }
 
