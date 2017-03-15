@@ -3,5 +3,5 @@ import { ShopAccount } from 'koffing/backend/classes/account.class';
 
 export class ShopAccountCreation extends ShopModification {
 
-    account: ShopAccount;
+    public account: ShopAccount;
 }

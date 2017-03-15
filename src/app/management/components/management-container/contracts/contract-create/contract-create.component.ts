@@ -22,7 +22,7 @@ export class ContractCreateComponent {
     public contractor: Contractor;
     public contractorBankAccount: BankAccount;
     public isPayoutToolReady: boolean = false;
-    public payoutTool: PayoutToolBankAccount;
+    public payoutToolParams: PayoutToolBankAccount;
 
     constructor(
         private router: Router,
@@ -39,7 +39,7 @@ export class ContractCreateComponent {
 
     public onPayoutToolChange(value: PaytoolTransfer) {
         this.isPayoutToolReady = value.valid;
-        this.payoutTool = value.payoutTool;
+        this.payoutToolParams = value.payoutToolParams;
     }
 
     public createContract() {
@@ -47,7 +47,7 @@ export class ContractCreateComponent {
             this.isLoading = true;
             const contractParams = new ContractParams();
             contractParams.contractor = this.contractor;
-            contractParams.payoutToolParams = this.payoutTool;
+            contractParams.payoutToolParams = this.payoutToolParams;
             this.contractService.createContract(contractParams).then(() => {
                 this.isLoading = false;
                 this.claimReceiveBroadcaster.fire();

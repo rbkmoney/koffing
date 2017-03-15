@@ -22,7 +22,7 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
     @Output()
     public onChange = new EventEmitter();
 
-    public payoutTool: PayoutToolBankAccount;
+    public payoutToolParams: PayoutToolBankAccount;
 
     @ViewChild('createPaytoolForm')
     public form: NgForm;
@@ -30,16 +30,16 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
     public sameBankAccountChecked: boolean;
 
     @Input()
-    private defaultPayoutTool: PayoutToolBankAccount;
+    private defaultPayoutToolParams: PayoutToolBankAccount;
 
     constructor(
         private suggestionsService: SuggestionsService
     ) { }
 
     public ngOnInit() {
-        this.payoutTool = this.getInstance();
-        if (this.defaultPayoutTool) {
-            _.assign(this.payoutTool, this.defaultPayoutTool);
+        this.payoutToolParams = this.getInstance();
+        if (this.defaultPayoutToolParams) {
+            _.assign(this.payoutToolParams, this.defaultPayoutToolParams);
         }
     }
 
@@ -48,7 +48,7 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
     }
 
     public emitData() {
-        const transfer = new PaytoolTransfer(this.payoutTool, this.form.valid);
+        const transfer = new PaytoolTransfer(this.payoutToolParams, this.form.valid);
         this.onChange.emit(transfer);
     }
 

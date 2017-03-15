@@ -17,7 +17,7 @@ export class PaytoolDecisionService {
                 private claimService: ClaimService) {
     }
 
-    public createPayoutTool(contractID: number, payoutToolsParams: PayoutToolBankAccount): Promise<PaytoolDecision>  {
+    public createPayoutTool(contractID: number, payoutToolsParams: PayoutToolParams): Promise<PaytoolDecision>  {
         return new Promise((resolve) => {
             this.contractService.createPayoutTool(contractID, payoutToolsParams).then((result: any) => {
                 this.claimService.getClaimById(result.claimID).then((claim: Claim) => {

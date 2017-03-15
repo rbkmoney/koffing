@@ -42,7 +42,7 @@ export class SelectionPaytoolComponent implements AfterViewInit {
 
     public onPayoutToolChange(value: PaytoolTransfer) {
         this.isPayoutToolValid = value.valid;
-        this.payoutToolsParams = value.payoutTool;
+        this.payoutToolsParams = value.payoutToolParams;
     }
 
     public onPayoutToolSelected(payoutToolID: number) {

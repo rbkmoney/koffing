@@ -34,6 +34,7 @@ import { PaytoolDecisionService } from 'koffing/management/components/management
 import { SuggestionsModule } from 'koffing/suggestions/suggestions.module';
 import { ClaimsEditComponent } from 'koffing/management/components/management-container/claims-edit/claims-edit.component';
 import { ShopEditingComponent } from 'koffing/management/components/management-container/shops/shop-editing/shop-editing.component';
+import { ClaimsEditService } from 'koffing/management/services/claims-edit.service';
 
 @NgModule({
     imports: [
@@ -77,13 +78,19 @@ import { ShopEditingComponent } from 'koffing/management/components/management-c
         ClaimsEditComponent,
         ShopEditingComponent
     ],
-    providers: [PaytoolDecisionService]
+    providers: [
+        PaytoolDecisionService,
+        ClaimsEditService
+    ]
 })
 export class ManagementModule { }
 
-export * from '../suggestions/classes/suggestion-settings.const';
 export * from './components/management-container/shops/shop-editing/edit-shop/edit-shop.component';
 export * from './components/management-container/shops/create-shop-wizard/create-shop-wizard.component';
 export * from './components/management-container/contracts/contract-create/contract-create.component';
 export * from './components/management-container/contracts/payout-tool-create/payout-tool-create.component';
 export * from './components/management-container/claims-edit/claims-edit.component';
+
+export * from './services/claims-edit.service';
+
+export * from './classes/claim-data.class';
