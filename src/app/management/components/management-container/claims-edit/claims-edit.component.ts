@@ -114,6 +114,9 @@ export class ClaimsEditComponent implements OnInit {
             this.handleClaimData(claimData);
             this.isLoading = false;
             _.delay(() => {
+                // TODO: здесь разрывается синхронное отображение компонентов после переключения флага isLoading,
+                // TODO: т.к. иначе не успевает отрендериться DOM в компонентах
+                // TODO: пока решение такое, но нужно найти более изящное/правильное
                 this.initIncludes = true;
             }, 0);
         });
