@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import * as _ from 'lodash';
 
 import { ClaimData } from 'koffing/management/classes/claim-data.class';
 import { Claim } from 'koffing/backend/classes/claim/claim.class';
@@ -7,7 +6,6 @@ import { ContractCreation } from 'koffing/backend/classes/claim/contract-creatio
 import { Contractor } from 'koffing/backend/classes/contractor.class';
 import { ContractModification } from 'koffing/backend/classes/claim/contract-modification.class';
 import { ContractPayoutToolCreation } from 'koffing/backend/classes/claim/contract-payout-tool-creation.class';
-import { PayoutToolBankAccount } from 'koffing/backend/classes/payout-tool-bank-account.class';
 import { ShopCreation } from 'koffing/backend/classes/claim/shop-creation.class';
 import { Shop } from 'koffing/backend/classes/shop.class';
 import { ShopModification } from 'koffing/backend/classes/claim/shop-modification.class';
@@ -18,7 +16,7 @@ import { ShopParams } from 'koffing/backend/classes/shop-params.class';
 import { PaytoolDecision } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-paytool/paytool-decision.class';
 import { PayoutToolParams } from 'koffing/backend/classes/payout-tool-params.class';
 import { PaytoolDecisionService } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-paytool/paytool-decision.service';
-import { ShopEditingParams } from 'koffing/management/components/management-container/claims-edit/shop-editing-params.class';
+import { ClaimDataService } from 'koffing/management/services/claim-data.service';
 
 @Injectable()
 export class ClaimsEditService {
@@ -26,7 +24,8 @@ export class ClaimsEditService {
     constructor(
         private claimService: ClaimService,
         private shopService: ShopService,
-        private paytoolDecisionService: PaytoolDecisionService
+        private paytoolDecisionService: PaytoolDecisionService,
+        private claimDataService: ClaimDataService
     ) { }
 
     public getClaimData(): Promise<ClaimData> {
@@ -85,7 +84,7 @@ export class ClaimsEditService {
                 decision.contractID,
                 decision.payoutToolID,
                 shop.callbackHandler ? shop.callbackHandler.url : undefined
-            ))
+            ));
         });
     }
 
@@ -112,61 +111,48 @@ export class ClaimsEditService {
     private handleClaim(claim: Claim): Promise<ClaimData> {
         return new Promise((resolve) => {
             const claimData = new ClaimData();
-
-            let setCounter = claim.changeset.length;
-            const setCountdown = () => {
-                if (--setCounter === 0) {
-                    resolve(claimData);
-                }
-            };
+            const handlersPromises = [];
 
             claimData.claimID = claim.id;
             for (let setItem of claim.changeset) {
                 switch (setItem.partyModificationType) {
                     case 'ContractCreation': {
-                        const currentSet: ContractCreation = <ContractCreation> setItem;
-                        claimData.contractor = <Contractor> currentSet.contract.contractor;
-                        setCountdown();
+                        handlersPromises.push(
+                            this.claimDataService.handleContractCreation(claimData, <ContractCreation> setItem)
+                        );
                         break;
                     }
                     case 'ContractModification': {
-                        const currentSet: ContractModification = <ContractModification> setItem;
-                        if (currentSet.contractModificationType === 'ContractPayoutToolCreation') {
-                            const currentSet: ContractPayoutToolCreation = <ContractPayoutToolCreation> setItem;
-                            claimData.payoutToolContractId = currentSet.contractID;
-                            claimData.payoutToolParams = <PayoutToolBankAccount> currentSet.payoutTool.params;
+                        if ((<ContractModification> setItem).contractModificationType === 'ContractPayoutToolCreation') {
+                            handlersPromises.push(
+                                this.claimDataService.handleContractPayoutToolCreation(claimData, <ContractPayoutToolCreation> setItem)
+                            );
                         }
-                        setCountdown();
                         break;
                     }
                     case 'ShopCreation': {
-                        const currentSet: ShopCreation = <ShopCreation> setItem;
-                        claimData.shop = <Shop> currentSet.shop;
-                        setCountdown();
+                        handlersPromises.push(
+                            this.claimDataService.handleShopCreation(claimData, <ShopCreation> setItem)
+                        );
                         break;
                     }
                     case 'ShopModification': {
-                        const currentSet: ShopModification = <ShopModification> setItem;
-                        if (currentSet.shopModificationType === 'ShopUpdate') {
-                            const currentSet: ShopUpdate = <ShopUpdate> setItem;
-                            claimData.shopEditingParams = new ShopEditingParams();
-                            claimData.shopEditingParams.claimShopChanges = currentSet.details;
-                            this.shopService.getShop(currentSet.shopID).then((shop: Shop) => {
-                                _.assign(claimData.shopEditingParams.shop, shop);
-                                claimData.shopEditingParams.shop.update(currentSet.details);
-                                setCountdown();
-                            });
-                        } else {
-                            setCountdown();
+                        if ((<ShopModification> setItem).shopModificationType === 'ShopUpdate') {
+                            handlersPromises.push(
+                                this.claimDataService.handleShopUpdate(claimData, <ShopUpdate> setItem)
+                            );
                         }
                         break;
                     }
                     default: {
-                        setCountdown();
                         break;
                     }
                 }
             }
+
+            Promise.all(handlersPromises).then(() => {
+                resolve(claimData);
+            });
         });
     }
 

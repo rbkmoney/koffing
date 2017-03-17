@@ -35,6 +35,7 @@ import { SuggestionsModule } from 'koffing/suggestions/suggestions.module';
 import { ClaimsEditComponent } from 'koffing/management/components/management-container/claims-edit/claims-edit.component';
 import { ShopEditingComponent } from 'koffing/management/components/management-container/shops/shop-editing/shop-editing.component';
 import { ClaimsEditService } from 'koffing/management/services/claims-edit.service';
+import { ClaimDataService } from 'koffing/management/services/claim-data.service';
 
 @NgModule({
     imports: [
@@ -80,7 +81,8 @@ import { ClaimsEditService } from 'koffing/management/services/claims-edit.servi
     ],
     providers: [
         PaytoolDecisionService,
-        ClaimsEditService
+        ClaimsEditService,
+        ClaimDataService
     ]
 })
 export class ManagementModule { }
