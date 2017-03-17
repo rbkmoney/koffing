@@ -58,7 +58,7 @@ export class ClaimsEditService {
                         resolve();
                     });
                 } else if (claimData.payoutToolParams && claimData.shop && !claimData.contractor) {
-                    return this.createPaytoolAndShop(claimData.payoutToolContractId, claimData.payoutToolParams, claimData.shop).then(() => {
+                    return this.createPayoutToolAndShop(claimData.payoutToolContractId, claimData.payoutToolParams, claimData.shop).then(() => {
                         resolve();
                     });
                 } else if (claimData.shopEditingParams && !claimData.shop && !claimData.contractor) {
@@ -92,7 +92,7 @@ export class ClaimsEditService {
         return this.paytoolDecisionService.createPayoutTool(contractID, payoutToolsParams);
     }
 
-    private createPaytoolAndShop(contractID: number, payoutToolsParams: PayoutToolParams, shop: Shop): Promise<string> {
+    private createPayoutToolAndShop(contractID: number, payoutToolsParams: PayoutToolParams, shop: Shop): Promise<string> {
         return this.createPayoutTool(contractID, payoutToolsParams).then((decision: PaytoolDecision) => {
             return this.shopService.createShop(new ShopParams(
                 shop.categoryID,
