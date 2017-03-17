@@ -58,7 +58,7 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
         return field.dirty && field.invalid;
     }
 
-    public copyContractBankAccount(event: any) {
+    public copyContractBankAccount() {
         if (this.sameBankAccountChecked) {
             this.setFormControls(this.contractBankAccount);
             this.emitData();
