@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import * as _ from 'lodash';
 
 import { ContractorTransfer } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-contract/create-contract/contractor-transfer.class';
 import { PaytoolTransfer } from 'koffing/management/components/management-container/shops/create-shop-wizard/selection-paytool/create-paytool/paytool-transfer.class';
@@ -16,6 +17,7 @@ export class ClaimsEditComponent implements OnInit {
 
     public claimData: ClaimData;
     public isLoading: boolean = false;
+    public initIncludes: boolean = false;
     private contractorReady: boolean;
     private paytoolReady: boolean;
     private shopReady: boolean;
@@ -111,6 +113,9 @@ export class ClaimsEditComponent implements OnInit {
         this.claimsEditService.getClaimData().then((claimData: ClaimData) => {
             this.handleClaimData(claimData);
             this.isLoading = false;
+            _.delay(() => {
+                this.initIncludes = true;
+            }, 0);
         });
     }
 }
