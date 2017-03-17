@@ -41,92 +41,72 @@ export class ClaimsEditService {
         });
     }
 
-    public saveChanges(claimData: ClaimData): Promise<boolean> {
-        return new Promise((resolve) => {
+    public saveChanges(claimData: ClaimData): Promise<any> {
+        return new Promise((resolve, reject) => {
             this.claimService.revokeClaim(claimData.claimID, {
                 reason: 'edit claim'
             }).then(() => {
                 if (claimData.contractor && claimData.payoutToolParams && !claimData.shop) {
-                    this.createContract(claimData.contractor, claimData.payoutToolParams).then(() => {
-                        resolve(true);
+                    return this.createContract(claimData.contractor, claimData.payoutToolParams).then(() => {
+                        resolve();
                     });
                 } else if (claimData.contractor && claimData.payoutToolParams && claimData.shop) {
-                    this.createContractAndShop(claimData.contractor, claimData.payoutToolParams, claimData.shop).then(() => {
-                        resolve(true);
+                    return this.createContractAndShop(claimData.contractor, claimData.payoutToolParams, claimData.shop).then(() => {
+                        resolve();
                     });
                 } else if (claimData.payoutToolParams && !claimData.contractor && !claimData.shop) {
-                    this.createPayoutTool(claimData.payoutToolContractId, claimData.payoutToolParams).then(() => {
-                        resolve(true);
+                    return this.createPayoutTool(claimData.payoutToolContractId, claimData.payoutToolParams).then(() => {
+                        resolve();
                     });
                 } else if (claimData.payoutToolParams && claimData.shop && !claimData.contractor) {
-                    this.createPaytoolAndShop(claimData.payoutToolContractId, claimData.payoutToolParams, claimData.shop).then(() => {
-                        resolve(true);
+                    return this.createPaytoolAndShop(claimData.payoutToolContractId, claimData.payoutToolParams, claimData.shop).then(() => {
+                        resolve();
                     });
                 } else if (claimData.shopEditingParams && !claimData.shop && !claimData.contractor) {
-                    this.updateShop(claimData.shopEditingParams.shop.id, claimData.shopEditingParams.updatedShopParams).then(() => {
-                        resolve(true);
+                    return this.updateShop(claimData.shopEditingParams.shop.id, claimData.shopEditingParams.updatedShopParams).then(() => {
+                        resolve();
                     });
                 } else {
-                    resolve(false);
+                    reject();
                 }
             });
         });
     }
 
     private createContract(contractor: Contractor, payoutToolParams: PayoutToolParams): Promise<PaytoolDecision> {
-        return new Promise((resolve) => {
-            this.paytoolDecisionService.createContract(contractor, payoutToolParams).then((decision: PaytoolDecision) => {
-                resolve(decision);
-            });
-        });
+        return this.paytoolDecisionService.createContract(contractor, payoutToolParams);
     }
 
     private createContractAndShop(contractor: Contractor, payoutToolParams: PayoutToolParams, shop: Shop): Promise<any> {
-        return new Promise((resolve) => {
-            this.paytoolDecisionService.createContract(contractor, payoutToolParams).then((decision: PaytoolDecision) => {
-                this.shopService.createShop(new ShopParams(
-                    shop.categoryID,
-                    shop.details,
-                    decision.contractID,
-                    decision.payoutToolID,
-                    shop.callbackHandler ? shop.callbackHandler.url : undefined
-                )).then(() => {
-                    resolve();
-                });
-            });
+        return this.paytoolDecisionService.createContract(contractor, payoutToolParams).then((decision: PaytoolDecision) => {
+            return this.shopService.createShop(new ShopParams(
+                shop.categoryID,
+                shop.details,
+                decision.contractID,
+                decision.payoutToolID,
+                shop.callbackHandler ? shop.callbackHandler.url : undefined
+            ))
         });
     }
 
     private createPayoutTool(contractID: number, payoutToolsParams: PayoutToolParams): Promise<PaytoolDecision> {
-        return new Promise((resolve) => {
-            this.paytoolDecisionService.createPayoutTool(contractID, payoutToolsParams).then((decision: PaytoolDecision) => {
-                resolve(decision);
-            });
+        return this.paytoolDecisionService.createPayoutTool(contractID, payoutToolsParams);
+    }
+
+    private createPaytoolAndShop(contractID: number, payoutToolsParams: PayoutToolParams, shop: Shop): Promise<string> {
+        return this.createPayoutTool(contractID, payoutToolsParams).then((decision: PaytoolDecision) => {
+            return this.shopService.createShop(new ShopParams(
+                shop.categoryID,
+                shop.details,
+                decision.contractID,
+                decision.payoutToolID,
+                shop.callbackHandler ? shop.callbackHandler.url : undefined
+            ));
         });
     }
 
-    private createPaytoolAndShop(contractID: number, payoutToolsParams: PayoutToolParams, shop: Shop): Promise<any> {
-        return new Promise((resolve) => {
-            this.createPayoutTool(contractID, payoutToolsParams).then((decision: PaytoolDecision) => {
-                this.shopService.createShop(new ShopParams(
-                    shop.categoryID,
-                    shop.details,
-                    decision.contractID,
-                    decision.payoutToolID,
-                    shop.callbackHandler ? shop.callbackHandler.url : undefined
-                )).then(() => {
-                    resolve();
-                });
-            });
-        });
-    }
-
-    private updateShop(shopID: number, updatedShopParams: ShopParams): Promise<any> {
-        return new Promise((resolve) => {
-            this.shopService.updateShop(shopID, updatedShopParams).then(() => {
-                resolve();
-            });
-        });
+    private updateShop(shopID: number, updatedShopParams: ShopParams): Promise<string> {
+        return this.shopService.updateShop(shopID, updatedShopParams);
     }
 
     private handleClaim(claim: Claim): Promise<ClaimData> {

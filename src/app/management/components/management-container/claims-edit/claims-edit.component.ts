@@ -93,11 +93,9 @@ export class ClaimsEditComponent implements OnInit {
 
     public saveChanges() {
         this.isLoading = true;
-        this.claimsEditService.saveChanges(this.claimData).then((succeeded: boolean) => {
+        this.claimsEditService.saveChanges(this.claimData).then(() => {
             this.isLoading = false;
-            if (succeeded) {
-                this.returnToManagement();
-            }
+            this.returnToManagement();
         });
     }
 
