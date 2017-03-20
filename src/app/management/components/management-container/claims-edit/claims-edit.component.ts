@@ -18,7 +18,7 @@ export class ClaimsEditComponent implements OnInit {
 
     public claimData: ClaimData;
     public isLoading: boolean = false;
-    public initIncludes: boolean = false;
+    public initComponents: boolean = false;
     private contractorReady: boolean;
     private paytoolReady: boolean;
     private shopReady: boolean;
@@ -115,7 +115,7 @@ export class ClaimsEditComponent implements OnInit {
                 // TODO: здесь разрывается синхронное отображение компонентов после переключения флага isLoading,
                 // TODO: т.к. иначе не успевает отрендериться DOM в компонентах
                 // TODO: пока решение такое, но нужно найти более изящное/правильное
-                this.initIncludes = true;
+                this.initComponents = true;
             }, 0);
         });
     }

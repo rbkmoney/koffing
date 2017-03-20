@@ -71,7 +71,7 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
 
     public compareAccounts() {
         if (this.payoutToolParams) {
-            this.sameBankAccountChecked = BankAccountComparator.isEqual(this.payoutTool.bankAccount, this.contractBankAccount);
+            this.sameBankAccountChecked = BankAccountComparator.isEqual(this.payoutToolParams.bankAccount, this.contractBankAccount);
         }
     }
 
