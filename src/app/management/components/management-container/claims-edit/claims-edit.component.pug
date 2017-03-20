@@ -3,26 +3,26 @@ doctype html
     .x_content
         kof-loading([isLoading]="isLoading")
             kof-create-contract(
-                *ngIf="showContent && contractor",
+                *ngIf="initIncludes && claimData?.contractor",
                 (onChange)="onContractorChange($event)",
-                [defaultContractor]="contractor"
+                [defaultContractor]="claimData.contractor"
             )
             kof-create-paytool(
                 #createPaytool,
-                *ngIf="showContent && payoutTool",
+                *ngIf="initIncludes && claimData?.payoutToolParams",
                 (onChange)="onPayoutToolChange($event)",
-                [contractBankAccount]="contractor?.bankAccount",
-                [defaultPayoutTool]="payoutTool"
+                [contractBankAccount]="claimData.contractor?.bankAccount",
+                [defaultPayoutToolParams]="claimData.payoutToolParams"
             )
             kof-add-shop(
-                *ngIf="showContent && shop",
+                *ngIf="initIncludes && claimData?.shop",
                 (onChange)="onShopFieldsChange($event)",
-                [defaultShop]="shop"
+                [defaultShop]="claimData.shop"
             )
             kof-edit-shop(
-                *ngIf="showContent && editableShop?.shop",
-                [shop]="editableShop.shop",
-                [defaultShopChanges]="shopChanges",
+                *ngIf="initIncludes && claimData?.shopEditingParams",
+                [shop]="claimData.shopEditingParams.shop",
+                [defaultShopChanges]="claimData.shopEditingParams.claimShopChanges",
                 (onChange)="onShopEditingChange($event)"
             )
             .form-group
