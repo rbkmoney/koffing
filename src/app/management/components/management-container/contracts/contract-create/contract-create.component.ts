@@ -41,6 +41,7 @@ export class ContractCreateComponent {
         this.isContractorReady = value.valid;
         this.contractor = value.contractor;
         this.contractorBankAccount = value.contractor.bankAccount;
+        this.createPaytoolComponent.compareAccounts();
     }
 
     public onPayoutToolChange(value: PaytoolTransfer) {
