@@ -1,9 +1,8 @@
-.x_panel.tile
+.x_panel
     .x_title
         h4 Выбор существующего счета
     kof-loading([isLoading]="isLoading")
         .x_content
-            .tile
-                kof-select(*ngIf="selectableItems.length", [(ngModel)]="selectedPayoutToolId", [items]="selectableItems", (onChange)="selectPayoutAccount()", [modelOptions]="{standalone: true}", name='selectedPayoutTool')
+            kof-select(*ngIf="selectableItems.length", [(ngModel)]="selectedPayoutToolId", [items]="selectableItems", (onChange)="selectPayoutAccount()", [modelOptions]="{standalone: true}", name='selectedPayoutTool')
             .ln_solid(*ngIf="selectedPayoutTool")
             kof-payout-tool-view([payoutTool]="selectedPayoutTool")

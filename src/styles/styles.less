@@ -12,8 +12,38 @@ form {
     font-weight: 600;
 }
 
+.right_col {
+    display: block;
+    position: relative;
+    min-height: 100vh;
+    padding: 0 !important;
+}
+
+.top_nav {
+    margin: 0 !important;
+    .nav_menu {
+        float: none;
+        display: table;
+        margin: 0;
+        .toggle {
+            float: none;
+            display: table-cell;
+            vertical-align: middle;
+            padding: 0;
+        }
+        .navbar-right {
+            float: none;
+            display: table-cell;
+            vertical-align: middle;
+            padding: 0;
+        }
+    }
+}
+
 .outlet {
-    min-height: 900px;
+    display: block;
+    position: relative;
+    padding: 10px;
 }
 
 .credit_card_group {
