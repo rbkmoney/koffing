@@ -21,11 +21,13 @@ export class AccountComponent implements OnInit {
 
     public ngOnInit() {
         this.route.params.subscribe((params: Params) => {
-            const accountPath = (params['path'] === 'edit') ? '' : params['path'];
-            const keycloakUrl = AuthService.getAccountInfo().authUrl;
-            const accountFrameUrl = `${_.trimEnd(keycloakUrl, '/')}/realms/external/account/${accountPath}`;
-            this.accountFrameUrl = this.sanitizer.bypassSecurityTrustResourceUrl(accountFrameUrl);
+            this.accountFrameUrl = this.getAccountFrameUrl(params);
         });
     }
 
+    private getAccountFrameUrl(params: Params): SafeResourceUrl {
+        const accountPath = (params['path'] === 'edit') ? '' : params['path'];
+        const url = `${_.trimEnd(AuthService.getAccountInfo().authUrl, '/')}/realms/external/account/${accountPath}`;
+        return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    }
 }

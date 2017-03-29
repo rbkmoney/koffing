@@ -6,13 +6,13 @@ import { Component } from '@angular/core';
 })
 export class SidebarComponent {
 
-    public openedSubMenu: string = '';
+    public isOpenedSubMenu: boolean;
 
-    public openSubMenu(subMenu: string) {
-        this.openedSubMenu = (this.openedSubMenu === subMenu) ? '' : subMenu;
+    public openSubMenu() {
+        this.isOpenedSubMenu = !this.isOpenedSubMenu;
     }
 
     public closeSubMenu() {
-        this.openedSubMenu = '';
+        this.isOpenedSubMenu = false;
     }
 }

@@ -15,7 +15,7 @@
                         a([routerLink]=["/management"])
                             i.fa.fa-shopping-cart
                             | Управление магазинами
-                    li([routerLinkActive]="['active']", (click)="openSubMenu('account')", [ngClass]="{'opened': openedSubMenu === 'account'}")
+                    li([routerLinkActive]="['active']", (click)="openSubMenu()", [ngClass]="{'opened': isOpenedSubMenu}")
                         a
                             i.fa.fa-user
                             | Мои данные

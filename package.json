@@ -24,7 +24,7 @@
     "gentelella": "git@github.com:rbkmoney/gentelella.git#0ef12576ea401235c39f8621f6b51e4afcff83fd",
     "suggestions-jquery": "git@github.com:hflabs/suggestions-jquery.git#9580698defdc94384e3a3692e1fc841b0c1aec54",
     "jquery": "3.1.1",
-    "keycloak-js": "2.5.4",
+    "keycloak-js": "2.3.0",
     "lodash": "4.16.6",
     "moment": "2.16.0",
     "ng2-charts": "1.4.1",
