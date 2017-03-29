@@ -8,7 +8,7 @@ export class SidebarComponent {
 
     public isOpenedSubMenu: boolean;
 
-    public openSubMenu() {
+    public toggleSubMenu() {
         this.isOpenedSubMenu = !this.isOpenedSubMenu;
     }
 
