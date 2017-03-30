@@ -55,14 +55,29 @@ export class DashboardComponent implements OnInit {
     ) {}
 
     public ngOnInit() {
-        this.toTimeDate = new Date();
-        this.fromTimeDate = new Date();
-        this.fromTimeDate.setMonth(this.fromTimeDate.getMonth() - 1);
-
+        this.initTimeDate();
         this.route.parent.params.subscribe((params: Params) => {
             this.shopID = Number(params['shopID']);
             this.loadData();
         });
+    }
+
+    get _toTimeDate(): any {
+        return this.toTimeDate;
+    }
+
+    set _toTimeDate(value: any) {
+        this.toTimeDate = value;
+        this.toTimeDate.setHours(23, 59, 59, 0);
+    }
+
+    private initTimeDate() {
+        this.fromTimeDate = new Date();
+        this.fromTimeDate.setHours(0, 0, 0, 0);
+        this.fromTimeDate.setMonth(this.fromTimeDate.getMonth() - 1);
+
+        this.toTimeDate = new Date();
+        this.toTimeDate.setHours(23, 59, 59, 0);
     }
 
     private loadData() {
