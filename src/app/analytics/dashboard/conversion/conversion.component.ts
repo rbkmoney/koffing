@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
 
-import { CHART_OPTIONS } from './../chart-options.const';
+import { CHART_OPTIONS } from '../chart-options.const';
 import { ConversionDataService } from './conversion-data.service';
 
 @Component({

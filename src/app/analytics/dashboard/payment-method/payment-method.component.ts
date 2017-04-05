@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import * as _ from 'lodash';
 
-import { CHART_OPTIONS } from './../chart-options.const';
+import { CHART_OPTIONS } from '../chart-options.const';
 
 @Component({
     selector: 'kof-payment-method',

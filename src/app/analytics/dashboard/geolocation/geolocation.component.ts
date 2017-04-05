@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
 
-import { CHART_OPTIONS } from './../chart-options.const';
-import { GeoChartLabeled } from './../geo-chart-labeled.class';
+import { CHART_OPTIONS } from '../chart-options.const';
+import { GeoChartLabeled } from '../geo-chart-labeled.class';
 
 @Component({
     selector: 'kof-geolocation',
