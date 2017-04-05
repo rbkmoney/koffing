@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import * as moment from 'moment';
 
@@ -15,17 +15,17 @@ import { LocationName } from 'koffing/backend/backend.module';
 import { GeoChartLabeled } from './geo-chart-labeled.class';
 import { Shop } from 'koffing/backend/classes/shop.class';
 import { GeoChartData } from './geo-chart-data.class';
+import { DateRange } from 'koffing/analytics/dashboard/date-range-selector/date-range.class';
 
 @Component({
-    templateUrl: './dashboard.component.pug',
-    styleUrls: ['./dashboard.component.less'],
-    encapsulation: ViewEncapsulation.None
+    templateUrl: './dashboard.component.pug'
 })
 export class DashboardComponent implements OnInit {
 
     public shopID: number;
-    public fromTime: Date;
-    public toTime: Date;
+    public fromTime: Date = moment().subtract(1, 'month').hour(0).minute(0).second(0).toDate();
+    public toTime: Date = moment().hour(23).minute(59).second(59).toDate();
+
     public uniqueCount: any;
     public successfulCount: any;
     public unfinishedCount: any;
@@ -36,6 +36,7 @@ export class DashboardComponent implements OnInit {
     public conversionChartData: any;
     public geoChartData: GeoChartLabeled;
     public paymentMethodChartData: any;
+
     public revenueLoading: boolean;
     public conversionLoading: boolean;
     public paymentMethodLoading: boolean;
@@ -43,7 +44,6 @@ export class DashboardComponent implements OnInit {
     public rateLoading: boolean;
     public guaranteeLoading: boolean;
     public settlementLoading: boolean;
-    public isInvalidDate = false;
 
     constructor(
         private route: ActivatedRoute,
@@ -55,33 +55,16 @@ export class DashboardComponent implements OnInit {
     ) {}
 
     public ngOnInit() {
-        this.fromTime = moment().subtract(1, 'month').hour(0).minute(0).second(0).toDate();
-        this.toTime = moment().hour(23).minute(59).second(59).toDate();
-
         this.route.parent.params.subscribe((params: Params) => {
             this.shopID = Number(params['shopID']);
-            this.loadData();
+            this.loadData(new DateRange(this.fromTime, this.toTime));
         });
     }
 
-    public selectFromTime() {
-        this.fromTime = moment(this.fromTime).hour(0).minute(0).second(0).toDate();
-    }
-
-    public selectToTime() {
-        this.toTime = moment(this.toTime).hour(23).minute(59).second(59).toDate();
-    }
-
-    public loadData() {
-        if (this.fromTime.getTime() >= this.toTime.getTime()) {
-            this.isInvalidDate = true;
-            return false;
-        }
-        this.isInvalidDate = false;
-
+    public loadData(dateRange: DateRange) {
         const shopID = this.shopID;
-        const fromTime = moment(this.fromTime).format();
-        const toTime = moment(this.toTime).format();
+        const fromTime = moment(dateRange.from).format();
+        const toTime = moment(dateRange.to).format();
 
         this.loadPaymentMethod(shopID, fromTime, toTime);
         this.loadGeoChartData(shopID, fromTime, toTime);

@@ -20,6 +20,7 @@ import { CommonModule } from 'koffing/common/common.module';
 import { CalendarModule } from 'primeng/components/calendar/calendar';
 import { BackendModule } from 'koffing/backend/backend.module';
 import { AnalyticsComponent } from 'koffing/analytics/analytics.component';
+import { DateRangeSelectorComponent } from 'koffing/analytics/dashboard/date-range-selector/date-range-selector.component';
 
 @NgModule({
     imports: [
@@ -31,6 +32,7 @@ import { AnalyticsComponent } from 'koffing/analytics/analytics.component';
         BackendModule
     ],
     declarations: [
+        DateRangeSelectorComponent,
         AnalyticsComponent,
         DashboardComponent,
         FinanceComponent,
