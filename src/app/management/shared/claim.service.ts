@@ -8,10 +8,13 @@ import { Claim } from './claim.class';
 @Injectable()
 export class ClaimService {
 
-    constructor(private http: Http, private config: ConfigService) { }
+    constructor(
+        private http: Http,
+        private config: ConfigService
+    ) { }
 
     public getClaim(queryParams: any): Promise<Claim[]> {
-        let params = new URLSearchParams();
+        const params = new URLSearchParams();
 
         params.set('claimStatus', queryParams.status);
 
@@ -19,7 +22,7 @@ export class ClaimService {
                 search: params
             })
             .toPromise()
-            .then(response => response.json());
+            .then((response) => response.json());
 
     }
 
@@ -30,13 +33,13 @@ export class ClaimService {
         };
         return this.http.put(url, params)
             .toPromise()
-            .then(response => response.statusText);
+            .then((response) => response.statusText);
     }
 
-    public getClaimById(claimID: any): Promise<any> {
+    public getClaimByID(claimID: any): Promise<any> {
         const url = `${this.config.capiUrl}/processing/claims/${claimID}`;
         return this.http.get(url)
             .toPromise()
-            .then(response => response.json());
+            .then((response) => response.json());
     }
 }

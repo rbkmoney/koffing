@@ -84,10 +84,3 @@ import { ClaimService } from './shared/claim.service';
     ]
 })
 export class ManagementModule { }
-
-// todo выпилить эти костыли, сейчас они используются в root-routing.module
-export * from './shops/shop-editing/edit-shop/edit-shop.component';
-export * from './shops/create-shop-wizard/create-shop-wizard.component';
-export * from './contracts/contract-create/contract-create.component';
-export * from './contracts/payout-tool-create/payout-tool-create.component';
-export * from './claims/claims-edit/claims-edit.component';

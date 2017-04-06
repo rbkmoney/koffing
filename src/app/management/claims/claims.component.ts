@@ -16,16 +16,18 @@ export class ClaimsComponent implements OnInit {
     public showClaimInfo: boolean = false;
     public revokeReason: string;
 
-    constructor(private claimService: ClaimService,
-                private claimReceiveBroadcaster: ClaimReceiveBroadcaster,
-                private claimRevokeBroadcaster: ClaimRevokeBroadcaster) { }
+    constructor(
+        private claimService: ClaimService,
+        private claimReceiveBroadcaster: ClaimReceiveBroadcaster,
+        private claimRevokeBroadcaster: ClaimRevokeBroadcaster
+    ) { }
 
     public revoke(reasonControl: any) {
         if (!reasonControl.valid) {
             return;
         }
 
-        let revokeDetails = {
+        const revokeDetails = {
             reason: this.revokeReason
         };
 
