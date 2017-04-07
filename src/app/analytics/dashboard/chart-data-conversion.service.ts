@@ -1,20 +1,20 @@
 import * as _ from 'lodash';
 import  Dictionary = _.Dictionary;
 
-import { PaymentGeoStat } from 'koffing/backend/classes/geodata.class';
-import { LocationName } from 'koffing/backend/classes/location-name.class';
 import { GeoChartData } from './geo-chart-data.class';
 import { GeoChartLabeled } from './geo-chart-labeled.class';
+import { PaymentGeoStat } from 'koffing/backend/model/payment-geo-stat.class';
+import { LocationName } from 'koffing/backend/model/location-name.class';
+import { PaymentMethodStat } from 'koffing/backend/model/payment-method-stat.class';
+import { PaymentMethodChartData } from 'koffing/analytics/dashboard/chart-data/payment-method-chart-data.class';
+import { PaymentCount } from 'koffing/analytics/dashboard/chart-data/payment-count.class';
+import { ConversionChartData } from 'koffing/analytics/dashboard/chart-data/conversion-chart-data.class';
+import { PaymentConversionStat } from 'koffing/backend/model/payment-conversion-stat.class';
 
 export class ChartDataConversionService {
 
-    public static toPaymentMethodChartData(paymentMethodStat: any): any {
-        return _.map(paymentMethodStat, (item: any) => {
-            return {
-                totalCount: item.totalCount,
-                paymentSystem: item.paymentSystem
-            };
-        });
+    public static toPaymentMethodChartData(paymentMethodStats: PaymentMethodStat[]): any {
+        return _.map(paymentMethodStats, (item) => new PaymentMethodChartData(item.totalCount, item.paymentSystem));
     }
 
     public static toRevenueChartData(revenueStat: any): any {
@@ -57,8 +57,8 @@ export class ChartDataConversionService {
         return _.reduce(revenueStat, (acc: any, item: any) => acc + item.profit, 0);
     }
 
-    public static toPaymentCountInfo(conversionStat: any): any {
-        return _.reduce(conversionStat, (acc: any, item: any) => {
+    public static toPaymentCountInfo(paymentConversionStat: PaymentConversionStat[]): PaymentCount {
+        return _.reduce(paymentConversionStat, (acc: any, item: any) => {
             return {
                 successfulCount: acc.successfulCount + item.successfulCount,
                 unfinishedCount: acc.unfinishedCount + (item.totalCount - item.successfulCount)
@@ -69,12 +69,7 @@ export class ChartDataConversionService {
         });
     }
 
-    public static toConversionChartData(conversionStat: any): any {
-        return _.map(conversionStat, (item: any) => {
-            return {
-                conversion: item.conversion,
-                offset: item.offset
-            };
-        });
+    public static toConversionChartData(paymentConversionStat: PaymentConversionStat[]): ConversionChartData[] {
+        return _.map(paymentConversionStat, (item) => new ConversionChartData(item.conversion, item.offset));
     }
 }
