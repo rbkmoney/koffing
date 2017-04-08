@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
 
 import { CHART_OPTIONS } from '../chart-options.const';
-import { GeoChartLabeled } from '../geo-chart-labeled.class';
+import { PaymentGeoChartData } from 'koffing/analytics/dashboard/chart-data/payment-geo-chart-data.class';
 
 @Component({
     selector: 'kof-geolocation',
@@ -10,7 +10,7 @@ import { GeoChartLabeled } from '../geo-chart-labeled.class';
 export class GeolocationComponent implements OnChanges {
 
     @Input()
-    public chartData: GeoChartLabeled;
+    public chartData: PaymentGeoChartData;
     public data: number[] = [];
     public labels: string[] = [];
     public type: string = 'doughnut';

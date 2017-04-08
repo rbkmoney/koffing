@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
 
 import { CHART_OPTIONS } from '../chart-options.const';
-import { ConversionDataService } from './conversion-data.service';
+import { LineChartData } from 'koffing/analytics/dashboard/chart-data/line-chart-data';
 
 @Component({
     selector: 'kof-conversion',
@@ -10,10 +10,7 @@ import { ConversionDataService } from './conversion-data.service';
 export class ConversionComponent implements OnChanges {
 
     @Input()
-    public fromTime: any;
-
-    @Input()
-    public chartData: any[];
+    public chartData: LineChartData;
 
     public labels: string[];
 
@@ -44,17 +41,8 @@ export class ConversionComponent implements OnChanges {
 
     public ngOnChanges() {
         if (this.chartData) {
-            this.labels = ConversionDataService.toLabels(this.fromTime, this.chartData);
-            const data = ConversionDataService.toData(this.chartData);
-            if (data.length > 0) {
-                this.datasets.pop();
-                this.datasets.push({
-                    data,
-                    label: 'Конверсия'
-                });
-            } else {
-                this.datasets = [];
-            }
+            this.datasets.pop();
+            this.datasets.push(this.chartData.datasets[0]);
         }
     }
 }

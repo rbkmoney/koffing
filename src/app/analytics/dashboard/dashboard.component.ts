@@ -2,20 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import * as moment from 'moment';
 
-import { ChartDataConversionService } from './chart-data-conversion.service';
 import { ShopService }  from 'koffing/backend/services/shop.service';
-import { GeoChartLabeled } from './geo-chart-labeled.class';
 import { Shop } from 'koffing/backend/classes/shop.class';
 import { DateRange } from 'koffing/analytics/dashboard/date-range-selector/date-range.class';
-import { AnalyticsService } from 'koffing/backend/analytics.service';
-import { PaymentGeoStat } from 'koffing/backend/model/payment-geo-stat.class';
-import { LocationService } from 'koffing/backend/location.service';
-import { LocationName } from 'koffing/backend/model/location-name.class';
-import { PaymentRevenueStat } from 'koffing/backend/model/payment-revenue-stat.class';
 import { AccountsService } from 'koffing/backend/accounts.service';
 import { Account } from 'koffing/backend/model/account.class';
 import { DashboardService } from 'koffing/analytics/dashboard/dashboard.service';
 import { PaymentMethodChartData } from 'koffing/analytics/dashboard/chart-data/payment-method-chart-data.class';
+import { PaymentGeoChartData } from 'koffing/analytics/dashboard/chart-data/payment-geo-chart-data.class';
+import { RevenueChartData } from 'koffing/analytics/dashboard/chart-data/revenue-chart-data.class';
+import { LineChartData } from 'koffing/analytics/dashboard/chart-data/line-chart-data';
 
 @Component({
     templateUrl: './dashboard.component.pug',
@@ -27,16 +23,16 @@ export class DashboardComponent implements OnInit {
     public fromTime: Date = moment().subtract(1, 'month').hour(0).minute(0).second(0).toDate();
     public toTime: Date = moment().hour(23).minute(59).second(59).toDate();
 
-    public uniqueCount: any;
-    public successfulCount: any;
-    public unfinishedCount: any;
-    public profit: any;
-    public guaranteeBalance: any;
-    public settlementBalance: any;
-    public revenueChartData: any;
-    public conversionChartData: any;
-    public geoChartData: GeoChartLabeled;
-    public paymentMethodChartData: PaymentMethodChartData;
+    public uniqueCount: number;
+    public successfulCount: number;
+    public unfinishedCount: number;
+    public profit: number;
+    public guaranteeBalance: number;
+    public settlementBalance: number;
+    public revenueChartData: RevenueChartData[];
+    public conversionChartData: LineChartData;
+    public geoChartData: PaymentGeoChartData;
+    public paymentMethodChartData: PaymentMethodChartData[];
 
     public revenueLoading: boolean;
     public conversionLoading: boolean;
@@ -46,14 +42,11 @@ export class DashboardComponent implements OnInit {
     public guaranteeLoading: boolean;
     public settlementLoading: boolean;
 
-    constructor(
-        private route: ActivatedRoute,
-        private accountsService: AccountsService,
-        private shopService: ShopService,
-        private analyticsService: AnalyticsService,
-        private locationService: LocationService,
-        private dashboardService: DashboardService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private accountsService: AccountsService,
+                private shopService: ShopService,
+                private dashboardService: DashboardService) {
+    }
 
     public ngOnInit() {
         this.route.parent.params.subscribe((params: Params) => {
@@ -74,15 +67,15 @@ export class DashboardComponent implements OnInit {
 
     private loadPaymentMethod(shopID: number, fromTime: Date, toTime: Date) {
         this.paymentMethodLoading = true;
-        this.dashboardService.getPaymentMethodChartData(shopID, fromTime, toTime).then((chartData) => {
+        this.dashboardService.getPaymentMethodChartData(shopID, fromTime, toTime).subscribe((data) => {
             this.paymentMethodLoading = false;
-            this.paymentMethodChartData = chartData;
+            this.paymentMethodChartData = data;
         });
     }
 
     private loadRate(shopID: number, from: Date, to: Date) {
         this.rateLoading = true;
-        this.dashboardService.getUniqueCount(shopID, from, to).then((count) => {
+        this.dashboardService.getUniqueCount(shopID, from, to).subscribe((count) => {
             this.rateLoading = false;
             this.uniqueCount = count;
         });
@@ -90,35 +83,28 @@ export class DashboardComponent implements OnInit {
 
     private loadConversionStat(shopID: number, from: Date, to: Date) {
         this.conversionLoading = true;
-        this.dashboardService.getPaymentConversionData(shopID, from, to).then((paymentConversionData) => {
+        this.dashboardService.getPaymentConversionData(shopID, from, to).subscribe((data) => {
             this.conversionLoading = false;
-            this.successfulCount = paymentConversionData.paymentCount.successfulCount;
-            this.unfinishedCount = paymentConversionData.paymentCount.unfinishedCount;
-            this.conversionChartData = paymentConversionData.conversionChartData;
+            this.successfulCount = data.paymentCount.successfulCount;
+            this.unfinishedCount = data.paymentCount.unfinishedCount;
+            this.conversionChartData = data.conversionChartData;
         });
     }
 
-    private loadGeoChartData(shopID: number, fromTime: Date, toTime: Date) {
+    private loadGeoChartData(shopID: number, from: Date, to: Date) {
         this.geoLoading = true;
-        this.analyticsService.getPaymentGeoStats(shopID, fromTime, toTime).then((paymentGeoStat: PaymentGeoStat[]) => {
+        this.dashboardService.getPaymentGeoChartData(shopID, from, to).subscribe((data) => {
             this.geoLoading = false;
-            const unlabeledGeoChartData: any = ChartDataConversionService.toGeoChartData(paymentGeoStat);
-            if (unlabeledGeoChartData.geoIDs.length > 0 && unlabeledGeoChartData.data.length > 0) {
-                this.locationService.getLocationsNames(unlabeledGeoChartData.geoIDs).then((locationNames: LocationName[]) => {
-                    this.geoChartData = ChartDataConversionService.toLabeledGeoChartData(unlabeledGeoChartData, locationNames);
-                });
-            } else {
-                this.geoChartData = new GeoChartLabeled([], []);
-            }
+            this.geoChartData = data;
         });
     }
 
-    private loadRevenueStat(shopID: number, fromTime: Date, toTime: Date) {
+    private loadRevenueStat(shopID: number, from: Date, to: Date) {
         this.revenueLoading = true;
-        this.analyticsService.getPaymentRevenueStats(shopID, fromTime, toTime).then((paymentRevenueStat: PaymentRevenueStat[]) => {
+        this.dashboardService.getPaymentRevenueData(shopID, from, to).subscribe((data) => {
             this.revenueLoading = false;
-            this.revenueChartData = ChartDataConversionService.toRevenueChartData(paymentRevenueStat);
-            this.profit = ChartDataConversionService.toTotalProfit(paymentRevenueStat);
+            this.revenueChartData = data.revenueChartData;
+            this.profit = data.profit;
         });
     }
 

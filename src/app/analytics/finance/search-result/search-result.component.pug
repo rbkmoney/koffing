@@ -3,7 +3,6 @@ table.table.table-hover.table-striped
         tr
             th Номер
             th Сумма
-            th.hidden-xs Валюта
             th Дата создания
             th Статус
             th.hidden-xs Описание
@@ -11,7 +10,6 @@ table.table.table-hover.table-striped
         tr(*ngFor="let invoice of invoices")
             td {{invoice.id}}
             td {{invoice.amount | kofRoubleCurrency}}
-            td.hidden-xs {{invoice.currency}}
             td {{invoice.createdAt | date: "dd.MM.yyyy HH:mm:ss"}}
             td {{invoice.status | kofPaymentStatus}}
             td.hidden-xs {{invoice.description}}

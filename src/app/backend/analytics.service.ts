@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, URLSearchParams } from '@angular/http';
 import * as moment from 'moment';
-import * as _ from 'lodash';
+import { toString } from 'lodash';
+import { Observable } from 'rxjs/Observable';
 
 import { ConfigService } from 'koffing/backend/services/config.service';
 import { PaymentMethodStat } from 'koffing/backend/model/payment-method-stat.class';
@@ -17,65 +18,60 @@ export class AnalyticsService {
                 private config: ConfigService) {
     }
 
-    public getPaymentMethodStats(shopID: number, from: Date, to: Date, splitUnit?: string, splitSize?: number, paymentMethod?: string): Promise<PaymentMethodStat[]> {
+    public getPaymentMethodStats(shopID: number, from: Date, to: Date, splitUnit?: string, splitSize?: number, paymentMethod?: string): Observable<PaymentMethodStat[]> {
         const params = new URLSearchParams();
-        params.set('fromTime', this.getDate(from));
-        params.set('toTime', this.getDate(to));
+        params.set('fromTime', this.toUTC(from));
+        params.set('toTime', this.toUTC(to));
         params.set('splitUnit', splitUnit || 'minute');
         params.set('splitSize', this.getSplitSize(splitSize));
         params.set('paymentMethod', paymentMethod || 'bankCard');
         return this.http.get(`${this.config.capiUrl}/analytics/shops/${shopID}/customers/stats/payment_method`, {search: params})
-            .toPromise()
-            .then((response) => response.json());
+            .map((res) => res.json());
     }
 
-    public getPaymentRateStats(shopID: number, from: Date, to: Date): Promise<PaymentRateStat> {
+    public getPaymentRateStats(shopID: number, from: Date, to: Date): Observable<PaymentRateStat> {
         const params = new URLSearchParams();
-        params.set('fromTime', this.getDate(from));
-        params.set('toTime', this.getDate(to));
+        params.set('fromTime', this.toUTC(from));
+        params.set('toTime', this.toUTC(to));
         return this.http.get(`${this.config.capiUrl}/analytics/shops/${shopID}/customers/stats/rate`, {search: params})
-            .toPromise()
-            .then((response) => response.json());
+            .map((res) => res.json());
     }
 
-    public getPaymentConversionStats(shopID: number, from: Date, to: Date, splitUnit?: string, splitSize?: number): Promise<PaymentConversionStat[]> {
+    public getPaymentConversionStats(shopID: number, from: Date, to: Date, splitUnit?: string, splitSize?: number): Observable<PaymentConversionStat[]> {
         const params = new URLSearchParams();
-        params.set('fromTime', this.getDate(from));
-        params.set('toTime', this.getDate(to));
+        params.set('fromTime', this.toUTC(from));
+        params.set('toTime', this.toUTC(to));
         params.set('splitUnit', splitUnit || 'minute');
         params.set('splitSize', this.getSplitSize(splitSize));
         return this.http.get(`${this.config.capiUrl}/analytics/shops/${shopID}/payments/stats/conversion`, {search: params})
-            .toPromise()
-            .then(response => response.json());
+            .map((res) => res.json());
     }
 
-    public getPaymentGeoStats(shopID: number, from: Date, to: Date, splitUnit?: string, splitSize?: number): Promise<PaymentGeoStat[]> {
+    public getPaymentGeoStats(shopID: number, from: Date, to: Date, splitUnit?: string, splitSize?: number): Observable<PaymentGeoStat[]> {
         const params = new URLSearchParams();
-        params.set('fromTime', this.getDate(from));
-        params.set('toTime', this.getDate(to));
+        params.set('fromTime', this.toUTC(from));
+        params.set('toTime', this.toUTC(to));
         params.set('splitUnit', splitUnit || 'day');
         params.set('splitSize', this.getSplitSize(splitSize));
         return this.http.get(`${this.config.capiUrl}/analytics/shops/${shopID}/payments/stats/geo`, {search: params})
-            .toPromise()
-            .then(response => response.json());
+            .map((res) => res.json());
     }
 
-    public getPaymentRevenueStats(shopID: number, from: Date, to: Date, splitUnit?: string, splitSize?: number): Promise<PaymentRevenueStat[]> {
+    public getPaymentRevenueStats(shopID: number, from: Date, to: Date, splitUnit?: string, splitSize?: number): Observable<PaymentRevenueStat[]> {
         const params = new URLSearchParams();
-        params.set('fromTime', this.getDate(from));
-        params.set('toTime', this.getDate(to));
+        params.set('fromTime', this.toUTC(from));
+        params.set('toTime', this.toUTC(to));
         params.set('splitUnit', splitUnit || 'minute');
         params.set('splitSize', this.getSplitSize(splitSize));
         return this.http.get(`${this.config.capiUrl}/analytics/shops/${shopID}/payments/stats/revenue`, {search: params})
-            .toPromise()
-            .then(response => response.json());
+            .map(res => res.json());
     }
-    
-    private getDate(date: Date) {
+
+    private toUTC(date: Date): string {
         return moment(date).utc().format();
     }
 
     private getSplitSize(splitSize: number) {
-        return splitSize ? _.toString(splitSize) : '1';
+        return splitSize ? toString(splitSize) : '1';
     }
 }
