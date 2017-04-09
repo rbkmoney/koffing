@@ -38,15 +38,11 @@ export class DashboardService {
         return Observable.create((observer: Observer<DoughnutChartData>) => {
             this.analyticsService.getPaymentGeoStats(shopID, from, to).subscribe((paymentGeoStat) => {
                 const data = ChartDataConverter.toGeoChartData(paymentGeoStat);
-                if (data.data.length === 0) { // TODO fix it
-                    observer.next(data);
-                } else {
-                    this.locationService.getLocationsNames(data.labels)
-                        .subscribe((locationNames) => {
-                            data.labels = locationNames.map(locationName => locationName.name);
-                            observer.next(data);
-                        });
-                }
+                this.locationService.getLocationsNames(data.labels)
+                    .subscribe((locationNames) => {
+                        data.labels = locationNames.map(locationName => locationName.name);
+                        observer.next(data);
+                    });
             });
         });
     }
