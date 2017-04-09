@@ -44,7 +44,7 @@
                 h4 Оборот
             .x_content
                 kof-loading([isLoading]="revenueLoading")
-                    kof-revenue([fromTime]="fromTime", [chartData]="revenueChartData")
+                    kof-line-chart([chartData]="revenueChartData")
 .row
     .col-xs-12
         .x_panel
@@ -52,7 +52,7 @@
                 h4 Конверсия оплат
             .x_content
                 kof-loading([isLoading]="conversionLoading")
-                    kof-conversion([chartData]="conversionChartData")
+                    kof-line-chart([chartData]="conversionChartData")
 .row
     .col-xs-12.col-sm-6
         .x_panel
@@ -60,11 +60,11 @@
                 h4 Способы оплаты
             .x_content
                 kof-loading([isLoading]="paymentMethodLoading")
-                    kof-payment-method([chartData]="paymentMethodChartData")
+                    kof-doughnut-chart([chartData]="paymentMethodChartData")
     .col-xs-12.col-sm-6
         .x_panel
             .x_title
                 h4 Геолокация
             .x_content
                 kof-loading([isLoading]="geoLoading")
-                    kof-geolocation([chartData]="geoChartData")
+                    kof-doughnut-chart([chartData]="geoChartData")

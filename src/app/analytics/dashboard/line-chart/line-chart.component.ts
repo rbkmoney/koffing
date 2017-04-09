@@ -1,20 +1,16 @@
 import { Component, Input, OnChanges } from '@angular/core';
 
 import { CHART_OPTIONS } from '../chart-options.const';
-import { RevenueDataService } from './revenue-data.service';
+import { LineChartData } from 'koffing/analytics/dashboard/chart-data/line-chart-data';
 
 @Component({
-    selector: 'kof-revenue',
-    templateUrl: './revenue.component.pug'
+    selector: 'kof-line-chart',
+    templateUrl: './line-chart.component.pug'
 })
-
-export class RevenueComponent implements OnChanges {
-
-    @Input()
-    public fromTime: any;
+export class LineChartComponent implements OnChanges {
 
     @Input()
-    public chartData: any;
+    public chartData: LineChartData;
 
     public labels: string[];
 
@@ -45,17 +41,8 @@ export class RevenueComponent implements OnChanges {
 
     public ngOnChanges() {
         if (this.chartData) {
-            this.labels = RevenueDataService.toLabels(this.fromTime, this.chartData);
-            const data = RevenueDataService.toData(this.chartData);
-            if (data.length > 0) {
-                this.datasets.pop();
-                this.datasets.push({
-                    data,
-                    label: 'Оборот'
-                });
-            } else {
-                this.datasets = [];
-            }
+            this.datasets.pop();
+            this.datasets.push(this.chartData.datasets[0]);
         }
     }
 }

@@ -8,10 +8,8 @@ import { DateRange } from 'koffing/analytics/dashboard/date-range-selector/date-
 import { AccountsService } from 'koffing/backend/accounts.service';
 import { Account } from 'koffing/backend/model/account.class';
 import { DashboardService } from 'koffing/analytics/dashboard/dashboard.service';
-import { PaymentMethodChartData } from 'koffing/analytics/dashboard/chart-data/payment-method-chart-data.class';
-import { PaymentGeoChartData } from 'koffing/analytics/dashboard/chart-data/payment-geo-chart-data.class';
-import { RevenueChartData } from 'koffing/analytics/dashboard/chart-data/revenue-chart-data.class';
 import { LineChartData } from 'koffing/analytics/dashboard/chart-data/line-chart-data';
+import { DoughnutChartData } from 'koffing/analytics/dashboard/chart-data/doughnut-chart-data';
 
 @Component({
     templateUrl: './dashboard.component.pug',
@@ -29,10 +27,10 @@ export class DashboardComponent implements OnInit {
     public profit: number;
     public guaranteeBalance: number;
     public settlementBalance: number;
-    public revenueChartData: RevenueChartData[];
+    public revenueChartData: LineChartData;
     public conversionChartData: LineChartData;
-    public geoChartData: PaymentGeoChartData;
-    public paymentMethodChartData: PaymentMethodChartData[];
+    public geoChartData: DoughnutChartData;
+    public paymentMethodChartData: DoughnutChartData;
 
     public revenueLoading: boolean;
     public conversionLoading: boolean;

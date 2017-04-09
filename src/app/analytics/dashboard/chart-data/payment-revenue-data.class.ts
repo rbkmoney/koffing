@@ -1,10 +1,10 @@
-import { RevenueChartData } from 'koffing/analytics/dashboard/chart-data/revenue-chart-data.class';
+import { LineChartData } from 'koffing/analytics/dashboard/chart-data/line-chart-data';
 
 export class PaymentRevenueData {
     public profit: number;
-    public revenueChartData: RevenueChartData[];
+    public revenueChartData: LineChartData;
 
-    constructor(profit: number, revenueChartData: RevenueChartData[]) {
+    constructor(profit: number, revenueChartData: LineChartData) {
         this.profit = profit;
         this.revenueChartData = revenueChartData;
     }

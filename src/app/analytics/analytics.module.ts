@@ -9,10 +9,6 @@ import { FinanceComponent } from './finance/finance.component';
 import { PaginateComponent } from './finance/paginate/paginate.component';
 import { SearchFormComponent } from './finance/search-form/search-form.component';
 import { SearchResultComponent } from './finance/search-result/search-result.component';
-import { PaymentMethodComponent } from './dashboard/payment-method/payment-method.component';
-import { ConversionComponent } from './dashboard/conversion/conversion.component';
-import { RevenueComponent } from './dashboard/revenue/revenue.component';
-import { GeolocationComponent } from './dashboard/geolocation/geolocation.component';
 import { PaginationPipe } from './finance/paginate/pagination.pipe';
 import { PaymentStatusPipe } from './finance/search-result/payment-statuses.pipe';
 import { RoubleCurrencyPipe } from './rouble-currency.pipe';
@@ -21,6 +17,8 @@ import { CalendarModule } from 'primeng/components/calendar/calendar';
 import { BackendModule } from 'koffing/backend/backend.module';
 import { AnalyticsComponent } from 'koffing/analytics/analytics.component';
 import { DateRangeSelectorComponent } from 'koffing/analytics/dashboard/date-range-selector/date-range-selector.component';
+import { LineChartComponent } from 'koffing/analytics/dashboard/line-chart/line-chart.component';
+import { DoughnutChartComponent } from 'koffing/analytics/dashboard/doughnut-chart/doughnut-chart.component';
 
 @NgModule({
     imports: [
@@ -40,13 +38,11 @@ import { DateRangeSelectorComponent } from 'koffing/analytics/dashboard/date-ran
         SearchFormComponent,
         SearchResultComponent,
         BaseChartDirective,
-        PaymentMethodComponent,
-        ConversionComponent,
-        RevenueComponent,
-        GeolocationComponent,
         PaymentStatusPipe,
         RoubleCurrencyPipe,
-        PaginationPipe
+        PaginationPipe,
+        LineChartComponent,
+        DoughnutChartComponent
     ]
 })
 export class AnalyticsModule { }
