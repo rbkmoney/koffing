@@ -1,11 +1,11 @@
-div(*ngIf="chartData?.labels?.length > 0")
+div(*ngIf="datasets?.length > 0")
     canvas(
         baseChart,
         chartType="line",
         [datasets]="datasets",
-        [labels]="chartData.labels",
+        [labels]="labels",
         [options]="options",
         [colors]="chartColors",
         height="70"
     )
-div(*ngIf="chartData?.labels?.length === 0") Данные отсутствуют
+div(*ngIf="datasets?.length === 0") Данные отсутствуют

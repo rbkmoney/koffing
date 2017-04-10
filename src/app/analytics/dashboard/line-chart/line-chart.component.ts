@@ -1,4 +1,5 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 import { CHART_OPTIONS } from '../chart-options.const';
 import { LineChartData } from 'koffing/analytics/dashboard/chart-data/line-chart-data';
@@ -7,12 +8,12 @@ import { LineChartData } from 'koffing/analytics/dashboard/chart-data/line-chart
     selector: 'kof-line-chart',
     templateUrl: './line-chart.component.pug'
 })
-export class LineChartComponent implements OnChanges {
+export class LineChartComponent implements OnInit {
 
     @Input()
-    public chartData: LineChartData;
+    public chartData: Observable<LineChartData>;
 
-    public labels: string[];
+    public labels: string[] = [];
 
     public datasets: any[] = [];
 
@@ -39,10 +40,11 @@ export class LineChartComponent implements OnChanges {
 
     public chartColors = [CHART_OPTIONS.LINE.COLORS];
 
-    public ngOnChanges() {
-        if (this.chartData) {
+    public ngOnInit() {
+        this.chartData.subscribe((chartData: LineChartData) => {
             this.datasets.pop();
-            this.datasets.push(this.chartData.datasets[0]);
-        }
+            this.datasets.push(chartData.datasets[0]);
+            this.labels = chartData.labels;
+        });
     }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import * as moment from 'moment';
+import { Subject } from 'rxjs/Subject';
 
 import { ShopService }  from 'koffing/backend/services/shop.service';
 import { Shop } from 'koffing/backend/classes/shop.class';
@@ -27,8 +28,8 @@ export class DashboardComponent implements OnInit {
     public profit: number;
     public guaranteeBalance: number;
     public settlementBalance: number;
-    public revenueChartData: LineChartData;
-    public conversionChartData: LineChartData;
+    public revenueChartData: Subject<LineChartData> = new Subject();
+    public conversionChartData: Subject<LineChartData> = new Subject();
     public geoChartData: DoughnutChartData;
     public paymentMethodChartData: DoughnutChartData;
 
@@ -85,7 +86,7 @@ export class DashboardComponent implements OnInit {
             this.conversionLoading = false;
             this.successfulCount = data.paymentCount.successfulCount;
             this.unfinishedCount = data.paymentCount.unfinishedCount;
-            this.conversionChartData = data.conversionChartData;
+            this.conversionChartData.next(data.conversionChartData);
         });
     }
 
@@ -101,8 +102,8 @@ export class DashboardComponent implements OnInit {
         this.revenueLoading = true;
         this.dashboardService.getPaymentRevenueData(shopID, from, to).subscribe((data) => {
             this.revenueLoading = false;
-            this.revenueChartData = data.revenueChartData;
             this.profit = data.profit;
+            this.revenueChartData.next(data.revenueChartData);
         });
     }
 
