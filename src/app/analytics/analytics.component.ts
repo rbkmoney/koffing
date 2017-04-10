@@ -17,7 +17,7 @@ export class AnalyticsComponent implements OnInit {
     constructor(private analyticsService: AnalyticsService) { }
 
     public ngOnInit() {
-        this.analyticsService.getShopItems().then((shopItems: SelectItem[]) => {
+        this.analyticsService.getShopItems().subscribe((shopItems: SelectItem[]) => {
             this.isLoading = false;
             this.currentShopID = this.analyticsService.getActiveShopID();
             this.shopItems = shopItems;

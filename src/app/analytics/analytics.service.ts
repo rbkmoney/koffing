@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import * as _ from 'lodash';
+import { Observable } from 'rxjs/Observable';
 
 import { Shop } from 'koffing/backend/classes/shop.class';
 import { SelectItem } from 'koffing/common/components/select/select.class';
@@ -17,13 +17,10 @@ export class AnalyticsService {
                 private router: Router) {
     }
 
-    public getShopItems(): Promise<SelectItem[]> {
-        return new Promise((resolve) => {
-            this.shopService.getShops().then((shops: Shop[]) => {
-                this.shops = shops;
-                const shopItems = this.toShopItems(shops);
-                resolve(shopItems);
-            });
+    public getShopItems(): Observable<SelectItem[]> {
+        return Observable.fromPromise(this.shopService.getShops()).map((shops: Shop[]) => {
+            this.shops = shops;
+            return this.toShopItems(shops);
         });
     }
 
@@ -40,7 +37,7 @@ export class AnalyticsService {
     }
 
     private toShopItems(shops: Shop[]): SelectItem[] {
-        return _.map(shops, (shop) => new SelectItem(shop.id, shop.details.name));
+        return shops.map((shop) => new SelectItem(shop.id, shop.details.name));
     }
 
     private getFromStorage(shops: Shop[]) {

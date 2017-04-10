@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { CHART_OPTIONS } from '../chart-options.const';
 import { LineChartData } from 'koffing/analytics/dashboard/chart-data/line-chart-data';
 
 @Component({
@@ -38,7 +37,14 @@ export class LineChartComponent implements OnInit {
         }
     };
 
-    public chartColors = [CHART_OPTIONS.LINE.COLORS];
+    public chartColors = [{
+        backgroundColor: 'rgba(148,159,177,0.2)',
+        borderColor: '#73879C',
+        pointBackgroundColor: '#73879C',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#79909c',
+        pointHoverBorderColor: '#fff',
+    }];
 
     public ngOnInit() {
         this.chartData.subscribe((chartData: LineChartData) => {

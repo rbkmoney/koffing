@@ -4,10 +4,8 @@ import * as moment from 'moment';
 import { Subject } from 'rxjs/Subject';
 
 import { ShopService }  from 'koffing/backend/services/shop.service';
-import { Shop } from 'koffing/backend/classes/shop.class';
 import { DateRange } from 'koffing/analytics/dashboard/date-range-selector/date-range.class';
 import { AccountsService } from 'koffing/backend/accounts.service';
-import { Account } from 'koffing/backend/model/account.class';
 import { DashboardService } from 'koffing/analytics/dashboard/dashboard.service';
 import { LineChartData } from 'koffing/analytics/dashboard/chart-data/line-chart-data';
 import { DoughnutChartData } from 'koffing/analytics/dashboard/chart-data/doughnut-chart-data';
@@ -30,8 +28,8 @@ export class DashboardComponent implements OnInit {
     public settlementBalance: number;
     public revenueChartData: Subject<LineChartData> = new Subject();
     public conversionChartData: Subject<LineChartData> = new Subject();
-    public geoChartData: DoughnutChartData;
-    public paymentMethodChartData: DoughnutChartData;
+    public geoChartData: Subject<DoughnutChartData> = new Subject();
+    public paymentMethodChartData: Subject<DoughnutChartData> = new Subject();
 
     public revenueLoading: boolean;
     public conversionLoading: boolean;
@@ -68,7 +66,7 @@ export class DashboardComponent implements OnInit {
         this.paymentMethodLoading = true;
         this.dashboardService.getPaymentMethodChartData(shopID, fromTime, toTime).subscribe((data) => {
             this.paymentMethodLoading = false;
-            this.paymentMethodChartData = data;
+            this.paymentMethodChartData.next(data);
         });
     }
 
@@ -94,7 +92,7 @@ export class DashboardComponent implements OnInit {
         this.geoLoading = true;
         this.dashboardService.getPaymentGeoChartData(shopID, from, to).subscribe((data) => {
             this.geoLoading = false;
-            this.geoChartData = data;
+            this.geoChartData.next(data);
         });
     }
 
@@ -108,14 +106,14 @@ export class DashboardComponent implements OnInit {
     }
 
     private loadAccounts(shopID: number) {
-        this.shopService.getShop(shopID).then((shop: Shop) => {
+        this.shopService.getShop(shopID).then((shop) => {
             this.guaranteeLoading = true;
-            this.accountsService.getAccountByID(shop.account.guaranteeID).then((account: Account) => {
+            this.accountsService.getAccountByID(shop.account.guaranteeID).subscribe((account) => {
                 this.guaranteeLoading = false;
                 this.guaranteeBalance = account.ownAmount;
             });
             this.settlementLoading = true;
-            this.accountsService.getAccountByID(shop.account.settlementID).then((account: Account) => {
+            this.accountsService.getAccountByID(shop.account.settlementID).subscribe((account) => {
                 this.settlementLoading = false;
                 this.settlementBalance = account.ownAmount;
             });

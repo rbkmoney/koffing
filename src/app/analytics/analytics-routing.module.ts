@@ -14,10 +14,6 @@ import { AnalyticsComponent } from './analytics.component';
             },
             {
                 path: 'analytics/:shopID',
-                component: AnalyticsComponent
-            },
-            {
-                path: 'analytics/:shopID',
                 component: AnalyticsComponent,
                 children: [
                     {
