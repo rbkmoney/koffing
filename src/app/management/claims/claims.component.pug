@@ -1,16 +1,29 @@
-.x_panel(*ngIf="showClaimInfo")
+.x_panel(*ngIf="isShowClaimInfo")
     .x_title
-        h5 Активная заявка
+        h5 Список активных заявок
     .x_content
-        label Детали:
-        div(*ngFor="let item of changeset")
-            kof-shop-modification(*ngIf="item.partyModificationType === 'ShopModification' && item.shopModificationType === 'ShopUpdate'", [shop]="item.details", title="Изменен магазин")
-            kof-shop-modification(*ngIf="item.partyModificationType === 'ShopCreation'", [shop]="item.shop", title="Создан магазин")
-            kof-contract-creation(*ngIf="item.partyModificationType === 'ContractCreation'", [contract]="item.contract")
-            kof-payout-tool-creation(*ngIf="item.partyModificationType === 'ContractModification' && item.contractModificationType === 'ContractPayoutToolCreation'", [payoutTool]="item.payoutTool")
-            kof-shop-account-creation(*ngIf="item.partyModificationType === 'ShopModification' && item.shopModificationType === 'ShopAccountCreation'")
-        button.btn.btn-danger.pull-right(data-toggle="modal" data-target=".revoke-modal" data-backdrop="false") Отмена заявки
-        a.btn.btn-warning.pull-right([routerLink]="['/claims/edit']") Изменить заявку
+        table.table.table-hover.table-striped(*ngIf="claims.length")
+            thead
+                tr
+                    th.hidden-xs Дата создания
+                    th Статус
+            tbody(*ngFor="let claim of claims")
+                tr((click)="selectClaim(claim)")
+                    td.hidden-xs {{claim.acceptedAt}}
+                    td {{claim.status}}
+                tr(*ngIf="claim === selectedClaim")
+                    td(colspan=6)
+                        | kof-claim-view
+                        //kof-claim-view([claim]="claim")
+        //label Детали:
+        //div(*ngFor="let item of changeset")
+        //    kof-shop-modification(*ngIf="item.partyModificationType === 'ShopModification' && item.shopModificationType === 'ShopUpdate'", [shop]="item.details", title="Изменен магазин")
+        //    kof-shop-modification(*ngIf="item.partyModificationType === 'ShopCreation'", [shop]="item.shop", title="Создан магазин")
+        //    kof-contract-creation(*ngIf="item.partyModificationType === 'ContractCreation'", [contract]="item.contract")
+        //    kof-payout-tool-creation(*ngIf="item.partyModificationType === 'ContractModification' && item.contractModificationType === 'ContractPayoutToolCreation'", [payoutTool]="item.payoutTool")
+        //    kof-shop-account-creation(*ngIf="item.partyModificationType === 'ShopModification' && item.shopModificationType === 'ShopAccountCreation'")
+        //button.btn.btn-danger.pull-right(data-toggle="modal" data-target=".revoke-modal" data-backdrop="false") Отмена заявки
+        //a.btn.btn-warning.pull-right([routerLink]="['/claims/edit']") Изменить заявку
 
 .modal.fade.revoke-modal(tabindex="-1" role="dialog")
     .modal-dialog.modal-sm

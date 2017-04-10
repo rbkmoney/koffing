@@ -6,6 +6,9 @@ import { ShopsComponent } from './shops/shops.component';
 import { ContractsComponent } from './contracts/contracts.component';
 import { ContractCreateComponent } from './contracts/contract-create/contract-create.component';
 import { PayoutToolCreateComponent } from './contracts/payout-tool-create/payout-tool-create.component';
+import { CreateShopWizardComponent } from 'koffing/management/shops/create-shop-wizard/create-shop-wizard.component';
+import { ShopEditingComponent } from 'koffing/management/shops/shop-editing/shop-editing.component';
+import { ClaimsEditComponent } from 'koffing/management/claims/claims-edit/claims-edit.component';
 
 @NgModule({
     imports: [
@@ -24,6 +27,22 @@ import { PayoutToolCreateComponent } from './contracts/payout-tool-create/payout
                         component: ShopsComponent
                     },
                     {
+                        path: 'shops/create',
+                        component: CreateShopWizardComponent
+                    },
+                    {
+                        path: 'shops/:shopID/edit',
+                        component: ShopEditingComponent
+                    },
+                    {
+                        path: 'shops/:shopID/edit/contract/create',
+                        component: ContractCreateComponent
+                    },
+                    {
+                        path: 'shops/:shopID/edit/contract/:contractID/payoutTool/create',
+                        component: PayoutToolCreateComponent
+                    },
+                    {
                         path: 'contracts',
                         component: ContractsComponent
                     },
@@ -34,6 +53,10 @@ import { PayoutToolCreateComponent } from './contracts/payout-tool-create/payout
                     {
                         path: 'contracts/:contractID/payout-tool/create',
                         component: PayoutToolCreateComponent
+                    },
+                    {
+                        path: 'claims/edit',
+                        component: ClaimsEditComponent
                     }
                 ]
             }

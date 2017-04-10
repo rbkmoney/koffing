@@ -23,7 +23,9 @@ export class SelectPaytoolComponent implements OnInit {
     private payoutTools: PayoutTool[];
     private selectedPayoutTool: PayoutTool;
 
-    constructor(private contractService: ContractService) { }
+    constructor(
+        private contractService: ContractService
+    ) { }
 
     public ngOnInit() {
         this.contractService.getPayoutTools(this.contractID).then((payoutTools) => {

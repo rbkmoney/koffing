@@ -5,15 +5,15 @@
         .form_wizard.wizard_horizontal
             ul.wizard_steps
                 li.first_step
-                    a([ngClass]="{'done': currentStep > contractStep, 'selected': currentStep === contractStep}")
+                    a([ngClass]="{'selected': currentStep === contractStep, 'done': currentStep > contractStep}")
                         span.step_no 1
                         span.step_descr Контракт
                 li
-                    a([ngClass]="{'disabled': currentStep < paytoolStep, 'done': currentStep > paytoolStep, 'selected': currentStep === paytoolStep}")
+                    a([ngClass]="{'selected': currentStep === paytoolStep, 'done': currentStep > paytoolStep, 'disabled': currentStep < paytoolStep}")
                         span.step_no 2
                         span.step_descr Средство вывода
                 li
-                    a([ngClass]="{'disabled': currentStep < shopDetailsStep, 'done': currentStep > shopDetailsStep, 'selected': currentStep === shopDetailsStep}")
+                    a([ngClass]="{'selected': currentStep === shopDetailsStep, 'done': currentStep > shopDetailsStep, 'disabled': currentStep < shopDetailsStep}")
                         span.step_no 3
                         span.step_descr Данные магазина
         .row
@@ -41,7 +41,7 @@
             .modal-footer
                 .btn-toolbar.pull-left
                     .btn-group.btn-group-sm
-                        button.btn.btn-default(type="button", data-dismiss="modal") Назад
+                        button.btn.btn-default(type="button", data-dismiss="modal") Нет
                 .btn-toolbar.pull-right
                     .btn-group.btn-group-sm
-                        button.btn.btn-danger(type="button", data-dismiss="modal",(click)="returnToManagement()") Отменить
+                        button.btn.btn-danger(type="button", data-dismiss="modal", (click)="returnToManagement()") Да

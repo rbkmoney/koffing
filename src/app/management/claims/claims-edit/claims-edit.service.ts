@@ -7,10 +7,10 @@ import { ShopParams } from 'koffing/backend/classes/shop-params.class';
 import { PayoutToolParams } from 'koffing/backend/classes/payout-tool-params.class';
 import { PaytoolDecision } from 'koffing/management/shops/create-shop-wizard/selection-paytool/paytool-decision.class';
 import { PaytoolDecisionService } from 'koffing/management/shops/create-shop-wizard/selection-paytool/paytool-decision.service';
+import { Claim } from 'koffing/backend/classes/claim.class';
+import { ClaimService } from 'koffing/backend/services/claim.service';
 import { ClaimDataService } from './claim-data.service';
 import { ClaimData } from './claim-data.class';
-import { Claim } from '../../shared/claim.class';
-import { ClaimService } from '../../shared/claim.service';
 import { ContractCreation } from './classes/contract-creation.class';
 import { ContractModification } from './classes/contract-modification.class';
 import { ContractPayoutToolCreation } from './classes/contract-payout-tool-creation.class';
@@ -30,7 +30,7 @@ export class ClaimsEditService {
 
     public getClaimData(): Promise<ClaimData> {
         return new Promise((resolve) => {
-            this.claimService.getClaim({status: 'pending'}).then((claims: Claim[]) => {
+            this.claimService.getClaims({status: 'pending'}).then((claims: Claim[]) => {
                 if (claims.length > 0) {
                     this.handleClaim(claims[0]).then((claimData: ClaimData) => {
                         resolve(claimData);
@@ -42,9 +42,7 @@ export class ClaimsEditService {
 
     public saveChanges(claimData: ClaimData): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.claimService.revokeClaim(claimData.claimID, {
-                reason: 'edit claim'
-            }).then(() => {
+            this.claimService.revokeClaim(claimData.claimID, 'edit claim').then(() => {
                 if (claimData.contractor && claimData.payoutToolParams && !claimData.shop) {
                     return this.createContract(claimData.contractor, claimData.payoutToolParams).then(() => {
                         resolve();

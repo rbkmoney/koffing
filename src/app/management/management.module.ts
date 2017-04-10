@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from 'koffing/common/common.module';
 import { BackendModule } from 'koffing/backend/backend.module';
 import { SuggestionsModule } from 'koffing/suggestions/suggestions.module';
+import { ClaimService } from 'koffing/backend/services/claim.service';
 import { ManagementRoutingModule } from './management-routing.module';
 import { ManagementComponent } from './management.component';
 import { ContractsComponent } from './contracts/contracts.component';
@@ -34,7 +35,6 @@ import { PayoutToolCreationComponent } from './claims/payout-tool-creation/payou
 import { ModificationDetailComponent } from './claims/modification-detail/modification-detail.component';
 import { ShopModificationComponent } from './claims/shop-modification/shop-modification.component';
 import { ClaimsEditComponent } from './claims/claims-edit/claims-edit.component';
-import { ClaimService } from './shared/claim.service';
 
 @NgModule({
     imports: [

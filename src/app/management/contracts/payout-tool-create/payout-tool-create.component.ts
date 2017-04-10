@@ -38,12 +38,13 @@ export class PayoutToolCreateComponent {
     public createPayoutTool() {
         if (this.isPayoutToolValid) {
             this.isLoading = true;
-            this.contractService.createPayoutTool(this.contractID, this.payoutToolsParams).then(() => {
-                this.isLoading = false;
-                this.claimReceiveBroadcaster.fire();
-                this.claimCreateBroadcaster.fire();
-                this.navigateBack();
-            });
+            console.log('createPayoutTool');
+            // this.contractService.createPayoutTool(this.contractID, this.payoutToolsParams).then(() => {
+            //     this.isLoading = false;
+            //     this.claimReceiveBroadcaster.fire();
+            //     this.claimCreateBroadcaster.fire();
+            //     this.navigateBack();
+            // });
         } else {
             this.createPaytoolComponent.highlightErrors();
         }

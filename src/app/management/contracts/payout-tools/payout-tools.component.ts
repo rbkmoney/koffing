@@ -11,16 +11,14 @@ export class PayoutToolsComponent implements OnInit {
 
     @Input()
     public contractID: number;
-    @Input()
-    public claimFound: boolean = false;
 
     public payoutTools: PayoutTool[] = [];
-    public isLoading: boolean = false;
     public selectedPayoutTool: PayoutTool;
+    public isLoading: boolean = false;
 
     constructor(
         private contractService: ContractService
-    ) {}
+    ) { }
 
     public ngOnInit() {
         this.isLoading = true;

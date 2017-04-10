@@ -21,7 +21,9 @@ export class SelectContractComponent implements OnInit {
     public isLoading: boolean = true;
     public errorHighlighted: boolean = false;
 
-    constructor(private contractService: ContractService) { }
+    constructor(
+        private contractService: ContractService
+    ) { }
 
     public ngOnInit() {
          this.contractService.getContracts().then((contracts) => {

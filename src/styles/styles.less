@@ -169,10 +169,25 @@ ul.bar_tabs > li {
     z-index: auto;
 }
 
+.x_title {
+    border-bottom-width: 1px;
+}
 .x_title span, .x_title i {
     color: #BDBDBD;
 }
 
 span.highlighted {
     color: #a94442;
+}
+
+.table-hover tbody tr:first-child {
+    cursor: pointer;
+}
+.table {
+    > tbody + tbody {
+        border-top-width: 1px;
+    }
+    > thead > tr > th {
+        border-bottom-width: 1px;
+    }
 }

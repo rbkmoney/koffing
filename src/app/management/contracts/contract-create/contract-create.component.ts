@@ -55,12 +55,13 @@ export class ContractCreateComponent {
             const contractParams = new ContractParams();
             contractParams.contractor = this.contractor;
             contractParams.payoutToolParams = this.payoutToolParams;
-            this.contractService.createContract(contractParams).then(() => {
-                this.isLoading = false;
-                this.claimReceiveBroadcaster.fire();
-                this.claimCreateBroadcaster.fire();
-                this.navigateBack();
-            });
+            console.log('createContract');
+            // this.contractService.createContract(contractParams).then(() => {
+            //     this.isLoading = false;
+            //     this.claimReceiveBroadcaster.fire();
+            //     this.claimCreateBroadcaster.fire();
+            //     this.navigateBack();
+            // });
         } else {
             if (!this.isContractorReady) {
                 this.createContractComponent.highlightErrors();
