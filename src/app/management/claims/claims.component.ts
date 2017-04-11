@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as _ from 'lodash'
 
 import { ClaimReceiveBroadcaster } from 'koffing/broadcaster/services/claim-receive.broadcaster.service';
 import { ClaimRevokeBroadcaster } from 'koffing/broadcaster/services/claim-revoke-broadcaster.service';
@@ -14,9 +15,9 @@ export class ClaimsComponent implements OnInit {
     public claims: Claim[];
     public claim: Claim;
     public selectedClaim: Claim;
-    public changeset: any[];
     public revokeReason: string;
-    public isShowClaimInfo: boolean = false;
+    public isShowClaimPanel: boolean = false;
+    public changeSets: any[] = [];
 
     constructor(
         private claimService: ClaimService,
@@ -34,13 +35,16 @@ export class ClaimsComponent implements OnInit {
     public getClaims() {
         this.claimService.getClaims({status: 'pending'}).then((claims: Claim[]) => {
             if (claims.length > 0) {
-                console.log(claims);
                 this.claims = claims;
+                console.log(claims);
+                // _.forEach(claims, (claim) => {
+                //     _.forEach(claim.changeset, (changeset) => {
+                //         this.changeSets.push(changeset);
+                //     });
+                // });
+                // console.log(this.changeSets);
 
-                this.claim = claims[0];
-                this.changeset = this.claim.changeset;
-
-                this.isShowClaimInfo = true;
+                this.isShowClaimPanel = true;
             }
         });
     }

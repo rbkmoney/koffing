@@ -1,20 +1,28 @@
-.x_panel(*ngIf="isShowClaimInfo")
+.x_panel(*ngIf="isShowClaimPanel")
     .x_title
         h5 Список активных заявок
     .x_content
-        table.table.table-hover.table-striped(*ngIf="claims.length")
-            thead
-                tr
-                    th.hidden-xs Дата создания
-                    th Статус
-            tbody(*ngFor="let claim of claims")
-                tr((click)="selectClaim(claim)")
-                    td.hidden-xs {{claim.acceptedAt}}
-                    td {{claim.status}}
-                tr(*ngIf="claim === selectedClaim")
-                    td(colspan=6)
-                        | kof-claim-view
-                        //kof-claim-view([claim]="claim")
+        div(*ngFor="let claim of claims")
+            kof-claim-view([claim]="claim")
+
+
+    //div(*ngFor="let changeSet of changeSets")
+    //        kof-contract-creation(*ngIf="changeSet.contractModificationType === 'ContractCreation'", [changeSet]="changeSet")
+    //        kof-payout-tool-creation(*ngIf="changeSet.contractModificationType === 'ContractPayoutToolCreation'", [changeSet]="changeSet")
+
+
+        //kof-change-set-view([changeSet]="changeSet")
+        //table.table.table-hover.table-striped(*ngIf="claims.length")
+        //    thead
+        //        tr
+        //            th Статус
+        //    tbody(*ngFor="let claim of claims")
+        //        tr((click)="selectClaim(claim)")
+        //            td {{claim.status}}
+        //        tr(*ngIf="claim === selectedClaim")
+        //            td(colspan=6)
+        //                kof-claim-view([claim]="claim")
+
         //label Детали:
         //div(*ngFor="let item of changeset")
         //    kof-shop-modification(*ngIf="item.partyModificationType === 'ShopModification' && item.shopModificationType === 'ShopUpdate'", [shop]="item.details", title="Изменен магазин")

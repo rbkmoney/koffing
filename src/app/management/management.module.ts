@@ -29,6 +29,7 @@ import { SelectionPaytoolComponent } from './shops/create-shop-wizard/selection-
 import { ShopDetailsPanelComponent } from './shops/shop-details-panel/shop-details-panel.component';
 import { PaytoolDecisionService } from './shops/create-shop-wizard/selection-paytool/paytool-decision.service';
 import { ClaimsComponent } from './claims/claims.component';
+import { ClaimViewComponent } from './claims/claim-view/claim-view.component';
 import { ShopAccountCreationComponent } from './claims/shop-account-creation/shop-account-creation.component';
 import { ContractCreationComponent } from './claims/contract-creation/contract-creation.component';
 import { PayoutToolCreationComponent } from './claims/payout-tool-creation/payout-tool-creation.component';
@@ -76,7 +77,8 @@ import { ClaimsEditComponent } from './claims/claims-edit/claims-edit.component'
         SelectionShopComponent,
         ShopDetailsPanelComponent,
         ClaimsEditComponent,
-        ShopEditingComponent
+        ShopEditingComponent,
+        ClaimViewComponent
     ],
     providers: [
         PaytoolDecisionService,

@@ -3,6 +3,6 @@ import { PartyModification } from 'koffing/management/claims/claims-edit/classes
 
 export class Claim {
     public id: number;
-    public changeset: PartyModification[];
+    public changeset: any[];
     public status: string;
 }

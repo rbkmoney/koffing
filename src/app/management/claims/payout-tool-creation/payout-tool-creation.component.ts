@@ -1,7 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-import { PayoutTool } from 'koffing/backend/classes/payout-tool.class';
-
 @Component({
     selector: 'kof-payout-tool-creation',
     templateUrl: 'payout-tool-creation.component.pug',
@@ -10,7 +8,7 @@ import { PayoutTool } from 'koffing/backend/classes/payout-tool.class';
 export class PayoutToolCreationComponent {
 
     @Input()
-    public payoutTool: PayoutTool;
+    public changeSet: any;
 
     public showPanel: boolean = false;
 

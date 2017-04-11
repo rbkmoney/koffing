@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core';
 export class ModificationDetailComponent {
 
     @Input()
-    public displayName: string;
+    public name: string;
 
     @Input()
     public value: string;

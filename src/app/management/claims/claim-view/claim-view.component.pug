@@ -1,0 +1,8 @@
+.panel.panel-default
+    .panel-heading((click)="show()")
+        a Активная заявка
+        i.fa.pull-right.custom-chevron([ngClass]="{'fa-chevron-down': showPanel, 'fa-chevron-right': !showPanel}")
+    .panel-body(*ngIf="showPanel")
+        div(*ngFor="let changeSet of claim.changeset")
+            kof-contract-creation(*ngIf="changeSet.contractModificationType === 'ContractCreation'", [changeSet]="changeSet")
+            kof-payout-tool-creation(*ngIf="changeSet.contractModificationType === 'ContractPayoutToolCreation'", [changeSet]="changeSet")

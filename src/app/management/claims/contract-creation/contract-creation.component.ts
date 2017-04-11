@@ -1,7 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-import { Contract } from 'koffing/backend/classes/contract.class';
-
 @Component({
     selector: 'kof-contract-creation',
     templateUrl: 'contract-creation.component.pug',
@@ -10,7 +8,7 @@ import { Contract } from 'koffing/backend/classes/contract.class';
 export class ContractCreationComponent {
 
     @Input()
-    public contract: Contract;
+    public changeSet: any;
 
     public showPanel: boolean = false;
 

@@ -1,10 +1,13 @@
 .panel.panel-default
     .panel-heading((click)="show()")
-        a Создано средство вывода
+        a Создание средства вывода
         i.fa.pull-right.custom-chevron([ngClass]="{'fa-chevron-down': showPanel, 'fa-chevron-right': !showPanel}")
     .panel-body(*ngIf="showPanel")
-        kof-modification-detail([displayName]="'Банк'", [value]="payoutTool.params.bankAccount.bankName")
-        kof-modification-detail([displayName]="'Расчетный счет'", [value]="payoutTool.params.bankAccount.account")
-        kof-modification-detail([displayName]="'Корреспондентский счет'", [value]="payoutTool.params.bankAccount.bankPostAccount")
-        kof-modification-detail([displayName]="'БИК'", [value]="payoutTool.params.bankAccount.bankBik")
+        kof-modification-detail([name]="'ID'", [value]="changeSet.payoutToolID")
+        kof-modification-detail([name]="'Привязан к контракту'", [value]="changeSet.contractID")
+        kof-modification-detail([name]="'Валюта'", [value]="changeSet.currency")
+        kof-modification-detail([name]="'Банк'", [value]="changeSet.bankAccount.bankName")
+        kof-modification-detail([name]="'Расчетный счет'", [value]="changeSet.bankAccount.account")
+        kof-modification-detail([name]="'Корреспондентский счет'", [value]="changeSet.bankAccount.bankPostAccount")
+        kof-modification-detail([name]="'БИК'", [value]="changeSet.bankAccount.bankBik")
 
