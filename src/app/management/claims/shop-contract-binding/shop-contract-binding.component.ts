@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-    selector: 'kof-contract-creation',
-    templateUrl: 'contract-creation.component.pug'
+    selector: 'kof-shop-contract-binding',
+    templateUrl: 'shop-contract-binding.component.pug'
 })
-export class ContractCreationComponent {
+export class ShopContractBindingComponent {
 
     @Input()
     public changeSet: any;

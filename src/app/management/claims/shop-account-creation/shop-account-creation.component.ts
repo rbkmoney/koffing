@@ -1,8 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'kof-shop-account-creation',
-    templateUrl: 'shop-account-creation.component.pug',
-    styleUrls: [`:host { cursor: default; }`]
+    templateUrl: 'shop-account-creation.component.pug'
 })
-export class ShopAccountCreationComponent {}
+export class ShopAccountCreationComponent {
+
+    @Input()
+    public changeSet: any;
+
+    public showPanel: boolean = false;
+
+    public show() {
+        this.showPanel = !this.showPanel;
+    }
+}

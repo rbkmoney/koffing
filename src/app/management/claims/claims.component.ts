@@ -40,10 +40,13 @@ export class ClaimsComponent implements OnInit {
             if (claims.length > 0) {
                 this.claims = claims;
                 console.log(claims);
-
+                console.log(this.claims instanceof Claim);
                 _.forEach(claims, (claim) => {
                     _.forEach(claim.changeset, (changeset: PartyModification) => {
                         this.changeSets.push(changeset);
+                        // console.log(changeset);
+
+                        // console.log(changeset instanceof ShopModification);
                         if (changeset instanceof ShopModification) {
                             console.log(changeset.shopModificationType);
                         }
@@ -52,25 +55,11 @@ export class ClaimsComponent implements OnInit {
                         }
                     });
                 });
-
-                const ShopAccountCreation = {
-                    partyModificationType: 'ShopModification',
-                    shopModificationType: 'ShopAccountCreation',
-                    shopID: 'uuid',
-                    currency: 'RUB'
-                };
+                // console.log(this.changeSets);
 
                 this.isShowClaimPanel = true;
             }
         });
-    }
-
-    public selectClaim(claim: Claim) {
-        if (this.selectedClaim === claim) {
-            this.selectedClaim = new Claim();
-        } else {
-            this.selectedClaim = claim;
-        }
     }
 
     public revoke(reasonControl: any) {

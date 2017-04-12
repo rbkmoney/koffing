@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { Claim } from 'koffing//backend/model/claim/claim.class';
 
@@ -6,16 +6,12 @@ import { Claim } from 'koffing//backend/model/claim/claim.class';
     selector: 'kof-claim-view',
     templateUrl: 'claim-view.component.pug'
 })
-export class ClaimViewComponent implements OnInit {
+export class ClaimViewComponent {
 
     @Input()
     public claim: Claim;
 
     public showPanel: boolean = false;
-
-    public ngOnInit() {
-        console.log(this.claim);
-    }
 
     public show() {
         this.showPanel = !this.showPanel;

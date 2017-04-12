@@ -28,13 +28,25 @@ import { SelectionContractComponent } from './shops/create-shop-wizard/selection
 import { SelectionPaytoolComponent } from './shops/create-shop-wizard/selection-paytool/selection-paytool.component';
 import { ShopDetailsPanelComponent } from './shops/shop-details-panel/shop-details-panel.component';
 import { PaytoolDecisionService } from './shops/create-shop-wizard/selection-paytool/paytool-decision.service';
+
 import { ClaimsComponent } from './claims/claims.component';
-import { ClaimViewComponent } from './claims/claim-view/claim-view.component';
-import { ShopAccountCreationComponent } from './claims/shop-account-creation/shop-account-creation.component';
-import { ContractCreationComponent } from './claims/contract-creation/contract-creation.component';
-import { PayoutToolCreationComponent } from './claims/payout-tool-creation/payout-tool-creation.component';
+import { ClaimViewComponent } from './claims/claim-view.component';
 import { ModificationDetailComponent } from './claims/modification-detail/modification-detail.component';
-import { ShopModificationComponent } from './claims/shop-modification/shop-modification.component';
+
+import { ShopCreationComponent } from './claims/shop-creation/shop-creation.component';
+import { ShopAccountCreationComponent } from './claims/shop-account-creation/shop-account-creation.component';
+import { ShopContractBindingComponent } from './claims/shop-contract-binding/shop-contract-binding.component';
+import { ShopDetailsChangeComponent } from './claims/shop-details-change/shop-details-change.component';
+import { ShopCategoryChangeComponent } from './claims/shop-category-change/shop-category-change.component';
+import { ShopLocationChangeComponent } from './claims/shop-location-change/shop-location-change.component';
+import { ShopCallbackHandlerSetupComponent } from './claims/shop-callback-handler-setup/shop-callback-handler-setup.component';
+import { ShopCallbackHandlerTeardownComponent } from './claims/shop-callback-handler-teardown/shop-callback-handler-teardown.component';
+
+import { ContractCreationComponent } from './claims/contract-creation/contract-creation.component';
+import { ContractPayoutToolCreationComponent } from './claims/contract-payout-tool-creation/contract-payout-tool-creation.component';
+import { ContractTerminationComponent } from './claims/contract-termination/contract-termination.component';
+import { ContractAdjustmentCreationComponent } from './claims/contract-adjustment-creation/contract-adjustment-creation.component';
+import { ContractLegalAgreementBindingComponent } from './claims/contract-legal-agreement-binding/contract-legal-agreement-binding.component';
 
 @NgModule({
     imports: [
@@ -48,11 +60,7 @@ import { ShopModificationComponent } from './claims/shop-modification/shop-modif
     declarations: [
         ManagementComponent,
         ClaimsComponent,
-        ShopModificationComponent,
         ModificationDetailComponent,
-        ShopAccountCreationComponent,
-        ContractCreationComponent,
-        PayoutToolCreationComponent,
         ShopsComponent,
         ContractsComponent,
         CreateContractComponent,
@@ -76,7 +84,22 @@ import { ShopModificationComponent } from './claims/shop-modification/shop-modif
         SelectionShopComponent,
         ShopDetailsPanelComponent,
         ShopEditingComponent,
-        ClaimViewComponent
+        ClaimViewComponent,
+
+        ShopCreationComponent,
+        ShopAccountCreationComponent,
+        ShopContractBindingComponent,
+        ShopDetailsChangeComponent,
+        ShopCategoryChangeComponent,
+        ShopLocationChangeComponent,
+        ShopCallbackHandlerSetupComponent,
+        ShopCallbackHandlerTeardownComponent,
+
+        ContractCreationComponent,
+        ContractPayoutToolCreationComponent,
+        ContractTerminationComponent,
+        ContractAdjustmentCreationComponent,
+        ContractLegalAgreementBindingComponent,
     ],
     providers: [
         PaytoolDecisionService,

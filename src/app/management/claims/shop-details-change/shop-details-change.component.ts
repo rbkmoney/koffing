@@ -1,11 +1,10 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-    selector: 'kof-payout-tool-creation',
-    templateUrl: 'payout-tool-creation.component.pug',
-    styleUrls: [`:host { cursor: pointer; }`]
+    selector: 'kof-shop-details-change',
+    templateUrl: 'shop-details-change.component.pug'
 })
-export class PayoutToolCreationComponent {
+export class ShopDetailsChangeComponent {
 
     @Input()
     public changeSet: any;

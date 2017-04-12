@@ -1,9 +1,9 @@
 .panel.panel-default
     .panel-heading((click)="show()")
-        a Создание контракта
+        a Создание нового договора
         i.fa.pull-right.custom-chevron([ngClass]="{'fa-chevron-down': showPanel, 'fa-chevron-right': !showPanel}")
     .panel-body(*ngIf="showPanel")
-        kof-modification-detail([name]="'ID'", [value]="changeSet.contractID")
+        kof-modification-detail([name]="'ID договора'", [value]="changeSet.contractID")
         kof-modification-detail([name]="'Наименование юр.лица'", [value]="changeSet.contractor.legalEntity.registeredName")
         kof-modification-detail([name]="'ОГРН'", [value]="changeSet.contractor.legalEntity.registeredNumber")
         kof-modification-detail([name]="'ИНН'", [value]="changeSet.contractor.legalEntity.inn")
@@ -16,4 +16,3 @@
         kof-modification-detail([name]="'БИК'", [value]="changeSet.contractor.bankAccount.bankBik")
         kof-modification-detail([name]="'Корреспондентский счет'", [value]="changeSet.contractor.bankAccount.bankPostAccount")
         kof-modification-detail([name]="'Расчетный счет'", [value]="changeSet.contractor.bankAccount.account")
-
