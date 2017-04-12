@@ -9,6 +9,7 @@ import { PaymentsService } from './services/payments.service';
 import { ShopService } from './services/shop.service';
 import { ConfigService } from './services/config.service';
 import { GeolocationService } from './services/geolocation.service';
+import { ClaimService } from './services/claim.service';
 
 @NgModule({
     providers: [
@@ -20,7 +21,8 @@ import { GeolocationService } from './services/geolocation.service';
         PaymentsService,
         ShopService,
         ConfigService,
-        GeolocationService
+        GeolocationService,
+        ClaimService
     ]
 })
 export class BackendModule { }
@@ -34,6 +36,7 @@ export * from './services/invoice.service';
 export * from './services/payments.service';
 export * from './services/shop.service';
 export * from './services/geolocation.service';
+export * from './services/claim.service';
 
 export * from './classes/account.class';
 export * from './classes/callback-handler.class';

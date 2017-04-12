@@ -3,7 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { ContractService } from 'koffing/backend/services/contract.service';
 import { PayoutToolBankAccount } from 'koffing/backend/model/contract/payout-tool-bank-account.class';
-import { ClaimReceiveBroadcaster } from 'koffing/broadcaster/services/claim-receive.broadcaster.service';
 import { ClaimCreateBroadcaster } from 'koffing/broadcaster/services/claim-create.broadcaster.service';
 import { PaytoolTransfer } from 'koffing/management/shops/create-shop-wizard/selection-paytool/create-paytool/paytool-transfer.class';
 import { CreatePayoutToolComponent } from 'koffing/management/shops/create-shop-wizard/selection-paytool/create-paytool/create-paytool.component';
@@ -26,7 +25,6 @@ export class PayoutToolCreateComponent {
         private route: ActivatedRoute,
         private router: Router,
         private contractService: ContractService,
-        private claimReceiveBroadcaster: ClaimReceiveBroadcaster,
         private claimCreateBroadcaster: ClaimCreateBroadcaster
     ) {}
 
@@ -41,7 +39,6 @@ export class PayoutToolCreateComponent {
             console.log('createPayoutTool');
             // this.contractService.createPayoutTool(this.contractID, this.payoutToolsParams).then(() => {
             //     this.isLoading = false;
-            //     this.claimReceiveBroadcaster.fire();
             //     this.claimCreateBroadcaster.fire();
             //     this.navigateBack();
             // });

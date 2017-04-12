@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from 'koffing/common/common.module';
 import { BackendModule } from 'koffing/backend/backend.module';
 import { SuggestionsModule } from 'koffing/suggestions/suggestions.module';
-import { ClaimService } from 'koffing/backend/services/claim.service';
 import { ManagementRoutingModule } from './management-routing.module';
 import { ManagementComponent } from './management.component';
 import { ContractsComponent } from './contracts/contracts.component';
@@ -41,7 +40,6 @@ import { ShopCategoryChangeComponent } from './claims/shop-category-change/shop-
 import { ShopLocationChangeComponent } from './claims/shop-location-change/shop-location-change.component';
 import { ShopCallbackHandlerSetupComponent } from './claims/shop-callback-handler-setup/shop-callback-handler-setup.component';
 import { ShopCallbackHandlerTeardownComponent } from './claims/shop-callback-handler-teardown/shop-callback-handler-teardown.component';
-
 import { ContractCreationComponent } from './claims/contract-creation/contract-creation.component';
 import { ContractPayoutToolCreationComponent } from './claims/contract-payout-tool-creation/contract-payout-tool-creation.component';
 import { ContractTerminationComponent } from './claims/contract-termination/contract-termination.component';
@@ -59,8 +57,6 @@ import { ContractLegalAgreementBindingComponent } from './claims/contract-legal-
     ],
     declarations: [
         ManagementComponent,
-        ClaimsComponent,
-        ModificationDetailComponent,
         ShopsComponent,
         ContractsComponent,
         CreateContractComponent,
@@ -84,7 +80,10 @@ import { ContractLegalAgreementBindingComponent } from './claims/contract-legal-
         SelectionShopComponent,
         ShopDetailsPanelComponent,
         ShopEditingComponent,
+
+        ClaimsComponent,
         ClaimViewComponent,
+        ModificationDetailComponent,
 
         ShopCreationComponent,
         ShopAccountCreationComponent,
@@ -94,7 +93,6 @@ import { ContractLegalAgreementBindingComponent } from './claims/contract-legal-
         ShopLocationChangeComponent,
         ShopCallbackHandlerSetupComponent,
         ShopCallbackHandlerTeardownComponent,
-
         ContractCreationComponent,
         ContractPayoutToolCreationComponent,
         ContractTerminationComponent,
@@ -102,8 +100,7 @@ import { ContractLegalAgreementBindingComponent } from './claims/contract-legal-
         ContractLegalAgreementBindingComponent,
     ],
     providers: [
-        PaytoolDecisionService,
-        ClaimService
+        PaytoolDecisionService
     ]
 })
 export class ManagementModule { }
