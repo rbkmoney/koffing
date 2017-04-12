@@ -1,4 +1,4 @@
-import { Contractor } from 'koffing/backend/classes/contractor.class';
+import { Contractor } from 'koffing/backend/model/contractor.class';
 
 export class ContractorTransfer {
     public contractor: Contractor;

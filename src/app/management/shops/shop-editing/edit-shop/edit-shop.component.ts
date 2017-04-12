@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 
 import { CategoryService } from 'koffing/backend/backend.module';
 import { Shop } from 'koffing/backend/classes/shop.class';
-import { Contract } from 'koffing/backend/classes/contract.class';
+import { Contract } from 'koffing/backend/model/contract.class';
 import { PayoutTool } from 'koffing/backend/classes/payout-tool.class';
 import { ContractService } from 'koffing/backend/services/contract.service';
 import { Category } from 'koffing/backend/classes/category.class';

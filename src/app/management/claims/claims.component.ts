@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import * as _ from 'lodash'
+import * as _ from 'lodash';
 
 import { ClaimReceiveBroadcaster } from 'koffing/broadcaster/services/claim-receive.broadcaster.service';
 import { ClaimRevokeBroadcaster } from 'koffing/broadcaster/services/claim-revoke-broadcaster.service';
-import { Claim } from 'koffing/backend/classes/claim.class';
+import { Claim } from 'koffing//backend/model/claim/claim.class';
 import { ClaimService } from 'koffing/backend/services/claim.service';
+import { ShopModification } from 'koffing/management/claims/claims-edit/classes/shop-modification.class';
+import { PartyModification } from 'koffing/backend/model/claim/party-modification.class';
+import { ContractModification } from 'koffing/backend/model/claim/contract-modification.class';
 
 @Component({
     selector: 'kof-claims',
@@ -37,12 +40,25 @@ export class ClaimsComponent implements OnInit {
             if (claims.length > 0) {
                 this.claims = claims;
                 console.log(claims);
-                // _.forEach(claims, (claim) => {
-                //     _.forEach(claim.changeset, (changeset) => {
-                //         this.changeSets.push(changeset);
-                //     });
-                // });
-                // console.log(this.changeSets);
+
+                _.forEach(claims, (claim) => {
+                    _.forEach(claim.changeset, (changeset: PartyModification) => {
+                        this.changeSets.push(changeset);
+                        if (changeset instanceof ShopModification) {
+                            console.log(changeset.shopModificationType);
+                        }
+                        if (changeset instanceof ContractModification) {
+                            console.log(changeset.contractModificationType);
+                        }
+                    });
+                });
+
+                const ShopAccountCreation = {
+                    partyModificationType: 'ShopModification',
+                    shopModificationType: 'ShopAccountCreation',
+                    shopID: 'uuid',
+                    currency: 'RUB'
+                };
 
                 this.isShowClaimPanel = true;
             }

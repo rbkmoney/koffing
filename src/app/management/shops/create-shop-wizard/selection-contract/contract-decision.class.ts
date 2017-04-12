@@ -1,5 +1,5 @@
-import { Contractor } from 'koffing/backend/classes/contractor.class';
-import { Contract } from 'koffing/backend/classes/contract.class';
+import { Contractor } from 'koffing/backend/model/contractor.class';
+import { Contract } from 'koffing/backend/model/contract.class';
 
 export class ContractDecision {
     public contract: Contract;

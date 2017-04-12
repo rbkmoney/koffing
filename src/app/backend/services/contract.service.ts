@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { ConfigService } from './config.service';
-import { Contract } from '../classes/contract.class';
+import { Contract } from '../model/contract.class';
 import { PayoutTool } from '../classes/payout-tool.class';
 
 @Injectable()

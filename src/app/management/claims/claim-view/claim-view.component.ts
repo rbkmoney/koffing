@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { Claim } from 'koffing/backend/classes/claim.class';
+import { Claim } from 'koffing//backend/model/claim/claim.class';
 
 @Component({
     selector: 'kof-claim-view',

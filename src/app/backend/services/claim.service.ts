@@ -3,7 +3,7 @@ import { Http, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { ConfigService } from './config.service';
-import { Claim } from '../classes/claim.class';
+import { Claim } from '../model/claim/claim.class';
 
 @Injectable()
 export class ClaimService {
