@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
 
-import { Contractor } from 'koffing/backend/model/contractor.class';
+import { Contractor } from 'koffing/backend/model/contract/contractor.class';
 import { ContractParams } from 'koffing/backend/classes/contract-params.class';
 import { PayoutToolParams } from 'koffing/backend/classes/payout-tool-params.class';
 import { ContractService } from 'koffing/backend/services/contract.service';

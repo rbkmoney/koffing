@@ -1,5 +1,5 @@
 import { ContractModification } from '../contract-modification.class';
-import { Contractor } from '../../contractor.class';
+import { Contractor } from '../../contract/contractor.class';
 
 export class ContractCreation extends ContractModification {
     public contractor: Contractor;

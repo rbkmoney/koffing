@@ -1,5 +1,5 @@
 import { ContractModification } from '../contract-modification.class';
-import { BankAccount } from '../../bank-account.class';
+import { BankAccount } from '../../contract/bank-account.class';
 
 export class ContractPayoutToolCreation extends ContractModification {
     public payoutToolID: string;

@@ -36,24 +36,30 @@ export * from './services/shop.service';
 export * from './services/geolocation.service';
 
 export * from './classes/account.class';
-export * from './model/bank-account.class';
 export * from './classes/callback-handler.class';
 export * from './classes/category.class';
-export * from './model/contract.class';
-export * from './model/contractor.class';
 export * from './classes/conversion.class';
-export * from './model/legal-entity.class';
 export * from './classes/geodata.class';
 export * from './classes/invoice.class';
 export * from './classes/payout-tool.class';
 export * from './classes/payout-tool-params.class';
-export * from './model/payout-tool-bank-account.class';
 export * from './classes/request-params.class';
 export * from './classes/revenue.class';
-export * from './model/russian-legal-entity.class';
 export * from './classes/shop.class';
 export * from './classes/shop-details.class';
 export * from './classes/shop-item.class';
 export * from './classes/shop-location.class';
 export * from './classes/location-name.class';
 export * from './classes/shop-params.class';
+
+// todo добавить эти классы вместо старых
+// export * from './model/shop/shop-details.class';
+// export * from './model/shop/shop-location.class';
+
+export * from './model/contract/contract.class';
+export * from './model/contract/contractor.class';
+export * from './model/contract/bank-account.class';
+export * from './model/contract/payout-tool-bank-account.class';
+export * from './model/contract/legal-agreement.class';
+export * from './model/contract/legal-entity.class';
+export * from './model/contract/russian-legal-entity.class';

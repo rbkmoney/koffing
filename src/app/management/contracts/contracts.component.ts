@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ContractService } from 'koffing/backend/services/contract.service';
-import { Contract } from 'koffing/backend/model/contract.class';
+import { Contract } from 'koffing/backend/model/contract/contract.class';
 
 @Component({
     templateUrl: 'contracts.component.pug'

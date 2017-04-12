@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import * as _ from 'lodash';
 
 import { SelectItem } from 'koffing/common/common.module';
-import { Contract } from 'koffing/backend/model/contract.class';
+import { Contract } from 'koffing/backend/model/contract/contract.class';
 import { ContractService } from 'koffing/backend/services/contract.service';
 
 @Component({

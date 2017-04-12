@@ -2,9 +2,9 @@ import { Component, Output, EventEmitter, OnInit, ViewChild, AfterViewInit, Inpu
 import { NgForm } from '@angular/forms';
 import * as _ from 'lodash';
 
-import { Contractor } from 'koffing/backend/model/contractor.class';
-import { BankAccount } from 'koffing/backend/model/bank-account.class';
-import { RussianLegalEntity } from 'koffing/backend/model/russian-legal-entity.class';
+import { Contractor } from 'koffing/backend/model/contract/contractor.class';
+import { BankAccount } from 'koffing/backend/model/contract/bank-account.class';
+import { RussianLegalEntity } from 'koffing/backend/model/contract/russian-legal-entity.class';
 import { ContractorTransfer } from './contractor-transfer.class';
 import { SuggestionsService } from 'koffing/suggestions/services/suggestions.service';
 import { SuggestionConverterService } from 'koffing/suggestions/services/suggestion-converter.service';

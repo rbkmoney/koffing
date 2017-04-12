@@ -5,8 +5,8 @@ import { ClaimReceiveBroadcaster } from 'koffing/broadcaster/services/claim-rece
 import { ClaimRevokeBroadcaster } from 'koffing/broadcaster/services/claim-revoke-broadcaster.service';
 import { Claim } from 'koffing//backend/model/claim/claim.class';
 import { ClaimService } from 'koffing/backend/services/claim.service';
-import { ShopModification } from 'koffing/management/claims/claims-edit/classes/shop-modification.class';
 import { PartyModification } from 'koffing/backend/model/claim/party-modification.class';
+import { ShopModification } from 'koffing/backend/model/claim/shop-modification.class';
 import { ContractModification } from 'koffing/backend/model/claim/contract-modification.class';
 
 @Component({

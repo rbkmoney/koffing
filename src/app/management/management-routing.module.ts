@@ -8,7 +8,6 @@ import { ContractCreateComponent } from './contracts/contract-create/contract-cr
 import { PayoutToolCreateComponent } from './contracts/payout-tool-create/payout-tool-create.component';
 import { CreateShopWizardComponent } from 'koffing/management/shops/create-shop-wizard/create-shop-wizard.component';
 import { ShopEditingComponent } from 'koffing/management/shops/shop-editing/shop-editing.component';
-import { ClaimsEditComponent } from 'koffing/management/claims/claims-edit/claims-edit.component';
 
 @NgModule({
     imports: [
@@ -53,10 +52,6 @@ import { ClaimsEditComponent } from 'koffing/management/claims/claims-edit/claim
                     {
                         path: 'contracts/:contractID/payout-tool/create',
                         component: PayoutToolCreateComponent
-                    },
-                    {
-                        path: 'claims/edit',
-                        component: ClaimsEditComponent
                     }
                 ]
             }

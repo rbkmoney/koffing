@@ -35,7 +35,6 @@ import { ContractCreationComponent } from './claims/contract-creation/contract-c
 import { PayoutToolCreationComponent } from './claims/payout-tool-creation/payout-tool-creation.component';
 import { ModificationDetailComponent } from './claims/modification-detail/modification-detail.component';
 import { ShopModificationComponent } from './claims/shop-modification/shop-modification.component';
-import { ClaimsEditComponent } from './claims/claims-edit/claims-edit.component';
 
 @NgModule({
     imports: [
@@ -76,7 +75,6 @@ import { ClaimsEditComponent } from './claims/claims-edit/claims-edit.component'
         SelectionPaytoolComponent,
         SelectionShopComponent,
         ShopDetailsPanelComponent,
-        ClaimsEditComponent,
         ShopEditingComponent,
         ClaimViewComponent
     ],
