@@ -4,7 +4,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { ConfigService } from './config.service';
 import { Contract } from '../model/contract/contract.class';
-import { PayoutTool } from '../classes/payout-tool.class';
+import { PayoutTool } from '../model/contract/payout-tool.class';
 
 @Injectable()
 export class ContractService {
@@ -22,13 +22,13 @@ export class ContractService {
             .then((response) => response.json());
     }
 
-    public getContractByID(contractID: number): Promise<Contract> {
+    public getContractByID(contractID: string): Promise<Contract> {
         return this.http.get(`${this.contractsUrl}/${contractID}`)
             .toPromise()
             .then((response) => response.json());
     }
 
-    public getPayoutTools(contractID: number): Promise<PayoutTool[]> {
+    public getPayoutTools(contractID: string): Promise<PayoutTool[]> {
         return this.http.get(`${this.contractsUrl}/${contractID}/payout_tools`)
             .toPromise()
             .then((response) => response.json());

@@ -1,6 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { Shop } from 'koffing/backend/classes/shop.class';
 import { ShopService } from 'koffing/backend/services/shop.service';
 
 @Component({
@@ -15,7 +14,7 @@ import { ShopService } from 'koffing/backend/services/shop.service';
 export class ShopDetailsPanelComponent {
     
     @Input()
-    public shop: Shop;
+    public shop: any;
 
     @Output()
     public onChange = new EventEmitter();

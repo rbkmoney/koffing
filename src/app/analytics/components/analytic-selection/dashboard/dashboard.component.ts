@@ -13,7 +13,6 @@ import { Conversion } from 'koffing/backend/backend.module';
 import { GeolocationService } from 'koffing/backend/backend.module';
 import { LocationName } from 'koffing/backend/backend.module';
 import { GeoChartLabeled } from './geo-chart-labeled.class';
-import { Shop } from 'koffing/backend/classes/shop.class';
 import { GeoChartData } from './geo-chart-data.class';
 
 @Component({
@@ -144,7 +143,7 @@ export class DashboardComponent implements OnInit {
     }
 
     private loadAccounts(shopID: number) {
-        this.shopService.getShop(shopID).then((shop: Shop) => {
+        this.shopService.getShop(shopID).then((shop: any) => {
             this.guaranteeLoading = true;
             this.accountService.getAccount(shop.account.guaranteeID).then((account: any) => {
                 this.guaranteeLoading = false;

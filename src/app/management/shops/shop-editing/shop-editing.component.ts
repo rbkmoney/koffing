@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ShopService } from 'koffing/backend/services/shop.service';
-import { Shop } from 'koffing/backend/classes/shop.class';
 import { ShopParams } from 'koffing/backend/classes/shop-params.class';
 import { ShopEditingTransfer } from './edit-shop/shop-editing-transfer.class';
 
@@ -14,7 +13,7 @@ export class ShopEditingComponent implements OnInit {
 
     public shopID: number = Number(this.route.snapshot.params['shopID']);
     public isLoading: boolean = false;
-    public shop: Shop;
+    public shop: any;
     public shopEditing: ShopParams;
     public shopEditingReady: boolean = false;
     
@@ -30,7 +29,7 @@ export class ShopEditingComponent implements OnInit {
 
     public loadShop() {
         this.isLoading = true;
-        this.shopService.getShop(this.shopID).then((shop: Shop) => {
+        this.shopService.getShop(this.shopID).then((shop: any) => {
             this.shop = shop;
             this.isLoading = false;
         });

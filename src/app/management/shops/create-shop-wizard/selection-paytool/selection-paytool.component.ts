@@ -27,7 +27,7 @@ export class SelectionPaytoolComponent implements AfterViewInit {
     public optionExisting: number = SelectionOptions.Existing;
     public isPayoutToolValid: boolean = false;
     public payoutToolsParams: PayoutToolBankAccount;
-    public payoutToolID: number;
+    public payoutToolID: string;
     public isLoading: boolean = false;
     @ViewChild('createPaytoolRef')
     private createPayoutToolComponent: CreatePayoutToolComponent;
@@ -51,7 +51,7 @@ export class SelectionPaytoolComponent implements AfterViewInit {
         this.payoutToolsParams = value.payoutToolParams;
     }
 
-    public onPayoutToolSelected(payoutToolID: number) {
+    public onPayoutToolSelected(payoutToolID: string) {
         this.isPayoutToolValid = true;
         this.payoutToolID = payoutToolID;
     }

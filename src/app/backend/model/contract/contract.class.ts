@@ -2,7 +2,7 @@ import { Contractor } from './contractor.class';
 import { LegalAgreement } from './legal-agreement.class';
 
 export class Contract {
-    public id: number;
+    public id: string;
     public createdAt: string;
     public status: string;
     public validSince: string;

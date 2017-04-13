@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
-import { Shop } from '../classes/shop.class';
 import { ConfigService } from './config.service';
 import { ShopParams } from 'koffing/backend/classes/shop-params.class';
 
@@ -13,16 +12,16 @@ export class ShopService {
 
     constructor(private http: Http, private config: ConfigService) {}
 
-    public getShops(): Promise<Shop[]> {
+    public getShops(): Promise<any[]> {
         return this.http.get(this.shopsUrl)
             .toPromise()
-            .then(response => response.json() as Shop[]);
+            .then(response => response.json());
     }
 
-    public getShop(shopID: number): Promise<Shop> {
+    public getShop(shopID: number): Promise<any> {
         return this.http.get(`${this.shopsUrl}/${shopID}`)
             .toPromise()
-            .then(response => response.json() as Shop);
+            .then(response => response.json());
     }
 
     public createShop(args: ShopParams): Promise<string> {

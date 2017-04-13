@@ -4,9 +4,8 @@ import * as _ from 'lodash';
 import { CategoryService } from 'koffing/backend/backend.module';
 import { SelectItem } from 'koffing/common/common.module';
 import { ShopDetails } from 'koffing/backend/backend.module';
-import { ShopLocationUrl } from 'koffing/backend/classes/shop-location-url.class';
-import { Category } from 'koffing/backend/classes/category.class';
-import { Shop } from 'koffing/backend/classes/shop.class';
+import { ShopLocationUrl } from 'koffing/backend/backend.module';
+import { Category } from 'koffing/backend/backend.module';
 import { ShopDetailTransfer } from './shop-detail-transfer.class';
 
 @Component({
@@ -21,13 +20,13 @@ export class AddShopComponent implements OnInit {
     public categories: SelectItem[] = [];
     public isLoading: boolean = false;
     public url: string;
-    public shopDetail: ShopDetails;
+    public shopDetail: any;
     public categoryId: number;
     public callbackUrl: string;
     private errorsHighlighted: boolean = false;
 
     @Input()
-    private defaultShop: Shop;
+    private defaultShop: any;
 
     constructor(
         private categoryService: CategoryService
@@ -83,7 +82,8 @@ export class AddShopComponent implements OnInit {
     }
 
     public setLocation(url: string, form: any) {
-        this.shopDetail.location = new ShopLocationUrl(url);
+        this.shopDetail.location = new ShopLocationUrl();
+        this.shopDetail.location.url = url;
         this.keyup(form);
     }
 

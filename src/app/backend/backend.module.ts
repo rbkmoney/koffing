@@ -9,7 +9,7 @@ import { PaymentsService } from './services/payments.service';
 import { ShopService } from './services/shop.service';
 import { ConfigService } from './services/config.service';
 import { GeolocationService } from './services/geolocation.service';
-import { ClaimService } from './services/claim.service';
+import { HttpClaimService } from './services/http-claim.service';
 
 @NgModule({
     providers: [
@@ -22,7 +22,7 @@ import { ClaimService } from './services/claim.service';
         ShopService,
         ConfigService,
         GeolocationService,
-        ClaimService
+        HttpClaimService
     ]
 })
 export class BackendModule { }
@@ -36,33 +36,49 @@ export * from './services/invoice.service';
 export * from './services/payments.service';
 export * from './services/shop.service';
 export * from './services/geolocation.service';
-export * from './services/claim.service';
+export * from './services/http-claim.service';
 
-export * from './classes/account.class';
-export * from './classes/callback-handler.class';
 export * from './classes/category.class';
 export * from './classes/conversion.class';
 export * from './classes/geodata.class';
 export * from './classes/invoice.class';
-export * from './classes/payout-tool.class';
-export * from './classes/payout-tool-params.class';
 export * from './classes/request-params.class';
 export * from './classes/revenue.class';
-export * from './classes/shop.class';
-export * from './classes/shop-details.class';
 export * from './classes/shop-item.class';
-export * from './classes/shop-location.class';
 export * from './classes/location-name.class';
 export * from './classes/shop-params.class';
 
-// todo добавить эти классы вместо старых
-// export * from './model/shop/shop-details.class';
-// export * from './model/shop/shop-location.class';
+export * from './model/shop/shop.class';
+export * from './model/shop/shop-account.class';
+export * from './model/shop/shop-details.class';
+export * from './model/shop/shop-location.class';
+export * from './model/shop/shop-location-url.class';
+export * from './model/shop/callback-handler.class';
 
 export * from './model/contract/contract.class';
 export * from './model/contract/contractor.class';
-export * from './model/contract/bank-account.class';
+export * from './model/contract/payout-tool.class';
+export * from './model/contract/payout-tool-params.class';
 export * from './model/contract/payout-tool-bank-account.class';
+export * from './model/contract/bank-account.class';
 export * from './model/contract/legal-agreement.class';
 export * from './model/contract/legal-entity.class';
 export * from './model/contract/russian-legal-entity.class';
+
+export * from './model/claim/claim.class';
+export * from './model/claim/party-modification.class';
+export * from './model/claim/shop-modification.class';
+export * from './model/claim/shop-modification/shop-creation.class';
+export * from './model/claim/shop-modification/shop-account-creation.class';
+export * from './model/claim/shop-modification/shop-callback-handler-setup.class';
+export * from './model/claim/shop-modification/shop-callback-handler-teardown.class';
+export * from './model/claim/shop-modification/shop-category-change.class';
+export * from './model/claim/shop-modification/shop-contract-binding.class';
+export * from './model/claim/shop-modification/shop-details-change.class';
+export * from './model/claim/shop-modification/shop-location-change.class';
+export * from './model/claim/contract-modification.class';
+export * from './model/claim/contract-modification/contract-creation.class';
+export * from './model/claim/contract-modification/contract-payout-tool-creation.class';
+export * from './model/claim/contract-modification/contract-adjustment-creation.class';
+export * from './model/claim/contract-modification/contract-legal-agreement-binding.class';
+export * from './model/claim/contract-modification/contract-termination.class';

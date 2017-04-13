@@ -7,10 +7,9 @@ export class ContractPayoutToolCreation extends ContractModification {
     public payoutToolType: string;
     public bankAccount: BankAccount;
 
-    constructor(payoutToolID?: string) {
+    constructor() {
         super();
         this.contractModificationType = 'ContractPayoutToolCreation';
-        this.payoutToolID = payoutToolID;
         this.payoutToolType = 'PayoutToolBankAccount';
         this.bankAccount = new BankAccount();
     }

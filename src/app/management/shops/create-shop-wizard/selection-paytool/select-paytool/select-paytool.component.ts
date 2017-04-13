@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import * as _ from 'lodash';
 
 import { SelectItem } from 'koffing/common/components/select/select.class';
-import { PayoutTool } from 'koffing/backend/classes/payout-tool.class';
+import { PayoutTool } from 'koffing/backend/model/contract/payout-tool.class';
 import { ContractService } from 'koffing/backend/services/contract.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class SelectPaytoolComponent implements OnInit {
     @Output()
     public onPayoutToolSelected = new EventEmitter();
     @Input()
-    public contractID: number;
+    public contractID: string;
     public errorHighlighted: boolean = false;
     private payoutTools: PayoutTool[];
     private selectedPayoutTool: PayoutTool;
@@ -49,7 +49,7 @@ export class SelectPaytoolComponent implements OnInit {
         return _.map(payoutTools, (payoutTool) => new SelectItem(payoutTool.id, String(payoutTool.id)));
     }
 
-    private findSelectedTool(payoutTools: PayoutTool[], payoutToolID: number) {
-        return _.find(payoutTools, (payoutTool) => payoutTool.id === Number(payoutToolID));
+    private findSelectedTool(payoutTools: PayoutTool[], payoutToolID: any) {
+        return _.find(payoutTools, (payoutTool) => payoutTool.id === String(payoutToolID));
     }
 }

@@ -1,5 +1,4 @@
 import * as _ from 'lodash';
-import { Shop } from 'koffing/backend/classes/shop.class';
 
 export class ShopIDStorage {
 
@@ -14,7 +13,7 @@ export class ShopIDStorage {
         return id ? _.toNumber(id) : null;
     }
 
-    public static isAvailable(shops: Shop[]) {
+    public static isAvailable(shops: any[]) {
         const id = this.get();
         return id ? !!_.find(shops, (shop) => id === shop.id) : false;
     }

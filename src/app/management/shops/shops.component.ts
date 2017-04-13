@@ -3,7 +3,6 @@ import * as _ from 'lodash';
 import { Category } from 'koffing/backend/backend.module';
 import { CategoryService } from 'koffing/backend/backend.module';
 import { ShopService } from 'koffing/backend/backend.module';
-import { Shop } from 'koffing/backend/classes/shop.class';
 
 @Component({
     templateUrl: 'shops.component.pug',
@@ -11,7 +10,7 @@ import { Shop } from 'koffing/backend/classes/shop.class';
 })
 export class ShopsComponent implements OnInit {
 
-    public shops: Shop[] = [];
+    public shops: any[] = [];
     public categories: Category[] = [];
     public isLoading: boolean;
     public panelsVisibilities: {[key: number]: boolean} = {};
@@ -35,7 +34,7 @@ export class ShopsComponent implements OnInit {
         });
     }
 
-    public loadShops(): Promise<Shop[]> {
+    public loadShops(): Promise<any[]> {
         this.panelsVisibilities = {};
         return new Promise((resolve) => {
             this.shopService.getShops().then(shops => {

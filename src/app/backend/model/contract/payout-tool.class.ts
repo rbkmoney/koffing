@@ -1,7 +1,7 @@
 import { PayoutToolParams } from './payout-tool-params.class';
 
 export class PayoutTool {
-    public id: number;
+    public id: string;
     public params: PayoutToolParams;
 
     constructor() {

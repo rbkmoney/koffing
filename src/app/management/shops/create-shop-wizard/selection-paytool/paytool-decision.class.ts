@@ -1,8 +1,8 @@
 export class PaytoolDecision {
-    public contractID: number;
-    public payoutToolID: number;
+    public contractID: string;
+    public payoutToolID: string;
 
-    constructor(contractID?: number, payoutToolID?: number) {
+    constructor(contractID?: string, payoutToolID?: string) {
         this.contractID = contractID;
         this.payoutToolID = payoutToolID;
     }

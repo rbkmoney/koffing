@@ -6,7 +6,7 @@ kof-loading([isLoading]="isLoading")
         kof-select(
             *ngIf="selectableItems.length",
             [hasError]="errorHighlighted",
-            [(ngModel)]="selectedContractId",
+            [(ngModel)]="selectedContractID",
             [items]="selectableItems",
             (onChange)="selectContract()",
             [modelOptions]="{standalone: true}",

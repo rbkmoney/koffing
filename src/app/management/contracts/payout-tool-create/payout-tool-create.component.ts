@@ -26,7 +26,7 @@ export class PayoutToolCreateComponent {
         private router: Router,
         private contractService: ContractService,
         private claimCreateBroadcaster: ClaimCreateBroadcaster
-    ) {}
+    ) { }
 
     public onPayoutToolChange(value: PaytoolTransfer) {
         this.isPayoutToolValid = value.valid;

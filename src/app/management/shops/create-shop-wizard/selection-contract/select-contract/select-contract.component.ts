@@ -15,7 +15,7 @@ export class SelectContractComponent implements OnInit {
     public onContractSelected = new EventEmitter();
 
     public selectableItems: SelectItem[] = [];
-    public selectedContractId: number;
+    public selectedContractID: string;
     public contracts: Contract[];
     public selectedContract: Contract;
     public isLoading: boolean = true;
@@ -38,7 +38,7 @@ export class SelectContractComponent implements OnInit {
     }
 
     public selectContract() {
-        this.selectedContract = this.findSelectedContract(this.contracts, this.selectedContractId);
+        this.selectedContract = this.findSelectedContract(this.contracts, this.selectedContractID);
         this.errorHighlighted = false;
         this.onContractSelected.emit(this.selectedContract);
     }
@@ -47,7 +47,7 @@ export class SelectContractComponent implements OnInit {
         return _.map(contracts, (contract: Contract) => new SelectItem(contract.id, String(contract.id)));
     }
 
-    private findSelectedContract(contracts: Contract[], contractId: number) {
-        return _.find(contracts, (contract: Contract) => contract.id === Number(contractId));
+    private findSelectedContract(contracts: Contract[], contractID: string) {
+        return _.find(contracts, (contract: Contract) => contract.id === contractID);
     }
 }

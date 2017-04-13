@@ -17,3 +17,20 @@
             kof-shop-location-change(*ngIf="changeSet.shopModificationType === 'ShopLocationChange'", [changeSet]="changeSet")
             kof-shop-callback-handler-setup(*ngIf="changeSet.shopModificationType === 'ShopCallbackHandlerSetup'", [changeSet]="changeSet")
             kof-shop-callback-handler-teardown(*ngIf="changeSet.shopModificationType === 'ShopCallbackHandlerTeardown'", [changeSet]="changeSet")
+        //button.btn.btn-danger.pull-right(data-toggle="modal" data-target=".revoke-modal" data-backdrop="false") Отмена заявки
+        button.btn.btn-danger.pull-right((click)="test()") Отмена заявки
+
+.modal.fade.revoke-modal(tabindex="-1" role="dialog")
+    .modal-dialog.modal-sm
+        .modal-content
+            .modal-header
+                h5.modal-title Подтверждение отмены заявки
+            .modal-body Введите причину отмены
+                textarea.form-control(required, [(ngModel)]="revokeReason", #reason="ngModel")
+            .modal-footer
+                .btn-toolbar.pull-left
+                    .btn-group.btn-group-sm
+                        button.btn.btn-default(type="button", data-dismiss="modal") Назад
+                .btn-toolbar.pull-right
+                    .btn-group.btn-group-sm
+                        button.btn.btn-danger(type="button", data-dismiss="modal", (click)="revokeClaim(revokeReason)") Отменить заявку
