@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ContractService } from 'koffing/backend/services/contract.service';
 import { Contractor } from 'koffing/backend/model/contract/contractor.class';
 import { PayoutToolBankAccount } from 'koffing/backend/model/contract/payout-tool-bank-account.class';
-import { ContractParams } from 'koffing/backend/classes/contract-params.class';
+// import { ContractParams } from 'koffing/backend/classes/contract-params.class';
 import { ClaimCreateBroadcaster } from 'koffing/broadcaster/services/claim-create.broadcaster.service';
 import { ContractorTransfer } from 'koffing/management/shops/create-shop-wizard/selection-contract/create-contract/contractor-transfer.class';
 import { PaytoolTransfer } from 'koffing/management/shops/create-shop-wizard/selection-paytool/create-paytool/paytool-transfer.class';
@@ -50,10 +50,10 @@ export class ContractCreateComponent {
     public createContract() {
         if (this.isContractorReady && this.isPayoutToolReady) {
             this.isLoading = true;
-            const contractParams = new ContractParams();
-            contractParams.contractor = this.contractor;
-            contractParams.payoutToolParams = this.payoutToolParams;
             console.log('createContract');
+            // const contractParams = new ContractParams();
+            // contractParams.contractor = this.contractor;
+            // contractParams.payoutToolParams = this.payoutToolParams;
             // this.contractService.createContract(contractParams).then(() => {
             //     this.isLoading = false;
             //     this.claimCreateBroadcaster.fire();

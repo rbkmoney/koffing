@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
-import { Category } from '../classes/category.class';
+import { Category } from '../model/shop/category.class';
 import { ConfigService } from './config.service';
 
 @Injectable()

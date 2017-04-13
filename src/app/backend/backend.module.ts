@@ -38,15 +38,13 @@ export * from './services/shop.service';
 export * from './services/geolocation.service';
 export * from './services/http-claim.service';
 
-export * from './classes/category.class';
-export * from './classes/conversion.class';
-export * from './classes/geodata.class';
-export * from './classes/invoice.class';
 export * from './classes/request-params.class';
-export * from './classes/revenue.class';
-export * from './classes/shop-item.class';
-export * from './classes/location-name.class';
 export * from './classes/shop-params.class';
+export * from './model/invoice.class';
+export * from './model/payment/location-name.class';
+export * from './model/payment/payment-conversion-stat.class';
+export * from './model/payment/payment-geo-stat.class';
+export * from './model/payment/payment-revenue-stat.class';
 
 export * from './model/shop/shop.class';
 export * from './model/shop/shop-account.class';
@@ -54,6 +52,7 @@ export * from './model/shop/shop-details.class';
 export * from './model/shop/shop-location.class';
 export * from './model/shop/shop-location-url.class';
 export * from './model/shop/callback-handler.class';
+export * from './model/shop/category.class';
 
 export * from './model/contract/contract.class';
 export * from './model/contract/contractor.class';

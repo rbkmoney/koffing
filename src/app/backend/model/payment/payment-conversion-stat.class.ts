@@ -1,4 +1,4 @@
-export class Conversion {
+export class PaymentConversionStat {
     public conversion: number;
     public offset: number;
     public successfulCount: number;

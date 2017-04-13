@@ -6,7 +6,7 @@ import { Shop } from 'koffing/backend/backend.module';
 import { Contract } from 'koffing/backend/backend.module';
 import { PayoutTool } from 'koffing/backend/backend.module';
 import { ContractService } from 'koffing/backend/backend.module';
-import { Category } from 'koffing/backend/classes/category.class';
+import { Category } from 'koffing/backend/backend.module';
 import { ShopParams } from 'koffing/backend/backend.module';
 import { ShopDetails } from 'koffing/backend/backend.module';
 import { ShopLocationUrl } from 'koffing/backend/backend.module';

@@ -4,9 +4,9 @@ import 'rxjs/add/operator/toPromise';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
-import { LocationName } from './../classes/location-name.class';
 import { RequestParams } from '../classes/request-params.class';
-import { PaymentGeoStat } from '../classes/geodata.class';
+import { LocationName } from '../model/payment/location-name.class';
+import { PaymentGeoStat } from '../model/payment/payment-geo-stat.class';
 import { ConfigService } from './config.service';
 
 @Injectable()

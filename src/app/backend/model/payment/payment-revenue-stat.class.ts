@@ -1,4 +1,4 @@
-export class Revenue {
+export class PaymentRevenueStat {
     public currency: string;
     public offset: number;
     public profit: number;

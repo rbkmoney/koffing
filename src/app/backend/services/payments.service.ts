@@ -3,8 +3,8 @@ import { Http, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import * as moment from 'moment';
 
-import { Revenue } from '../classes/revenue.class';
-import { Conversion } from '../classes/conversion.class';
+import { PaymentRevenueStat } from '../model/payment/payment-revenue-stat.class';
+import { PaymentConversionStat } from '../model/payment/payment-conversion-stat.class';
 import { RequestParams } from '../classes/request-params.class';
 import { ConfigService } from './config.service';
 
@@ -16,7 +16,7 @@ export class PaymentsService {
         private config: ConfigService
     ) {}
 
-    public getRevenueStat(shopID: number, requestParams: RequestParams): Promise<Revenue[]> {
+    public getRevenueStat(shopID: number, requestParams: RequestParams): Promise<PaymentRevenueStat[]> {
         const params = new URLSearchParams();
 
         const fromTime = moment(requestParams.fromTime).utc().format();
@@ -32,7 +32,7 @@ export class PaymentsService {
             .then(response => response.json());
     }
 
-    public getConversionStat(shopID: number, requestParams: RequestParams): Promise<Conversion[]> {
+    public getConversionStat(shopID: number, requestParams: RequestParams): Promise<PaymentConversionStat[]> {
         const params = new URLSearchParams();
 
         const fromTime = moment(requestParams.fromTime).utc().format();

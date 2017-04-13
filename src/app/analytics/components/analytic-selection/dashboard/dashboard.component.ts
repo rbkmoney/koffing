@@ -9,7 +9,7 @@ import { CustomerService } from 'koffing/backend/backend.module';
 import { PaymentsService } from 'koffing/backend/backend.module';
 import { RequestParams } from 'koffing/backend/backend.module';
 import { PaymentGeoStat } from 'koffing/backend/backend.module';
-import { Conversion } from 'koffing/backend/backend.module';
+import { PaymentConversionStat } from 'koffing/backend/backend.module';
 import { GeolocationService } from 'koffing/backend/backend.module';
 import { LocationName } from 'koffing/backend/backend.module';
 import { GeoChartLabeled } from './geo-chart-labeled.class';
@@ -108,7 +108,7 @@ export class DashboardComponent implements OnInit {
 
     private loadConversionStat(shopID: number, fromTime: string, toTime: string) {
         this.conversionLoading = true;
-        this.paymentsService.getConversionStat(shopID, new RequestParams(fromTime, toTime)).then((conversion: Conversion[]) => {
+        this.paymentsService.getConversionStat(shopID, new RequestParams(fromTime, toTime)).then((conversion: PaymentConversionStat[]) => {
             this.conversionLoading = false;
             const paymentCountInfo = ChartDataConversionService.toPaymentCountInfo(conversion);
             this.successfulCount = paymentCountInfo.successfulCount;

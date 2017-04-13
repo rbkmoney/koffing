@@ -1,8 +1,8 @@
 import * as _ from 'lodash';
 import  Dictionary = _.Dictionary;
 
-import { PaymentGeoStat } from 'koffing/backend/classes/geodata.class';
-import { LocationName } from 'koffing/backend/classes/location-name.class';
+import { PaymentGeoStat } from 'koffing/backend/backend.module';
+import { LocationName } from 'koffing/backend/backend.module';
 import { GeoChartData } from './geo-chart-data.class';
 import { GeoChartLabeled } from './geo-chart-labeled.class';
 

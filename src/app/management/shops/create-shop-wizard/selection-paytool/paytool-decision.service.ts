@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
 
 import { Contractor } from 'koffing/backend/model/contract/contractor.class';
-import { ContractParams } from 'koffing/backend/classes/contract-params.class';
+// import { ContractParams } from 'koffing/backend/classes/contract-params.class';
 import { PayoutToolParams } from 'koffing/backend/model/contract/payout-tool-params.class';
 import { ContractService } from 'koffing/backend/services/contract.service';
 import { HttpClaimService } from 'koffing/backend/services/http-claim.service';
@@ -29,9 +29,9 @@ export class PaytoolDecisionService {
     }
 
     public createContract(contractor: Contractor, payoutToolsParams: PayoutToolParams): Promise<PaytoolDecision> {
-        const contractParams = new ContractParams();
-        contractParams.contractor = contractor;
-        contractParams.payoutToolParams = payoutToolsParams;
+        // const contractParams = new ContractParams();
+        // contractParams.contractor = contractor;
+        // contractParams.payoutToolParams = payoutToolsParams;
         return new Promise((resolve) => {
             console.log('createContract');
             // this.contractService.createContract(contractParams).then((result: any) => {
