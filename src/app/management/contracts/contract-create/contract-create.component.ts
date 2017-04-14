@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ContractService } from 'koffing/backend/services/contract.service';
 import { Contractor } from 'koffing/backend/model/contract/contractor.class';
 import { PayoutToolBankAccount } from 'koffing/backend/model/contract/payout-tool-bank-account.class';
 // import { ContractParams } from 'koffing/backend/classes/contract-params.class';
@@ -31,7 +30,6 @@ export class ContractCreateComponent {
 
     constructor(
         private router: Router,
-        private contractService: ContractService,
         private claimCreateBroadcaster: ClaimCreateBroadcaster
     ) {}
 

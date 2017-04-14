@@ -1,5 +1,6 @@
 import * as _ from 'lodash';
 
+// todo remove this
 export class ShopParams {
 
     public categoryID: number;

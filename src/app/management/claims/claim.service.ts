@@ -18,37 +18,66 @@ export class ClaimService {
         private httpClaimService: HttpClaimService
     ) { }
 
-    // private getContractPayoutToolCreation(payoutToolBankAccount: PayoutToolBankAccount): ContractPayoutToolCreation {
-    //     const contractPayoutToolCreation = new ContractPayoutToolCreation();
-    //     contractPayoutToolCreation.payoutToolID = uuid();
-    //     contractPayoutToolCreation.currency = payoutToolBankAccount.currency;
-    //     contractPayoutToolCreation.bankAccount = payoutToolBankAccount.bankAccount;
-    //     return contractPayoutToolCreation;
-    // }
+    private getContractCreation(contract: Contract): ContractCreation {
+        const contractCreation = new ContractCreation();
+        contractCreation.contractID = uuid();
+        contractCreation.contractor = contract.contractor;
+        return contractCreation;
+    }
 
-    public createShop(shop: Shop, contract: Contract, payoutToolBankAccount: PayoutToolBankAccount): Promise<Claim> {
+    private getContractPayoutToolCreation(payoutToolBankAccount: PayoutToolBankAccount, contractID: string): ContractPayoutToolCreation {
+        const contractPayoutToolCreation = new ContractPayoutToolCreation();
+        contractPayoutToolCreation.payoutToolID = uuid();
+        contractPayoutToolCreation.contractID = contractID;
+        contractPayoutToolCreation.currency = payoutToolBankAccount.currency;
+        contractPayoutToolCreation.bankAccount = payoutToolBankAccount.bankAccount;
+        return contractPayoutToolCreation;
+    }
+
+    private getShopCreation(shop: Shop, contractID: string, payoutToolID: string): ShopCreation {
+        const shopCreation = new ShopCreation();
+        shopCreation.shopID = uuid();
+        shopCreation.contractID = contractID;
+        shopCreation.payoutToolID = payoutToolID;
+        shopCreation.details = shop.details;
+        shopCreation.location = shop.location;
+        return shopCreation;
+    }
+
+    public createShop(payoutToolBankAccount: PayoutToolBankAccount, contract: Contract, shop: Shop): Promise<Claim> {
         return new Promise((resolve, reject) => {
-            const contractPayoutToolCreation = new ContractPayoutToolCreation();
-            contractPayoutToolCreation.payoutToolID = uuid();
-            contractPayoutToolCreation.currency = payoutToolBankAccount.currency;
-            contractPayoutToolCreation.bankAccount = payoutToolBankAccount.bankAccount;
-
-            const contractCreation = new ContractCreation();
-            contractCreation.contractID = uuid();
-            contractCreation.contractor = contract.contractor;
-
-            const shopCreation = new ShopCreation();
-            shopCreation.shopID = uuid();
-            shopCreation.contractID = contractCreation.contractID;
-            shopCreation.payoutToolID = contractPayoutToolCreation.payoutToolID;
-            shopCreation.details = shop.details;
-            shopCreation.location = shop.location;
+            const contractCreation = this.getContractCreation(contract);
+            const contractPayoutToolCreation = this.getContractPayoutToolCreation(payoutToolBankAccount, contractCreation.contractID);
+            const shopCreation = this.getShopCreation(shop, contractCreation.contractID, contractPayoutToolCreation.payoutToolID);
 
             const changeSet: PartyModification[] = [];
-            changeSet.push(contractPayoutToolCreation, contractCreation, shopCreation);
+            changeSet.push(contractCreation, contractPayoutToolCreation, shopCreation);
             console.log(changeSet);
 
-            this.httpClaimService.createClaim(changeSet).then((claim: Claim) => resolve(claim));
+            this.httpClaimService.createClaim(changeSet).then((claim) => resolve(claim));
+        });
+    }
+
+    public createContract(payoutToolBankAccount: PayoutToolBankAccount, contract: Contract): Promise<Claim> {
+        return new Promise((resolve, reject) => {
+            const contractCreation = this.getContractCreation(contract);
+            const contractPayoutToolCreation = this.getContractPayoutToolCreation(payoutToolBankAccount, contractCreation.contractID);
+
+            const changeSet: PartyModification[] = [];
+            changeSet.push(contractCreation, contractPayoutToolCreation);
+
+            this.httpClaimService.createClaim(changeSet).then((claim) => resolve(claim));
+        });
+    }
+
+    public createPayoutTool(payoutToolBankAccount: PayoutToolBankAccount, contractID: string): Promise<Claim> {
+        return new Promise((resolve, reject) => {
+            const contractPayoutToolCreation = this.getContractPayoutToolCreation(payoutToolBankAccount, contractID);
+
+            const changeSet: PartyModification[] = [];
+            changeSet.push(contractPayoutToolCreation);
+
+            this.httpClaimService.createClaim(changeSet).then((claim) => resolve(claim));
         });
     }
 }

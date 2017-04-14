@@ -25,7 +25,7 @@ export class HttpClaimService {
             .then((response) => response.json());
     }
 
-    public getClaimByID(claimID: string): Promise<any> {
+    public getClaimByID(claimID: number): Promise<any> {
         return this.http.get(`${this.claimUrl}/${claimID}`)
             .toPromise()
             .then((response) => response.json());
@@ -37,7 +37,7 @@ export class HttpClaimService {
             .then((response) => response.json());
     }
 
-    public revokeClaim(claimID: string, revokeReason: string): Promise<string> {
+    public revokeClaim(claimID: number, revokeReason: string): Promise<string> {
         return this.http.put(`${this.claimUrl}/${claimID}/revoke`, {reason: revokeReason})
             .toPromise()
             .then((response) => response.statusText);

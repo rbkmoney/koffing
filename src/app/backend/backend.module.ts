@@ -41,10 +41,10 @@ export * from './services/http-claim.service';
 export * from './classes/request-params.class';
 export * from './classes/shop-params.class';
 export * from './model/invoice.class';
-export * from './model/payment/location-name.class';
-export * from './model/payment/payment-conversion-stat.class';
-export * from './model/payment/payment-geo-stat.class';
-export * from './model/payment/payment-revenue-stat.class';
+export * from './model/statistics/location-name.class';
+export * from './model/statistics/payment-conversion-stat.class';
+export * from './model/statistics/payment-geo-stat.class';
+export * from './model/statistics/payment-revenue-stat.class';
 
 export * from './model/shop/shop.class';
 export * from './model/shop/shop-account.class';

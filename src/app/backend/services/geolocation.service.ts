@@ -5,8 +5,8 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 
 import { RequestParams } from '../classes/request-params.class';
-import { LocationName } from '../model/payment/location-name.class';
-import { PaymentGeoStat } from '../model/payment/payment-geo-stat.class';
+import { LocationName } from '../model/statistics/location-name.class';
+import { PaymentGeoStat } from '../model/statistics/payment-geo-stat.class';
 import { ConfigService } from './config.service';
 
 @Injectable()

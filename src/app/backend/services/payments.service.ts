@@ -3,8 +3,8 @@ import { Http, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import * as moment from 'moment';
 
-import { PaymentRevenueStat } from '../model/payment/payment-revenue-stat.class';
-import { PaymentConversionStat } from '../model/payment/payment-conversion-stat.class';
+import { PaymentRevenueStat } from '../model/statistics/payment-revenue-stat.class';
+import { PaymentConversionStat } from '../model/statistics/payment-conversion-stat.class';
 import { RequestParams } from '../classes/request-params.class';
 import { ConfigService } from './config.service';
 

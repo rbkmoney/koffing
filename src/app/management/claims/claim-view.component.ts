@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { ClaimService } from './claim.service';
+import { HttpClaimService } from 'koffing/backend/backend.module';
 import { Claim } from 'koffing/backend/backend.module';
 import { Shop } from 'koffing/backend/backend.module';
 import { Contract } from 'koffing/backend/backend.module';
@@ -19,7 +20,8 @@ export class ClaimViewComponent {
     public revokeReason: string = '';
     
     constructor(
-        private claimService: ClaimService
+        private claimService: ClaimService,
+        private httpClaimService: HttpClaimService
     ) { }
 
     public show() {
@@ -27,11 +29,13 @@ export class ClaimViewComponent {
     }
 
     public revokeClaim(reason: string) {
-        console.log(`revokeClaim: ${reason}`);
+        this.httpClaimService.revokeClaim(this.claim.id, reason).then(() => {
+            console.log(`Claim revoke success`);
+        });
     }
     
     public test() {
-        this.claimService.createShop(new Shop(), new Contract(), new PayoutToolBankAccount()).then((claim) => {
+        this.claimService.createShop(new PayoutToolBankAccount(), new Contract(), new Shop()).then((claim) => {
             console.log(claim);
         });
     }
