@@ -19,6 +19,7 @@ import { AnalyticsComponent } from 'koffing/analytics/analytics.component';
 import { DateRangeSelectorComponent } from 'koffing/analytics/dashboard/date-range-selector/date-range-selector.component';
 import { LineChartComponent } from 'koffing/analytics/dashboard/line-chart/line-chart.component';
 import { DoughnutChartComponent } from 'koffing/analytics/dashboard/doughnut-chart/doughnut-chart.component';
+import { StatisticPanelComponent } from 'koffing/analytics/statistic-panel/statistic-panel.component';
 
 @NgModule({
     imports: [
@@ -42,7 +43,8 @@ import { DoughnutChartComponent } from 'koffing/analytics/dashboard/doughnut-cha
         RoubleCurrencyPipe,
         PaginationPipe,
         LineChartComponent,
-        DoughnutChartComponent
+        DoughnutChartComponent,
+        StatisticPanelComponent
     ]
 })
 export class AnalyticsModule { }

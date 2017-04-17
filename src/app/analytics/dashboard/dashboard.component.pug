@@ -1,70 +1,35 @@
 .row
-    .col-xs-12
+    .col-xs-3
+        kof-loading([isLoading]="isLoading")
+    .col-xs-9
         kof-date-range-selector([from]="fromTime", [to]="toTime", (onSelect)="loadData($event)")
 .row
     .col-xs-12
-        .tile_count
-            .col-xs-6.col-sm-4.col-md-2.tile_stats_count
-                span.count_top Оборот
-                    .dashboard_stats_count
-                        kof-loading([isLoading]="revenueLoading")
-                            div {{profit | kofRoubleCurrency}}
-                span.count_bottom Рублей
-            .col-xs-6.col-sm-4.col-md-2.tile_stats_count
-                span.count_top Основной счет
-                    .dashboard_stats_count
-                        kof-loading([isLoading]="settlementLoading")
-                            div {{settlementBalance | kofRoubleCurrency}}
-                span.count_bottom Рублей
-            .col-xs-6.col-sm-4.col-md-2.tile_stats_count
-                span.count_top Гарантийный счет
-                    .dashboard_stats_count
-                        kof-loading([isLoading]="guaranteeLoading")
-                            div {{guaranteeBalance | kofRoubleCurrency}}
-                span.count_bottom Рублей
-            .col-xs-6.col-sm-4.col-md-2.tile_stats_count
-                span.count_top Успешных платежей
-                .dashboard_stats_count
-                    kof-loading([isLoading]="conversionLoading")
-                        div {{successfulCount}}
-            .col-xs-6.col-sm-4.col-md-2.tile_stats_count
-                span.count_top Незавершенных платежей
-                .dashboard_stats_count
-                    kof-loading([isLoading]="conversionLoading")
-                        div {{unfinishedCount}}
-            .col-xs-6.col-sm-4.col-md-2.tile_stats_count
-                span.count_top Уникальных плательщиков
-                .dashboard_stats_count
-                    kof-loading([isLoading]="rateLoading")
-                        div {{uniqueCount}}
+        kof-statistic-panel([data]="panelData")
 .row
     .col-xs-12
         .x_panel
             .x_title
                 h4 Оборот
             .x_content
-                kof-loading([isLoading]="revenueLoading")
-                    kof-line-chart([chartData]="revenueChartData")
+                kof-line-chart([chartData]="revenueChartData")
 .row
     .col-xs-12
         .x_panel
             .x_title
                 h4 Конверсия оплат
             .x_content
-                kof-loading([isLoading]="conversionLoading")
-                    kof-line-chart([chartData]="conversionChartData")
+                kof-line-chart([chartData]="conversionChartData")
 .row
     .col-xs-12.col-sm-6
         .x_panel
             .x_title
                 h4 Способы оплаты
             .x_content
-                kof-loading([isLoading]="paymentMethodLoading")
-                    kof-doughnut-chart([chartData]="paymentMethodChartData")
+                kof-doughnut-chart([chartData]="paymentMethodChartData")
     .col-xs-12.col-sm-6
         .x_panel
             .x_title
                 h4 Геолокация
             .x_content
-                kof-loading([isLoading]="geoLoading")
-                    kof-doughnut-chart([chartData]="geoChartData")
+                kof-doughnut-chart([chartData]="geoChartData")
