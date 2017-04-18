@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { DoughnutChartData } from 'koffing/analytics/dashboard/chart-data/doughnut-chart-data';
+import { DoughnutChartData } from 'koffing/analytics/dashboard/stats-data/doughnut-chart-data';
 
 @Component({
     selector: 'kof-doughnut-chart',

@@ -4,10 +4,10 @@ import { Observer } from 'rxjs/Observer';
 
 import { LocationService } from 'koffing/backend/location.service';
 import { AnalyticsService } from 'koffing/backend/analytics.service';
-import { PaymentConversionData } from 'koffing/analytics/dashboard/chart-data/payment-conversion-data.class';
-import { PaymentRevenueData } from 'koffing/analytics/dashboard/chart-data/payment-revenue-data.class';
-import { ChartDataConverter } from 'koffing/analytics/dashboard/chart-data/chart-data.converter';
-import { DoughnutChartData } from 'koffing/analytics/dashboard/chart-data/doughnut-chart-data';
+import { DoughnutChartData } from './stats-data/doughnut-chart-data';
+import { StatsDataConverter } from './stats-data/stats-data.converter';
+import { PaymentConversionData } from './stats-data/payment-conversion-data.class';
+import { PaymentRevenueData } from './stats-data/payment-revenue-data.class';
 
 @Injectable()
 export class DashboardService {
@@ -18,7 +18,7 @@ export class DashboardService {
 
     public getPaymentMethodChartData(shopID: number, from: Date, to: Date): Observable<DoughnutChartData> {
         return this.analyticsService.getPaymentMethodStats(shopID, from, to)
-            .map((paymentMethodStats) => ChartDataConverter.toPaymentMethodChartData(paymentMethodStats));
+            .map((paymentMethodStats) => StatsDataConverter.toPaymentMethodChartData(paymentMethodStats));
     }
 
     public getUniqueCount(shopID: number, from: Date, to: Date): Observable<number> {
@@ -28,8 +28,8 @@ export class DashboardService {
 
     public getPaymentConversionData(shopID: number, from: Date, to: Date): Observable<PaymentConversionData> {
         return this.analyticsService.getPaymentConversionStats(shopID, from, to).map((paymentConversionStat) => {
-            const paymentCount = ChartDataConverter.toPaymentCountInfo(paymentConversionStat);
-            const conversionChartData = ChartDataConverter.toConversionChartData(from, paymentConversionStat);
+            const paymentCount = StatsDataConverter.toPaymentCountInfo(paymentConversionStat);
+            const conversionChartData = StatsDataConverter.toConversionChartData(from, paymentConversionStat);
             return {paymentCount, conversionChartData};
         });
     }
@@ -37,7 +37,7 @@ export class DashboardService {
     public getPaymentGeoChartData(shopID: number, from: Date, to: Date): Observable<DoughnutChartData> {
         return Observable.create((observer: Observer<DoughnutChartData>) => {
             this.analyticsService.getPaymentGeoStats(shopID, from, to).subscribe((paymentGeoStat) => {
-                const data = ChartDataConverter.toGeoChartData(paymentGeoStat);
+                const data = StatsDataConverter.toGeoChartData(paymentGeoStat);
                 this.locationService.getLocationsNames(data.labels)
                     .subscribe((locationNames) => {
                         data.labels = locationNames.map(locationName => locationName.name);
@@ -49,8 +49,8 @@ export class DashboardService {
 
     public getPaymentRevenueData(shopID: number, from: Date, to: Date): Observable<PaymentRevenueData> {
         return this.analyticsService.getPaymentRevenueStats(shopID, from, to).map((paymentRevenueStat) => {
-            const profit = ChartDataConverter.toTotalProfit(paymentRevenueStat);
-            const revenueChartData = ChartDataConverter.toRevenueChartData(from, paymentRevenueStat);
+            const profit = StatsDataConverter.toTotalProfit(paymentRevenueStat);
+            const revenueChartData = StatsDataConverter.toRevenueChartData(from, paymentRevenueStat);
             return {profit, revenueChartData};
         });
     }

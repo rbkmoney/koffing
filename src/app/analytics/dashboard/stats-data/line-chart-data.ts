@@ -1,4 +1,4 @@
-import { Dataset } from 'koffing/analytics/dashboard/chart-data/dataset';
+import { Dataset } from './dataset';
 
 export interface LineChartData {
     labels: string[];

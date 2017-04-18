@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
 import { isNil } from 'lodash';
 
 import { PanelData } from 'koffing/analytics/statistic-panel/panel-data';
@@ -22,32 +21,30 @@ export class StatisticPanelComponent implements OnInit {
     public settlementBalance: Observable<number>;
 
     public ngOnInit() {
-        const multicasted = this.data.multicast(new Subject());
+        const shared = this.data.share();
 
-        this.uniqueCount = multicasted
+        this.uniqueCount = shared
             .filter((data: PanelData) => !isNil(data.uniqueCount))
             .map((data: PanelData) => data.uniqueCount);
 
-        this.successfulCount = multicasted
+        this.successfulCount = shared
             .filter((data: PanelData) => !isNil(data.successfulCount))
             .map((data: PanelData) => data.successfulCount);
 
-        this.unfinishedCount = multicasted
+        this.unfinishedCount = shared
             .filter((data: PanelData) => !isNil(data.unfinishedCount))
             .map((data: PanelData) => data.unfinishedCount);
 
-        this.profit = multicasted
+        this.profit = shared
             .filter((data: PanelData) => !isNil(data.profit))
             .map((data: PanelData) => data.profit);
 
-        this.guaranteeBalance = multicasted
+        this.guaranteeBalance = shared
             .filter((data: PanelData) => !isNil(data.guaranteeBalance))
             .map((data: PanelData) => data.guaranteeBalance);
 
-        this.settlementBalance = multicasted
+        this.settlementBalance = shared
             .filter((data: PanelData) => !isNil(data.settlementBalance))
             .map((data: PanelData) => data.settlementBalance);
-
-        multicasted.connect();
     }
 }

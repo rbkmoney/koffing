@@ -7,9 +7,9 @@ import { ShopService }  from 'koffing/backend/services/shop.service';
 import { DateRange } from 'koffing/analytics/dashboard/date-range-selector/date-range.class';
 import { AccountsService } from 'koffing/backend/accounts.service';
 import { DashboardService } from 'koffing/analytics/dashboard/dashboard.service';
-import { LineChartData } from 'koffing/analytics/dashboard/chart-data/line-chart-data';
-import { DoughnutChartData } from 'koffing/analytics/dashboard/chart-data/doughnut-chart-data';
 import { PanelData } from 'koffing/analytics/statistic-panel/panel-data';
+import { LineChartData } from 'koffing/analytics/dashboard/stats-data/line-chart-data';
+import { DoughnutChartData } from 'koffing/analytics/dashboard/stats-data/doughnut-chart-data';
 
 @Component({
     templateUrl: './dashboard.component.pug',

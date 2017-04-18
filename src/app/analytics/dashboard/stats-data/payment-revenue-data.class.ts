@@ -1,4 +1,4 @@
-import { LineChartData } from 'koffing/analytics/dashboard/chart-data/line-chart-data';
+import { LineChartData } from './line-chart-data';
 
 export interface PaymentRevenueData {
     profit: number;

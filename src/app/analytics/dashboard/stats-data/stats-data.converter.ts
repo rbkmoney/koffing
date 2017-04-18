@@ -7,10 +7,10 @@ import { PaymentConversionStat } from 'koffing/backend/model/payment-conversion-
 import { PaymentRevenueStat } from 'koffing/backend/model/payment-revenue-stat.class';
 import { PaymentCount } from './payment-count.class';
 import { LineChartData } from './line-chart-data';
-import { Dataset } from 'koffing/analytics/dashboard/chart-data/dataset';
-import { DoughnutChartData } from 'koffing/analytics/dashboard/chart-data/doughnut-chart-data';
+import { Dataset } from './dataset';
+import { DoughnutChartData } from './doughnut-chart-data';
 
-export class ChartDataConverter {
+export class StatsDataConverter {
 
     public static toPaymentMethodChartData(stat: PaymentMethodStat[]): DoughnutChartData {
         const group = groupBy(stat, 'paymentSystem');
