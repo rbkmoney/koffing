@@ -16,7 +16,7 @@ export class DoughnutChartComponent implements OnInit {
 
     public data: number[] = [];
 
-    public options: any = {
+    public options = {
         animation: false,
         legend: {
             display: true,

@@ -16,7 +16,7 @@ export class LineChartComponent implements OnInit {
 
     public datasets: any[] = [];
 
-    public options: any = {
+    public options = {
         elements: {
             line: {
                 tension: 0.2
