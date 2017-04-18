@@ -7,14 +7,14 @@ import { RequestParams } from '../classes/request-params.class';
 import { ConfigService } from './config.service';
 
 @Injectable()
-export class CustomerService {
+export class HttpCustomerService {
 
     constructor(
         private http: Http,
         private config: ConfigService
     ) {}
 
-    public getPaymentMethod(shopID: number, requestParams: RequestParams): Promise<any> {
+    public getPaymentMethod(shopID: string, requestParams: RequestParams): Promise<any> {
         const params = new URLSearchParams();
 
         const fromTime = moment(requestParams.fromTime).utc().format();
@@ -31,7 +31,7 @@ export class CustomerService {
             .then((response) => response.json());
     }
 
-    public getRate(shopID: number, requestParams: RequestParams): Promise<any> {
+    public getRate(shopID: string, requestParams: RequestParams): Promise<any> {
         const params = new URLSearchParams();
 
         const fromTime = moment(requestParams.fromTime).utc().format();

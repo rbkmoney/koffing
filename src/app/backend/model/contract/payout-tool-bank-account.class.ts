@@ -1,12 +1,12 @@
-import { PayoutToolParams } from './payout-tool-params.class';
+import { PayoutToolDetails } from './payout-tool-details.class';
 import { BankAccount } from './bank-account.class';
 
-export class PayoutToolBankAccount extends PayoutToolParams {
+export class PayoutToolBankAccount extends PayoutToolDetails {
     public bankAccount: BankAccount;
 
     constructor() {
         super();
-        this.payoutToolType = 'PayoutToolBankAccount';
+        this.type = 'PayoutToolBankAccount';
         this.bankAccount = new BankAccount();
     }
 }

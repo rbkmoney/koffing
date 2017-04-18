@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import * as _ from 'lodash';
 
-import { SelectItem } from 'koffing/common/components/select/select.class';
-import { PayoutTool } from 'koffing/backend/model/contract/payout-tool.class';
-import { ContractService } from 'koffing/backend/services/contract.service';
+import { SelectItem } from 'koffing/common/common.module';
+import { PayoutTool } from 'koffing/backend/backend.module';
+import { HttpContractService } from 'koffing/backend/backend.module';
 
 @Component({
     selector: 'kof-select-paytool',
@@ -11,20 +11,21 @@ import { ContractService } from 'koffing/backend/services/contract.service';
 })
 export class SelectPaytoolComponent implements OnInit {
 
-    public selectableItems: SelectItem[] = [];
-    public selectedPayoutToolId: number;
-    public isLoading: boolean = true;
-    public selectedOption: string;
-    @Output()
-    public onPayoutToolSelected = new EventEmitter();
     @Input()
     public contractID: string;
+
+    @Output()
+    public onSelectPayoutTool = new EventEmitter();
+
+    public selectableItems: SelectItem[] = [];
+    public selectedPayoutToolID: string;
+    public isLoading: boolean = true;
     public errorHighlighted: boolean = false;
     private payoutTools: PayoutTool[];
     private selectedPayoutTool: PayoutTool;
 
     constructor(
-        private contractService: ContractService
+        private contractService: HttpContractService
     ) { }
 
     public ngOnInit() {
@@ -39,17 +40,17 @@ export class SelectPaytoolComponent implements OnInit {
         this.errorHighlighted = true;
     }
 
-    public selectPayoutAccount() {
-        this.selectedPayoutTool = this.findSelectedTool(this.payoutTools, this.selectedPayoutToolId);
+    public selectPayoutTool() {
         this.errorHighlighted = false;
-        this.onPayoutToolSelected.emit(_.toNumber(this.selectedPayoutToolId));
+        this.selectedPayoutTool = this.findPayoutToolByID(this.payoutTools, this.selectedPayoutToolID);
+        this.onSelectPayoutTool.emit(this.selectedPayoutTool);
     }
 
     private prepareSelectableItems(payoutTools: PayoutTool[]) {
         return _.map(payoutTools, (payoutTool) => new SelectItem(payoutTool.id, String(payoutTool.id)));
     }
 
-    private findSelectedTool(payoutTools: PayoutTool[], payoutToolID: any) {
-        return _.find(payoutTools, (payoutTool) => payoutTool.id === String(payoutToolID));
+    private findPayoutToolByID(payoutTools: PayoutTool[], payoutToolID: string) {
+        return _.find(payoutTools, (payoutTool) => String(payoutTool.id) === String(payoutToolID));
     }
 }

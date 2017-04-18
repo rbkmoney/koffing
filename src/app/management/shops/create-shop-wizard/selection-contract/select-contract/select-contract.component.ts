@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 
 import { SelectItem } from 'koffing/common/common.module';
 import { Contract } from 'koffing/backend/model/contract/contract.class';
-import { ContractService } from 'koffing/backend/services/contract.service';
+import { HttpContractService } from 'koffing/backend/backend.module';
 
 @Component({
     selector: 'kof-select-contract',
@@ -22,7 +22,7 @@ export class SelectContractComponent implements OnInit {
     public errorHighlighted: boolean = false;
 
     constructor(
-        private contractService: ContractService
+        private contractService: HttpContractService
     ) { }
 
     public ngOnInit() {
@@ -38,16 +38,16 @@ export class SelectContractComponent implements OnInit {
     }
 
     public selectContract() {
-        this.selectedContract = this.findSelectedContract(this.contracts, this.selectedContractID);
+        this.selectedContract = this.findContractByID(this.contracts, this.selectedContractID);
         this.errorHighlighted = false;
         this.onContractSelected.emit(this.selectedContract);
     }
 
     private prepareSelectableItems(contracts: Contract[]) {
-        return _.map(contracts, (contract: Contract) => new SelectItem(contract.id, String(contract.id)));
+        return _.map(contracts, (contract: Contract) => new SelectItem(String(contract.id), String(contract.id)));
     }
 
-    private findSelectedContract(contracts: Contract[], contractID: string) {
-        return _.find(contracts, (contract: Contract) => contract.id === contractID);
+    private findContractByID(contracts: Contract[], contractID: string) {
+        return _.find(contracts, (contract: Contract) => String(contract.id) === contractID);
     }
 }

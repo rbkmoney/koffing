@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ContractService } from 'koffing/backend/services/contract.service';
-import { Contract } from 'koffing/backend/model/contract/contract.class';
+import { HttpContractService } from 'koffing/backend/backend.module';
+import { Contract } from 'koffing/backend/backend.module';
 
 @Component({
     templateUrl: 'contracts.component.pug'
@@ -13,12 +13,12 @@ export class ContractsComponent implements OnInit {
     public isLoading: boolean = false;
 
     constructor(
-        private contractService: ContractService
+        private httpContractService: HttpContractService
     ) { }
 
     public ngOnInit() {
         this.isLoading = true;
-        this.contractService.getContracts().then((contracts: Contract[]) => {
+        this.httpContractService.getContracts().then((contracts: Contract[]) => {
             this.contracts = contracts;
             this.isLoading = false;
         });

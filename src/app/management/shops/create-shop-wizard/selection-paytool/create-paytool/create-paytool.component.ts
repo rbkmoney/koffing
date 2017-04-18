@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 
 import { PayoutToolBankAccount } from 'koffing/backend/model/contract/payout-tool-bank-account.class';
 import { BankAccount } from 'koffing/backend/model/contract/bank-account.class';
-import { PaytoolTransfer } from './paytool-transfer.class';
+import { PayoutToolTransfer } from './paytool-transfer.class';
 import { SuggestionsService } from 'koffing/suggestions/services/suggestions.service';
 import { SuggestionConverterService } from 'koffing/suggestions/services/suggestion-converter.service';
 import { BankAccountComparator } from './payout-tool-comparator.service';
@@ -20,7 +20,7 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
     public contractBankAccount: BankAccount;
     @Output()
     public onChange = new EventEmitter();
-    public payoutToolParams: PayoutToolBankAccount;
+    public payoutToolBankAccount: PayoutToolBankAccount;
     @ViewChild('createPaytoolForm')
     public form: NgForm;
     public sameBankAccountChecked: boolean;
@@ -33,9 +33,9 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
     ) { }
 
     public ngOnInit() {
-        this.payoutToolParams = this.getInstance();
+        this.payoutToolBankAccount = new PayoutToolBankAccount();
         if (this.defaultPayoutToolParams) {
-            _.assign(this.payoutToolParams, this.defaultPayoutToolParams);
+            _.assign(this.payoutToolBankAccount, this.defaultPayoutToolParams);
         }
         this.compareAccounts();
     }
@@ -46,7 +46,7 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
 
     public emitData() {
         this.compareAccounts();
-        const transfer = new PaytoolTransfer(this.payoutToolParams, this.form.valid);
+        const transfer = new PayoutToolTransfer(this.payoutToolBankAccount, this.form.valid);
         this.onChange.emit(transfer);
     }
 
@@ -70,17 +70,9 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
     }
 
     public compareAccounts() {
-        if (this.payoutToolParams) {
-            this.sameBankAccountChecked = BankAccountComparator.isEqual(this.payoutToolParams.bankAccount, this.contractBankAccount);
+        if (this.payoutToolBankAccount) {
+            this.sameBankAccountChecked = BankAccountComparator.isEqual(this.payoutToolBankAccount.bankAccount, this.contractBankAccount);
         }
-    }
-
-    private getInstance() {
-        const bankAccount = new BankAccount();
-        const instance = new PayoutToolBankAccount();
-        instance.currency = 'rub';
-        instance.bankAccount = bankAccount;
-        return instance;
     }
 
     private handleBankSuggestion(suggestion: BankSuggestion) {

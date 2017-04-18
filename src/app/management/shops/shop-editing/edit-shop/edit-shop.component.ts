@@ -1,18 +1,18 @@
 import { Component, OnInit, Input, EventEmitter, Output, ViewChild, AfterViewInit } from '@angular/core';
 import * as _ from 'lodash';
 
-import { CategoryService } from 'koffing/backend/backend.module';
+import { HttpCategoryService } from 'koffing/backend/backend.module';
 import { Shop } from 'koffing/backend/backend.module';
 import { Contract } from 'koffing/backend/backend.module';
 import { PayoutTool } from 'koffing/backend/backend.module';
-import { ContractService } from 'koffing/backend/backend.module';
+import { HttpContractService } from 'koffing/backend/backend.module';
 import { Category } from 'koffing/backend/backend.module';
-import { ShopParams } from 'koffing/backend/backend.module';
 import { ShopDetails } from 'koffing/backend/backend.module';
 import { ShopLocationUrl } from 'koffing/backend/backend.module';
 import { SelectItem } from 'koffing/common/common.module';
 import { ShopEditingTransfer } from './shop-editing-transfer.class';
 import { NgForm } from '@angular/forms';
+import { ShopParams } from 'koffing/backend/classes/shop-params.class';
 
 @Component({
     selector: 'kof-edit-shop',
@@ -41,8 +41,8 @@ export class EditShopComponent implements OnInit, AfterViewInit {
     public isLoading: boolean = false;
 
     constructor(
-        private categoryService: CategoryService,
-        private contractService: ContractService
+        private httpCategoryService: HttpCategoryService,
+        private httpContractService: HttpContractService
     ) { }
 
     public ngOnInit() {
@@ -84,7 +84,7 @@ export class EditShopComponent implements OnInit, AfterViewInit {
 
     public loadCategories(): Promise<Category[]> {
         return new Promise((resolve) => {
-            this.categoryService.getCategories().then((categories: Category[]) => {
+            this.httpCategoryService.getCategories().then((categories: Category[]) => {
                 this.categoryItems = _.map(categories, (category) => new SelectItem(category.categoryID, category.name));
                 resolve(categories);
             });
@@ -93,7 +93,7 @@ export class EditShopComponent implements OnInit, AfterViewInit {
 
     public loadShopContracts(): Promise<Contract[]> {
         return new Promise((resolve) => {
-            this.contractService.getContracts().then((contracts: Contract[]) => {
+            this.httpContractService.getContracts().then((contracts: Contract[]) => {
                 this.contracts = contracts;
                 this.selectedContract = this.findContract(this.shop.contractID);
                 this.contractItems = _.map(contracts, (contract) => new SelectItem(contract.id, contract.id));
@@ -104,7 +104,7 @@ export class EditShopComponent implements OnInit, AfterViewInit {
 
     public loadShopPayoutTools(contractID: string): Promise<PayoutTool[]> {
         return new Promise((resolve) => {
-            this.contractService.getPayoutTools(contractID).then((payoutTools: PayoutTool[]) => {
+            this.httpContractService.getPayoutTools(contractID).then((payoutTools: PayoutTool[]) => {
                 this.payoutTools = payoutTools;
                 this.payoutToolItems = _.map(payoutTools, (payoutTool) => new SelectItem(payoutTool.id, payoutTool.id));
                 this.selectedPayoutTool = payoutTools[0];

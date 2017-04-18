@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { ShopService } from 'koffing/backend/services/shop.service';
+import { HttpShopService } from 'koffing/backend/backend.module';
+import { Shop } from 'koffing/backend/backend.module';
 
 @Component({
     selector: 'kof-shop-details-panel',
@@ -14,13 +15,13 @@ import { ShopService } from 'koffing/backend/services/shop.service';
 export class ShopDetailsPanelComponent {
     
     @Input()
-    public shop: any;
+    public shop: Shop;
 
     @Output()
     public onChange = new EventEmitter();
     
     constructor(
-        private shopService: ShopService
+        private shopService: HttpShopService
     ) { }
     
     public suspendShop() {

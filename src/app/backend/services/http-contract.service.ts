@@ -7,7 +7,7 @@ import { Contract } from '../model/contract/contract.class';
 import { PayoutTool } from '../model/contract/payout-tool.class';
 
 @Injectable()
-export class ContractService {
+export class HttpContractService {
 
     private contractsUrl: string = `${this.config.capiUrl}/processing/contracts`;
 
@@ -22,7 +22,7 @@ export class ContractService {
             .then((response) => response.json());
     }
 
-    public getContractByID(contractID: string): Promise<Contract> {
+    public getContract(contractID: string): Promise<Contract> {
         return this.http.get(`${this.contractsUrl}/${contractID}`)
             .toPromise()
             .then((response) => response.json());

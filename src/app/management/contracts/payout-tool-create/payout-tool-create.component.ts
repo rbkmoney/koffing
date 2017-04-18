@@ -1,10 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { ContractService } from 'koffing/backend/services/contract.service';
-import { PayoutToolBankAccount } from 'koffing/backend/model/contract/payout-tool-bank-account.class';
+import { ClaimService } from 'koffing/management/claims/claim.service';
+import { PayoutTool } from 'koffing/backend/backend.module';
+import { PayoutToolBankAccount } from 'koffing/backend/backend.module';
 import { ClaimCreateBroadcaster } from 'koffing/broadcaster/services/claim-create.broadcaster.service';
-import { PaytoolTransfer } from 'koffing/management/shops/create-shop-wizard/selection-paytool/create-paytool/paytool-transfer.class';
+import { PayoutToolTransfer } from 'koffing/management/shops/create-shop-wizard/selection-paytool/create-paytool/paytool-transfer.class';
 import { CreatePayoutToolComponent } from 'koffing/management/shops/create-shop-wizard/selection-paytool/create-paytool/create-paytool.component';
 
 @Component({
@@ -13,37 +14,39 @@ import { CreatePayoutToolComponent } from 'koffing/management/shops/create-shop-
 })
 export class PayoutToolCreateComponent {
 
-    public contractID: number = Number(this.route.snapshot.params['contractID']);
-    public shopEditID: number = Number(this.route.snapshot.params['shopID']);
-    public payoutToolsParams: PayoutToolBankAccount;
+    public contractID: string = this.route.snapshot.params['contractID'];
+    public payoutToolBankAccount: PayoutToolBankAccount;
     public isPayoutToolValid: boolean = false;
     public isLoading: boolean = false;
+
     @ViewChild('createPaytoolRef')
-    private createPaytoolComponent: CreatePayoutToolComponent;
+    private createPayoutToolComponent: CreatePayoutToolComponent;
 
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private contractService: ContractService,
+        private claimService: ClaimService,
         private claimCreateBroadcaster: ClaimCreateBroadcaster
     ) { }
 
-    public onPayoutToolChange(value: PaytoolTransfer) {
+    public onPayoutToolChange(value: PayoutToolTransfer) {
         this.isPayoutToolValid = value.valid;
-        this.payoutToolsParams = value.payoutToolParams;
+        this.payoutToolBankAccount = value.payoutToolBankAccount;
     }
 
     public createPayoutTool() {
         if (this.isPayoutToolValid) {
             this.isLoading = true;
-            console.log('createPayoutTool');
-            // this.contractService.createPayoutTool(this.contractID, this.payoutToolsParams).then(() => {
-            //     this.isLoading = false;
-            //     this.claimCreateBroadcaster.fire();
-            //     this.navigateBack();
-            // });
+            const payoutTool = new PayoutTool();
+            payoutTool.currency = 'RUB';    // todo
+            payoutTool.details = this.payoutToolBankAccount;
+            this.claimService.createPayoutTool(payoutTool, this.contractID).then(() => {
+                this.claimCreateBroadcaster.fire();
+                this.isLoading = false;
+                this.navigateBack();
+            });
         } else {
-            this.createPaytoolComponent.highlightErrors();
+            this.createPayoutToolComponent.highlightErrors();
         }
     }
 

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { ShopService } from 'koffing/backend/services/shop.service';
+import { HttpShopService } from 'koffing/backend/backend.module';
+import { Shop } from 'koffing/backend/backend.module';
 import { ShopParams } from 'koffing/backend/classes/shop-params.class';
 import { ShopEditingTransfer } from './edit-shop/shop-editing-transfer.class';
 
@@ -11,16 +12,16 @@ import { ShopEditingTransfer } from './edit-shop/shop-editing-transfer.class';
 })
 export class ShopEditingComponent implements OnInit {
 
-    public shopID: number = Number(this.route.snapshot.params['shopID']);
+    public shopID: string = this.route.snapshot.params['shopID'];
     public isLoading: boolean = false;
-    public shop: any;
+    public shop: Shop;
     public shopEditing: ShopParams;
     public shopEditingReady: boolean = false;
     
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private shopService: ShopService
+        private httpShopService: HttpShopService
     ) { }
 
     public ngOnInit() {
@@ -29,7 +30,7 @@ export class ShopEditingComponent implements OnInit {
 
     public loadShop() {
         this.isLoading = true;
-        this.shopService.getShop(this.shopID).then((shop: any) => {
+        this.httpShopService.getShop(this.shopID).then((shop: Shop) => {
             this.shop = shop;
             this.isLoading = false;
         });
@@ -37,11 +38,12 @@ export class ShopEditingComponent implements OnInit {
 
     public updateShop() {
         if (this.shopEditingReady) {
-            this.isLoading = true;
-            this.shopService.updateShop(this.shopID, this.shopEditing).then(() => {
-                this.isLoading = false;
-                this.router.navigate(['/management']);
-            });
+            this.router.navigate(['/management']);
+            // todo реализовать обновление магазина
+            // this.shopService.updateShop(this.shopID, this.shopEditing).then(() => {
+            //     this.isLoading = false;
+            //     this.router.navigate(['/management']);
+            // });
         }
     }
 

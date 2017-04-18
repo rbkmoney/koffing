@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { Category } from 'koffing/backend/backend.module';
-import { CategoryService } from 'koffing/backend/backend.module';
-import { ShopService } from 'koffing/backend/backend.module';
+import { HttpCategoryService } from 'koffing/backend/backend.module';
+import { HttpShopService } from 'koffing/backend/backend.module';
 
 @Component({
     templateUrl: 'shops.component.pug',
@@ -16,8 +16,8 @@ export class ShopsComponent implements OnInit {
     public panelsVisibilities: {[key: number]: boolean} = {};
 
     constructor(
-        private shopService: ShopService,
-        private categoryService: CategoryService,
+        private shopService: HttpShopService,
+        private categoryService: HttpCategoryService,
     ) { }
 
     public ngOnInit() {

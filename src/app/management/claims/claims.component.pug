@@ -1,5 +1,6 @@
-.x_panel(*ngIf="isShowClaimPanel")
-    .x_title
-        h5 Список активных заявок
-    .x_content
-        kof-claim-view(*ngFor="let claim of claims", [claim]="claim")
+kof-loading([isLoading]="isLoading")
+    .x_panel(*ngIf="isShowClaimPanel")
+        .x_title
+            h5 Список активных заявок
+        .x_content
+            kof-claim-view(*ngFor="let claim of claims", [claim]="claim")

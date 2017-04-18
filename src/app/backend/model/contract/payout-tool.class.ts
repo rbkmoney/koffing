@@ -1,10 +1,11 @@
-import { PayoutToolParams } from './payout-tool-params.class';
+import { PayoutToolDetails } from './payout-tool-details.class';
 
 export class PayoutTool {
     public id: string;
-    public params: PayoutToolParams;
+    public currency: string;
+    public details: PayoutToolDetails;
 
     constructor() {
-        this.params = new PayoutToolParams();
+        this.details = new PayoutToolDetails();
     }
 }

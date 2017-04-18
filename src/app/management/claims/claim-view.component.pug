@@ -1,4 +1,4 @@
-.panel.panel-default
+.panel.panel-default(*ngIf="!isDeleted")
     .panel-heading((click)="show()")
         a Активная заявка
         i.fa.pull-right.custom-chevron([ngClass]="{'fa-chevron-down': showPanel, 'fa-chevron-right': !showPanel}")
@@ -17,8 +17,7 @@
             kof-shop-location-change(*ngIf="changeSet.shopModificationType === 'ShopLocationChange'", [changeSet]="changeSet")
             kof-shop-callback-handler-setup(*ngIf="changeSet.shopModificationType === 'ShopCallbackHandlerSetup'", [changeSet]="changeSet")
             kof-shop-callback-handler-teardown(*ngIf="changeSet.shopModificationType === 'ShopCallbackHandlerTeardown'", [changeSet]="changeSet")
-        //button.btn.btn-danger.pull-right(data-toggle="modal" data-target=".revoke-modal" data-backdrop="false") Отмена заявки
-        button.btn.btn-danger.pull-right((click)="test()") Отмена заявки
+        button.btn.btn-danger.pull-right(data-toggle="modal" data-target=".revoke-modal" data-backdrop="false") Отмена заявки
 
 .modal.fade.revoke-modal(tabindex="-1" role="dialog")
     .modal-dialog.modal-sm

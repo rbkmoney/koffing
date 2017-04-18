@@ -3,14 +3,14 @@ import { ActivatedRoute, Params } from '@angular/router';
 import * as moment from 'moment';
 
 import { ChartDataConversionService } from './chart-data-conversion.service';
-import { ShopService }  from 'koffing/backend/services/shop.service';
-import { AccountService } from 'koffing/backend/backend.module';
-import { CustomerService } from 'koffing/backend/backend.module';
-import { PaymentsService } from 'koffing/backend/backend.module';
+import { HttpShopService }  from 'koffing/backend/backend.module';
+import { HttpAccountService } from 'koffing/backend/backend.module';
+import { HttpCustomerService } from 'koffing/backend/backend.module';
+import { HttpPaymentsService } from 'koffing/backend/backend.module';
 import { RequestParams } from 'koffing/backend/backend.module';
 import { PaymentGeoStat } from 'koffing/backend/backend.module';
 import { PaymentConversionStat } from 'koffing/backend/backend.module';
-import { GeolocationService } from 'koffing/backend/backend.module';
+import { HttpGeolocationService } from 'koffing/backend/backend.module';
 import { LocationName } from 'koffing/backend/backend.module';
 import { GeoChartLabeled } from './geo-chart-labeled.class';
 import { GeoChartData } from './geo-chart-data.class';
@@ -22,7 +22,7 @@ import { GeoChartData } from './geo-chart-data.class';
 })
 export class DashboardComponent implements OnInit {
 
-    public shopID: number;
+    public shopID: string;
     public fromTime: Date;
     public toTime: Date;
     public uniqueCount: any;
@@ -46,11 +46,11 @@ export class DashboardComponent implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private customerService: CustomerService,
-        private paymentsService: PaymentsService,
-        private accountService: AccountService,
-        private shopService: ShopService,
-        private geolocation: GeolocationService
+        private customerService: HttpCustomerService,
+        private paymentsService: HttpPaymentsService,
+        private accountService: HttpAccountService,
+        private httpShopService: HttpShopService,
+        private geolocation: HttpGeolocationService
     ) {}
 
     public ngOnInit() {
@@ -58,7 +58,7 @@ export class DashboardComponent implements OnInit {
         this.toTime = moment().hour(23).minute(59).second(59).toDate();
 
         this.route.parent.params.subscribe((params: Params) => {
-            this.shopID = Number(params['shopID']);
+            this.shopID = params['shopID'];
             this.loadData();
         });
     }
@@ -90,7 +90,7 @@ export class DashboardComponent implements OnInit {
         this.loadAccounts(shopID);
     }
 
-    private loadPaymentMethod(shopID: number, fromTime: string, toTime: string) {
+    private loadPaymentMethod(shopID: string, fromTime: string, toTime: string) {
         this.paymentMethodLoading = true;
         this.customerService.getPaymentMethod(shopID, new RequestParams(fromTime, toTime)).then((paymentMethodState: any) => {
             this.paymentMethodLoading = false;
@@ -98,7 +98,7 @@ export class DashboardComponent implements OnInit {
         });
     }
 
-    private loadRate(shopID: number, fromTime: string, toTime: string) {
+    private loadRate(shopID: string, fromTime: string, toTime: string) {
         this.rateLoading = true;
         this.customerService.getRate(shopID, new RequestParams(fromTime, toTime)).then((rateStat: any) => {
             this.rateLoading = false;
@@ -106,7 +106,7 @@ export class DashboardComponent implements OnInit {
         });
     }
 
-    private loadConversionStat(shopID: number, fromTime: string, toTime: string) {
+    private loadConversionStat(shopID: string, fromTime: string, toTime: string) {
         this.conversionLoading = true;
         this.paymentsService.getConversionStat(shopID, new RequestParams(fromTime, toTime)).then((conversion: PaymentConversionStat[]) => {
             this.conversionLoading = false;
@@ -117,7 +117,7 @@ export class DashboardComponent implements OnInit {
         });
     }
 
-    private loadGeoChartData(shopID: number, fromTime: string, toTime: string) {
+    private loadGeoChartData(shopID: string, fromTime: string, toTime: string) {
         this.geoLoading = true;
         this.geolocation.getGeoChartData(shopID, new RequestParams(fromTime, toTime, 'day')
         ).then((geoData: PaymentGeoStat[]) => {
@@ -133,7 +133,7 @@ export class DashboardComponent implements OnInit {
         });
     }
 
-    private loadRevenueStat(shopID: number, fromTime: string, toTime: string) {
+    private loadRevenueStat(shopID: string, fromTime: string, toTime: string) {
         this.revenueLoading = true;
         this.paymentsService.getRevenueStat(shopID, new RequestParams(fromTime, toTime)).then((revenueStat: any) => {
             this.revenueLoading = false;
@@ -142,8 +142,8 @@ export class DashboardComponent implements OnInit {
         });
     }
 
-    private loadAccounts(shopID: number) {
-        this.shopService.getShop(shopID).then((shop: any) => {
+    private loadAccounts(shopID: string) {
+        this.httpShopService.getShop(shopID).then((shop: any) => {
             this.guaranteeLoading = true;
             this.accountService.getAccount(shop.account.guaranteeID).then((account: any) => {
                 this.guaranteeLoading = false;

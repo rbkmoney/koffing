@@ -6,7 +6,7 @@ import { Category } from '../model/shop/category.class';
 import { ConfigService } from './config.service';
 
 @Injectable()
-export class CategoryService {
+export class HttpCategoryService {
 
     constructor(private http: Http, private config: ConfigService) { }
 

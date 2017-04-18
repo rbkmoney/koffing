@@ -1,12 +1,13 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import * as _ from 'lodash';
 
-import { CategoryService } from 'koffing/backend/backend.module';
-import { SelectItem } from 'koffing/common/common.module';
-import { ShopDetails } from 'koffing/backend/backend.module';
+import { HttpCategoryService } from 'koffing/backend/backend.module';
+import { Shop } from 'koffing/backend/backend.module';
 import { ShopLocationUrl } from 'koffing/backend/backend.module';
+import { CallbackHandler } from 'koffing/backend/backend.module';
 import { Category } from 'koffing/backend/backend.module';
-import { ShopDetailTransfer } from './shop-detail-transfer.class';
+import { SelectItem } from 'koffing/common/common.module';
+import { ShopTransfer } from './shop-transfer.class';
 
 @Component({
     selector: 'kof-add-shop',
@@ -17,54 +18,37 @@ export class AddShopComponent implements OnInit {
 
     @Output()
     public onChange = new EventEmitter();
-    public categories: SelectItem[] = [];
+    
+    public shop = new Shop();
+    public categoryID: number;
+    public shopLocationUrl: ShopLocationUrl = new ShopLocationUrl();
+    public callbackHandler: CallbackHandler = new CallbackHandler();
+    public categories: Category[] = [];
+    public selectableCategories: SelectItem[] = [];
     public isLoading: boolean = false;
-    public url: string;
-    public shopDetail: any;
-    public categoryId: number;
-    public callbackUrl: string;
     private errorsHighlighted: boolean = false;
 
-    @Input()
-    private defaultShop: any;
-
     constructor(
-        private categoryService: CategoryService
+        private categoryService: HttpCategoryService
     ) { }
 
     public ngOnInit() {
         this.isLoading = true;
-        this.getCategories().then(() => {
-            if (this.defaultShop) {
-                this.categoryId = this.defaultShop.categoryID;
-            }
+        this.loadCategories().then((categories: Category[]) => {
+            this.categories = categories;
+            this.selectableCategories = _.chain(categories)
+                .sortBy((category) => category.name)
+                .map((category) => new SelectItem(category.categoryID, category.name))
+                .value();
+            this.categoryID = this.selectableCategories[0].value;
             this.isLoading = false;
         });
-        this.shopDetail = new ShopDetails();
-        if (this.defaultShop) {
-            this.assignDefault();
-        }
     }
 
-    public assignDefault() {
-        _.assign(this.shopDetail, this.defaultShop.details);
-        if (this.defaultShop.details.location) {
-            this.url = (<ShopLocationUrl> this.defaultShop.details.location).url;
-        }
-        if (this.defaultShop.callbackHandler) {
-            this.callbackUrl = this.defaultShop.callbackHandler.url;
-        }
-    }
-
-    public getCategories() {
+    public loadCategories() {
         return new Promise((resolve) => {
             this.categoryService.getCategories().then((categories: Category[]) => {
-                this.categories = _.chain(categories)
-                    .sortBy((category) => category.name)
-                    .map((category) => new SelectItem(category.categoryID, category.name))
-                    .value();
-                this.categoryId = this.categories[0].value;
-                resolve();
+                resolve(categories);
             });
         });
     }
@@ -78,16 +62,13 @@ export class AddShopComponent implements OnInit {
     }
 
     public keyup(form: any) {
-        this.onChange.emit(new ShopDetailTransfer(this.shopDetail, _.toNumber(this.categoryId), this.callbackUrl, form.valid));
+        this.shop.categoryID = Number(this.categoryID);
+        this.shop.location = this.shopLocationUrl;
+        this.shop.callbackHandler = this.callbackHandler;
+        this.onChange.emit(new ShopTransfer(this.shop, form.valid));
     }
 
-    public setLocation(url: string, form: any) {
-        this.shopDetail.location = new ShopLocationUrl();
-        this.shopDetail.location.url = url;
-        this.keyup(form);
-    }
-
-    public onCategoryChange(categoryId: string, form: any) {
+    public onCategoryChange(form: any) {
         this.keyup(form);
     }
 }

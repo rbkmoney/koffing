@@ -1,11 +1,11 @@
 import { PayoutToolBankAccount } from 'koffing/backend/model/contract/payout-tool-bank-account.class';
 
-export class PaytoolTransfer {
-    public payoutToolParams: PayoutToolBankAccount;
+export class PayoutToolTransfer {
+    public payoutToolBankAccount: PayoutToolBankAccount;
     public valid: boolean;
 
-    constructor(payoutToolParams: PayoutToolBankAccount, valid: boolean) {
-        this.payoutToolParams = payoutToolParams;
+    constructor(payoutToolBankAccount: PayoutToolBankAccount, valid: boolean) {
+        this.payoutToolBankAccount = payoutToolBankAccount;
         this.valid = valid;
     }
 }

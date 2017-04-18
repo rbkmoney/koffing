@@ -10,14 +10,14 @@ import { PaymentGeoStat } from '../model/statistics/payment-geo-stat.class';
 import { ConfigService } from './config.service';
 
 @Injectable()
-export class GeolocationService {
+export class HttpGeolocationService {
 
     constructor(
         private http: Http,
         private config: ConfigService
     ) {}
 
-    public getGeoChartData(shopID: number, requestParams: RequestParams): Promise<PaymentGeoStat[]> {
+    public getGeoChartData(shopID: string, requestParams: RequestParams): Promise<PaymentGeoStat[]> {
         const params = new URLSearchParams();
 
         const fromTime = moment(requestParams.fromTime).utc().format();

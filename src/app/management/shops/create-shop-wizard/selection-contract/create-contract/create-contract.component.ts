@@ -72,11 +72,9 @@ export class CreateContractComponent implements OnInit, AfterViewInit {
     }
 
     private createInstance() {
-        const bankAccountArgs = new BankAccount();
-        const entityArgs = new RussianLegalEntity();
         const instance = new Contractor();
-        instance.bankAccount = bankAccountArgs;
-        instance.legalEntity = entityArgs;
+        instance.bankAccount = new BankAccount();
+        instance.legalEntity = new RussianLegalEntity();
         return instance;
     }
 

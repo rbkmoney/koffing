@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ClaimCreateBroadcaster } from 'koffing/broadcaster/services/claim-create.broadcaster.service';
-import { ContractDecision } from './selection-contract/contract-decision.class';
-import { PaytoolDecision } from './selection-paytool/paytool-decision.class';
+import { ContractDecision } from './contract-decision.class';
 
 @Component({
     templateUrl: 'create-shop-wizard.component.pug',
@@ -21,16 +19,14 @@ export class CreateShopWizardComponent implements OnInit {
 
     public currentStep: number;
     public contractStep: number = 1;
-    public paytoolStep: number = 2;
+    public payoutToolStep: number = 2;
     public shopDetailsStep: number = 3;
 
     public contractDecision: ContractDecision;
-    public payoutToolDecision: PaytoolDecision;
 
     constructor(
-        private router: Router,
-        private claimCreateBroadcaster: ClaimCreateBroadcaster
-    ) {}
+        private router: Router
+    ) { }
 
     public ngOnInit() {
         this.currentStep = this.contractStep;
@@ -40,18 +36,17 @@ export class CreateShopWizardComponent implements OnInit {
         this.router.navigate(['/management']);
     }
 
-    public goToPaytoolStep(contractDecision: ContractDecision) {
-        this.currentStep = this.paytoolStep;
+    public goToPayoutToolStep(contractDecision: ContractDecision) {
+        this.currentStep = this.payoutToolStep;
         this.contractDecision = contractDecision;
     }
 
-    public goToShopDetailsStep(payoutToolDecision: PaytoolDecision) {
-        this.payoutToolDecision = payoutToolDecision;
+    public goToShopDetailsStep(contractDecision: ContractDecision) {
         this.currentStep = this.shopDetailsStep;
+        this.contractDecision = contractDecision;
     }
 
     public finishWizard() {
-        this.claimCreateBroadcaster.fire();
         this.returnToManagement();
     }
 }

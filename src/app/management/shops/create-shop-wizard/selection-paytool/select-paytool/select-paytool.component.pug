@@ -6,9 +6,9 @@ kof-loading([isLoading]="isLoading")
         kof-select(
             *ngIf="selectableItems.length",
             [hasError]="errorHighlighted",
-            [(ngModel)]="selectedPayoutToolId",
+            [(ngModel)]="selectedPayoutToolID",
             [items]="selectableItems",
-            (onChange)="selectPayoutAccount()",
+            (onChange)="selectPayoutTool()",
             [modelOptions]="{standalone: true}",
             name='selectedPayoutTool'
         )

@@ -1,10 +1,10 @@
 import { Component, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 
-import { ShopParams } from 'koffing/backend/classes/shop-params.class';
-import { ShopService } from 'koffing/backend/services/shop.service';
-import { PaytoolDecision } from '../selection-paytool/paytool-decision.class';
-import { ShopDetailTransfer } from './add-shop/shop-detail-transfer.class';
+import { ShopTransfer } from './add-shop/shop-transfer.class';
 import { AddShopComponent } from './add-shop/add-shop.component';
+import { ContractDecision } from '../contract-decision.class';
+import { ClaimService } from '../../../claims/claim.service';
+import { ClaimCreateBroadcaster } from 'koffing/broadcaster/services/claim-create.broadcaster.service';
 
 @Component({
     selector: 'kof-selection-shop-fields',
@@ -12,32 +12,32 @@ import { AddShopComponent } from './add-shop/add-shop.component';
 })
 export class SelectionShopComponent {
 
-    public isShopFieldsReady: boolean = false;
-    public isLoading = false;
     @Input()
-    public payoutToolDecision: PaytoolDecision;
+    public contractDecision: ContractDecision;
+
     @Output()
     public onCreated = new EventEmitter();
-    private createShopArgs: ShopParams;
+
+    public isLoading = false;
+    public shopTransfer: ShopTransfer;
+
     @ViewChild('addShopRef')
     private addShopComponent: AddShopComponent;
 
-    constructor(private shopService: ShopService) { }
+    constructor(
+        private claimService: ClaimService,
+        private claimCreateBroadcaster: ClaimCreateBroadcaster
+    ) { }
 
-    public onShopFieldsChange(value: ShopDetailTransfer) {
-        this.isShopFieldsReady = value.valid;
-        this.createShopArgs = new ShopParams();
-        this.createShopArgs.contractID = this.payoutToolDecision.contractID;
-        this.createShopArgs.payoutToolID = this.payoutToolDecision.payoutToolID;
-        this.createShopArgs.categoryID = value.categoryID;
-        this.createShopArgs.callbackUrl = value.callbackUrl;
-        this.createShopArgs.details = value.shopDetail;
+    public onShopFieldsChange(shopTransfer: ShopTransfer) {
+        this.shopTransfer = shopTransfer;
     }
 
     public createShop() {
-        if (this.isShopFieldsReady) {
+        if (this.shopTransfer && this.shopTransfer.valid) {
             this.isLoading = true;
-            this.shopService.createShop(this.createShopArgs).then(() => {
+            this.claimService.createShop(this.shopTransfer.shop, this.contractDecision.contract, this.contractDecision.payoutTool).then(() => {
+                this.claimCreateBroadcaster.fire();
                 this.isLoading = false;
                 this.onCreated.emit();
             });

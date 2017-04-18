@@ -1,45 +1,44 @@
 import { NgModule } from '@angular/core';
 
-import { AccountService } from './services/accounts.service';
-import { CategoryService } from './services/category.service';
-import { ContractService } from './services/contract.service';
-import { CustomerService } from './services/customer.service';
-import { InvoiceService } from './services/invoice.service';
-import { PaymentsService } from './services/payments.service';
-import { ShopService } from './services/shop.service';
 import { ConfigService } from './services/config.service';
-import { GeolocationService } from './services/geolocation.service';
 import { HttpClaimService } from './services/http-claim.service';
+import { HttpShopService } from './services/http-shop.service';
+import { HttpCategoryService } from './services/http-category.service';
+import { HttpContractService } from './services/http-contract.service';
+import { HttpAccountService } from './services/http-accounts.service';
+import { HttpInvoiceService } from './services/http-invoice.service';
+import { HttpPaymentsService } from './services/http-payments.service';
+import { HttpGeolocationService } from './services/http-geolocation.service';
+import { HttpCustomerService } from './services/http-customer.service';
 
 @NgModule({
     providers: [
-        AccountService,
-        CategoryService,
-        ContractService,
-        CustomerService,
-        InvoiceService,
-        PaymentsService,
-        ShopService,
         ConfigService,
-        GeolocationService,
-        HttpClaimService
+        HttpClaimService,
+        HttpShopService,
+        HttpCategoryService,
+        HttpContractService,
+        HttpAccountService,
+        HttpInvoiceService,
+        HttpPaymentsService,
+        HttpGeolocationService,
+        HttpCustomerService
     ]
 })
 export class BackendModule { }
 
-export * from './services/accounts.service';
-export * from './services/category.service';
 export * from './services/config.service';
-export * from './services/contract.service';
-export * from './services/customer.service';
-export * from './services/invoice.service';
-export * from './services/payments.service';
-export * from './services/shop.service';
-export * from './services/geolocation.service';
 export * from './services/http-claim.service';
+export * from './services/http-shop.service';
+export * from './services/http-category.service';
+export * from './services/http-contract.service';
+export * from './services/http-accounts.service';
+export * from './services/http-invoice.service';
+export * from './services/http-payments.service';
+export * from './services/http-geolocation.service';
+export * from './services/http-customer.service';
 
 export * from './classes/request-params.class';
-export * from './classes/shop-params.class';
 export * from './model/invoice.class';
 export * from './model/statistics/location-name.class';
 export * from './model/statistics/payment-conversion-stat.class';
@@ -57,7 +56,7 @@ export * from './model/shop/category.class';
 export * from './model/contract/contract.class';
 export * from './model/contract/contractor.class';
 export * from './model/contract/payout-tool.class';
-export * from './model/contract/payout-tool-params.class';
+export * from './model/contract/payout-tool-details.class';
 export * from './model/contract/payout-tool-bank-account.class';
 export * from './model/contract/bank-account.class';
 export * from './model/contract/legal-agreement.class';

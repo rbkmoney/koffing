@@ -1,12 +1,10 @@
 import { Component, Output, EventEmitter, Input, AfterViewInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import * as _ from 'lodash';
 
-import { PayoutToolBankAccount } from 'koffing/backend/model/contract/payout-tool-bank-account.class';
+import { PayoutTool } from 'koffing/backend/backend.module';
 import { SelectionOptions } from '../selection-options.class';
-import { ContractDecision } from '../selection-contract/contract-decision.class';
-import { PaytoolDecision } from './paytool-decision.class';
-import { PaytoolDecisionService } from './paytool-decision.service';
-import { PaytoolTransfer } from './create-paytool/paytool-transfer.class';
+import { ContractDecision } from '../contract-decision.class';
+import { PayoutToolTransfer } from './create-paytool/paytool-transfer.class';
 import { CreatePayoutToolComponent } from './create-paytool/create-paytool.component';
 import { SelectPaytoolComponent } from './select-paytool/select-paytool.component';
 
@@ -22,38 +20,37 @@ export class SelectionPaytoolComponent implements AfterViewInit {
     @Output()
     public steppedForward = new EventEmitter();
 
+    public selectedPayoutTool: PayoutTool = new PayoutTool();
     public selectedOption: SelectionOptions;
     public optionNew: number = SelectionOptions.New;
     public optionExisting: number = SelectionOptions.Existing;
     public isPayoutToolValid: boolean = false;
-    public payoutToolsParams: PayoutToolBankAccount;
-    public payoutToolID: string;
     public isLoading: boolean = false;
+
     @ViewChild('createPaytoolRef')
     private createPayoutToolComponent: CreatePayoutToolComponent;
     @ViewChild('selectPaytoolRef')
     private selectPaytoolComponent: SelectPaytoolComponent;
 
     constructor(
-        private paytoolDecisionService: PaytoolDecisionService,
         private changeDetector: ChangeDetectorRef
-    ) {}
+    ) { }
 
     public ngAfterViewInit() {
-        if (!_.isUndefined(this.contractDecision.contractor)) {
+        if (!_.isUndefined(this.contractDecision.contract.contractor)) {
             this.selectedOption = this.optionNew;
             this.changeDetector.detectChanges();
         }
     }
 
-    public onPayoutToolChange(value: PaytoolTransfer) {
+    public payoutToolChange(value: PayoutToolTransfer) {
         this.isPayoutToolValid = value.valid;
-        this.payoutToolsParams = value.payoutToolParams;
+        this.selectedPayoutTool.details = value.payoutToolBankAccount;
     }
 
-    public onPayoutToolSelected(payoutToolID: string) {
+    public payoutToolSelect(payoutTool: PayoutTool) {
         this.isPayoutToolValid = true;
-        this.payoutToolID = payoutToolID;
+        this.selectedPayoutTool = payoutTool;
     }
 
     public selectOptionExisting() {
@@ -67,31 +64,15 @@ export class SelectionPaytoolComponent implements AfterViewInit {
     }
 
     public stepForward() {
-        if (!this.isPayoutToolValid) {
+        if (this.isPayoutToolValid) {
+            this.contractDecision.payoutTool = this.selectedPayoutTool;
+            this.steppedForward.emit(this.contractDecision);
+        } else {
             if (this.selectedOption === this.optionNew) {
                 this.createPayoutToolComponent.highlightErrors();
             } else if (this.selectedOption === this.optionExisting) {
                 this.selectPaytoolComponent.highlightErrors();
             }
-            return;
-        }
-        // new contract and new payout tools
-        if (!_.isUndefined(this.contractDecision.contractor) && !_.isUndefined(this.payoutToolsParams)) {
-            this.isLoading = true;
-            this.paytoolDecisionService.createContract(this.contractDecision.contractor, this.payoutToolsParams).then((decision: PaytoolDecision) => {
-                this.isLoading = false;
-                this.steppedForward.emit(decision);
-            });
-            // selected contract and new payout tools
-        } else if (!_.isUndefined(this.contractDecision.contract) && !_.isUndefined(this.payoutToolsParams)) {
-            this.isLoading = true;
-            this.paytoolDecisionService.createPayoutTool(this.contractDecision.contract.id, this.payoutToolsParams).then((decision: PaytoolDecision) => {
-                this.isLoading = false;
-                this.steppedForward.emit(decision);
-            });
-            // selected contract and selected payout tools
-        } else if (!_.isUndefined(this.contractDecision.contract) && !_.isUndefined(this.payoutToolID)) {
-            this.steppedForward.emit(new PaytoolDecision(this.contractDecision.contract.id, this.payoutToolID));
         }
     }
 }

@@ -5,7 +5,7 @@ import 'rxjs/add/operator/toPromise';
 import { ConfigService } from './config.service';
 
 @Injectable()
-export class AccountService {
+export class HttpAccountService {
 
     constructor(
         private http: Http,

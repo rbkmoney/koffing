@@ -9,14 +9,14 @@ import { RequestParams } from '../classes/request-params.class';
 import { ConfigService } from './config.service';
 
 @Injectable()
-export class PaymentsService {
+export class HttpPaymentsService {
 
     constructor(
         private http: Http,
         private config: ConfigService
     ) {}
 
-    public getRevenueStat(shopID: number, requestParams: RequestParams): Promise<PaymentRevenueStat[]> {
+    public getRevenueStat(shopID: string, requestParams: RequestParams): Promise<PaymentRevenueStat[]> {
         const params = new URLSearchParams();
 
         const fromTime = moment(requestParams.fromTime).utc().format();
@@ -32,7 +32,7 @@ export class PaymentsService {
             .then(response => response.json());
     }
 
-    public getConversionStat(shopID: number, requestParams: RequestParams): Promise<PaymentConversionStat[]> {
+    public getConversionStat(shopID: string, requestParams: RequestParams): Promise<PaymentConversionStat[]> {
         const params = new URLSearchParams();
 
         const fromTime = moment(requestParams.fromTime).utc().format();

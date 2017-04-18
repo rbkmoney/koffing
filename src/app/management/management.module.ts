@@ -26,7 +26,6 @@ import { CreateShopWizardComponent } from './shops/create-shop-wizard/create-sho
 import { SelectionContractComponent } from './shops/create-shop-wizard/selection-contract/selection-contract.component';
 import { SelectionPaytoolComponent } from './shops/create-shop-wizard/selection-paytool/selection-paytool.component';
 import { ShopDetailsPanelComponent } from './shops/shop-details-panel/shop-details-panel.component';
-import { PaytoolDecisionService } from './shops/create-shop-wizard/selection-paytool/paytool-decision.service';
 
 import { ClaimsComponent } from './claims/claims.component';
 import { ClaimViewComponent } from './claims/claim-view.component';
@@ -101,7 +100,6 @@ import { ClaimService } from './claims/claim.service';
         ContractLegalAgreementBindingComponent,
     ],
     providers: [
-        PaytoolDecisionService,
         ClaimService
     ]
 })

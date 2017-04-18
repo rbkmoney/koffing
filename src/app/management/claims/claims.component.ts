@@ -11,17 +11,25 @@ export class ClaimsComponent implements OnInit {
 
     public claims: Claim[];
     public isShowClaimPanel: boolean = false;
+    public isLoading: boolean = false;
 
     constructor(
         private httpClaimService: HttpClaimService,
     ) { }
 
     public ngOnInit() {
+        this.loadClaims();
+    }
+
+    public loadClaims() {
+        this.isLoading = true;
+        this.isShowClaimPanel = false;
         this.httpClaimService.getClaims('pending').then((claims: Claim[]) => {
             if (claims.length > 0) {
                 this.claims = claims;
                 this.isShowClaimPanel = true;
             }
+            this.isLoading = false;
         });
     }
 }
