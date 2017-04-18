@@ -37,7 +37,6 @@ export class ClaimService {
 
             const shopCreation = this.getShopCreation(shop, contractID, payoutToolID);
             changeSet.push(shopCreation);
-            console.log(changeSet);
 
             this.httpClaimService.createClaim(changeSet).then((claim) => resolve(claim));
         });

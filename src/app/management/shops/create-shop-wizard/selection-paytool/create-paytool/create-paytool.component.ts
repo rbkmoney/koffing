@@ -18,15 +18,16 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
 
     @Input()
     public contractBankAccount: BankAccount;
+
     @Output()
     public onChange = new EventEmitter();
+
     public payoutToolBankAccount: PayoutToolBankAccount;
+    public sameBankAccountChecked: boolean;
+    public errorsHighlighted: boolean = false;
+
     @ViewChild('createPaytoolForm')
     public form: NgForm;
-    public sameBankAccountChecked: boolean;
-    @Input()
-    private defaultPayoutToolParams: PayoutToolBankAccount;
-    private errorsHighlighted: boolean = false;
 
     constructor(
         private suggestionsService: SuggestionsService
@@ -34,9 +35,6 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
 
     public ngOnInit() {
         this.payoutToolBankAccount = new PayoutToolBankAccount();
-        if (this.defaultPayoutToolParams) {
-            _.assign(this.payoutToolBankAccount, this.defaultPayoutToolParams);
-        }
         this.compareAccounts();
     }
 
@@ -70,7 +68,7 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
     }
 
     public compareAccounts() {
-        if (this.payoutToolBankAccount) {
+        if (this.payoutToolBankAccount && this.contractBankAccount) {
             this.sameBankAccountChecked = BankAccountComparator.isEqual(this.payoutToolBankAccount.bankAccount, this.contractBankAccount);
         }
     }

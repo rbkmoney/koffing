@@ -29,7 +29,7 @@ export class PayoutToolCreateComponent {
         private claimCreateBroadcaster: ClaimCreateBroadcaster
     ) { }
 
-    public onPayoutToolChange(value: PayoutToolTransfer) {
+    public payoutToolChange(value: PayoutToolTransfer) {
         this.isPayoutToolValid = value.valid;
         this.payoutToolBankAccount = value.payoutToolBankAccount;
     }

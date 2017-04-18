@@ -46,11 +46,11 @@ export class DashboardComponent implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private customerService: HttpCustomerService,
-        private paymentsService: HttpPaymentsService,
-        private accountService: HttpAccountService,
+        private httpCustomerService: HttpCustomerService,
+        private httpPaymentsService: HttpPaymentsService,
+        private httpAccountService: HttpAccountService,
         private httpShopService: HttpShopService,
-        private geolocation: HttpGeolocationService
+        private httpGeolocationService: HttpGeolocationService
     ) {}
 
     public ngOnInit() {
@@ -92,7 +92,7 @@ export class DashboardComponent implements OnInit {
 
     private loadPaymentMethod(shopID: string, fromTime: string, toTime: string) {
         this.paymentMethodLoading = true;
-        this.customerService.getPaymentMethod(shopID, new RequestParams(fromTime, toTime)).then((paymentMethodState: any) => {
+        this.httpCustomerService.getPaymentMethod(shopID, new RequestParams(fromTime, toTime)).then((paymentMethodState: any) => {
             this.paymentMethodLoading = false;
             this.paymentMethodChartData = ChartDataConversionService.toPaymentMethodChartData(paymentMethodState);
         });
@@ -100,7 +100,7 @@ export class DashboardComponent implements OnInit {
 
     private loadRate(shopID: string, fromTime: string, toTime: string) {
         this.rateLoading = true;
-        this.customerService.getRate(shopID, new RequestParams(fromTime, toTime)).then((rateStat: any) => {
+        this.httpCustomerService.getRate(shopID, new RequestParams(fromTime, toTime)).then((rateStat: any) => {
             this.rateLoading = false;
             this.uniqueCount = rateStat ? rateStat.uniqueCount : 0;
         });
@@ -108,7 +108,7 @@ export class DashboardComponent implements OnInit {
 
     private loadConversionStat(shopID: string, fromTime: string, toTime: string) {
         this.conversionLoading = true;
-        this.paymentsService.getConversionStat(shopID, new RequestParams(fromTime, toTime)).then((conversion: PaymentConversionStat[]) => {
+        this.httpPaymentsService.getConversionStat(shopID, new RequestParams(fromTime, toTime)).then((conversion: PaymentConversionStat[]) => {
             this.conversionLoading = false;
             const paymentCountInfo = ChartDataConversionService.toPaymentCountInfo(conversion);
             this.successfulCount = paymentCountInfo.successfulCount;
@@ -119,12 +119,12 @@ export class DashboardComponent implements OnInit {
 
     private loadGeoChartData(shopID: string, fromTime: string, toTime: string) {
         this.geoLoading = true;
-        this.geolocation.getGeoChartData(shopID, new RequestParams(fromTime, toTime, 'day')
+        this.httpGeolocationService.getGeoChartData(shopID, new RequestParams(fromTime, toTime, 'day')
         ).then((geoData: PaymentGeoStat[]) => {
             this.geoLoading = false;
             const unlabeledGeoChartData: GeoChartData = ChartDataConversionService.toGeoChartData(geoData);
             if (unlabeledGeoChartData.geoIDs.length > 0 && unlabeledGeoChartData.data.length > 0) {
-                this.geolocation.getLocationNames(unlabeledGeoChartData.geoIDs, 'ru').then((locationNames: LocationName[]) => {
+                this.httpGeolocationService.getLocationNames(unlabeledGeoChartData.geoIDs, 'ru').then((locationNames: LocationName[]) => {
                     this.geoChartData = ChartDataConversionService.toLabeledGeoChartData(unlabeledGeoChartData, locationNames);
                 });
             } else {
@@ -135,7 +135,7 @@ export class DashboardComponent implements OnInit {
 
     private loadRevenueStat(shopID: string, fromTime: string, toTime: string) {
         this.revenueLoading = true;
-        this.paymentsService.getRevenueStat(shopID, new RequestParams(fromTime, toTime)).then((revenueStat: any) => {
+        this.httpPaymentsService.getRevenueStat(shopID, new RequestParams(fromTime, toTime)).then((revenueStat: any) => {
             this.revenueLoading = false;
             this.revenueChartData = ChartDataConversionService.toRevenueChartData(revenueStat);
             this.profit = ChartDataConversionService.toTotalProfit(revenueStat);
@@ -145,12 +145,12 @@ export class DashboardComponent implements OnInit {
     private loadAccounts(shopID: string) {
         this.httpShopService.getShop(shopID).then((shop: any) => {
             this.guaranteeLoading = true;
-            this.accountService.getAccount(shop.account.guaranteeID).then((account: any) => {
+            this.httpAccountService.getAccount(shop.account.guaranteeID).then((account: any) => {
                 this.guaranteeLoading = false;
                 this.guaranteeBalance = account.ownAmount;
             });
             this.settlementLoading = true;
-            this.accountService.getAccount(shop.account.settlementID).then((account: any) => {
+            this.httpAccountService.getAccount(shop.account.settlementID).then((account: any) => {
                 this.settlementLoading = false;
                 this.settlementBalance = account.ownAmount;
             });

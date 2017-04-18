@@ -2,7 +2,7 @@ doctype html
 kof-loading([isLoading]="isLoading")
     kof-create-contract(
         #createContractRef,
-        (onChange)="onContractorChange($event)"
+        (onChange)="contractorChange($event)"
     )
     kof-create-paytool(
         #createPaytoolRef,

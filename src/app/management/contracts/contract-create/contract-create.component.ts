@@ -36,14 +36,14 @@ export class ContractCreateComponent {
         private claimCreateBroadcaster: ClaimCreateBroadcaster
     ) { }
 
-    public onContractorChange(value: ContractorTransfer) {
+    public contractorChange(value: ContractorTransfer) {
         this.isContractorReady = value.valid;
         this.contractor = value.contractor;
         this.contractorBankAccount = value.contractor.bankAccount;
         this.createPaytoolComponent.compareAccounts();
     }
 
-    public onPayoutToolChange(value: PayoutToolTransfer) {
+    public payoutToolChange(value: PayoutToolTransfer) {
         this.isPayoutToolReady = value.valid;
         this.payoutToolBankAccount = value.payoutToolBankAccount;
     }

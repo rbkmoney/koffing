@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 
-import { BankAccount } from 'koffing/backend/model/contract/bank-account.class';
+import { BankAccount } from 'koffing/backend/backend.module';
 
 export class BankAccountComparator {
 
