@@ -1,41 +1,97 @@
-form.form-horizontal.form-search-invoices
+//form.form-horizontal.form-search-invoices
+//    .row
+//        .col-xs-12.col-sm-6
+//            .form-group
+//                .col-xs-12.col-sm-4
+//                    label.control-label Временной отрезок создания инвойсов
+//                .col-xs-12.col-sm-6
+//                    .ui-calendar.search-form
+//                        p-calendar.ui-inputtext.search-form(
+//                            [(ngModel)]="searchParams.fromTime",
+//                            name="searchFromTime",
+//                            dateFormat = "dd.mm.yy",
+//                            [ngClass]="{'has-error': isInvalidDate}",
+//                            (onSelect)="selectFromTime()",
+//                            required)
+//            .form-group
+//                .col-xs-12.col-sm-4
+//                    label.control-label Дата по
+//                .col-xs-12.col-sm-6
+//                    .ui-calendar.search-form
+//                        p-calendar.ui-inputtext.search-form(
+//                            [(ngModel)]="searchParams.toTime",
+//                            name="toTime",
+//                            dateFormat = "dd.mm.yy",
+//                            [ngClass]="{'has-error': isInvalidDate}",
+//                            (onSelect)="selectToTime()",
+//                            required)
+//        .col-xs-12.col-sm-6
+//            .form-group
+//                .col-xs-12.col-sm-4
+//                    label.control-label Статус платежа
+//                .col-xs-12.col-sm-6
+//                    kof-select([(ngModel)]="searchParams.status", [items]="statuses", [placeholder]="'Любой статус'", [modelOptions]="{standalone: true}", name='status')
+//            .form-group
+//                .col-xs-12.col-sm-4
+//                    label.control-label Номер
+//                .col-xs-12.col-sm-6
+//                    input.form-control(type="text", [(ngModel)]="searchParams.invoiceID", name="invoiceID")
+//            .form-group
+//                .col-xs-12.col-sm-10
+//                    button.btn.btn-primary.pull-right.btn-search-invoices((click)="search()") Показать
+
+form
     .row
-        .col-xs-12.col-sm-6
+        .col-md-4
             .form-group
-                .col-xs-12.col-sm-4
-                    label.control-label Дата с
-                .col-xs-12.col-sm-6
-                    .ui-calendar.search-form
-                        p-calendar.ui-inputtext.search-form(
-                            [(ngModel)]="searchParams.fromTime",
-                            name="searchFromTime",
-                            dateFormat = "dd.mm.yy",
-                            [ngClass]="{'has-error': isInvalidDate}",
-                            (onSelect)="selectFromTime()",
-                            required)
+                label Временной отрезок создания инвойсов:
+                .row
+                    .col-md-6
+                        input.form-control
+
+                    .col-md-6
+                        input.form-control
+        .col-md-4
             .form-group
-                .col-xs-12.col-sm-4
-                    label.control-label Дата по
-                .col-xs-12.col-sm-6
-                    .ui-calendar.search-form
-                        p-calendar.ui-inputtext.search-form(
-                            [(ngModel)]="searchParams.toTime",
-                            name="toTime",
-                            dateFormat = "dd.mm.yy",
-                            [ngClass]="{'has-error': isInvalidDate}",
-                            (onSelect)="selectToTime()",
-                            required)
-        .col-xs-12.col-sm-6
+                label Временной отрезок совершения платежей:
+                .row
+                    .col-md-6
+                        input.form-control
+                    .col-md-6
+                        input.form-control
+        .col-md-4
             .form-group
-                .col-xs-12.col-sm-4
-                    label.control-label Статус платежа
-                .col-xs-12.col-sm-6
-                    kof-select([(ngModel)]="searchParams.status", [items]="statuses", [placeholder]="'Любой статус'", [modelOptions]="{standalone: true}", name='status')
+                label Email плательщика
+                input.form-control
+
+    .row
+        .col-md-4
             .form-group
-                .col-xs-12.col-sm-4
-                    label.control-label Номер
-                .col-xs-12.col-sm-6
-                    input.form-control(type="text", [(ngModel)]="searchParams.invoiceID", name="invoiceID")
+                label Статус инвойса
+                input.form-control
+        .col-md-4
             .form-group
-                .col-xs-12.col-sm-10
-                    button.btn.btn-primary.pull-right.btn-search-invoices((click)="search()") Показать
+                label Статус платежа
+                input.form-control
+        .col-md-4
+            .form-group
+                label IP адрес плательщика
+                input.form-control
+
+    .row
+        .col-md-4
+            .form-group
+                label Идентификатор инвойса
+                input.form-control
+        .col-md-4
+            .form-group
+                label Идентификатор платежа
+                input.form-control
+        .col-md-4
+            .form-group
+                label Номер карты
+                input.form-control
+    .row
+        .col-md-12
+            .form-group
+                button.btn.btn-primary.pull-right.btn-search-invoices((click)="search()") Показать
