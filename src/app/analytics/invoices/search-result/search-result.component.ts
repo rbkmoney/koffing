@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Invoice } from 'koffing/backend/model/invoice';
 
 @Component({
     selector: 'kof-search-result',
@@ -7,5 +8,5 @@ import { Component, Input } from '@angular/core';
 export class SearchResultComponent {
 
     @Input()
-    public invoices: any;
+    public invoices: Invoice[];
 }

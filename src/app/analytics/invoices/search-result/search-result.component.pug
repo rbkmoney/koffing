@@ -1,0 +1,19 @@
+table.table.table-hover.table-striped
+    thead
+        tr
+            th Идентификатор
+            th Статус
+            th Дата и время создания
+            th Дата и время окончания действия
+            th Стоимость
+            th.hidden-xs Продукт
+            th.hidden-xs Описание
+    tbody
+        tr(*ngFor="let invoice of invoices")
+            td {{invoice.id}}
+            td {{invoice.status | kofInvoiceStatus}}
+            td {{invoice.createdAt | date: "dd.MM.yyyy HH:mm:ss"}}
+            td {{invoice.dueDate | date: "dd.MM.yyyy HH:mm:ss"}}
+            td {{invoice.amount | kofRoubleCurrency}} {{invoice.currency}}
+            td.hidden-xs {{invoice.product}}
+            td.hidden-xs {{invoice.description}}

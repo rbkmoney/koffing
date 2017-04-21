@@ -6,13 +6,25 @@ form.form-horizontal.form-search-invoices
                     label.control-label Дата с
                 .col-xs-12.col-sm-6
                     .ui-calendar.search-form
-                        p-calendar.ui-inputtext.search-form([(ngModel)]="fromTime", name="searchFromTime", dateFormat = "dd.mm.yy", required, [ngClass]="{'has-error': isInvalidDate}", (onSelect)="selectFromTime()")
+                        p-calendar.ui-inputtext.search-form(
+                            [(ngModel)]="searchParams.fromTime",
+                            name="searchFromTime",
+                            dateFormat = "dd.mm.yy",
+                            [ngClass]="{'has-error': isInvalidDate}",
+                            (onSelect)="selectFromTime()",
+                            required)
             .form-group
                 .col-xs-12.col-sm-4
                     label.control-label Дата по
                 .col-xs-12.col-sm-6
                     .ui-calendar.search-form
-                        p-calendar.ui-inputtext.search-form([(ngModel)]="toTime", name="toTime", dateFormat = "dd.mm.yy", required, [ngClass]="{'has-error': isInvalidDate}", (onSelect)="selectToTime()")
+                        p-calendar.ui-inputtext.search-form(
+                            [(ngModel)]="searchParams.toTime",
+                            name="toTime",
+                            dateFormat = "dd.mm.yy",
+                            [ngClass]="{'has-error': isInvalidDate}",
+                            (onSelect)="selectToTime()",
+                            required)
         .col-xs-12.col-sm-6
             .form-group
                 .col-xs-12.col-sm-4
@@ -26,4 +38,4 @@ form.form-horizontal.form-search-invoices
                     input.form-control(type="text", [(ngModel)]="searchParams.invoiceID", name="invoiceID")
             .form-group
                 .col-xs-12.col-sm-10
-                    button.btn.btn-primary.pull-right.btn-search-invoices((click)="search()") Найти
+                    button.btn.btn-primary.pull-right.btn-search-invoices((click)="search()") Показать
