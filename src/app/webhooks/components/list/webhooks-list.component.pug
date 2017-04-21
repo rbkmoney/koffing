@@ -1,0 +1,31 @@
+.row
+    .col-xs-12
+        .x_panel
+            .x_title
+                .row
+                    .col-xs-6
+                        h4 Webhooks&nbsp;
+                            small
+                                a(href="https://rbkmoney.github.io/api/#tag/Webhooks", target="_blank") Webhooks
+                    .col-xs-6.text-right
+                        a(routerLink="/api/webhook/new")
+                            button.btn.btn-primary Создать webhook
+            table.table.table-striped
+                thead
+                    tr
+                        th ID
+                        th Статус
+                        th URL
+                        th Scope
+                        th Public Key
+                        th
+                tbody
+                    tr(*ngFor="let webhook of webhooksList | async")
+                        th(scope="row") {{webhook.id}}
+                        td {{webhook.active}}
+                        td {{webhook.url}}
+                        td {{webhook.scope}}
+                        td {{webhook.publicKey}}
+                        td.text-right
+                            button.btn.btn-danger((click)="deleteWebhook(webhook.id)")
+                                i.fa.fa-trash
