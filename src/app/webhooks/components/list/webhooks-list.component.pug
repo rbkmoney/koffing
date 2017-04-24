@@ -16,16 +16,31 @@
                         th ID
                         th Статус
                         th URL
-                        th Scope
-                        th Public Key
+                        th ID магазина
+                        th События
+                        th Публичный ключ
                         th
                 tbody
                     tr(*ngFor="let webhook of webhooksList | async")
                         th(scope="row") {{webhook.id}}
                         td {{webhook.active}}
                         td {{webhook.url}}
-                        td {{webhook.scope}}
+                        td {{webhook.scope.shopID}}
+                        td
+                            span(*ngFor="let eventType of webhook.scope.eventTypes")  {{eventType}},
                         td {{webhook.publicKey}}
-                        td.text-right
-                            button.btn.btn-danger((click)="deleteWebhook(webhook.id)")
+                        td
+                            button.btn.btn-danger.pull-right(data-toggle="modal", [attr.data-target]="'#' + webhook.id", data-backdrop="true")
                                 i.fa.fa-trash
+                            .modal.fade.remove-modal(tabindex="-1", role="dialog", id="{{webhook.id}}")
+                                .modal-dialog.modal-sm
+                                    .modal-content
+                                        .modal-header
+                                            h4.modal-title Вы действительно хотите удалить этот webhook ({{webhook.id}})?
+                                        .modal-footer
+                                            .btn-toolbar.pull-left
+                                                .btn-group.btn-group-sm
+                                                    button.btn.btn-danger(type="button", data-dismiss="modal", (click)="deleteWebhook(webhook.id)") Да
+                                                .btn-group.btn-group-sm
+                                                    button.btn.btn-default(type="button", data-dismiss="modal") Нет
+

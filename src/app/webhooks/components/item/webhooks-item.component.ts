@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { WebhooksService } from 'koffing/backend/backend.module';
 import { Webhook } from '../../classes/webhook';
@@ -29,25 +30,28 @@ export class WebhooksItemComponent {
         { name: 'PaymentFailed', value: false }
     ];
 
+    constructor(private webhooksService: WebhooksService,
+                private router: Router) {}
+
     public toggleAll(state: boolean) {
-        for (let i = 0; i < this.eventTypes.length; i++) {
-            this.eventTypes[i].value = state;
+        for (let item of this.eventTypes) {
+            item.value = state;
         }
     }
 
     public onChangeEventTypes() {
         const arr = [];
-        for (let i = 0; i < this.eventTypes.length; i++) {
-            if (this.eventTypes[i].value) {
-                arr.push(this.eventTypes[i].name);
+        for (let item of this.eventTypes) {
+            if (item.value) {
+                arr.push(item.name);
             }
         }
         this.model.scope.eventTypes = arr;
     }
 
     public createWebhook() {
-        this.webhooksService.createWebhook(this.model);
+        this.webhooksService.createWebhook(this.model).subscribe((result) => {
+            this.router.navigate(['/api/webhooks']);
+        });
     }
-
-    constructor(private webhooksService: WebhooksService) {}
 }

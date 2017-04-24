@@ -12,7 +12,6 @@ export class WebhooksService {
                 private config: ConfigService) {
     }
 
-
     public createWebhook(webhook: createWebhook): Observable<Webhook> {
         return this.http.post(`${this.config.capiUrl}/processing/webhooks`, webhook).map(res => res.json());
     }
@@ -26,7 +25,6 @@ export class WebhooksService {
     }
 
     public deleteWebhookByID(webhookID: string): Observable<Webhook> {
-        console.log(this.http.delete);
         return this.http.delete(`${this.config.capiUrl}/processing/webhooks/${webhookID}`).map(res => res.json());
     }
 }
