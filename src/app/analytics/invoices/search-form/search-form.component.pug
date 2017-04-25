@@ -42,56 +42,64 @@
 
 form
     .row
-        .col-md-4
+        .col-sm-4
             .form-group
                 label Временной отрезок создания инвойсов:
                 .row
-                    .col-md-6
+                    .col-sm-6
                         input.form-control
 
-                    .col-md-6
+                    .col-sm-6
                         input.form-control
-        .col-md-4
+        .col-sm-4
             .form-group
                 label Временной отрезок совершения платежей:
                 .row
-                    .col-md-6
+                    .col-sm-6
                         input.form-control
-                    .col-md-6
+                    .col-sm-6
                         input.form-control
-        .col-md-4
+        .col-sm-2
             .form-group
                 label Email плательщика
                 input.form-control
 
     .row
-        .col-md-4
-            .form-group
-                label Статус инвойса
-                input.form-control
-        .col-md-4
-            .form-group
-                label Статус платежа
-                input.form-control
-        .col-md-4
+        .col-sm-4
+            .row
+                .col-sm-6
+                    .form-group
+                        label Статус инвойса
+                        input.form-control
+                .col-sm-6
+                    .form-group
+                        label Идентификатор платежа
+                        input.form-control
+        .col-sm-4
+            .row
+                .col-sm-6
+                    .form-group
+                        label Статус платежа
+                        input.form-control
+                .col-sm-6
+                    .form-group
+                        label Идентификатор платежа
+                        input.form-control
+        .col-sm-2
             .form-group
                 label IP адрес плательщика
                 input.form-control
 
     .row
-        .col-md-4
+        .col-sm-4
             .form-group
                 label Идентификатор инвойса
                 input.form-control
-        .col-md-4
+        .col-sm-4
             .form-group
                 label Идентификатор платежа
                 input.form-control
-        .col-md-4
-            .form-group
-                label Номер карты
-                input.form-control
     .row
-        .col-md-12
+        .col-sm-12
             .form-group
                 button.btn.btn-primary.pull-right.btn-search-invoices((click)="search()") Показать
