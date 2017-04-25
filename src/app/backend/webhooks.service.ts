@@ -3,7 +3,8 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { ConfigService } from 'koffing/backend/services/config.service';
-import { createWebhook, Webhook } from 'koffing/backend/model/webhook.class';
+import { Webhook } from 'koffing/backend/model/webhook.class';
+import { CreateWebhook } from 'koffing/backend/queries/create-webhook';
 
 @Injectable()
 export class WebhooksService {
@@ -12,7 +13,7 @@ export class WebhooksService {
                 private config: ConfigService) {
     }
 
-    public createWebhook(webhook: createWebhook): Observable<Webhook> {
+    public createWebhook(webhook: CreateWebhook): Observable<Webhook> {
         return this.http.post(`${this.config.capiUrl}/processing/webhooks`, webhook).map(res => res.json());
     }
 

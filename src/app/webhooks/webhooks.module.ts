@@ -1,16 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { WebhooksRoutingModule } from './webhooks-routing.module';
 import { WebhooksListComponent } from 'koffing/webhooks/components/list/webhooks-list.component';
 import { WebhooksItemComponent } from 'koffing/webhooks/components/item/webhooks-item.component';
+import { CommonModule } from 'koffing/common/common.module';
 
 @NgModule({
     imports: [
         BrowserModule,
         FormsModule,
-        WebhooksRoutingModule
+        WebhooksRoutingModule,
+        CommonModule
     ],
     declarations: [
         WebhooksListComponent,

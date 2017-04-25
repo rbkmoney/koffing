@@ -17,27 +17,21 @@ export class WebhooksItemComponent {
     });
 
     public topics = [
-        {value: 'InvoicesTopic'}
+        { value: 'InvoicesTopic', label: 'InvoicesTopic' }
     ];
 
     public eventTypes = [
-        { name: 'InvoiceCreated', value: false },
-        { name: 'InvoicePaid', value: false },
-        { name: 'InvoiceCancelled', value: false },
-        { name: 'InvoiceFulfilled', value: false },
-        { name: 'PaymentStarted', value: false },
-        { name: 'PaymentCaptured', value: false },
-        { name: 'PaymentFailed', value: false }
+        { name: 'InvoiceCreated', value: false, description: 'Инвойс был создан.' },
+        { name: 'InvoicePaid', value: false, description: 'Финансовые обязательства по инвойсу погашены, но товары или услуги плательщику ещё не предоставлены.' },
+        { name: 'InvoiceCancelled', value: false, description: 'Инвойс отменён с указанием причины, все обязательства по нему недействительны.' },
+        { name: 'InvoiceFulfilled', value: false, description: 'Все обязательства, как плательщика, так и мерчанта, погашены.' },
+        { name: 'PaymentStarted', value: false, description: 'Платёж создан, но информационное взаимодействие ещё не было проведено.' },
+        { name: 'PaymentCaptured', value: false, description: 'Провайдер по крайней мере подтвердил финансовые обязательства плательщика в рамках платежа.' },
+        { name: 'PaymentFailed', value: false, description: 'При проведении платежа не удалось получить финансовые обязательства плательщика.' }
     ];
 
     constructor(private webhooksService: WebhooksService,
                 private router: Router) {}
-
-    public toggleAll(state: boolean) {
-        for (let item of this.eventTypes) {
-            item.value = state;
-        }
-    }
 
     public onChangeEventTypes() {
         const arr = [];
@@ -49,8 +43,12 @@ export class WebhooksItemComponent {
         this.model.scope.eventTypes = arr;
     }
 
+    public goBack() {
+        this.router.navigate(['/api/webhooks']);
+    }
+
     public createWebhook() {
-        this.webhooksService.createWebhook(this.model).subscribe((result) => {
+        this.webhooksService.createWebhook(this.model).subscribe(() => {
             this.router.navigate(['/api/webhooks']);
         });
     }

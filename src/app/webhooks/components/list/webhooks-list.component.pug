@@ -30,13 +30,13 @@
                             span(*ngFor="let eventType of webhook.scope.eventTypes")  {{eventType}},
                         td {{webhook.publicKey}}
                         td
-                            button.btn.btn-danger.pull-right(data-toggle="modal", [attr.data-target]="'#' + webhook.id", data-backdrop="true")
+                            button.btn.btn-danger.pull-right(data-toggle="modal", [attr.data-target]="'#' + webhook.id", data-backdrop="false")
                                 i.fa.fa-trash
                             .modal.fade.remove-modal(tabindex="-1", role="dialog", id="{{webhook.id}}")
                                 .modal-dialog.modal-sm
                                     .modal-content
                                         .modal-header
-                                            h4.modal-title Вы действительно хотите удалить этот webhook ({{webhook.id}})?
+                                            h5.modal-title Вы действительно хотите удалить этот webhook ({{webhook.id}})?
                                         .modal-footer
                                             .btn-toolbar.pull-left
                                                 .btn-group.btn-group-sm
