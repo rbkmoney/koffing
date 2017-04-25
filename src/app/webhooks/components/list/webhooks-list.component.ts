@@ -18,7 +18,27 @@ export class WebhooksListComponent implements OnInit {
         });
     }
 
+    public toggleWebhook(id: string) {
+        if (this.webhooksList[0].show === undefined) {
+            for (let item of this.webhooksList) {
+                if (item.id === id) {
+                    item.show = false;
+                    break;
+                }
+            }
+        }
+
+        for (let item of this.webhooksList) {
+            if (item.id === id) {
+                item.show = !item.show;
+                break;
+            }
+        }
+    }
+
     public ngOnInit() {
-        this.webhooksList = this.webhooksService.getWebhooks();
+         this.webhooksService.getWebhooks().subscribe(result => {
+             this.webhooksList = result;
+        });
     }
 }
