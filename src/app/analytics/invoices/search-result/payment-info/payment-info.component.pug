@@ -1,0 +1,39 @@
+.row
+    .col-xs-12.col-sm-6
+        .form-group
+            label.col-sm-4 Идентификатор:
+            .col-sm-4
+                div {{payment.id}}
+    .col-xs-12.col-sm-6
+        .form-group
+            label.col-sm-4 Email плательщика:
+            .col-sm-4
+                div {{payment?.contactInfo?.email}}
+.row
+    .col-xs-12.col-sm-6
+        .form-group
+            label.col-sm-4 Статус:
+            .col-sm-4
+                div {{payment.status}}
+    .col-xs-12.col-sm-6
+        .form-group
+            label.col-sm-4 Fingerprint:
+            .col-sm-4
+                div {{payment.fingerprint}}
+.row
+    .col-xs-12.col-sm-6
+        .form-group
+            label.col-sm-4 Дата и время создания:
+            .col-sm-4
+                div {{payment.createdAt | date: "dd.MM.yyyy HH:mm:ss"}}
+    .col-xs-12.col-sm-6
+        .form-group
+            label.col-sm-4 IP-адрес плательщика:
+            .col-sm-4
+                div {{payment.payerIP}}
+.row
+    .col-xs-12.col-sm-6
+        .form-group
+            label.col-sm-4 Стоимость:
+            .col-sm-4
+                div {{payment.amount}} {{payment.currency}}

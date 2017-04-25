@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import { Http, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
@@ -7,6 +8,7 @@ import { InvoiceSearchResult } from 'koffing/backend/model/invoice-search-result
 import { ConfigService } from 'koffing/backend/services/config.service';
 import { PaymentSearchResult } from 'koffing/backend/model/payment-search-result';
 
+@Injectable()
 export class SearchService {
 
     constructor(private http: Http,
@@ -52,6 +54,10 @@ export class SearchService {
         payerFingerprint && params.set('payerFingerprint', payerFingerprint);
         paymentAmount && params.set('paymentAmount', toString(paymentAmount));
         return this.http.get(`${this.config.capiUrl}/analytics/shops/${shopID}/payments`, {search: params}).map((res) => res.json());
+    }
+
+    public searchPaymentsStub(): Observable<PaymentSearchResult> {
+        return this.http.get(`${this.config.capiUrl}/analytics/shops/${1}/payments`).map((res) => res.json());
     }
 
     private toUTC(date: Date): string {

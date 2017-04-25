@@ -1,19 +1,22 @@
-table.table.table-hover.table-striped
+table.table.table-striped
     thead
         tr
-            th Идентификатор
+            th.hidden-xs Идентификатор
             th Статус
-            th Дата и время создания
-            th Дата и время окончания действия
             th Стоимость
-            th.hidden-xs Продукт
-            th.hidden-xs Описание
-    tbody
-        tr(*ngFor="let invoice of invoices")
-            td {{invoice.id}}
-            td {{invoice.status | kofInvoiceStatus}}
-            td {{invoice.createdAt | date: "dd.MM.yyyy HH:mm:ss"}}
-            td {{invoice.dueDate | date: "dd.MM.yyyy HH:mm:ss"}}
-            td {{invoice.amount | kofRoubleCurrency}} {{invoice.currency}}
-            td.hidden-xs {{invoice.product}}
-            td.hidden-xs {{invoice.description}}
+            th.hidden-xs Дата и время создания
+            th.hidden-xs Дата и время окончания действия
+            th
+    tbody(*ngFor="let item of invoiceTableItems | async")
+        tr((click)="togglePaymentPanel(item)")
+            td.hidden-xs {{item.invoice.id}}
+            td {{item.invoice.status | kofInvoiceStatus}}
+            td {{item.invoice.amount | kofRoubleCurrency}} {{item.invoice.currency}}
+            td.hidden-xs {{item.invoice.createdAt | date: "dd.MM.yyyy HH:mm:ss"}}
+            td.hidden-xs {{item.invoice.dueDate | date: "dd.MM.yyyy HH:mm:ss"}}
+            td
+                div.pull-right.small-container
+                    i.fa.custom-chevron([ngClass]="{'fa-chevron-down': item.visible, 'fa-chevron-right': !item.visible}")
+        tr(*ngIf="item.visible")
+            td(colspan=8)
+                kof-search-details([payments]="payments")

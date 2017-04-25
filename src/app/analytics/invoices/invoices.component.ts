@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
+import { Subject } from 'rxjs/Subject';
 
 import { InvoiceService } from 'koffing/backend/invoice.service';
 import { Invoice } from 'koffing/backend/model/invoice';
-import { InvoiceSearchResult } from 'koffing/backend/model/invoice-search-result';
 import { SearchParams } from 'koffing/analytics/invoices/search-form/search-params';
 
 @Component({
@@ -12,7 +12,7 @@ import { SearchParams } from 'koffing/analytics/invoices/search-form/search-para
 })
 export class InvoicesComponent implements OnInit {
 
-    public invoices: Invoice[];
+    public invoices: Subject<Invoice[]> = new Subject();
     public isLoading: boolean = false;
     public shopID: string;
     public totalCount: number;
@@ -54,10 +54,10 @@ export class InvoicesComponent implements OnInit {
             this.offset,
             this.searchParams.status,
             this.searchParams.invoiceID
-        ).subscribe((searchResult: InvoiceSearchResult) => {
+        ).subscribe((searchResult) => {
             this.isLoading = false;
-            this.invoices = searchResult.invoices;
             this.totalCount = searchResult.totalCount;
+            this.invoices.next(searchResult.invoices);
         });
     }
 }

@@ -20,6 +20,8 @@ import { LineChartComponent } from 'koffing/analytics/dashboard/line-chart/line-
 import { DoughnutChartComponent } from 'koffing/analytics/dashboard/doughnut-chart/doughnut-chart.component';
 import { StatisticPanelComponent } from 'koffing/analytics/statistic-panel/statistic-panel.component';
 import { InvoiceStatusPipe } from 'koffing/analytics/invoices/invoice-statuses.pipe';
+import { SearchDetailsComponent } from 'koffing/analytics/invoices/search-result/search-details/search-details.component';
+import { PaymentInfoComponent } from 'koffing/analytics/invoices/search-result/payment-info/payment-info.component';
 
 @NgModule({
     imports: [
@@ -44,7 +46,9 @@ import { InvoiceStatusPipe } from 'koffing/analytics/invoices/invoice-statuses.p
         PaginationPipe,
         LineChartComponent,
         DoughnutChartComponent,
-        StatisticPanelComponent
+        StatisticPanelComponent,
+        SearchDetailsComponent,
+        PaymentInfoComponent
     ]
 })
 export class AnalyticsModule { }
