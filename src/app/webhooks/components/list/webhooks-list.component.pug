@@ -10,42 +10,45 @@
                     .col-xs-6.text-right
                         a(routerLink="/api/webhook/new")
                             button.btn.btn-primary Создать webhook
-            table.table.table-striped.table-hover
+            table.table.table-striped
                 thead
                     tr
                         th URL
                         th События
+                        th Статус
                         th
-                tbody(*ngFor="let webhook of webhooksList")
-                    tr.cursor-pointer.success([ngClass]="{'danger': !webhook.active}", (click)="toggleWebhook(webhook.id)")
-                        td {{webhook.url}}
+                tbody(*ngFor="let item of webhooksList")
+                    tr.cursor-pointer((click)="toggleWebhook(item.webhook.id)")
+                        td {{item.webhook.url}}
                         td
-                            span(*ngFor="let eventType of webhook.scope.eventTypes")  {{eventType}},
+                            span(*ngFor="let eventType of item.webhook.scope.eventTypes")  {{eventType}},
+                        td
+                            span.label.label-success([ngClass]="{'label-danger': !item.webhook.active}") {{transformStatus(item.webhook.active)}}
                         td
                             div.pull-right.small-container
-                                i.fa.custom-chevron([ngClass]="{'fa-chevron-down': webhook.show, 'fa-chevron-right': !webhook.show}")
-                    tr(*ngIf="webhook.show")
-                        td.row(colspan="3")
+                                i.fa.custom-chevron([ngClass]="{'fa-chevron-down': item.show, 'fa-chevron-right': !item.show}")
+                    tr(*ngIf="item.show")
+                        td.row(colspan="4")
                             .col-xs-12
                                 dl
-                                    dt ID
-                                    td {{webhook.id}}
+                                    dt ID webhook
+                                    td {{item.webhook.id}}
                                 dl
-                                    dt ID магазина
-                                    td {{webhook.scope.shopID}}
+                                    dt Магазин
+                                    td {{item.shop}}
                                 dl
                                     dt Публичный ключ
-                                    textarea.form-control(readonly="true", rows="15") {{webhook.publicKey}}
+                                    textarea.form-control(readonly="true", rows="15") {{item.webhook.publicKey}}
                             .col-xs-12.pull-right
-                                button.btn.btn-danger.pull-right(data-toggle="modal", [attr.data-target]="'#' + webhook.id", data-backdrop="false") Удалить
-                                .modal.fade.remove-modal(tabindex="-1", role="dialog", id="{{webhook.id}}")
+                                button.btn.btn-danger.pull-right(data-toggle="modal", [attr.data-target]="'#' + item.webhook.id", data-backdrop="false") Удалить
+                                .modal.fade.remove-modal(tabindex="-1", role="dialog", id="{{item.webhook.id}}")
                                     .modal-dialog.modal-sm
                                         .modal-content
                                             .modal-header
-                                                h5.modal-title Вы действительно хотите удалить этот webhook ({{webhook.id}})?
+                                                h5.modal-title Вы действительно хотите удалить этот webhook ({{item.webhook.id}})?
                                             .modal-footer
                                                 .btn-toolbar.pull-left
                                                     .btn-group.btn-group-sm
-                                                        button.btn.btn-danger(type="button", data-dismiss="modal", (click)="deleteWebhook(webhook.id)") Да
+                                                        button.btn.btn-danger(type="button", data-dismiss="modal", (click)="deleteWebhook(item.webhook.id)") Да
                                                     .btn-group.btn-group-sm
                                                         button.btn.btn-default(type="button", data-dismiss="modal") Нет

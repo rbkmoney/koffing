@@ -5,6 +5,7 @@ export class Webhook {
             topic: string,
             shopID: number,
             eventTypes: string[]
-        }
+        },
+        public id: string
     ) { }
 }

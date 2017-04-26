@@ -9,22 +9,26 @@
                 .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                         span.required URL
+                            span.highlighted  *
                     .col-md-6.col-sm-6.col-xs-12
-                        input.form-control.col-md-7.col-xs-12(type="text", id="url", name="url", [(ngModel)]="model.url")
-                .form-group
-                    label.control-label.col-md-3.col-sm-3.col-xs-12(for="topic")
-                        span.required Предмет оповещений
-                    .col-md-6.col-sm-6.col-xs-12.kof-select
-                        kof-select([(ngModel)]="model.scope.topic", [items]="topics", [modelOptions]="{standalone: true}", name='topic')
+                        input.form-control.col-md-7.col-xs-12(type="text", id="url", name="url", [(ngModel)]="model.url", (change)="validateForm()")
+                //.form-group
+                //    label.control-label.col-md-3.col-sm-3.col-xs-12(for="topic")
+                //        span.required Предмет оповещений
+                //            span.highlighted *
+                //    .col-md-6.col-sm-6.col-xs-12.kof-select
+                //        kof-select([(ngModel)]="model.scope.topic", [items]="topics", [modelOptions]="{standalone: true}", name='topic')
                 .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
-                        span.required ID магазина
+                        span.required Магазин
+                            span.highlighted  *
                     .col-md-6.col-sm-6.col-xs-12
-                        input.form-control.col-md-7.col-xs-12(type="number", id="shopID", name="shopID", [(ngModel)]="model.scope.shopID")
+                        kof-select([ngModel]="model.scope.shopID", [items]="shops", [modelOptions]="{standalone: true}", name='shopID', (onChange)="onChangeShop($event)")
                 .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                         span.required События
-                    .col-xs-12.col-sm-9.col-md-9
+                            span.highlighted  *
+                    .col-xs-12.col-sm-6.col-md-6
                         .checkbox(*ngFor="let checkbox of eventTypes")
                             label
                                 input(type="checkbox", id="{{checkbox.name}}", name="{{checkbox.name}}", [(ngModel)]="checkbox.value", (change)="onChangeEventTypes()")
@@ -35,4 +39,4 @@
                 .form-group
                     .col-sm-6.col-sm-offset-3
                         button.btn.btn-default((click)="goBack()") Назад
-                        button.btn.btn-primary.pull-right((click)="createWebhook()") Создать
+                        button.btn.btn-primary.pull-right((click)="createWebhook()", [disabled]="!validated") Создать

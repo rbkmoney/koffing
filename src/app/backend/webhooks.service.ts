@@ -17,7 +17,7 @@ export class WebhooksService {
         return this.http.post(`${this.config.capiUrl}/processing/webhooks`, webhook).map(res => res.json());
     }
 
-    public getWebhooks(): Observable<Webhook> {
+    public getWebhooks(): Observable<Webhook[]> {
         return this.http.get(`${this.config.capiUrl}/processing/webhooks`).map(res => res.json());
     }
 
