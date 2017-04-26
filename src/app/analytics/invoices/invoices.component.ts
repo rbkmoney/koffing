@@ -5,7 +5,7 @@ import { Subject } from 'rxjs/Subject';
 
 import { InvoiceService } from 'koffing/backend/invoice.service';
 import { Invoice } from 'koffing/backend/model/invoice';
-import { SearchParams } from 'koffing/analytics/invoices/search-form/search-params';
+import { FormSearchParams } from 'koffing/analytics/invoices/search-form/form-search-params';
 
 @Component({
     templateUrl: './invoices.component.pug'
@@ -18,9 +18,11 @@ export class InvoicesComponent implements OnInit {
     public totalCount: number;
     public offset: number = 0;
     public limit: number = 20;
-    public searchParams: SearchParams = {
-        fromTime: moment().subtract(1, 'month').hour(0).minute(0).second(0).toDate(),
-        toTime: moment().hour(23).minute(59).second(59).toDate()
+    public searchParams: FormSearchParams = {
+        invoiceFrom: moment().subtract(1, 'month').hour(0).minute(0).second(0).toDate(),
+        invoiceTo: moment().hour(23).minute(59).second(59).toDate(),
+        paymentFrom: moment().subtract(1, 'month').hour(0).minute(0).second(0).toDate(),
+        paymentTo: moment().hour(23).minute(59).second(59).toDate()
     };
 
     constructor(private route: ActivatedRoute,
@@ -34,7 +36,7 @@ export class InvoicesComponent implements OnInit {
         });
     }
 
-    public onSearch(searchParams: SearchParams) {
+    public onSearch(searchParams: FormSearchParams) {
         this.searchParams = searchParams;
         this.search();
     }
@@ -48,11 +50,11 @@ export class InvoicesComponent implements OnInit {
         this.isLoading = true;
         this.invoiceService.getInvoices(
             this.shopID,
-            this.searchParams.fromTime,
-            this.searchParams.toTime,
+            this.searchParams.invoiceFrom,
+            this.searchParams.invoiceTo,
             this.limit,
             this.offset,
-            this.searchParams.status,
+            this.searchParams.invoiceStatus,
             this.searchParams.invoiceID
         ).subscribe((searchResult) => {
             this.isLoading = false;
