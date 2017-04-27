@@ -37,21 +37,21 @@ export class WebhooksListComponent implements OnInit {
         });
     }
 
-    private createwebhooksList(webhooks: Webhook[]) {
-        return webhooks.map((webhook) => {
-            return {
-                visible: false,
-                shopName: '',
-                webhook
-            }
-        });
-    }
-
     public deleteWebhook(id: string) {
         this.webhooksService.deleteWebhookByID(id)
             .switchMap(() => this.webhooksService.getWebhooks())
             .subscribe((result) => {
                 this.webhooksList = this.createwebhooksList(result);
              });
+    }
+
+    private createwebhooksList(webhooks: Webhook[]) {
+        return webhooks.map((webhook) => {
+            return {
+                visible: false,
+                shopName: '',
+                webhook
+            };
+        });
     }
 }
