@@ -20,8 +20,7 @@
                 tbody(*ngFor="let item of webhooksList")
                     tr.cursor-pointer((click)="toggleWebhook(item.webhook.id)")
                         td {{item.webhook.url}}
-                        td
-                            span(*ngFor="let eventType of item.webhook.scope.eventTypes")  {{eventType}},
+                        td {{makeEvents(item.webhook.scope.eventTypes)}}
                         td
                             span.label.label-success([ngClass]="{'label-danger': !item.webhook.active}") {{transformStatus(item.webhook.active)}}
                         td

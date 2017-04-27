@@ -18,6 +18,10 @@ export class WebhooksListComponent implements OnInit {
         return status ? 'Активен' : 'Неактивен';
     }
 
+    public makeEvents(events: string[]) {
+        return events.join(', ');
+    }
+
     public toggleWebhook(id: string) {
         for (let item of this.webhooksList) {
             if (item.webhook.id === id) {
