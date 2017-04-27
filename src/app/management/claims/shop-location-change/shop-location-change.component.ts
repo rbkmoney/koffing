@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 
+import { ShopLocationChange } from 'koffing/backend/backend.module';
+
 @Component({
     selector: 'kof-shop-location-change',
     templateUrl: 'shop-location-change.component.pug'
@@ -7,7 +9,7 @@ import { Component, Input } from '@angular/core';
 export class ShopLocationChangeComponent {
 
     @Input()
-    public changeSet: any;
+    public changeSet: ShopLocationChange;
 
     public showPanel: boolean = false;
 

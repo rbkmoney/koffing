@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 
+import { ShopDetailsChange } from 'koffing/backend/backend.module';
+
 @Component({
     selector: 'kof-shop-details-change',
     templateUrl: 'shop-details-change.component.pug'
@@ -7,7 +9,7 @@ import { Component, Input } from '@angular/core';
 export class ShopDetailsChangeComponent {
 
     @Input()
-    public changeSet: any;
+    public changeSet: ShopDetailsChange;
 
     public showPanel: boolean = false;
 

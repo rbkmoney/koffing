@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 
+import { ShopAccountCreation } from 'koffing/backend/backend.module';
+
 @Component({
     selector: 'kof-shop-account-creation',
     templateUrl: 'shop-account-creation.component.pug'
@@ -7,7 +9,7 @@ import { Component, Input } from '@angular/core';
 export class ShopAccountCreationComponent {
 
     @Input()
-    public changeSet: any;
+    public changeSet: ShopAccountCreation;
 
     public showPanel: boolean = false;
 

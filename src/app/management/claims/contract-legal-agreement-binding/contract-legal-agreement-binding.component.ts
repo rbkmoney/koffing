@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 
+import { ContractLegalAgreementBinding } from 'koffing/backend/backend.module';
+
 @Component({
     selector: 'kof-contract-legal-agreement-binding',
     templateUrl: 'contract-legal-agreement-binding.component.pug'
@@ -7,7 +9,7 @@ import { Component, Input } from '@angular/core';
 export class ContractLegalAgreementBindingComponent {
 
     @Input()
-    public changeSet: any;
+    public changeSet: ContractLegalAgreementBinding;
 
     public showPanel: boolean = false;
 

@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 
+import { ShopCallbackHandlerSetup } from 'koffing/backend/backend.module';
+
 @Component({
     selector: 'kof-shop-callback-handler-setup',
     templateUrl: 'shop-callback-handler-setup.component.pug'
@@ -7,7 +9,7 @@ import { Component, Input } from '@angular/core';
 export class ShopCallbackHandlerSetupComponent {
 
     @Input()
-    public changeSet: any;
+    public changeSet: ShopCallbackHandlerSetup;
 
     public showPanel: boolean = false;
 

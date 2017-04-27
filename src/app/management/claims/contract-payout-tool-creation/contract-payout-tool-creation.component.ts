@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 
+import { ContractPayoutToolCreation } from 'koffing/backend/backend.module';
+
 @Component({
     selector: 'kof-contract-payout-tool-creation',
     templateUrl: 'contract-payout-tool-creation.component.pug'
@@ -7,7 +9,7 @@ import { Component, Input } from '@angular/core';
 export class ContractPayoutToolCreationComponent {
 
     @Input()
-    public changeSet: any;
+    public changeSet: ContractPayoutToolCreation;
 
     public showPanel: boolean = false;
 

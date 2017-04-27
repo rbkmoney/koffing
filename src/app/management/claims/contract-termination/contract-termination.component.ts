@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 
+import { ContractTermination } from 'koffing/backend/backend.module';
+
 @Component({
     selector: 'kof-contract-termination',
     templateUrl: 'contract-termination.component.pug'
@@ -7,7 +9,7 @@ import { Component, Input } from '@angular/core';
 export class ContractTerminationComponent {
 
     @Input()
-    public changeSet: any;
+    public changeSet: ContractTermination;
 
     public showPanel: boolean = false;
 
