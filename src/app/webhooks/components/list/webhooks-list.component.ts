@@ -33,17 +33,14 @@ export class WebhooksListComponent implements OnInit {
         });
     }
 
-    public createwebhooksList(webhooks: Webhook[]) {
-        const arr = [];
-        for (let webhook of webhooks) {
-            const item = {
+    private createwebhooksList(webhooks: Webhook[]) {
+        return webhooks.map((webhook) => {
+            return {
                 visible: false,
                 shopName: '',
                 webhook
-            };
-            arr.push(item);
-        }
-        return arr;
+            }
+        });
     }
 
     public onItemDelete(id: string) {
