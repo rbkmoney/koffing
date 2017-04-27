@@ -3,19 +3,17 @@ import { Router } from '@angular/router';
 
 import { WebhooksService, ShopService } from 'koffing/backend/backend.module';
 import { CreateWebhook } from 'koffing/backend/queries/create-webhook';
+import { SelectItem } from 'koffing/common/components/select/select.class';
 
 @Component({
-    selector: 'kof-offline-token',
+    selector: 'kof-webhook-item',
     templateUrl: './webhooks-item.component.pug',
 })
 export class WebhooksItemComponent implements OnInit  {
 
-    public validated: boolean = false;
+    public valid: boolean = false;
 
-    public shops: Array<{
-        label: string,
-        value: number
-    }>;
+    public shops: SelectItem[];
 
     public model: CreateWebhook = {
         url: undefined,
@@ -25,10 +23,6 @@ export class WebhooksItemComponent implements OnInit  {
             eventTypes: undefined
         }
     };
-
-    // public topics = [
-    //     { value: 'InvoicesTopic', label: 'InvoicesTopic' }
-    // ];
 
     public eventTypes = [
         { name: 'InvoiceCreated', value: false, description: 'создан новый инвойс' },
@@ -49,13 +43,12 @@ export class WebhooksItemComponent implements OnInit  {
     }
 
     public onChangeEventTypes() {
-        const arr = [];
-        for (let item of this.eventTypes) {
+        this.model.scope.eventTypes = [];
+        this.eventTypes.filter((item) => {
             if (item.value) {
-                arr.push(item.name);
+                this.model.scope.eventTypes.push(item.name);
             }
-        }
-        this.model.scope.eventTypes = arr;
+        });
         this.validateForm();
     }
 
@@ -71,20 +64,19 @@ export class WebhooksItemComponent implements OnInit  {
 
     public validateForm() {
         const model = this.model;
-        this.validated = !!(model.url && model.scope.shopID && model.scope.topic && model.scope.eventTypes && model.scope.eventTypes.length > 0);
+        this.valid = !!(model.url && model.scope.shopID && model.scope.topic && model.scope.eventTypes && model.scope.eventTypes.length > 0);
     }
 
     public ngOnInit() {
         this.shopService.getShops()
             .then((result) => {
-            const arr = [];
-                for (let item of result) {
-                    arr.push({
-                        label: item.details.name,
-                        value: item.id
-                    });
-                }
-            this.shops = arr;
+            this.shops = [];
+            result.map((item) => {
+                this.shops.push({
+                    label: item.details.name,
+                    value: item.id
+                });
+            });
             });
     }
 }

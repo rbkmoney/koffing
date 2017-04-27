@@ -25,22 +25,9 @@
                         td
                             span.label.label-success([ngClass]="{'label-danger': !item.webhook.active}") {{transformStatus(item.webhook.active)}}
                         td
-                            div.pull-right.small-container
-                                i.fa.custom-chevron([ngClass]="{'fa-chevron-down': item.show, 'fa-chevron-right': !item.show}")
-                    tr(*ngIf="item.show")
-                        td.row(colspan="4")
-                            .col-xs-12
-                                dl
-                                    dt ID webhook
-                                    td {{item.webhook.id}}
-                                dl
-                                    dt Магазин
-                                    td {{item.shop}}
-                                dl
-                                    dt Публичный ключ
-                                    textarea.form-control(readonly="true", rows="15") {{item.webhook.publicKey}}
-                            .col-xs-12.pull-right
-                                button.btn.btn-danger.pull-right(data-toggle="modal", [attr.data-target]="'#' + item.webhook.id", data-backdrop="false") Удалить
+                            .pull-right
+                                button.btn.btn-xs.btn-danger.pull-right(data-toggle="modal", [attr.data-target]="'#' + item.webhook.id", data-backdrop="false")
+                                    i.fa.fa-trash
                                 .modal.fade.remove-modal(tabindex="-1", role="dialog", id="{{item.webhook.id}}")
                                     .modal-dialog.modal-sm
                                         .modal-content
@@ -52,3 +39,6 @@
                                                         button.btn.btn-danger(type="button", data-dismiss="modal", (click)="deleteWebhook(item.webhook.id)") Да
                                                     .btn-group.btn-group-sm
                                                         button.btn.btn-default(type="button", data-dismiss="modal") Нет
+                    tr(*ngIf="item.visible")
+                        td.row(colspan="5")
+                            kof-webhook-list-details([item]="item")

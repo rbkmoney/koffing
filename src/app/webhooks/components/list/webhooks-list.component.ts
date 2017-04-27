@@ -1,51 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 
-import { WebhooksService, ShopService } from 'koffing/backend/backend.module';
-import { Webhook } from '../../classes/webhook';
+import { WebhooksService } from 'koffing/backend/backend.module';
+import { Webhook } from 'koffing/backend/model/webhook.class';
+import { WebhookListItem } from '../../webhook-list-item.class';
 
 @Component({
-    selector: 'kof-offline-token',
+    selector: 'kof-webhook-list',
     templateUrl: './webhooks-list.component.pug',
 })
 export class WebhooksListComponent implements OnInit {
 
-    public webhooksList: Array<{
-        show: boolean,
-        shop: string,
-        webhook: Webhook
-    }>;
+    public webhooksList: WebhookListItem[];
 
-    constructor(private webhooksService: WebhooksService,
-                private shopService: ShopService) {}
+    constructor(private webhooksService: WebhooksService) {}
 
     public transformStatus(status: boolean) {
-        if (status) {
-            return 'Активен';
-        } else {
-            return 'Неактивен';
-        }
+        return status ? 'Активен' : 'Неактивен';
     }
 
     public toggleWebhook(id: string) {
         for (let item of this.webhooksList) {
             if (item.webhook.id === id) {
-                item.show = !item.show;
-                if (item.show && !item.shop) {
-                    this.shopService.getShop(item.webhook.scope.shopID).then((result) => {
-                       item.shop = result.details.name;
-                    });
-                }
+                item.visible = !item.visible;
                 break;
             }
         }
-    }
-
-    public deleteWebhook(id: string) {
-        this.webhooksService.deleteWebhookByID(id).subscribe(() => {
-            this.webhooksService.getWebhooks().subscribe(result => {
-                this.webhooksList = this.createwebhooksList(result);
-            });
-        });
     }
 
     public ngOnInit() {
@@ -54,16 +33,24 @@ export class WebhooksListComponent implements OnInit {
         });
     }
 
-    private createwebhooksList(webhooks: Webhook[]) {
+    public createwebhooksList(webhooks: Webhook[]) {
         const arr = [];
         for (let webhook of webhooks) {
             const item = {
-                show: false,
-                shop: '',
+                visible: false,
+                shopName: '',
                 webhook
             };
             arr.push(item);
         }
         return arr;
+    }
+
+    public onItemDelete(id: string) {
+        this.webhooksService.deleteWebhookByID(id)
+            .switchMap(() => this.webhooksService.getWebhooks())
+            .subscribe((result) => {
+                this.webhooksList = this.createwebhooksList(result);
+             });
     }
 }

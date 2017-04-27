@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { WebhooksRoutingModule } from './webhooks-routing.module';
 import { WebhooksListComponent } from 'koffing/webhooks/components/list/webhooks-list.component';
+import { WebhooksListDetailsComponent } from 'koffing/webhooks/components/list/webhooks-list-details.component';
 import { WebhooksItemComponent } from 'koffing/webhooks/components/item/webhooks-item.component';
 import { CommonModule } from 'koffing/common/common.module';
 
@@ -16,6 +17,7 @@ import { CommonModule } from 'koffing/common/common.module';
     ],
     declarations: [
         WebhooksListComponent,
+        WebhooksListDetailsComponent,
         WebhooksItemComponent
     ]
 })

@@ -12,12 +12,6 @@
                             span.highlighted  *
                     .col-md-6.col-sm-6.col-xs-12
                         input.form-control.col-md-7.col-xs-12(type="text", id="url", name="url", [(ngModel)]="model.url", (change)="validateForm()")
-                //.form-group
-                //    label.control-label.col-md-3.col-sm-3.col-xs-12(for="topic")
-                //        span.required Предмет оповещений
-                //            span.highlighted *
-                //    .col-md-6.col-sm-6.col-xs-12.kof-select
-                //        kof-select([(ngModel)]="model.scope.topic", [items]="topics", [modelOptions]="{standalone: true}", name='topic')
                 .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                         span.required Магазин
@@ -39,4 +33,4 @@
                 .form-group
                     .col-sm-6.col-sm-offset-3
                         button.btn.btn-default((click)="goBack()") Назад
-                        button.btn.btn-primary.pull-right((click)="createWebhook()", [disabled]="!validated") Создать
+                        button.btn.btn-primary.pull-right((click)="createWebhook()", [disabled]="!valid") Создать
