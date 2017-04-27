@@ -41,7 +41,5 @@
                                 a([routerLink]=["/api/webhooks"]) Webhooks
                             li([routerLinkActive]="['active']")
                                 a([routerLink]=["/api/key"]) API ключ
-                    li([routerLinkActive]="['active']", (click)="closeSubMenu()")
-                        a(href="https://rbkmoney.github.io/docs", target="_blank")
-                            i.fa.fa-file
-                            | Документация
+                            li()
+                                a(href="https://rbkmoney.github.io/docs", target="_blank") Документация
