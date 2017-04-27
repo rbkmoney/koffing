@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 
 import { WebhooksService } from 'koffing/backend/backend.module';
 import { Webhook } from 'koffing/backend/model/webhook.class';
-import { WebhookListItem } from '../../webhook-list-item.class';
+import { WebhookListItem } from './webhook-item.class';
 
 @Component({
     selector: 'kof-webhook-list',
-    templateUrl: './webhooks-list.component.pug',
+    templateUrl: './webhooks.component.pug',
 })
-export class WebhooksListComponent implements OnInit {
+export class WebhookComponent implements OnInit {
 
     public webhooksList: WebhookListItem[];
 
@@ -22,18 +22,13 @@ export class WebhooksListComponent implements OnInit {
         return events.join(', ');
     }
 
-    public toggleWebhook(id: string) {
-        for (let item of this.webhooksList) {
-            if (item.webhook.id === id) {
-                item.visible = !item.visible;
-                break;
-            }
-        }
+    public toggleWebhook(item: WebhookListItem) {
+        item.visible = !item.visible;
     }
 
     public ngOnInit() {
          this.webhooksService.getWebhooks().subscribe(result => {
-             this.webhooksList = this.createwebhooksList(result);
+             this.webhooksList = this.createWebhooksList(result);
         });
     }
 
@@ -41,11 +36,11 @@ export class WebhooksListComponent implements OnInit {
         this.webhooksService.deleteWebhookByID(id)
             .switchMap(() => this.webhooksService.getWebhooks())
             .subscribe((result) => {
-                this.webhooksList = this.createwebhooksList(result);
+                this.webhooksList = this.createWebhooksList(result);
              });
     }
 
-    private createwebhooksList(webhooks: Webhook[]) {
+    private createWebhooksList(webhooks: Webhook[]) {
         return webhooks.map((webhook) => {
             return {
                 visible: false,

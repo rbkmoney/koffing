@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { ShopService } from 'koffing/backend/backend.module';
-import { WebhookListItem } from '../../webhook-list-item.class';
+import { WebhookListItem } from '../webhook-item.class';
 
 @Component({
     selector: 'kof-webhook-list-details',
-    templateUrl: './webhooks-list-details.component.pug',
+    templateUrl: './webhook-details.component.pug',
 })
 export class WebhooksListDetailsComponent implements OnInit {
 

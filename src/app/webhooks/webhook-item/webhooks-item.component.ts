@@ -44,11 +44,8 @@ export class WebhooksItemComponent implements OnInit  {
 
     public onChangeEventTypes() {
         this.model.scope.eventTypes = [];
-        this.eventTypes.filter((item) => {
-            if (item.value) {
-                this.model.scope.eventTypes.push(item.name);
-            }
-        });
+        this.model.scope.eventTypes = this.eventTypes.filter((item) => item.name)
+            .map((type) => type.name);
         this.validateForm();
     }
 
@@ -69,14 +66,13 @@ export class WebhooksItemComponent implements OnInit  {
 
     public ngOnInit() {
         this.shopService.getShops()
-            .then((result) => {
-            this.shops = [];
-            result.map((item) => {
-                this.shops.push({
-                    label: item.details.name,
-                    value: item.id
+            .then((shops) => {
+                this.shops = shops.map((shop) => {
+                    return {
+                        label: shop.details.name,
+                        value: shop.id
+                    };
                 });
-            });
             });
     }
 }

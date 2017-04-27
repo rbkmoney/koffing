@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { WebhooksListComponent } from 'koffing/webhooks/components/list/webhooks-list.component';
-import { WebhooksItemComponent } from 'koffing/webhooks/components/item/webhooks-item.component';
+import { WebhookComponent } from 'koffing/webhooks/webhook.component';
+import { WebhooksItemComponent } from 'koffing/webhooks/webhook-item/webhooks-item.component';
 
 @NgModule({
     imports: [
         RouterModule.forChild([
             {
                 path: 'api/webhooks',
-                component: WebhooksListComponent
+                component: WebhookComponent
             },
             {
                 path: 'api/webhook/new',

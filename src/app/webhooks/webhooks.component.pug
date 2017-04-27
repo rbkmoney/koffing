@@ -18,7 +18,7 @@
                         th Статус
                         th
                 tbody(*ngFor="let item of webhooksList")
-                    tr.cursor-pointer((click)="toggleWebhook(item.webhook.id)")
+                    tr.cursor-pointer((click)="toggleWebhook(item)")
                         td {{item.webhook.url}}
                         td {{makeEvents(item.webhook.scope.eventTypes)}}
                         td
