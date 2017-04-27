@@ -43,7 +43,7 @@ export class WebhooksListComponent implements OnInit {
         });
     }
 
-    public onItemDelete(id: string) {
+    public deleteWebhook(id: string) {
         this.webhooksService.deleteWebhookByID(id)
             .switchMap(() => this.webhooksService.getWebhooks())
             .subscribe((result) => {
