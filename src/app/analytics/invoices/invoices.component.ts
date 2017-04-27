@@ -3,9 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { Subject } from 'rxjs/Subject';
 
-import { InvoiceService } from 'koffing/backend/invoice.service';
 import { Invoice } from 'koffing/backend/model/invoice';
 import { FormSearchParams } from 'koffing/analytics/invoices/search-form/form-search-params';
+import { SearchService } from 'koffing/backend/search.service';
+import { InvoicesService } from 'koffing/analytics/invoices/invoices.service';
 
 @Component({
     templateUrl: './invoices.component.pug'
@@ -26,7 +27,7 @@ export class InvoicesComponent implements OnInit {
     };
 
     constructor(private route: ActivatedRoute,
-                private invoiceService: InvoiceService) {
+                private searchService: SearchService) {
     }
 
     public ngOnInit() {
@@ -48,18 +49,11 @@ export class InvoicesComponent implements OnInit {
 
     private search() {
         this.isLoading = true;
-        this.invoiceService.getInvoices(
-            this.shopID,
-            this.searchParams.invoiceFrom,
-            this.searchParams.invoiceTo,
-            this.limit,
-            this.offset,
-            this.searchParams.invoiceStatus,
-            this.searchParams.invoiceID
-        ).subscribe((searchResult) => {
+        const request = InvoicesService.toSearchParams(this.limit, this.offset, this.searchParams);
+        this.searchService.searchInvoices(this.shopID, request).subscribe((result) => {
             this.isLoading = false;
-            this.totalCount = searchResult.totalCount;
-            this.invoices.next(searchResult.invoices);
+            this.totalCount = result.totalCount;
+            this.invoices.next(result.invoices);
         });
     }
 }

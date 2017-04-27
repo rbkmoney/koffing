@@ -9,9 +9,9 @@ export class SearchResultService {
     public static toInvoiceTableItems(invoices: Invoice[]): InvoiceTableItem[] {
         return invoices.map((invoice) => {
             return {
-                invoice: invoice,
+                invoice,
                 visible: false
-            }
+            };
         });
     }
 }

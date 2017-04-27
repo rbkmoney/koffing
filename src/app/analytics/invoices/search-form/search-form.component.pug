@@ -51,11 +51,11 @@ form
             .row
                 .col-sm-6
                     .form-group
-                        label Идентификатор инвойса
+                        label Идентификатор инвойса:
                         input.form-control(name="invoiceID", [(ngModel)]="searchParams.invoiceID")
                 .col-sm-6
                     .form-group
-                        label Статус инвойса
+                        label Статус инвойса:
                         kof-select(
                         [(ngModel)]="searchParams.invoiceStatus",
                         [items]="invoiceStatuses",
@@ -67,11 +67,11 @@ form
             .row
                 .col-sm-6
                     .form-group
-                        label Идентификатор платежа
+                        label Идентификатор платежа:
                         input.form-control(name="paymentID", [(ngModel)]="searchParams.paymentID")
                 .col-sm-6
                     .form-group
-                        label Статус платежа
+                        label Статус платежа:
                         kof-select(
                         [(ngModel)]="searchParams.paymentStatus",
                         [items]="paymentStatuses",
@@ -83,11 +83,11 @@ form
             .row
                 .col-sm-6
                     .form-group
-                        label IP адрес плательщика
+                        label IP адрес плательщика:
                         input.form-control(name="payerIP", [(ngModel)]="searchParams.payerIP")
                 .col-sm-6
                     .form-group
-                        label Email плательщика
+                        label Email плательщика:
                         input.form-control(name="payerEmail", [(ngModel)]="searchParams.payerEmail")
         .col-sm-1
         .col-sm-4

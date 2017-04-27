@@ -1,0 +1,20 @@
+import { SearchInvoicesParams } from 'koffing/backend/requests/search-invoices-request';
+import { FormSearchParams } from 'koffing/analytics/invoices/search-form/form-search-params';
+
+export class InvoicesService {
+
+    public static toSearchParams(limit: number, offset: number, formParams: FormSearchParams): SearchInvoicesParams {
+        const result = new SearchInvoicesParams();
+        result.limit = limit;
+        result.offset = offset;
+        result.fromTime = formParams.invoiceFrom;
+        result.toTime = formParams.invoiceTo;
+        result.invoiceID = formParams.invoiceID;
+        result.invoiceStatus = formParams.invoiceStatus;
+        result.paymentID = formParams.paymentID;
+        result.paymentStatus = formParams.paymentStatus;
+        result.payerIP = formParams.payerIP;
+        result.payerEmail = formParams.payerEmail;
+        return result;
+    }
+}

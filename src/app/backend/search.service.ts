@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { Http, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
-import { toString } from 'lodash';
+import { toString, forEach, isNumber, isDate } from 'lodash';
 
 import { InvoiceSearchResult } from 'koffing/backend/model/invoice-search-result';
 import { ConfigService } from 'koffing/backend/services/config.service';
 import { PaymentSearchResult } from 'koffing/backend/model/payment-search-result';
+import { SearchInvoicesParams } from 'koffing/backend/requests/search-invoices-request';
+import { SearchPaymentsParams } from 'koffing/backend/requests/search-payments-request';
 
 @Injectable()
 export class SearchService {
@@ -15,49 +17,32 @@ export class SearchService {
                 private config: ConfigService) {
     }
 
-    public searchInvoices(shopID: string, fromTime: Date, toTime: Date, limit?: number, offset?: number,
-                          invoiceStatus?: string, paymentStatus?: string, invoiceID?: string, paymentID?: string,
-                          payerEmail?: string, payerIP?: string, cardNumberMask?: string, payerFingerprint?: string,
-                          paymentAmount?: number, invoiceAmount?: number): Observable<InvoiceSearchResult> {
-        const params = new URLSearchParams();
-        params.set('fromTime', this.toUTC(fromTime));
-        params.set('toTime', this.toUTC(toTime));
-        limit && params.set('limit', toString(limit));
-        offset && params.set('offset', toString(offset));
-        invoiceStatus && params.set('invoiceStatus', invoiceStatus);
-        paymentStatus && params.set('paymentStatus', paymentStatus);
-        invoiceID && params.set('invoiceID', invoiceID);
-        paymentID && params.set('paymentID', paymentID);
-        payerEmail && params.set('payerEmail', payerEmail);
-        payerIP && params.set('payerIP', payerIP);
-        cardNumberMask && params.set('cardNumberMask', cardNumberMask);
-        payerFingerprint && params.set('payerFingerprint', payerFingerprint);
-        paymentAmount && params.set('paymentAmount', toString(paymentAmount));
-        invoiceAmount && params.set('invoiceAmount', toString(invoiceAmount));
-        return this.http.get(`${this.config.capiUrl}/analytics/shops/${shopID}/invoices`, {search: params}).map((res) => res.json());
+    public searchInvoices(shopID: string, invoiceParams: SearchInvoicesParams): Observable<InvoiceSearchResult> {
+        const params = this.toSearchParams(invoiceParams);
+        return this.http.get(`${this.config.capiUrl}/analytics/shops/${shopID}/invoices`, {search: params})
+            .map((res) => res.json());
     }
 
-    public searchPayments(shopID: string, fromTime: Date, toTime: Date, limit?: number, offset?: number,
-                          paymentStatus?: string, invoiceID?: string, paymentID?: string, payerEmail?: string,
-                          payerIP?: string, cardNumberMask?: string, payerFingerprint?: string, paymentAmount?: number): Observable<PaymentSearchResult> {
-        const params = new URLSearchParams();
-        params.set('fromTime', this.toUTC(fromTime));
-        params.set('toTime', this.toUTC(toTime));
-        limit && params.set('limit', toString(limit));
-        offset && params.set('offset', toString(offset));
-        paymentStatus && params.set('paymentStatus', paymentStatus);
-        invoiceID && params.set('invoiceID', invoiceID);
-        paymentID && params.set('paymentID', paymentID);
-        payerEmail && params.set('payerEmail', payerEmail);
-        payerIP && params.set('payerIP', payerIP);
-        cardNumberMask && params.set('cardNumberMask', cardNumberMask);
-        payerFingerprint && params.set('payerFingerprint', payerFingerprint);
-        paymentAmount && params.set('paymentAmount', toString(paymentAmount));
-        return this.http.get(`${this.config.capiUrl}/analytics/shops/${shopID}/payments`, {search: params}).map((res) => res.json());
+    public searchPayments(shopID: string, paymentsParams: SearchPaymentsParams): Observable<PaymentSearchResult> {
+        const params = this.toSearchParams(paymentsParams);
+        return this.http.get(`${this.config.capiUrl}/analytics/shops/${shopID}/payments`, {search: params})
+            .map((res) => res.json());
     }
 
-    public searchPaymentsStub(): Observable<PaymentSearchResult> {
-        return this.http.get(`${this.config.capiUrl}/analytics/shops/${1}/payments`).map((res) => res.json());
+    private toSearchParams(params: Object): URLSearchParams {
+        const result = new URLSearchParams();
+        forEach(params, (value, field) => {
+            if (value) {
+                if (isDate(value)) {
+                    result.set(field, this.toUTC(value));
+                } else if (isNumber(value)) {
+                    result.set(field, toString(value));
+                } else {
+                    result.set(field, value);
+                }
+            }
+        });
+        return result;
     }
 
     private toUTC(date: Date): string {

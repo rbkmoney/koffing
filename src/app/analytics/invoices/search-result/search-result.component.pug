@@ -19,4 +19,4 @@ table.table.table-striped
                     i.fa.custom-chevron([ngClass]="{'fa-chevron-down': item.visible, 'fa-chevron-right': !item.visible}")
         tr(*ngIf="item.visible")
             td(colspan=8)
-                kof-search-details([payments]="payments")
+                kof-search-details([invoice]="item.invoice", [searchParams]="searchParams", [shopID]="shopID")

@@ -7,7 +7,6 @@ import { ConfigService } from './services/config.service';
 import { AnalyticsService } from 'koffing/backend/analytics.service';
 import { LocationService } from 'koffing/backend/location.service';
 import { AccountsService } from 'koffing/backend/accounts.service';
-import { InvoiceService } from 'koffing/backend/invoice.service';
 import { SearchService } from 'koffing/backend/search.service';
 
 @NgModule({
@@ -15,7 +14,6 @@ import { SearchService } from 'koffing/backend/search.service';
         AccountsService,
         CategoryService,
         ContractService,
-        InvoiceService,
         ShopService,
         ConfigService,
         AnalyticsService,

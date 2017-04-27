@@ -1,10 +1,11 @@
 import { Component, Input, Output, OnInit, EventEmitter, ViewEncapsulation } from '@angular/core';
 import * as moment from 'moment';
 import { map } from 'lodash';
-import { invoiceStatuses } from '../invoice-statuses';
 
 import { SelectItem } from 'koffing/common/common.module';
 import { FormSearchParams } from './form-search-params';
+import { invoiceStatuses } from '../invoice-statuses';
+import { paymentStatuses } from 'koffing/analytics/invoices/payment-statuses';
 
 @Component({
     selector: 'kof-search-form',
@@ -28,7 +29,7 @@ export class SearchFormComponent implements OnInit {
 
     public ngOnInit() {
         this.invoiceStatuses = map(invoiceStatuses, (name, key) => new SelectItem(key, name));
-        this.paymentStatuses = map(invoiceStatuses, (name, key) => new SelectItem(key, name));
+        this.paymentStatuses = map(paymentStatuses, (name, key) => new SelectItem(key, name));
     }
 
     public selectInvoiceFrom() {

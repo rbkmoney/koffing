@@ -4,8 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import { Invoice } from 'koffing/backend/model/invoice';
 import { InvoiceTableItem } from './invoice-table-item';
 import { SearchResultService } from './search-result.service';
-import { SearchService } from 'koffing/backend/search.service';
 import { Payment } from 'koffing/backend/model/payment';
+import { FormSearchParams } from 'koffing/analytics/invoices/search-form/form-search-params';
 
 @Component({
     selector: 'kof-search-result',
@@ -13,18 +13,22 @@ import { Payment } from 'koffing/backend/model/payment';
 })
 export class SearchResultComponent implements OnInit {
 
-    constructor(private searchService: SearchService) { }
-
     @Input()
     public invoices: Observable<Invoice[]>;
+
+    @Input()
+    public searchParams: FormSearchParams;
+
+    @Input()
+    public shopID: string;
 
     public invoiceTableItems: Observable<InvoiceTableItem[]>;
 
     public payments: Observable<Payment[]>;
 
     public ngOnInit() {
-        this.invoiceTableItems = this.invoices.map((invoices) => SearchResultService.toInvoiceTableItems(invoices));
-        this.payments = this.searchService.searchPaymentsStub().map((searchResult) => searchResult.payments);
+        this.invoiceTableItems = this.invoices.map((invoices) =>
+            SearchResultService.toInvoiceTableItems(invoices));
     }
 
     public togglePaymentPanel(item: InvoiceTableItem) {

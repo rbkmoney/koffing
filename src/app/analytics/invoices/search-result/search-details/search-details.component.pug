@@ -3,13 +3,13 @@ form.form-horizontal.form-label-left.css-form
         .col-xs-12.col-sm-6
             .form-group
                 label Наименование предлагаемых товаров или услуг:
-                div qwerty qwerty sdfjasljflaskjfalksjfalskjdf qwerty
+                div {{invoice.product}}
         .col-xs-12.col-sm-6
             .form-group
                 label Описание предлагаемых товаров или услуг:
-                div qwerty qwerty sdfjasljflaskjfalksjfalskjdf qwerty qwerty qwerty sdfjasljflaskjfalksjfalskjdf
+                div {{invoice.description}}
     .ln_solid
-    h5 Платежи (всего 6)
+    h5 Платежи (всего {{totalPayments}})
     .ln_solid
     div(*ngFor="let payment of payments | async")
         kof-payment-info([payment]="payment")
