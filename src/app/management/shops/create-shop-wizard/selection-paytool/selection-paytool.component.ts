@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter, Input, AfterViewInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import * as _ from 'lodash';
 
-import { PayoutTool } from 'koffing/backend/backend.module';
+import { PayoutTool } from 'koffing/backend/model/contract/payout-tool.class';
 import { SelectionOptions } from '../selection-options.class';
 import { ContractDecision } from '../contract-decision.class';
 import { PayoutToolTransfer } from './create-paytool/paytool-transfer.class';

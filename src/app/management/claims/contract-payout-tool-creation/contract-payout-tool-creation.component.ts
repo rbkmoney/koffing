@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { ContractPayoutToolCreation } from 'koffing/backend/backend.module';
+import { ContractPayoutToolCreation } from 'koffing/backend/model/claim/contract-modification/contract-payout-tool-creation.class';
 
 @Component({
     selector: 'kof-contract-payout-tool-creation',

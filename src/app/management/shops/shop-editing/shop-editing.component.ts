@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { ShopService } from 'koffing/backend/backend.module';
-import { Shop } from 'koffing/backend/backend.module';
+import { Shop } from 'koffing/backend/model/shop/shop.class';
+import { ShopService } from 'koffing/backend/services/shop.service';
 import { ShopParams } from 'koffing/backend/classes/shop-params.class';
 import { ShopEditingTransfer } from './edit-shop/shop-editing-transfer.class';
 

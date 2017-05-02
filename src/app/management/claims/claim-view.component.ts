@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
-import { ClaimService } from 'koffing/backend/backend.module';
-import { Claim } from 'koffing/backend/backend.module';
+import { ClaimService } from 'koffing/backend/services/claim.service';
+import { Claim } from 'koffing/backend/model/claim/claim.class';
 
 @Component({
     selector: 'kof-claim-view',

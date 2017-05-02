@@ -3,15 +3,15 @@ import { Router } from '@angular/router';
 
 import { ClaimsService } from '../../claims/claims.service';
 import { ClaimCreateBroadcaster } from 'koffing/broadcaster/services/claim-create.broadcaster.service';
-import { Contract } from 'koffing/backend/backend.module';
-import { Contractor } from 'koffing/backend/backend.module';
-import { BankAccount } from 'koffing/backend/backend.module';
-import { PayoutTool } from 'koffing/backend/backend.module';
-import { PayoutToolBankAccount } from 'koffing/backend/backend.module';
 import { ContractorTransfer } from 'koffing/management/shops/create-shop-wizard/selection-contract/create-contract/contractor-transfer.class';
 import { PayoutToolTransfer } from 'koffing/management/shops/create-shop-wizard/selection-paytool/create-paytool/paytool-transfer.class';
 import { CreatePayoutToolComponent } from 'koffing/management/shops/create-shop-wizard/selection-paytool/create-paytool/create-paytool.component';
 import { CreateContractComponent } from 'koffing/management/shops/create-shop-wizard/selection-contract/create-contract/create-contract.component';
+import { Contract } from 'koffing/backend/model/contract/contract.class';
+import { Contractor } from 'koffing/backend/model/contract/contractor.class';
+import { BankAccount } from 'koffing/backend/model/contract/bank-account.class';
+import { PayoutTool } from 'koffing/backend/model/contract/payout-tool.class';
+import { PayoutToolBankAccount } from 'koffing/backend/model/contract/payout-tool-bank-account.class';
 
 @Component({
     selector: 'kof-contract-create',

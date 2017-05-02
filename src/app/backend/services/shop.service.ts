@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { ConfigService } from './config.service';
-import { Shop } from 'koffing/backend/backend.module';
+import { Shop } from '../model/shop/shop.class';
 
 @Injectable()
 export class ShopService {

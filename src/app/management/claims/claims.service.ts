@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 
-import { ClaimService } from 'koffing/backend/backend.module';
-import { Claim } from 'koffing/backend/backend.module';
-import { Shop } from 'koffing/backend/backend.module';
-import { Contract } from 'koffing/backend/backend.module';
+import { ClaimService } from 'koffing/backend/services/claim.service';
+import { Shop } from 'koffing/backend/model/shop/shop.class';
+import { Contract } from 'koffing/backend/model/contract/contract.class';
 import { PayoutTool } from 'koffing/backend/model/contract/payout-tool.class';
-import { PayoutToolBankAccount } from 'koffing/backend/backend.module';
-import { PartyModification } from 'koffing/backend/backend.module';
-import { ShopCreation } from 'koffing/backend/backend.module';
-import { ContractCreation } from 'koffing/backend/backend.module';
-import { ContractPayoutToolCreation } from 'koffing/backend/backend.module';
+import { PayoutToolBankAccount } from 'koffing/backend/model/contract/payout-tool-bank-account.class';
+import { Claim } from 'koffing/backend/model/claim/claim.class';
+import { PartyModification } from 'koffing/backend/model/claim/party-modification.class';
+import { ContractCreation } from 'koffing/backend/model/claim/contract-modification/contract-creation.class';
+import { ContractPayoutToolCreation } from 'koffing/backend/model/claim/contract-modification/contract-payout-tool-creation.class';
+import { ShopCreation } from 'koffing/backend/model/claim/shop-modification/shop-creation.class';
 import uuid from 'koffing/common/generators/uuid';
 
 @Injectable()

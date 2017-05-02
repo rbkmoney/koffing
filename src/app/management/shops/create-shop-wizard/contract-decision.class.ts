@@ -1,4 +1,4 @@
-import { Contract } from 'koffing/backend/backend.module';
+import { Contract } from 'koffing/backend/model/contract/contract.class';
 import { PayoutTool } from 'koffing/backend/model/contract/payout-tool.class';
 
 export class ContractDecision {

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { ShopCallbackHandlerSetup } from 'koffing/backend/backend.module';
+import { ShopCallbackHandlerSetup } from 'koffing/backend/model/claim/shop-modification/shop-callback-handler-setup.class';
 
 @Component({
     selector: 'kof-shop-callback-handler-setup',

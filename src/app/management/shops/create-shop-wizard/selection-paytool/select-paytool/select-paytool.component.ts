@@ -2,8 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import * as _ from 'lodash';
 
 import { SelectItem } from 'koffing/common/common.module';
-import { PayoutTool } from 'koffing/backend/backend.module';
-import { ContractService } from 'koffing/backend/backend.module';
+import { PayoutTool } from 'koffing/backend/model/contract/payout-tool.class';
+import { ContractService } from 'koffing/backend/services/contract.service';
 
 @Component({
     selector: 'kof-select-paytool',
@@ -29,7 +29,7 @@ export class SelectPaytoolComponent implements OnInit {
     ) { }
 
     public ngOnInit() {
-        this.contractService.getPayoutTools(this.contractID).then((payoutTools) => {
+        this.contractService.getPayoutTools(this.contractID).then((payoutTools: PayoutTool[]) => {
             this.isLoading = false;
             this.payoutTools = payoutTools;
             this.selectableItems = this.prepareSelectableItems(payoutTools);

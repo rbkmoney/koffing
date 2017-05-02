@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { ShopService } from 'koffing/backend/backend.module';
-import { Shop } from 'koffing/backend/backend.module';
+import { ShopService } from 'koffing/backend/services/shop.service';
+import { Shop } from 'koffing/backend/model/shop/shop.class';
 
 @Component({
     selector: 'kof-shop-details-panel',

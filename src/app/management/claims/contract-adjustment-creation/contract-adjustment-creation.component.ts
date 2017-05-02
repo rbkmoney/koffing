@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { ContractAdjustmentCreation } from 'koffing/backend/backend.module';
+import { ContractAdjustmentCreation } from 'koffing/backend/model/claim/contract-modification/contract-adjustment-creation.class';
 
 @Component({
     selector: 'kof-contract-adjustment-creation',

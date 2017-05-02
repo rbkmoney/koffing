@@ -1,18 +1,18 @@
 import { Component, OnInit, Input, EventEmitter, Output, ViewChild, AfterViewInit } from '@angular/core';
 import * as _ from 'lodash';
 
-import { CategoryService } from 'koffing/backend/backend.module';
-import { Shop } from 'koffing/backend/backend.module';
-import { Contract } from 'koffing/backend/backend.module';
-import { PayoutTool } from 'koffing/backend/backend.module';
-import { ContractService } from 'koffing/backend/backend.module';
-import { Category } from 'koffing/backend/backend.module';
-import { ShopDetails } from 'koffing/backend/backend.module';
-import { ShopLocationUrl } from 'koffing/backend/backend.module';
 import { SelectItem } from 'koffing/common/common.module';
 import { ShopEditingTransfer } from './shop-editing-transfer.class';
 import { NgForm } from '@angular/forms';
+import { CategoryService } from 'koffing/backend/services/category.service';
+import { ContractService } from 'koffing/backend/services/contract.service';
+import { Shop } from 'koffing/backend/model/shop/shop.class';
+import { ShopDetails } from 'koffing/backend/model/shop/shop-details.class';
 import { ShopParams } from 'koffing/backend/classes/shop-params.class';
+import { Contract } from 'koffing/backend/model/contract/contract.class';
+import { PayoutTool } from 'koffing/backend/model/contract/payout-tool.class';
+import { ShopLocationUrl } from 'koffing/backend/model/shop/shop-location-url.class';
+import { Category } from 'koffing/backend/model/shop/category.class';
 
 @Component({
     selector: 'kof-edit-shop',

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { ContractCreation } from 'koffing/backend/backend.module';
+import { ContractCreation } from 'koffing/backend/model/claim/contract-modification/contract-creation.class';
 
 @Component({
     selector: 'kof-contract-creation',

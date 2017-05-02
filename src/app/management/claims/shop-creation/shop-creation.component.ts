@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { ShopCreation } from 'koffing/backend/backend.module';
+import { ShopCreation } from 'koffing/backend/model/claim/shop-modification/shop-creation.class';
 
 @Component({
     selector: 'kof-shop-creation',

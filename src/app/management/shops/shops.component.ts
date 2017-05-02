@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
-import { Category } from 'koffing/backend/backend.module';
-import { CategoryService } from 'koffing/backend/backend.module';
-import { ShopService } from 'koffing/backend/backend.module';
+import { Shop } from 'koffing/backend/model/shop/shop.class';
+import { ShopService } from 'koffing/backend/services/shop.service';
+import { Category } from 'koffing/backend/model/shop/category.class';
+import { CategoryService } from 'koffing/backend/services/category.service';
 
 @Component({
     templateUrl: 'shops.component.pug',
@@ -37,7 +38,7 @@ export class ShopsComponent implements OnInit {
     public loadShops(): Promise<any[]> {
         this.panelsVisibilities = {};
         return new Promise((resolve) => {
-            this.shopService.getShops().then(shops => {
+            this.shopService.getShops().then((shops: Shop[]) => {
                 this.shops = shops;
                 resolve();
             });
@@ -46,7 +47,7 @@ export class ShopsComponent implements OnInit {
 
     public loadCategories(): Promise<Category[]> {
         return new Promise((resolve) => {
-            this.categoryService.getCategories().then(categories => {
+            this.categoryService.getCategories().then((categories: Category[]) => {
                 this.categories = categories;
                 resolve();
             });

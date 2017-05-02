@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SelectItem } from 'koffing/common/components/select/select.class';
+import { SelectItem } from 'koffing/common/components/select/select-item.class';
 import { AnalyticsService } from 'koffing/analytics/analytics.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { AnalyticsService } from 'koffing/analytics/analytics.service';
 })
 export class AnalyticsComponent implements OnInit {
 
-    public currentShopID: number;
+    public currentShopID: string;
     public shopItems: SelectItem[] = [];
     public isLoading: boolean = true;
 

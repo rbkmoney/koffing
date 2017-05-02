@@ -10,6 +10,7 @@ import { DashboardService } from 'koffing/analytics/dashboard/dashboard.service'
 import { PanelData } from 'koffing/analytics/statistic-panel/panel-data';
 import { LineChartData } from 'koffing/analytics/dashboard/stats-data/line-chart-data';
 import { DoughnutChartData } from 'koffing/analytics/dashboard/stats-data/doughnut-chart-data';
+import { Shop } from 'koffing/backend/model/shop/shop.class';
 
 @Component({
     templateUrl: './dashboard.component.pug',
@@ -17,7 +18,7 @@ import { DoughnutChartData } from 'koffing/analytics/dashboard/stats-data/doughn
 })
 export class DashboardComponent implements OnInit {
 
-    public shopID: number;
+    public shopID: string;
     public fromTime: Date = moment().subtract(1, 'month').hour(0).minute(0).second(0).toDate();
     public toTime: Date = moment().hour(23).minute(59).second(59).toDate();
 
@@ -38,7 +39,7 @@ export class DashboardComponent implements OnInit {
 
     public ngOnInit() {
         this.route.parent.params.subscribe((params: Params) => {
-            this.shopID = Number(params['shopID']);
+            this.shopID = String(params['shopID']);
             this.loadData(new DateRange(this.fromTime, this.toTime));
         });
     }
@@ -59,21 +60,21 @@ export class DashboardComponent implements OnInit {
         });
     }
 
-    private loadPaymentMethod(shopID: number, fromTime: Date, toTime: Date) {
+    private loadPaymentMethod(shopID: string, fromTime: Date, toTime: Date) {
         this.dashboardService.getPaymentMethodChartData(shopID, fromTime, toTime).subscribe((data) => {
             this.paymentMethodChartData.next(data);
             this.loadStatistic.next();
         });
     }
 
-    private loadRate(shopID: number, from: Date, to: Date) {
+    private loadRate(shopID: string, from: Date, to: Date) {
         this.dashboardService.getUniqueCount(shopID, from, to).subscribe((count) => {
             this.panelData.next({uniqueCount: count});
             this.loadStatistic.next();
         });
     }
 
-    private loadConversionStat(shopID: number, from: Date, to: Date) {
+    private loadConversionStat(shopID: string, from: Date, to: Date) {
         this.dashboardService.getPaymentConversionData(shopID, from, to).subscribe((data) => {
             this.panelData.next({
                 successfulCount: data.paymentCount.successfulCount,
@@ -84,14 +85,14 @@ export class DashboardComponent implements OnInit {
         });
     }
 
-    private loadGeoChartData(shopID: number, from: Date, to: Date) {
+    private loadGeoChartData(shopID: string, from: Date, to: Date) {
         this.dashboardService.getPaymentGeoChartData(shopID, from, to).subscribe((data) => {
             this.geoChartData.next(data);
             this.loadStatistic.next();
         });
     }
 
-    private loadRevenueStat(shopID: number, from: Date, to: Date) {
+    private loadRevenueStat(shopID: string, from: Date, to: Date) {
         this.dashboardService.getPaymentRevenueData(shopID, from, to).subscribe((data) => {
             this.panelData.next({profit : data.profit});
             this.revenueChartData.next(data.revenueChartData);
@@ -99,8 +100,8 @@ export class DashboardComponent implements OnInit {
         });
     }
 
-    private loadAccounts(shopID: number) {
-        this.shopService.getShop(shopID).then((shop) => {
+    private loadAccounts(shopID: string) {
+        this.shopService.getShop(shopID).then((shop: Shop) => {
             this.accountsService.getAccountByID(shop.account.guaranteeID).subscribe((account) => {
                 this.panelData.next({guaranteeBalance : account.ownAmount});
                 this.loadStatistic.next();

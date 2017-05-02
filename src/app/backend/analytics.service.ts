@@ -18,7 +18,7 @@ export class AnalyticsService {
                 private config: ConfigService) {
     }
 
-    public getPaymentMethodStats(shopID: number, from: Date, to: Date, splitUnit?: string, splitSize?: number, paymentMethod?: string): Observable<PaymentMethodStat[]> {
+    public getPaymentMethodStats(shopID: string, from: Date, to: Date, splitUnit?: string, splitSize?: number, paymentMethod?: string): Observable<PaymentMethodStat[]> {
         const params = new URLSearchParams();
         params.set('fromTime', this.toUTC(from));
         params.set('toTime', this.toUTC(to));
@@ -29,7 +29,7 @@ export class AnalyticsService {
             .map((res) => res.json());
     }
 
-    public getPaymentRateStats(shopID: number, from: Date, to: Date): Observable<PaymentRateStat> {
+    public getPaymentRateStats(shopID: string, from: Date, to: Date): Observable<PaymentRateStat> {
         const params = new URLSearchParams();
         params.set('fromTime', this.toUTC(from));
         params.set('toTime', this.toUTC(to));
@@ -37,7 +37,7 @@ export class AnalyticsService {
             .map((res) => res.json());
     }
 
-    public getPaymentConversionStats(shopID: number, from: Date, to: Date, splitUnit?: string, splitSize?: number): Observable<PaymentConversionStat[]> {
+    public getPaymentConversionStats(shopID: string, from: Date, to: Date, splitUnit?: string, splitSize?: number): Observable<PaymentConversionStat[]> {
         const params = new URLSearchParams();
         params.set('fromTime', this.toUTC(from));
         params.set('toTime', this.toUTC(to));
@@ -47,7 +47,7 @@ export class AnalyticsService {
             .map((res) => res.json());
     }
 
-    public getPaymentGeoStats(shopID: number, from: Date, to: Date, splitUnit?: string, splitSize?: number): Observable<PaymentGeoStat[]> {
+    public getPaymentGeoStats(shopID: string, from: Date, to: Date, splitUnit?: string, splitSize?: number): Observable<PaymentGeoStat[]> {
         const params = new URLSearchParams();
         params.set('fromTime', this.toUTC(from));
         params.set('toTime', this.toUTC(to));
@@ -57,7 +57,7 @@ export class AnalyticsService {
             .map((res) => res.json());
     }
 
-    public getPaymentRevenueStats(shopID: number, from: Date, to: Date, splitUnit?: string, splitSize?: number): Observable<PaymentRevenueStat[]> {
+    public getPaymentRevenueStats(shopID: string, from: Date, to: Date, splitUnit?: string, splitSize?: number): Observable<PaymentRevenueStat[]> {
         const params = new URLSearchParams();
         params.set('fromTime', this.toUTC(from));
         params.set('toTime', this.toUTC(to));

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { ShopCallbackHandlerTeardown } from 'koffing/backend/backend.module';
+import { ShopCallbackHandlerTeardown } from 'koffing/backend/model/claim/shop-modification/shop-callback-handler-teardown.class';
 
 @Component({
     selector: 'kof-shop-callback-handler-teardown',

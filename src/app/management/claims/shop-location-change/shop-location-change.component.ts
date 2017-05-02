@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { ShopLocationChange } from 'koffing/backend/backend.module';
+import { ShopLocationChange } from 'koffing/backend/model/claim/shop-modification/shop-location-change.class';
 
 @Component({
     selector: 'kof-shop-location-change',

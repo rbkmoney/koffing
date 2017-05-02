@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 
 import { SelectItem } from 'koffing/common/common.module';
 import { Contract } from 'koffing/backend/model/contract/contract.class';
-import { ContractService } from 'koffing/backend/backend.module';
+import { ContractService } from 'koffing/backend/services/contract.service';
 
 @Component({
     selector: 'kof-select-contract',

@@ -1,4 +1,4 @@
-import { Shop } from 'koffing/backend/backend.module';
+import { Shop } from 'koffing/backend/model/shop/shop.class';
 
 export class ShopTransfer {
     public shop: Shop;

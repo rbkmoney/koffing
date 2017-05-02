@@ -22,34 +22,3 @@ import { AccountsService } from 'koffing/backend/accounts.service';
     ]
 })
 export class BackendModule { }
-
-export * from './services/category.service';
-export * from './services/config.service';
-export * from './services/contract.service';
-export * from './services/invoice.service';
-export * from './services/shop.service';
-
-export * from './model/account.class';
-export * from './model/invoice.class';
-
-export * from './model/contract/bank-account.class';
-export * from './model/contract/contract.class';
-export * from './model/contract/contractor.class';
-export * from './model/contract/legal-agreement.class';
-export * from './model/contract/legal-entity.class';
-export * from './model/contract/payout-tool.class';
-export * from './model/contract/payout-tool-bank-account.class';
-export * from './model/contract/payout-tool-details.class';
-export * from './model/contract/russian-legal-entity.class';
-
-export * from './model/payment-conversion-stat.class';
-export * from './model/payment-geo-stat.class';
-export * from './model/payment-conversion-stat.class';
-
-export * from './model/shop/callback-handler.class';
-export * from './model/shop/category.class';
-export * from './model/shop/shop.class';
-export * from './model/shop/shop-details.class';
-export * from './model/shop/shop-location.class';
-
-export * from './classes/shop-params.class';

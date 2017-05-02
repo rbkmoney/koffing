@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { ShopCategoryChange } from 'koffing/backend/backend.module';
+import { ShopCategoryChange } from 'koffing/backend/model/claim/shop-modification/shop-category-change.class';
 
 @Component({
     selector: 'kof-shop-category-change',

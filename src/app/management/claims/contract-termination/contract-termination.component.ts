@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { ContractTermination } from 'koffing/backend/backend.module';
+import { ContractTermination } from 'koffing/backend/model/claim/contract-modification/contract-termination.class';
 
 @Component({
     selector: 'kof-contract-termination',

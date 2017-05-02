@@ -2,8 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { ClaimsService } from '../../claims/claims.service';
-import { PayoutTool } from 'koffing/backend/backend.module';
-import { PayoutToolBankAccount } from 'koffing/backend/backend.module';
+import { PayoutTool } from 'koffing/backend/model/contract/payout-tool.class';
+import { PayoutToolBankAccount } from 'koffing/backend/model/contract/payout-tool-bank-account.class';
 import { ClaimCreateBroadcaster } from 'koffing/broadcaster/services/claim-create.broadcaster.service';
 import { PayoutToolTransfer } from 'koffing/management/shops/create-shop-wizard/selection-paytool/create-paytool/paytool-transfer.class';
 import { CreatePayoutToolComponent } from 'koffing/management/shops/create-shop-wizard/selection-paytool/create-paytool/create-paytool.component';

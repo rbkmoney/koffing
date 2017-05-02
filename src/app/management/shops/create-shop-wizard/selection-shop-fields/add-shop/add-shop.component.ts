@@ -1,13 +1,13 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import * as _ from 'lodash';
 
-import { CategoryService } from 'koffing/backend/backend.module';
-import { Shop } from 'koffing/backend/backend.module';
-import { ShopLocationUrl } from 'koffing/backend/backend.module';
-import { CallbackHandler } from 'koffing/backend/backend.module';
-import { Category } from 'koffing/backend/backend.module';
 import { SelectItem } from 'koffing/common/common.module';
 import { ShopTransfer } from './shop-transfer.class';
+import { CategoryService } from 'koffing/backend/services/category.service';
+import { Shop } from 'koffing/backend/model/shop/shop.class';
+import { Category } from 'koffing/backend/model/shop/category.class';
+import { CallbackHandler } from 'koffing/backend/model/shop/callback-handler.class';
+import { ShopLocationUrl } from 'koffing/backend/model/shop/shop-location-url.class';
 
 @Component({
     selector: 'kof-add-shop',
