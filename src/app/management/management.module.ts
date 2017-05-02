@@ -44,7 +44,7 @@ import { ContractPayoutToolCreationComponent } from './claims/contract-payout-to
 import { ContractTerminationComponent } from './claims/contract-termination/contract-termination.component';
 import { ContractAdjustmentCreationComponent } from './claims/contract-adjustment-creation/contract-adjustment-creation.component';
 import { ContractLegalAgreementBindingComponent } from './claims/contract-legal-agreement-binding/contract-legal-agreement-binding.component';
-import { ClaimService } from './claims/claim.service';
+import { ClaimsService } from './claims/claims.service';
 
 @NgModule({
     imports: [
@@ -100,7 +100,7 @@ import { ClaimService } from './claims/claim.service';
         ContractLegalAgreementBindingComponent,
     ],
     providers: [
-        ClaimService
+        ClaimsService
     ]
 })
 export class ManagementModule { }

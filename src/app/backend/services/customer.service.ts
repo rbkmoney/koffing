@@ -7,7 +7,7 @@ import { RequestParams } from '../classes/request-params.class';
 import { ConfigService } from './config.service';
 
 @Injectable()
-export class HttpCustomerService {
+export class CustomerService {
 
     constructor(
         private http: Http,

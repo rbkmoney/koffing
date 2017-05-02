@@ -7,7 +7,7 @@ import { Contract } from '../model/contract/contract.class';
 import { PayoutTool } from '../model/contract/payout-tool.class';
 
 @Injectable()
-export class HttpContractService {
+export class ContractService {
 
     private contractsUrl: string = `${this.config.capiUrl}/processing/contracts`;
 

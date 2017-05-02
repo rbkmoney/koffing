@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import * as _ from 'lodash';
 
-import { HttpCategoryService } from 'koffing/backend/backend.module';
+import { CategoryService } from 'koffing/backend/backend.module';
 import { Shop } from 'koffing/backend/backend.module';
 import { ShopLocationUrl } from 'koffing/backend/backend.module';
 import { CallbackHandler } from 'koffing/backend/backend.module';
@@ -29,7 +29,7 @@ export class AddShopComponent implements OnInit {
     private errorsHighlighted: boolean = false;
 
     constructor(
-        private categoryService: HttpCategoryService
+        private categoryService: CategoryService
     ) { }
 
     public ngOnInit() {

@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 
 import { SelectItem } from 'koffing/common/common.module';
 import { Contract } from 'koffing/backend/model/contract/contract.class';
-import { HttpContractService } from 'koffing/backend/backend.module';
+import { ContractService } from 'koffing/backend/backend.module';
 
 @Component({
     selector: 'kof-select-contract',
@@ -22,7 +22,7 @@ export class SelectContractComponent implements OnInit {
     public errorHighlighted: boolean = false;
 
     constructor(
-        private contractService: HttpContractService
+        private contractService: ContractService
     ) { }
 
     public ngOnInit() {

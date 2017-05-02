@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { HttpClaimService } from 'koffing/backend/backend.module';
+import { ClaimService } from 'koffing/backend/backend.module';
 import { Claim } from 'koffing/backend/backend.module';
 
 @Component({
@@ -17,7 +17,7 @@ export class ClaimViewComponent {
     public revokeReason: string = '';
 
     constructor(
-        private httpClaimService: HttpClaimService
+        private claimService: ClaimService
     ) { }
 
     public show() {
@@ -25,7 +25,7 @@ export class ClaimViewComponent {
     }
 
     public revokeClaim(reason: string) {
-        this.httpClaimService.revokeClaim(this.claim.id, reason).then(() => {
+        this.claimService.revokeClaim(this.claim.id, reason).then(() => {
             this.isDeleted = true;
         });
     }

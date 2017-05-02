@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ClaimService } from 'koffing/management/claims/claim.service';
+import { ClaimsService } from '../../claims/claims.service';
 import { ClaimCreateBroadcaster } from 'koffing/broadcaster/services/claim-create.broadcaster.service';
 import { Contract } from 'koffing/backend/backend.module';
 import { Contractor } from 'koffing/backend/backend.module';
@@ -32,7 +32,7 @@ export class ContractCreateComponent {
 
     constructor(
         private router: Router,
-        private claimService: ClaimService,
+        private claimsService: ClaimsService,
         private claimCreateBroadcaster: ClaimCreateBroadcaster
     ) { }
 
@@ -56,7 +56,7 @@ export class ContractCreateComponent {
             payoutTool.currency = 'RUB';
             payoutTool.details = this.payoutToolBankAccount;
             this.isLoading = true;
-            this.claimService.createContract(contract, payoutTool).then(() => {
+            this.claimsService.createContract(contract, payoutTool).then(() => {
                 this.claimCreateBroadcaster.fire();
                 this.isLoading = false;
                 this.navigateBack();

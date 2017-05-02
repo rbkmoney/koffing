@@ -6,7 +6,7 @@ import * as moment from 'moment';
 import { ConfigService } from './config.service';
 
 @Injectable()
-export class HttpInvoiceService {
+export class InvoiceService {
 
     constructor(
         private http: Http,

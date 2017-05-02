@@ -10,7 +10,7 @@ import { PaymentGeoStat } from '../model/statistics/payment-geo-stat.class';
 import { ConfigService } from './config.service';
 
 @Injectable()
-export class HttpGeolocationService {
+export class geolocationService {
 
     constructor(
         private http: Http,

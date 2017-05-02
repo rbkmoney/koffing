@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 
 import { SelectItem } from 'koffing/common/common.module';
 import { PayoutTool } from 'koffing/backend/backend.module';
-import { HttpContractService } from 'koffing/backend/backend.module';
+import { ContractService } from 'koffing/backend/backend.module';
 
 @Component({
     selector: 'kof-select-paytool',
@@ -25,7 +25,7 @@ export class SelectPaytoolComponent implements OnInit {
     private selectedPayoutTool: PayoutTool;
 
     constructor(
-        private contractService: HttpContractService
+        private contractService: ContractService
     ) { }
 
     public ngOnInit() {

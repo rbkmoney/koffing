@@ -9,7 +9,7 @@ import { RequestParams } from '../classes/request-params.class';
 import { ConfigService } from './config.service';
 
 @Injectable()
-export class HttpPaymentsService {
+export class PaymentsService {
 
     constructor(
         private http: Http,

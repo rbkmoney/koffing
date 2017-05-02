@@ -3,7 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import * as moment from 'moment';
 
 import { Invoice } from 'koffing/backend/backend.module';
-import { HttpInvoiceService } from 'koffing/backend/backend.module';
+import { InvoiceService } from 'koffing/backend/backend.module';
 
 @Component({
     templateUrl: 'finance.component.pug'
@@ -18,7 +18,7 @@ export class FinanceComponent implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private invoiceService: HttpInvoiceService
+        private invoiceService: InvoiceService
     ) {}
 
     public ngOnInit() {

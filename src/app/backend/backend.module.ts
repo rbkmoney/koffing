@@ -1,42 +1,42 @@
 import { NgModule } from '@angular/core';
 
 import { ConfigService } from './services/config.service';
-import { HttpClaimService } from './services/http-claim.service';
-import { HttpShopService } from './services/http-shop.service';
-import { HttpCategoryService } from './services/http-category.service';
-import { HttpContractService } from './services/http-contract.service';
-import { HttpAccountService } from './services/http-accounts.service';
-import { HttpInvoiceService } from './services/http-invoice.service';
-import { HttpPaymentsService } from './services/http-payments.service';
-import { HttpGeolocationService } from './services/http-geolocation.service';
-import { HttpCustomerService } from './services/http-customer.service';
+import { ClaimService } from './services/claim.service';
+import { ShopService } from './services/shop.service';
+import { CategoryService } from './services/category.service';
+import { ContractService } from './services/contract.service';
+import { AccountService } from './services/accounts.service';
+import { InvoiceService } from './services/invoice.service';
+import { PaymentsService } from './services/payments.service';
+import { geolocationService } from './services/geolocation.service';
+import { CustomerService } from './services/customer.service';
 
 @NgModule({
     providers: [
         ConfigService,
-        HttpClaimService,
-        HttpShopService,
-        HttpCategoryService,
-        HttpContractService,
-        HttpAccountService,
-        HttpInvoiceService,
-        HttpPaymentsService,
-        HttpGeolocationService,
-        HttpCustomerService
+        ClaimService,
+        ShopService,
+        CategoryService,
+        ContractService,
+        AccountService,
+        InvoiceService,
+        PaymentsService,
+        geolocationService,
+        CustomerService
     ]
 })
 export class BackendModule { }
 
 export * from './services/config.service';
-export * from './services/http-claim.service';
-export * from './services/http-shop.service';
-export * from './services/http-category.service';
-export * from './services/http-contract.service';
-export * from './services/http-accounts.service';
-export * from './services/http-invoice.service';
-export * from './services/http-payments.service';
-export * from './services/http-geolocation.service';
-export * from './services/http-customer.service';
+export * from './services/claim.service';
+export * from './services/shop.service';
+export * from './services/category.service';
+export * from './services/contract.service';
+export * from './services/accounts.service';
+export * from './services/invoice.service';
+export * from './services/payments.service';
+export * from './services/geolocation.service';
+export * from './services/customer.service';
 
 export * from './classes/request-params.class';
 export * from './model/invoice.class';

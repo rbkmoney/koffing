@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Claim } from 'koffing//backend/model/claim/claim.class';
-import { HttpClaimService } from 'koffing/backend/services/http-claim.service';
+import { Claim } from 'koffing//backend/backend.module';
+import { ClaimService } from 'koffing/backend/backend.module';
 
 @Component({
     selector: 'kof-claims',
@@ -14,7 +14,7 @@ export class ClaimsComponent implements OnInit {
     public isLoading: boolean = false;
 
     constructor(
-        private httpClaimService: HttpClaimService,
+        private claimService: ClaimService,
     ) { }
 
     public ngOnInit() {
@@ -24,7 +24,7 @@ export class ClaimsComponent implements OnInit {
     public loadClaims() {
         this.isLoading = true;
         this.isShowClaimPanel = false;
-        this.httpClaimService.getClaims('pending').then((claims: Claim[]) => {
+        this.claimService.getClaims('pending').then((claims: Claim[]) => {
             if (claims.length > 0) {
                 this.claims = claims;
                 this.isShowClaimPanel = true;

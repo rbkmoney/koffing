@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { HttpShopService } from 'koffing/backend/backend.module';
+import { ShopService } from 'koffing/backend/backend.module';
 import { Shop } from 'koffing/backend/backend.module';
 
 @Component({
@@ -21,7 +21,7 @@ export class ShopDetailsPanelComponent {
     public onChange = new EventEmitter();
     
     constructor(
-        private shopService: HttpShopService
+        private shopService: ShopService
     ) { }
     
     public suspendShop() {

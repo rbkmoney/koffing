@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { ClaimService } from 'koffing/management/claims/claim.service';
+import { ClaimsService } from '../../claims/claims.service';
 import { PayoutTool } from 'koffing/backend/backend.module';
 import { PayoutToolBankAccount } from 'koffing/backend/backend.module';
 import { ClaimCreateBroadcaster } from 'koffing/broadcaster/services/claim-create.broadcaster.service';
@@ -25,7 +25,7 @@ export class PayoutToolCreateComponent {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private claimService: ClaimService,
+        private claimService: ClaimsService,
         private claimCreateBroadcaster: ClaimCreateBroadcaster
     ) { }
 

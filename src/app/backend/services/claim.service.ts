@@ -7,7 +7,7 @@ import { Claim } from '../model/claim/claim.class';
 import { PartyModification } from '../model/claim/party-modification.class';
 
 @Injectable()
-export class HttpClaimService {
+export class ClaimService {
 
     private claimUrl: string = `${this.config.capiUrl}/processing/claims`;
 

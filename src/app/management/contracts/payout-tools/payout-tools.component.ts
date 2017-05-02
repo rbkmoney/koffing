@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { HttpContractService } from 'koffing/backend/backend.module';
+import { ContractService } from 'koffing/backend/backend.module';
 import { PayoutTool } from 'koffing/backend/backend.module';
 
 @Component({
@@ -17,12 +17,12 @@ export class PayoutToolsComponent implements OnInit {
     public isLoading: boolean = false;
 
     constructor(
-        private httpContractService: HttpContractService
+        private contractService: ContractService
     ) { }
 
     public ngOnInit() {
         this.isLoading = true;
-        this.httpContractService.getPayoutTools(this.contractID).then((payoutTools: PayoutTool[]) => {
+        this.contractService.getPayoutTools(this.contractID).then((payoutTools: PayoutTool[]) => {
             this.payoutTools = payoutTools;
             this.isLoading = false;
         });

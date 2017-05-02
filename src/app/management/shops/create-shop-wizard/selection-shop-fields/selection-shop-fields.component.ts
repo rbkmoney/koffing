@@ -3,7 +3,7 @@ import { Component, Output, EventEmitter, Input, ViewChild } from '@angular/core
 import { ShopTransfer } from './add-shop/shop-transfer.class';
 import { AddShopComponent } from './add-shop/add-shop.component';
 import { ContractDecision } from '../contract-decision.class';
-import { ClaimService } from '../../../claims/claim.service';
+import { ClaimsService } from '../../../claims/claims.service';
 import { ClaimCreateBroadcaster } from 'koffing/broadcaster/services/claim-create.broadcaster.service';
 
 @Component({
@@ -25,7 +25,7 @@ export class SelectionShopComponent {
     private addShopComponent: AddShopComponent;
 
     constructor(
-        private claimService: ClaimService,
+        private claimsService: ClaimsService,
         private claimCreateBroadcaster: ClaimCreateBroadcaster
     ) { }
 
@@ -36,7 +36,7 @@ export class SelectionShopComponent {
     public createShop() {
         if (this.shopTransfer && this.shopTransfer.valid) {
             this.isLoading = true;
-            this.claimService.createShop(this.shopTransfer.shop, this.contractDecision.contract, this.contractDecision.payoutTool).then(() => {
+            this.claimsService.createShop(this.shopTransfer.shop, this.contractDecision.contract, this.contractDecision.payoutTool).then(() => {
                 this.claimCreateBroadcaster.fire();
                 this.isLoading = false;
                 this.onCreated.emit();

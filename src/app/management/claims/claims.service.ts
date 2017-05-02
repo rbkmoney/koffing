@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClaimService } from 'koffing/backend/backend.module';
+import { ClaimService } from 'koffing/backend/backend.module';
 import { Claim } from 'koffing/backend/backend.module';
 import { Shop } from 'koffing/backend/backend.module';
 import { Contract } from 'koffing/backend/backend.module';
@@ -13,10 +13,10 @@ import { ContractPayoutToolCreation } from 'koffing/backend/backend.module';
 import uuid from 'koffing/common/generators/uuid';
 
 @Injectable()
-export class ClaimService {
+export class ClaimsService {
 
     constructor(
-        private httpClaimService: HttpClaimService
+        private claimService: ClaimService
     ) { }
 
     public createShop(shop: Shop, contract: Contract, payoutTool: PayoutTool): Promise<Claim> {
@@ -38,7 +38,7 @@ export class ClaimService {
             const shopCreation = this.getShopCreation(shop, contractID, payoutToolID);
             changeSet.push(shopCreation);
 
-            this.httpClaimService.createClaim(changeSet).then((claim) => resolve(claim));
+            this.claimService.createClaim(changeSet).then((claim) => resolve(claim));
         });
     }
 
@@ -50,7 +50,7 @@ export class ClaimService {
             const changeSet: PartyModification[] = [];
             changeSet.push(contractCreation, contractPayoutToolCreation);
 
-            this.httpClaimService.createClaim(changeSet).then((claim) => resolve(claim));
+            this.claimService.createClaim(changeSet).then((claim) => resolve(claim));
         });
     }
 
@@ -61,7 +61,7 @@ export class ClaimService {
             const changeSet: PartyModification[] = [];
             changeSet.push(contractPayoutToolCreation);
 
-            this.httpClaimService.createClaim(changeSet).then((claim) => resolve(claim));
+            this.claimService.createClaim(changeSet).then((claim) => resolve(claim));
         });
     }
 

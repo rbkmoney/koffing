@@ -6,7 +6,7 @@ import { ConfigService } from './config.service';
 import { Shop } from 'koffing/backend/backend.module';
 
 @Injectable()
-export class HttpShopService {
+export class ShopService {
 
     private shopsUrl: string = `${this.config.capiUrl}/processing/shops`;
 

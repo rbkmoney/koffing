@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as _ from 'lodash';
 
-import { HttpShopService } from 'koffing/backend/backend.module';
+import { ShopService } from 'koffing/backend/backend.module';
 import { Shop } from 'koffing/backend/backend.module';
 import { SelectItem } from 'koffing/common/common.module';
 import { ShopIDStorage } from 'koffing/analytics/components/analytic-selection/shop-id-storage.service';
@@ -20,7 +20,7 @@ export class AnalyticSelectionComponent implements OnInit {
 
     constructor(private route: ActivatedRoute,
                 private router: Router,
-                private shopService: HttpShopService) {
+                private shopService: ShopService) {
     }
 
     public ngOnInit() {
