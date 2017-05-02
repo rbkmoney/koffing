@@ -1,6 +1,6 @@
 export class PaymentRevenueStat {
-    public currency: string;
     public offset: number;
+    public currency: string;
     public profit: number;
     public revenue: number;
 }

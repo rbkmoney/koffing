@@ -5,9 +5,9 @@ import { ContractService } from './services/contract.service';
 import { InvoiceService } from './services/invoice.service';
 import { ShopService } from './services/shop.service';
 import { ConfigService } from './services/config.service';
-import { AnalyticsService } from 'koffing/backend/analytics.service';
-import { LocationService } from 'koffing/backend/location.service';
-import { AccountsService } from 'koffing/backend/accounts.service';
+import { AnalyticsService } from './services/analytics.service';
+import { LocationService } from './services/location.service';
+import { AccountsService } from './services/accounts.service';
 
 @NgModule({
     providers: [

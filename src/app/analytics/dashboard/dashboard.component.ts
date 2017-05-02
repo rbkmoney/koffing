@@ -5,7 +5,7 @@ import { Subject } from 'rxjs/Subject';
 
 import { ShopService }  from 'koffing/backend/services/shop.service';
 import { DateRange } from 'koffing/analytics/dashboard/date-range-selector/date-range.class';
-import { AccountsService } from 'koffing/backend/accounts.service';
+import { AccountsService } from 'koffing/backend/services/accounts.service';
 import { DashboardService } from 'koffing/analytics/dashboard/dashboard.service';
 import { PanelData } from 'koffing/analytics/statistic-panel/panel-data';
 import { LineChartData } from 'koffing/analytics/dashboard/stats-data/line-chart-data';
@@ -31,11 +31,12 @@ export class DashboardComponent implements OnInit {
     public isLoading: boolean = true;
     public loadStatistic: Subject<null> = new Subject();
 
-    constructor(private route: ActivatedRoute,
-                private accountsService: AccountsService,
-                private shopService: ShopService,
-                private dashboardService: DashboardService) {
-    }
+    constructor(
+        private route: ActivatedRoute,
+        private accountsService: AccountsService,
+        private shopService: ShopService,
+        private dashboardService: DashboardService
+    ) { }
 
     public ngOnInit() {
         this.route.parent.params.subscribe((params: Params) => {
