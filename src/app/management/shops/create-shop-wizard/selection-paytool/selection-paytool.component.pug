@@ -12,13 +12,13 @@ kof-loading([isLoading]="isLoading")
         #createPaytoolRef,
         *ngIf="selectedOption === optionNew",
         [contractBankAccount]="contractDecision?.contractor?.bankAccount",
-        (onChange)="onPayoutToolChange($event)"
+        (onChange)="payoutToolChange($event)"
     )
     kof-select-paytool(
         #selectPaytoolRef,
         *ngIf="selectedOption === optionExisting",
         [contractID]="contractDecision.contract.id",
-        (onPayoutToolSelected)="onPayoutToolSelected($event)"
+        (onSelectPayoutTool)="payoutToolSelect($event)"
     )
     .actionBar
         .text-center

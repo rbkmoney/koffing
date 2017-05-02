@@ -1,0 +1,12 @@
+.panel.panel-default
+    .panel-heading((click)="show()")
+        a Создание инструмента вывода в рамках договора
+        i.fa.pull-right.custom-chevron([ngClass]="{'fa-chevron-down': showPanel, 'fa-chevron-right': !showPanel}")
+    .panel-body(*ngIf="showPanel")
+        kof-modification-detail([name]="'ID договора'", [value]="changeSet.contractID")
+        kof-modification-detail([name]="'ID инструмента вывода'", [value]="changeSet.payoutToolID")
+        kof-modification-detail([name]="'Валюта'", [value]="changeSet.currency")
+        kof-modification-detail([name]="'Банк'", [value]="changeSet.bankAccount.bankName")
+        kof-modification-detail([name]="'Расчетный счет'", [value]="changeSet.bankAccount.account")
+        kof-modification-detail([name]="'Корреспондентский счет'", [value]="changeSet.bankAccount.bankPostAccount")
+        kof-modification-detail([name]="'БИК'", [value]="changeSet.bankAccount.bankBik")

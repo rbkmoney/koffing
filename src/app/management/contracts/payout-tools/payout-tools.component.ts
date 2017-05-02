@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+import { PayoutTool } from 'koffing/backend/model/contract/payout-tool.class';
 import { ContractService } from 'koffing/backend/services/contract.service';
-import { PayoutTool } from 'koffing/backend/classes/payout-tool.class';
 
 @Component({
     selector: 'kof-payout-tools',
@@ -10,17 +10,15 @@ import { PayoutTool } from 'koffing/backend/classes/payout-tool.class';
 export class PayoutToolsComponent implements OnInit {
 
     @Input()
-    public contractID: number;
-    @Input()
-    public claimFound: boolean = false;
+    public contractID: string;
 
     public payoutTools: PayoutTool[] = [];
-    public isLoading: boolean = false;
     public selectedPayoutTool: PayoutTool;
+    public isLoading: boolean = false;
 
     constructor(
         private contractService: ContractService
-    ) {}
+    ) { }
 
     public ngOnInit() {
         this.isLoading = true;

@@ -1,16 +1,15 @@
 import { Component, Input } from '@angular/core';
 
-import { Contract } from 'koffing/backend/classes/contract.class';
+import { ContractCreation } from 'koffing/backend/model/claim/contract-modification/contract-creation.class';
 
 @Component({
     selector: 'kof-contract-creation',
-    templateUrl: 'contract-creation.component.pug',
-    styleUrls: [`:host { cursor: pointer; }`]
+    templateUrl: 'contract-creation.component.pug'
 })
 export class ContractCreationComponent {
 
     @Input()
-    public contract: Contract;
+    public changeSet: ContractCreation;
 
     public showPanel: boolean = false;
 

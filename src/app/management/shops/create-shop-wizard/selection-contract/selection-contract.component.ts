@@ -1,9 +1,9 @@
 import { Component, Output, EventEmitter, ViewChild } from '@angular/core';
 
 import { SelectionOptions } from '../selection-options.class';
-import { ContractDecision } from './contract-decision.class';
+import { ContractDecision } from '../contract-decision.class';
 import { ContractorTransfer } from './create-contract/contractor-transfer.class';
-import { Contract } from 'koffing/backend/classes/contract.class';
+import { Contract } from 'koffing/backend/model/contract/contract.class';
 import { CreateContractComponent } from './create-contract/create-contract.component';
 import { SelectContractComponent } from './select-contract/select-contract.component';
 
@@ -16,11 +16,12 @@ export class SelectionContractComponent {
     @Output()
     public steppedForward = new EventEmitter();
 
+    public selectedContract: Contract = new Contract();
     public selectedOption: SelectionOptions;
     public optionNew: number = SelectionOptions.New;
     public optionExisting: number = SelectionOptions.Existing;
     public isContractorValid: boolean = false;
-    public decision: ContractDecision = new ContractDecision();
+    public contractDecision: ContractDecision = new ContractDecision();
     @ViewChild('createContractRef')
     private createContractComponent: CreateContractComponent;
     @ViewChild('selectContractRef')
@@ -28,12 +29,12 @@ export class SelectionContractComponent {
 
     public onChangeContractor(value: ContractorTransfer) {
         this.isContractorValid = value.valid;
-        this.decision.contractor = value.contractor;
+        this.selectedContract.contractor = value.contractor;
     }
 
     public onContractSelected(contract: Contract) {
         this.isContractorValid = true;
-        this.decision.contract = contract;
+        this.selectedContract = contract;
     }
 
     public selectOptionNew() {
@@ -48,7 +49,8 @@ export class SelectionContractComponent {
 
     public stepForward() {
         if (this.isContractorValid) {
-            this.steppedForward.emit(this.decision);
+            this.contractDecision.contract = this.selectedContract;
+            this.steppedForward.emit(this.contractDecision);
         } else {
             if (this.selectedOption === this.optionNew) {
                 this.createContractComponent.highlightErrors();

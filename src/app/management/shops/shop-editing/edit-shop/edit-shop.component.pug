@@ -48,6 +48,5 @@
                     .col-xs-12.col-sm-6
                         kof-select([ngModel]="shop.payoutToolID", (onChange)="onSelectPayoutTool($event)", [items]="payoutToolItems", name='payoutToolID')
                 .form-group
-                    .col-xs-12.col-sm-3
-                    .col-xs-12.col-sm-6
+                    .col-xs-12
                         kof-payout-tool-view([payoutTool]="shopPayoutTool")

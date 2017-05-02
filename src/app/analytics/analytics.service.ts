@@ -2,20 +2,21 @@ import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
-import { Shop } from 'koffing/backend/classes/shop.class';
-import { SelectItem } from 'koffing/common/components/select/select.class';
 import { ShopIDStorage } from 'koffing/analytics/shop-id-storage.service';
 import { ShopService } from 'koffing/backend/services/shop.service';
+import { Shop } from 'koffing/backend/model/shop/shop.class';
+import { SelectItem } from 'koffing/common/components/select/select-item.class';
 
 @Injectable()
 export class AnalyticsService {
 
     private shops: Shop[];
 
-    constructor(private shopService: ShopService,
-                private route: ActivatedRoute,
-                private router: Router) {
-    }
+    constructor(
+        private shopService: ShopService,
+        private route: ActivatedRoute,
+        private router: Router
+    ) { }
 
     public getShopItems(): Observable<SelectItem[]> {
         return Observable.fromPromise(this.shopService.getShops()).map((shops: Shop[]) => {
@@ -24,12 +25,12 @@ export class AnalyticsService {
         });
     }
 
-    public getActiveShopID(): number {
-        const routeShopID = Number(this.route.snapshot.params['shopID']);
+    public getActiveShopID(): string {
+        const routeShopID = String(this.route.snapshot.params['shopID']);
         return routeShopID ? routeShopID : this.getFromStorage(this.shops);
     }
 
-    public navigateToShop(shopID: number) {
+    public navigateToShop(shopID: string) {
         ShopIDStorage.set(shopID);
         const hasChildren = this.route.children.length > 0;
         const childComponent = hasChildren ? this.route.children[0].routeConfig.path : 'dashboard';

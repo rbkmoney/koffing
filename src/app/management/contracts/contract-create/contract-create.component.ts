@@ -1,17 +1,17 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ContractService } from 'koffing/backend/services/contract.service';
-import { Contractor } from 'koffing/backend/classes/contractor.class';
-import { PayoutToolBankAccount } from 'koffing/backend/classes/payout-tool-bank-account.class';
-import { ContractParams } from 'koffing/backend/classes/contract-params.class';
-import { ClaimReceiveBroadcaster } from 'koffing/broadcaster/services/claim-receive.broadcaster.service';
+import { ClaimsService } from '../../claims/claims.service';
 import { ClaimCreateBroadcaster } from 'koffing/broadcaster/services/claim-create.broadcaster.service';
 import { ContractorTransfer } from 'koffing/management/shops/create-shop-wizard/selection-contract/create-contract/contractor-transfer.class';
-import { PaytoolTransfer } from 'koffing/management/shops/create-shop-wizard/selection-paytool/create-paytool/paytool-transfer.class';
-import { BankAccount } from 'koffing/backend/classes/bank-account.class';
+import { PayoutToolTransfer } from 'koffing/management/shops/create-shop-wizard/selection-paytool/create-paytool/paytool-transfer.class';
 import { CreatePayoutToolComponent } from 'koffing/management/shops/create-shop-wizard/selection-paytool/create-paytool/create-paytool.component';
 import { CreateContractComponent } from 'koffing/management/shops/create-shop-wizard/selection-contract/create-contract/create-contract.component';
+import { Contract } from 'koffing/backend/model/contract/contract.class';
+import { Contractor } from 'koffing/backend/model/contract/contractor.class';
+import { BankAccount } from 'koffing/backend/model/contract/bank-account.class';
+import { PayoutTool } from 'koffing/backend/model/contract/payout-tool.class';
+import { PayoutToolBankAccount } from 'koffing/backend/model/contract/payout-tool-bank-account.class';
 
 @Component({
     selector: 'kof-contract-create',
@@ -24,7 +24,7 @@ export class ContractCreateComponent {
     public contractor: Contractor;
     public contractorBankAccount: BankAccount;
     public isPayoutToolReady: boolean = false;
-    public payoutToolParams: PayoutToolBankAccount;
+    public payoutToolBankAccount: PayoutToolBankAccount;
     @ViewChild('createPaytoolRef')
     private createPaytoolComponent: CreatePayoutToolComponent;
     @ViewChild('createContractRef')
@@ -32,33 +32,33 @@ export class ContractCreateComponent {
 
     constructor(
         private router: Router,
-        private contractService: ContractService,
-        private claimReceiveBroadcaster: ClaimReceiveBroadcaster,
+        private claimsService: ClaimsService,
         private claimCreateBroadcaster: ClaimCreateBroadcaster
-    ) {}
+    ) { }
 
-    public onContractorChange(value: ContractorTransfer) {
+    public contractorChange(value: ContractorTransfer) {
         this.isContractorReady = value.valid;
         this.contractor = value.contractor;
         this.contractorBankAccount = value.contractor.bankAccount;
         this.createPaytoolComponent.compareAccounts();
     }
 
-    public onPayoutToolChange(value: PaytoolTransfer) {
+    public payoutToolChange(value: PayoutToolTransfer) {
         this.isPayoutToolReady = value.valid;
-        this.payoutToolParams = value.payoutToolParams;
+        this.payoutToolBankAccount = value.payoutToolBankAccount;
     }
 
     public createContract() {
         if (this.isContractorReady && this.isPayoutToolReady) {
+            const contract = new Contract();
+            contract.contractor = this.contractor;
+            const payoutTool = new PayoutTool();
+            payoutTool.currency = 'RUB';
+            payoutTool.details = this.payoutToolBankAccount;
             this.isLoading = true;
-            const contractParams = new ContractParams();
-            contractParams.contractor = this.contractor;
-            contractParams.payoutToolParams = this.payoutToolParams;
-            this.contractService.createContract(contractParams).then(() => {
-                this.isLoading = false;
-                this.claimReceiveBroadcaster.fire();
+            this.claimsService.createContract(contract, payoutTool).then(() => {
                 this.claimCreateBroadcaster.fire();
+                this.isLoading = false;
                 this.navigateBack();
             });
         } else {

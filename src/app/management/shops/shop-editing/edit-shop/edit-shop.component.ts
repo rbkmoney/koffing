@@ -1,18 +1,18 @@
 import { Component, OnInit, Input, EventEmitter, Output, ViewChild, AfterViewInit } from '@angular/core';
 import * as _ from 'lodash';
 
-import { CategoryService } from 'koffing/backend/backend.module';
-import { Shop } from 'koffing/backend/classes/shop.class';
-import { Contract } from 'koffing/backend/classes/contract.class';
-import { PayoutTool } from 'koffing/backend/classes/payout-tool.class';
-import { ContractService } from 'koffing/backend/services/contract.service';
-import { Category } from 'koffing/backend/classes/category.class';
 import { SelectItem } from 'koffing/common/common.module';
-import { ShopParams } from 'koffing/backend/classes/shop-params.class';
-import { ShopDetails } from 'koffing/backend/backend.module';
-import { ShopLocationUrl } from 'koffing/backend/classes/shop-location-url.class';
 import { ShopEditingTransfer } from './shop-editing-transfer.class';
 import { NgForm } from '@angular/forms';
+import { CategoryService } from 'koffing/backend/services/category.service';
+import { ContractService } from 'koffing/backend/services/contract.service';
+import { Shop } from 'koffing/backend/model/shop/shop.class';
+import { ShopDetails } from 'koffing/backend/model/shop/shop-details.class';
+import { ShopParams } from 'koffing/backend/classes/shop-params.class';
+import { Contract } from 'koffing/backend/model/contract/contract.class';
+import { PayoutTool } from 'koffing/backend/model/contract/payout-tool.class';
+import { ShopLocationUrl } from 'koffing/backend/model/shop/shop-location-url.class';
+import { Category } from 'koffing/backend/model/shop/category.class';
 
 @Component({
     selector: 'kof-edit-shop',
@@ -102,7 +102,7 @@ export class EditShopComponent implements OnInit, AfterViewInit {
         });
     }
 
-    public loadShopPayoutTools(contractID: number): Promise<PayoutTool[]> {
+    public loadShopPayoutTools(contractID: string): Promise<PayoutTool[]> {
         return new Promise((resolve) => {
             this.contractService.getPayoutTools(contractID).then((payoutTools: PayoutTool[]) => {
                 this.payoutTools = payoutTools;
@@ -114,19 +114,19 @@ export class EditShopComponent implements OnInit, AfterViewInit {
     }
 
     public onSelectContract(contractID: string) {
-        const id = Number(contractID);
+        const id = String(contractID);
         this.shopEditing.contractID = id;
         this.selectedContract = this.findContract(id);
         this.shopEditing.payoutToolID = undefined;
         this.loadShopPayoutTools(id).then(payoutTools => {
             if (payoutTools.length) {
-                this.shopEditing.payoutToolID = payoutTools[0].id;
+                this.shopEditing.payoutToolID = String(payoutTools[0].id);
             }
         });
     }
 
     public onSelectPayoutTool(payoutToolID: string) {
-        const id = Number(payoutToolID);
+        const id = String(payoutToolID);
         this.shopEditing.payoutToolID = id;
         this.selectedPayoutTool = this.findPayoutTool(id);
     }
@@ -139,11 +139,11 @@ export class EditShopComponent implements OnInit, AfterViewInit {
         this.shopEditing.categoryID = _.toNumber(categoryID);
     }
 
-    private findPayoutTool(payoutToolID: number) {
+    private findPayoutTool(payoutToolID: any) {
         return _.find(this.payoutTools, (payoutTool) => payoutTool.id === payoutToolID);
     }
 
-    private findContract(contractID: number): Contract {
+    private findContract(contractID: any): Contract {
         return _.find(this.contracts, (contract) => contract.id === contractID);
     }
 

@@ -2,9 +2,9 @@ import { Component, Output, EventEmitter, OnInit, ViewChild, AfterViewInit, Inpu
 import { NgForm } from '@angular/forms';
 import * as _ from 'lodash';
 
-import { Contractor } from 'koffing/backend/classes/contractor.class';
-import { BankAccount } from 'koffing/backend/classes/bank-account.class';
-import { RussianLegalEntity } from 'koffing/backend/classes/russian-legal-entity.class';
+import { Contractor } from 'koffing/backend/model/contract/contractor.class';
+import { BankAccount } from 'koffing/backend/model/contract/bank-account.class';
+import { RussianLegalEntity } from 'koffing/backend/model/contract/russian-legal-entity.class';
 import { ContractorTransfer } from './contractor-transfer.class';
 import { SuggestionsService } from 'koffing/suggestions/services/suggestions.service';
 import { SuggestionConverterService } from 'koffing/suggestions/services/suggestion-converter.service';
@@ -72,11 +72,9 @@ export class CreateContractComponent implements OnInit, AfterViewInit {
     }
 
     private createInstance() {
-        const bankAccountArgs = new BankAccount();
-        const entityArgs = new RussianLegalEntity();
         const instance = new Contractor();
-        instance.bankAccount = bankAccountArgs;
-        instance.legalEntity = entityArgs;
+        instance.bankAccount = new BankAccount();
+        instance.legalEntity = new RussianLegalEntity();
         return instance;
     }
 

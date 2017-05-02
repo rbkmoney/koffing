@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import * as moment from 'moment';
 
-import { Invoice } from 'koffing/backend/backend.module';
-import { InvoiceService } from 'koffing/backend/backend.module';
+import { InvoiceService } from 'koffing/backend/services/invoice.service';
+import { Invoice } from 'koffing/backend/model/invoice.class';
 
 @Component({
     templateUrl: 'finance.component.pug'
