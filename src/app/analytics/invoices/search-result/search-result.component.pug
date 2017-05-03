@@ -8,7 +8,7 @@ table.table.table-striped
             th.hidden-xs Дата и время окончания действия
             th
     tbody(*ngFor="let item of invoiceTableItems | async")
-        tr((click)="togglePaymentPanel(item)")
+        tr.hand-cursor((click)="togglePaymentPanel(item)")
             td.hidden-xs {{item.invoice.id}}
             td {{item.invoice.status | kofInvoiceStatus}}
             td {{item.invoice.amount | kofRoubleCurrency}} {{item.invoice.currency}}

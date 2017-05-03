@@ -36,4 +36,4 @@
         .form-group
             label.col-sm-4 Стоимость:
             .col-sm-4
-                div {{payment.amount}} {{payment.currency}}
+                div {{payment.amount | kofRoubleCurrency}} {{payment.currency}}

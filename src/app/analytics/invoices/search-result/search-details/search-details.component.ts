@@ -1,15 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 
-import { Payment } from 'koffing/backend/model/payment';
 import { Invoice } from 'koffing/backend/model/invoice';
 import { FormSearchParams } from 'koffing/analytics/invoices/search-form/form-search-params';
-import { SearchService } from 'koffing/backend/search.service';
 import { SearchDetailsService } from 'koffing/analytics/invoices/search-result/search-details/search-details.service';
+import { SearchResult } from 'koffing/analytics/invoices/search-result/search-details/search-result';
 
 @Component({
     selector: 'kof-search-details',
-    templateUrl: './search-details.component.pug'
+    templateUrl: './search-details.component.pug',
+    providers: [SearchDetailsService]
 })
 export class SearchDetailsComponent implements OnInit {
 
@@ -22,16 +21,18 @@ export class SearchDetailsComponent implements OnInit {
     @Input()
     public shopID: string;
 
-    public payments: Observable<Payment[]>;
+    public searchResult: SearchResult;
 
-    public totalPayments: number;
-
-    constructor(private searchService: SearchService) { }
+    constructor(private searchDetailsService: SearchDetailsService) {
+    }
 
     public ngOnInit() {
-        const request = SearchDetailsService.toSearchParams(3, 0, this.searchParams);
-        this.payments = this.searchService.searchPayments(this.shopID, request).do((result) => {
-            this.totalPayments = result.totalCount;
-        }).map((result) => result.payments);
+        this.search();
+    }
+
+    public search() {
+        this.searchDetailsService.search(this.shopID, this.invoice.id, this.searchParams).subscribe((result) => {
+            this.searchResult = result;
+        });
     }
 }

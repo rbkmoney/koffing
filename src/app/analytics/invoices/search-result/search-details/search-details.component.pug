@@ -1,4 +1,17 @@
 form.form-horizontal.form-label-left.css-form
+    .row.visible-xs
+        .col-xs-12
+            .form-group
+                label Идентификатор:
+                div {{invoice.id}}
+        .col-xs-12
+            .form-group
+                label Дата и время создания:
+                div {{invoice.createdAt | date: "dd.MM.yyyy HH:mm:ss"}}
+        .col-xs-12
+            .form-group
+                label Дата и время окончания действия:
+                div {{invoice.dueDate | date: "dd.MM.yyyy HH:mm:ss"}}
     .row
         .col-xs-12.col-sm-6
             .form-group
@@ -11,9 +24,9 @@ form.form-horizontal.form-label-left.css-form
     .ln_solid
     h5 Платежи (всего {{totalPayments}})
     .ln_solid
-    div(*ngFor="let payment of payments | async")
-        kof-payment-info([payment]="payment")
+    div(*ngFor="let item of searchResult?.result")
+        kof-payment-info([payment]="item.payment")
         .ln_solid
-.row
+.row(*ngIf="searchResult?.isNextAvailable")
     .col-xs-12
-        button.btn.btn-default.btn-block Показать еще ...
+        button.btn.btn-default.btn-block((click)="search()") Показать еще ...
