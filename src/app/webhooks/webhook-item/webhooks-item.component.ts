@@ -44,8 +44,12 @@ export class WebhooksItemComponent implements OnInit  {
 
     public onChangeEventTypes() {
         this.model.scope.eventTypes = [];
-        this.model.scope.eventTypes = this.eventTypes.filter((item) => item.name)
-            .map((type) => type.name);
+        this.model.scope.eventTypes = this.eventTypes.filter((item) => {
+            if (item.value) {
+                return item;
+            }
+        })
+        .map((type) => type.name);
         this.validateForm();
     }
 
