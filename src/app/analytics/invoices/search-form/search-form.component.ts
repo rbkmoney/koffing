@@ -32,23 +32,13 @@ export class SearchFormComponent implements OnInit {
         this.paymentStatuses = map(paymentStatuses, (name, key) => new SelectItem(key, name));
     }
 
-    public selectInvoiceFrom() {
-        this.searchParams.invoiceFrom = moment(this.searchParams.invoiceFrom)
+    public selectFrom() {
+        this.searchParams.from = moment(this.searchParams.from)
             .hour(0).minute(0).second(0).toDate();
     }
 
-    public selectInvoiceTo() {
-        this.searchParams.invoiceTo = moment(this.searchParams.invoiceTo)
-            .hour(23).minute(59).second(59).toDate();
-    }
-
-    public selectPaymentFrom() {
-        this.searchParams.paymentFrom = moment(this.searchParams.paymentFrom)
-            .hour(0).minute(0).second(0).toDate();
-    }
-
-    public selectPaymentTo() {
-        this.searchParams.paymentTo = moment(this.searchParams.paymentTo)
+    public selectTo() {
+        this.searchParams.to = moment(this.searchParams.to)
             .hour(23).minute(59).second(59).toDate();
     }
 

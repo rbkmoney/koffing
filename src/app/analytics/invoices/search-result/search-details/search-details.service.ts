@@ -17,13 +17,17 @@ export class SearchDetailsService {
 
     private commonRequestLimit = this.limit;
 
+    private detailed: SearchResult;
+
+    private common: SearchResult;
+
+    private isCommonAvailable: boolean = false;
+
     constructor(private searchService: SearchService) {
     }
 
     public search(shopID: string, invoiceID: string, params: FormSearchParams): Observable<SearchResult> {
-        const detailed = this.searchDetailed(shopID, invoiceID, params);
-        const common = this.searchCommon(shopID, invoiceID, params);
-        return detailed;
+        return this.searchDetailed(shopID, invoiceID, params);
     }
 
     private searchDetailed(shopID: string, invoiceID: string, params: FormSearchParams): Observable<SearchResult> {
@@ -31,21 +35,28 @@ export class SearchDetailsService {
         return this.searchService.searchPayments(shopID, request)
             .map((paymentResult) => this.toSearchResult(paymentResult, SearchType.detailed, this.detailedRequestLimit))
             .do((paymentResult) => {
+                this.detailed = paymentResult;
                 if (paymentResult.isNextAvailable) {
                     this.detailedRequestLimit += this.limit;
+                } else {
+                    this.isCommonAvailable = true;
                 }
             });
     }
 
     private searchCommon(shopID: string, invoiceID: string, params: FormSearchParams): Observable<SearchResult> {
-        const request = this.makeCommonParams(invoiceID, params);
-        return this.searchService.searchPayments(shopID, request)
-            .map((paymentResult) => this.toSearchResult(paymentResult, SearchType.common, this.commonRequestLimit))
-            .do((paymentResult) => {
-                if (paymentResult.isNextAvailable) {
-                    this.commonRequestLimit += this.limit;
-                }
-            });
+        if (this.isCommonAvailable) {
+            const request = this.makeCommonParams(invoiceID, params);
+            return this.searchService.searchPayments(shopID, request)
+                .map((paymentResult) => this.toSearchResult(paymentResult, SearchType.common, this.commonRequestLimit))
+                .do((paymentResult) => {
+                    this.common = paymentResult;
+                    if (paymentResult.isNextAvailable) {
+                        this.commonRequestLimit += this.limit;
+                    }
+                });
+        }
+        return Observable.empty();
     }
 
     private toSearchResult(paymentSearchResult: PaymentSearchResult, searchType: SearchType, limit: number): SearchResult {
@@ -53,6 +64,7 @@ export class SearchDetailsService {
         searchResult.result = paymentSearchResult.payments.map((payment) => {
             return {payment, searchType};
         });
+        searchResult.totalCount = paymentSearchResult.totalCount;
         searchResult.isNextAvailable = (paymentSearchResult.totalCount > limit);
         return searchResult;
     }
@@ -70,8 +82,8 @@ export class SearchDetailsService {
         result.invoiceID = invoiceID;
         result.limit = limit;
         result.offset = 0;
-        result.fromTime = formParams.invoiceFrom;
-        result.toTime = formParams.paymentTo;
+        result.fromTime = formParams.from;
+        result.toTime = formParams.to;
         return result;
     }
 
@@ -80,8 +92,8 @@ export class SearchDetailsService {
         result.invoiceID = invoiceID;
         result.limit = limit;
         result.offset = 0;
-        result.fromTime = formParams.paymentFrom;
-        result.toTime = formParams.paymentTo;
+        result.fromTime = formParams.from;
+        result.toTime = formParams.to;
         result.paymentID = formParams.paymentID;
         result.paymentStatus = formParams.paymentStatus;
         result.payerIP = formParams.payerIP;

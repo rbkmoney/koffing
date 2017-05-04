@@ -23,6 +23,8 @@ export class SearchDetailsComponent implements OnInit {
 
     public searchResult: SearchResult;
 
+    public isLoading: boolean;
+
     constructor(private searchDetailsService: SearchDetailsService) {
     }
 
@@ -31,7 +33,9 @@ export class SearchDetailsComponent implements OnInit {
     }
 
     public search() {
+        this.isLoading = true;
         this.searchDetailsService.search(this.shopID, this.invoice.id, this.searchParams).subscribe((result) => {
+            this.isLoading = false;
             this.searchResult = result;
         });
     }

@@ -1,8 +1,6 @@
 export class FormSearchParams {
-    public invoiceFrom: Date;
-    public invoiceTo: Date;
-    public paymentFrom: Date;
-    public paymentTo: Date;
+    public from: Date;
+    public to: Date;
     public invoiceID?: string;
     public invoiceStatus?: string;
     public paymentID?: string;

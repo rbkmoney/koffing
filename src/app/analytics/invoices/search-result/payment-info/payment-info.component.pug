@@ -14,7 +14,9 @@
         .form-group
             label.col-sm-4 Статус:
             .col-sm-4
-                div {{payment.status}}
+                span.label.label-default(
+                    [ngClass]="{'label-success': payment.status === 'captured', 'label-danger': payment.status === 'failed'}"
+                ) {{payment.status}}
     .col-xs-12.col-sm-6
         .form-group
             label.col-sm-4 Fingerprint:
