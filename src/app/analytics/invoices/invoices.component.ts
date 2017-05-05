@@ -48,10 +48,10 @@ export class InvoicesComponent implements OnInit {
     private search() {
         this.isLoading = true;
         const request = InvoicesService.toSearchParams(this.limit, this.offset, this.searchParams);
-        this.searchService.searchInvoices(this.shopID, request).subscribe((result) => {
+        this.searchService.searchInvoices(this.shopID, request).subscribe((response) => {
             this.isLoading = false;
-            this.totalCount = result.totalCount;
-            this.invoices.next(result.invoices);
+            this.totalCount = response.totalCount;
+            this.invoices.next(response.result);
         });
     }
 }

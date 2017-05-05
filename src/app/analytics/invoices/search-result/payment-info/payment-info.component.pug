@@ -32,10 +32,15 @@
         .form-group
             label.col-sm-4 IP-адрес плательщика:
             .col-sm-4
-                div {{payment.payerIP}}
+                div {{payment.ip}}
 .row
     .col-xs-12.col-sm-6
         .form-group
             label.col-sm-4 Стоимость:
             .col-sm-4
                 div {{payment.amount | kofRoubleCurrency}} {{payment.currency}}
+    .col-xs-12.col-sm-6
+        .form-group
+            label.col-sm-4 Данные карты:
+            .col-sm-4
+                div **** **** **** {{payment.paymentToolDetails?.cardNumberMask}} ({{payment.paymentToolDetails?.paymentSystem}})

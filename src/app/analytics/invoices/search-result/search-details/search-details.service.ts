@@ -61,7 +61,7 @@ export class SearchDetailsService {
 
     private toSearchResult(paymentSearchResult: PaymentSearchResult, searchType: SearchType, limit: number): SearchResult {
         const searchResult = new SearchResult();
-        searchResult.result = paymentSearchResult.payments.map((payment) => {
+        searchResult.result = paymentSearchResult.result.map((payment) => {
             return {payment, searchType};
         });
         searchResult.totalCount = paymentSearchResult.totalCount;
