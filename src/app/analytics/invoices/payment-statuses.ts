@@ -1,7 +1,7 @@
 export const paymentStatuses = {
-    pending: 'Pending',
-    processed: 'Processed',
-    captured: 'Captured',
-    cancelled: 'Cancelled',
-    failed: 'Failed'
+    pending: 'Запущен',
+    processed: 'Обработан',
+    captured: 'Подтвержден',
+    cancelled: 'Отменен',
+    failed: 'Неуспешен'
 };
