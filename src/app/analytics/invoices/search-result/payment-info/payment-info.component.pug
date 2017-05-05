@@ -15,8 +15,8 @@
             label.col-sm-4 Статус:
             .col-sm-4
                 span.label.label-default(
-                    [ngClass]="{'label-success': payment.status === 'captured', 'label-danger': payment.status === 'failed'}"
-                ) {{payment.status}}
+                    [ngClass]="getLabelClass(payment.status)"
+                ) {{payment.status | kofPaymentStatus}}
     .col-xs-12.col-sm-6
         .form-group
             label.col-sm-4 Fingerprint:
@@ -44,3 +44,9 @@
             label.col-sm-4 Данные карты:
             .col-sm-4
                 div **** **** **** {{payment.paymentToolDetails?.cardNumberMask}} ({{payment.paymentToolDetails?.paymentSystem}})
+.row(*ngIf="payment.error")
+    .col-xs-12.col-sm-6
+        .form-group
+            label.col-sm-4 Сообщение об ошибке:
+            .col-sm-4
+                div {{payment.error?.message}}

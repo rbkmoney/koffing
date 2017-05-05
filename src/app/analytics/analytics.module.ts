@@ -22,6 +22,7 @@ import { StatisticPanelComponent } from 'koffing/analytics/statistic-panel/stati
 import { InvoiceStatusPipe } from 'koffing/analytics/invoices/invoice-statuses.pipe';
 import { SearchDetailsComponent } from 'koffing/analytics/invoices/search-result/search-details/search-details.component';
 import { PaymentInfoComponent } from 'koffing/analytics/invoices/search-result/payment-info/payment-info.component';
+import { PaymentStatusPipe } from 'koffing/analytics/invoices/payment-statuses.pipe';
 
 @NgModule({
     imports: [
@@ -42,6 +43,7 @@ import { PaymentInfoComponent } from 'koffing/analytics/invoices/search-result/p
         SearchResultComponent,
         BaseChartDirective,
         InvoiceStatusPipe,
+        PaymentStatusPipe,
         RoubleCurrencyPipe,
         PaginationPipe,
         LineChartComponent,

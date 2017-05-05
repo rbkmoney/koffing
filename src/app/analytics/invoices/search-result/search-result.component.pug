@@ -11,7 +11,7 @@ table.table.table-striped
         tr
             td.hidden-xs {{item.invoice.id}}
             td
-                span.label.label-default([ngClass]="{'label-success': item.invoice.status === 'paid', 'label-warning': item.invoice.status === 'unpaid'}") {{item.invoice.status | kofInvoiceStatus}}
+                span.label.label-default([ngClass]="getLabelClass(item.invoice.status)") {{item.invoice.status | kofInvoiceStatus}}
             td {{item.invoice.amount | kofRoubleCurrency}} {{item.invoice.currency}}
             td.hidden-xs {{item.invoice.createdAt | date: "dd.MM.yyyy HH:mm:ss"}}
             td.hidden-xs {{item.invoice.dueDate | date: "dd.MM.yyyy HH:mm:ss"}}

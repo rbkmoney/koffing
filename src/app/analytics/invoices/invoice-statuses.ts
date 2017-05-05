@@ -1,7 +1,7 @@
 export const invoiceStatuses = {
-    unpaid: 'Неоплаченный',
-    cancelled: 'Отмененный',
-    paid: 'Оплаченный',
-    refunded: 'Возвращенный',
-    fulfilled: 'Выполненный'
+    unpaid: 'Не оплачен',
+    cancelled: 'Отменен',
+    paid: 'Оплачен',
+    refunded: 'Возмещен',
+    fulfilled: 'Погашен'
 };

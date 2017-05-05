@@ -24,11 +24,17 @@ export class SearchResultComponent implements OnInit {
 
     public invoiceTableItems: Observable<InvoiceTableItem[]>;
 
-    public payments: Observable<Payment[]>;
-
     public ngOnInit() {
         this.invoiceTableItems = this.invoices.map((invoices) =>
             SearchResultService.toInvoiceTableItems(invoices));
+    }
+
+    public getLabelClass(status: string) {
+        return {
+            'label-success': status === 'paid',
+            'label-danger': status === 'cancelled',
+            'label-warning': status === 'unpaid'
+        };
     }
 
     public togglePaymentPanel(item: InvoiceTableItem) {

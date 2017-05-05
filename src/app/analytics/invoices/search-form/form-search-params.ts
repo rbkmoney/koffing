@@ -5,6 +5,8 @@ export class FormSearchParams {
     public invoiceStatus?: string;
     public paymentID?: string;
     public paymentStatus?: string;
-    public payerIP?: string;
-    public payerEmail?: string;
+    public ip?: string;
+    public email?: string;
+    public cardNumberMask?: string;
+    public fingerprint?: string;
 }

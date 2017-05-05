@@ -9,4 +9,11 @@ export class PaymentInfoComponent {
 
     @Input()
     public payment: Payment;
+
+    public getLabelClass(status: string) {
+        return {
+            'label-success': status === 'captured',
+            'label-danger': status === 'failed'
+        };
+    }
 }

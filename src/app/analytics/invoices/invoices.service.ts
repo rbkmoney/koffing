@@ -13,8 +13,10 @@ export class InvoicesService {
         result.invoiceStatus = formParams.invoiceStatus;
         result.paymentID = formParams.paymentID;
         result.paymentStatus = formParams.paymentStatus;
-        result.payerIP = formParams.payerIP;
-        result.payerEmail = formParams.payerEmail;
+        result.payerIP = formParams.ip;
+        result.payerEmail = formParams.email;
+        result.payerFingerprint = formParams.fingerprint;
+        result.cardNumberMask = formParams.cardNumberMask;
         return result;
     }
 }

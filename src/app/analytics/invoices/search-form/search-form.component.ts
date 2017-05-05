@@ -1,6 +1,6 @@
 import { Component, Input, Output, OnInit, EventEmitter, ViewEncapsulation } from '@angular/core';
 import * as moment from 'moment';
-import { map } from 'lodash';
+import { map, clone } from 'lodash';
 
 import { SelectItem } from 'koffing/common/common.module';
 import { FormSearchParams } from './form-search-params';
@@ -25,11 +25,16 @@ export class SearchFormComponent implements OnInit {
 
     public paymentStatuses: SelectItem[];
 
-    public isInvalidDate: boolean = false;
+    public isValidDateRange: boolean = true;
+
+    public isValidCardNumber: boolean = true;
+
+    private initParams: FormSearchParams;
 
     public ngOnInit() {
         this.invoiceStatuses = map(invoiceStatuses, (name, key) => new SelectItem(key, name));
         this.paymentStatuses = map(paymentStatuses, (name, key) => new SelectItem(key, name));
+        this.initParams = clone(this.searchParams);
     }
 
     public selectFrom() {
@@ -43,11 +48,21 @@ export class SearchFormComponent implements OnInit {
     }
 
     public search() {
-        // this.isInvalidDate = false;
-        // if (this.searchParams.fromTime > this.searchParams.toTime) {
-        //     this.isInvalidDate = true;
-        //     return;
-        // }
-        this.onSearch.emit(this.searchParams);
+        if (this.validate()) {
+            this.onSearch.emit(this.searchParams);
+        }
+    }
+
+    public reset() {
+        this.searchParams = clone(this.initParams);
+        this.search();
+    }
+
+    private validate(): boolean {
+        this.isValidDateRange = this.searchParams.from < this.searchParams.to;
+        this.isValidCardNumber = this.searchParams.cardNumberMask
+            ? /^\d{4}$/.test(this.searchParams.cardNumberMask)
+            : true;
+        return this.isValidDateRange && this.isValidCardNumber;
     }
 }
