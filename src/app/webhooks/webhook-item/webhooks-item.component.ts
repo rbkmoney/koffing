@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { WebhooksService, ShopService } from 'koffing/backend/backend.module';
 import { CreateWebhook } from 'koffing/backend/queries/create-webhook';
-import { SelectItem } from 'koffing/common/components/select/select.class';
+import { SelectItem } from 'koffing/common/components/select/select-item.class';
+import { WebhooksService } from 'koffing/backend/webhooks.service';
+import { ShopService } from 'koffing/backend/services/shop.service';
 
 @Component({
     selector: 'kof-webhook-item',
@@ -38,8 +39,8 @@ export class WebhooksItemComponent implements OnInit  {
                 private router: Router,
                 private shopService: ShopService) {}
 
-    public onChangeShop(value: any) {
-        this.model.scope.shopID = parseInt(value, 10);
+    public onChangeShop(shopID: string) {
+        this.model.scope.shopID = shopID;
     }
 
     public onChangeEventTypes() {

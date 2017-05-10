@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { WebhooksService } from 'koffing/backend/backend.module';
+import { WebhooksService } from 'koffing/backend/webhooks.service';
 import { Webhook } from 'koffing/backend/model/webhook.class';
 import { WebhookListItem } from './webhook-item.class';
 
