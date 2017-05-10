@@ -2,7 +2,7 @@ const webpackConfig = require('./webpack.test');
 
 module.exports = function (config) {
     config.set({
-        basePath: '',
+        basePath: __dirname,
         frameworks: ['jasmine'],
         files: [
             {pattern: 'karma-test-shim.js', watched: false}
