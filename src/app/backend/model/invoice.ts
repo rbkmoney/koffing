@@ -1,13 +1,13 @@
 export class Invoice {
+    public status: string;
+    public reason: string;
     public id: string;
-    public shopID: string;
+    public shopID: number;
     public createdAt: string;
     public dueDate: string;
     public amount: number;
     public currency: string;
-    public description: string;
+    public metadata: Object;
     public product: string;
-    public status: string;
-    public metadata: {};
-    public invoiceStatus: any;
+    public description: string;
 }

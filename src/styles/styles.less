@@ -71,10 +71,6 @@ form {
     margin-top: 3px;
 }
 
-button.btn-search-invoices {
-    margin: 0;
-}
-
 .form-search-invoices {
     text-align: right;
     @media (max-width: 767px) {
@@ -190,6 +186,9 @@ span.highlighted {
     > thead > tr > th {
         border-bottom-width: 1px;
     }
+    > tbody > tr > td {
+        vertical-align: middle;
+    }
 }
 .panel, dl {
     margin-bottom: 10px;
@@ -199,4 +198,7 @@ span.highlighted {
 }
 .checkbox label {
     line-height: 20px;
+}
+.cursor-pointer {
+  cursor: pointer;
 }
