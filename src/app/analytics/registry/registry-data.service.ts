@@ -49,25 +49,5 @@ export class RegistryDataService {
             });
         });
 
-        // this.searchService.searchPayments(shopID, searchPaymentsParams).subscribe((response) => {
-        //     let payments = response.result;
-        //     const countAdditionalPaymentsRequests = _.ceil((response.totalCount - searchPaymentsParams.limit) / searchPaymentsParams.limit);
-        //     if (countAdditionalPaymentsRequests > 0) {
-        //         const additionalPaymentsRequests = [];
-        //         for (let i = 1; i <= countAdditionalPaymentsRequests; i++) {
-        //             searchPaymentsParams.offset = i * searchPaymentsParams.limit;
-        //             additionalPaymentsRequests.push(this.searchService.searchPayments(shopID, searchPaymentsParams));
-        //         }
-        //         Observable.forkJoin(additionalPaymentsRequests).subscribe((response) => {
-        //             _.forEach(response, (value) => payments = _.concat(payments, value.result));
-        //             console.log(payments);
-        //             return payments;
-        //         });
-        //     } else {
-        //         console.log(payments);
-        //         return payments;
-        //     }
-        // });
-
     }
 }
