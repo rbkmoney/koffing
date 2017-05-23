@@ -5,10 +5,11 @@ import * as moment from 'moment';
 import { DateRange } from '../date-range-selector/date-range.class';
 import { RegistryExportService } from './registry-export.service';
 import { RegistryDataService } from './registry-data.service';
+import { ExcelService } from './excel/excel.service';
 
 @Component({
     templateUrl: 'registry.component.pug',
-    providers: [ RegistryExportService, RegistryDataService ]
+    providers: [ RegistryExportService, RegistryDataService, ExcelService ]
 })
 export class RegistryComponent implements OnInit {
 
@@ -28,9 +29,9 @@ export class RegistryComponent implements OnInit {
         this.toTime = moment().hour(23).minute(59).second(59).toDate();
     }
 
-    public exportToXLSX(dateRange: DateRange) {
+    public exportRegistryToXLSX(dateRange: DateRange) {
         this.registryDataService.getRegistry(this.shopID, dateRange.from, dateRange.to).subscribe((registry) => {
-            this.registryExportService.exportToXLSX(registry);
+            this.registryExportService.exportRegistryToXLSX(registry);
         });
     }
 }
