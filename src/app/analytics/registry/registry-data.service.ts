@@ -38,7 +38,8 @@ export class RegistryDataService {
                 const invoices = response[1].result;
                 const contracts = response[2];
                 const shop = response[3];
-                const registryItems = this.getRegistryItems(payments, invoices);
+                const successPayments = _.filter(payments, (payment: Payment) => payment.status === 'captured');
+                const registryItems = this.getRegistryItems(successPayments, invoices);
                 const client = this.getClient(shop, contracts);
                 observer.next(new Registry(registryItems, fromTime, toTime, client));
                 observer.complete();
@@ -51,7 +52,7 @@ export class RegistryDataService {
         _.forEach(payments, (payment: Payment) => {
             const foundInvoice = _.find(invoices, (invoice: Invoice) => invoice.id === payment.invoiceID);
             const registryItem = new RegistryItem();
-            registryItem.invoiceID = payment.invoiceID;
+            registryItem.invoiceID = `${payment.invoiceID}.${payment.id}`;
             registryItem.paymentDate = payment.createdAt;
             registryItem.amount = payment.amount;
             registryItem.someAmount = 0;
@@ -63,9 +64,13 @@ export class RegistryDataService {
     }
 
     private getClient(shop: Shop, contracts: Contract[]): string {
+        let client = '';
         const activeContract = _.find(contracts, (contract: Contract) => contract.id === shop.contractID);
-        const russianLegalEntity = activeContract.contractor.legalEntity as RussianLegalEntity;
-        return russianLegalEntity.registeredName;
+        if (activeContract.contractor && activeContract.contractor.legalEntity) {
+            const russianLegalEntity = activeContract.contractor.legalEntity as RussianLegalEntity;
+            client = russianLegalEntity.registeredName;
+        }
+        return client;
     }
 
     private toSearchParams(fromTime: Date, toTime: Date): SearchPaymentsParams {
