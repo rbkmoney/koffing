@@ -1,6 +1,6 @@
 export class Workbook {
     public SheetNames: string[];
-    public Sheets: any;
+    public Sheets: Object;
 
     constructor() {
         this.SheetNames = [];

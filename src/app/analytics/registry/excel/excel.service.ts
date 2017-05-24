@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
-import { Cell } from './cell.class';
+import { Cell } from './cell';
 
 @Injectable()
 export class ExcelService {
 
-    public worksheetFromArrayOfArrays(data: any[], offsetRow?: number) {
+    public worksheetFromArrayOfArrays(data: any[], offsetRow?: number): Object {
         offsetRow = offsetRow || 0;
         const ws = {};
         const range = {s: {c: 10000000, r: 10000000}, e: {c: 0, r: 0 }};
@@ -41,6 +41,11 @@ export class ExcelService {
         return ws;
     }
 
+    public getEncodeRange(countRows: number, countsColumns: number): string {
+        const range = {s: {r: 0, c: 0}, e: {r: countRows - 1, c: countsColumns - 1}};
+        return XLSX.utils.encode_range(range.s, range.e);
+    }
+
     public saveAsXLSX(workbook: any, fileName: string) {
         function s2ab(s: any) {
             const buf = new ArrayBuffer(s.length);
@@ -52,10 +57,5 @@ export class ExcelService {
         }
         const wbout = XLSX.write(workbook, {bookType: 'xlsx', bookSST: false, type: 'binary'});
         saveAs(new Blob([s2ab(wbout)], {type: 'application/octet-stream'}), `${fileName}.xlsx`);
-    }
-
-    public getEncodeRange(countRows: number, countsColumns: number) {
-        const range = {s: {r: 0, c: 0}, e: {r: countRows - 1, c: countsColumns - 1}};
-        return XLSX.utils.encode_range(range.s, range.e);
     }
 }
