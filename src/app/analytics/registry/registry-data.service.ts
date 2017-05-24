@@ -63,7 +63,7 @@ export class RegistryDataService {
     }
 
     private getClient(shop: Shop, contracts: Contract[]): string {
-        const activeContract = _.find(contracts, (contract) => shop.contractID === contract.id);
+        const activeContract = _.find(contracts, (contract: Contract) => contract.id === shop.contractID);
         const russianLegalEntity = activeContract.contractor.legalEntity as RussianLegalEntity;
         return russianLegalEntity.registeredName;
     }
