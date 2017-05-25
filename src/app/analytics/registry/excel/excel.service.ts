@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
-import * as XLSX from 'xlsx';
+// import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
 import { Cell } from './cell';
 
+declare const XLSX: any;
+
 @Injectable()
 export class ExcelService {
 
-    public worksheetFromArrayOfArrays(data: any[], offsetRow?: number): Object {
+    public worksheetFromArrayOfArrays(data: any[], offsetRow?: number, cellStyle?: Object): Object {
         offsetRow = offsetRow || 0;
         const ws = {};
         const range = {s: {c: 10000000, r: 10000000}, e: {c: 0, r: 0 }};
@@ -24,6 +26,9 @@ export class ExcelService {
                     cell.t = 'b';
                 } else {
                     cell.t = 's';
+                }
+                if (cellStyle) {
+                    cell.s = cellStyle;
                 }
                 const cellRef = XLSX.utils.encode_cell({r: R + offsetRow, c: C});
                 ws[cellRef] = cell;
@@ -57,5 +62,26 @@ export class ExcelService {
         }
         const wbout = XLSX.write(workbook, {bookType: 'xlsx', bookSST: false, type: 'binary'});
         saveAs(new Blob([s2ab(wbout)], {type: 'application/octet-stream'}), `${fileName}.xlsx`);
+    }
+
+    public readExcel(url: string) {
+        return new Promise((resolve) => {
+            const oReq = new XMLHttpRequest();
+            oReq.open('GET', url, true);
+            oReq.responseType = 'arraybuffer';
+            oReq.onload = (e) => {
+                const arraybuffer = oReq.response;
+                /* convert data to binary string */
+                const data = new Uint8Array(arraybuffer);
+                const arr = [];
+                for (let i = 0; i !== data.length; ++i) {
+                    arr[i] = String.fromCharCode(data[i]);
+                }
+                const bstr = arr.join('');
+                const workbook = XLSX.read(bstr, {type: 'binary', cellStyles: true});
+                resolve(workbook);
+            };
+            oReq.send();
+        });
     }
 }

@@ -1,8 +1,8 @@
 export class Cell {
     public v: any;
     public t: string;
+    public s: Object;
     public w: string;
-    public z: string;
     public h: string;
     public r: string;
 }

@@ -12,6 +12,12 @@ export class RegistryExportService {
 
     private worksheetName: string = 'Реестр';
     private worksheetHeaderSizes = {rows: 7, columns: 7};
+    private cellBorder = {
+        left: {style: 'thin', color: {auto: 1}},
+        right: {style: 'thin', color: {auto: 1}},
+        top: {style: 'thin', color: {auto: 1}},
+        bottom: {style: 'thin', color: {auto: 1}}
+    };
 
     constructor(
         private excelService: ExcelService
@@ -44,20 +50,24 @@ export class RegistryExportService {
 
     private createRegistryHeader(registry: Registry): Object {
         const header = {};
-        header['A1'] = {v: `Реестр операций за период ${this.getStringifyDateInterval(registry.fromTime, registry.toTime)}`};
-        header['A3'] = {v: 'НКО:'};
+        header['A1'] = {
+            v: `Реестр операций за период ${this.getStringifyDateInterval(registry.fromTime, registry.toTime)}`,
+            s: {alignment: {horizontal: 'center', vertical: 'center'}, font: {bold: true}}
+        };
+        header['A3'] = {v: 'НКО:', s: {font: {bold: true}}};
         header['B3'] = {v: 'НКО «ЭПС» (ООО)'};
-        header['A4'] = {v: 'Клиент:'};
+        header['A4'] = {v: 'Клиент:', s: {font: {bold: true}}};
         header['B4'] = {v: registry.client};
-        header['A6'] = {v: 'Выполнено переводов в пользу клиента за период:'};
-        header['A7'] = {v: '№ п/п'};
-        header['B7'] = {v: 'Дата'};
-        header['C7'] = {v: 'ID инвойса и платежа'};
-        header['D7'] = {v: 'Принято, руб.'};
-        header['E7'] = {v: 'К зачислению, руб.'};
-        header['F7'] = {v: 'Наименование товара'};
-        header['G7'] = {v: 'Описание предоставленных товаров или услуг'};
+        header['A6'] = {v: 'Выполнено переводов в пользу клиента за период:', s: {alignment: {horizontal: 'center', vertical: 'center'}}};
+        header['A7'] = {v: '№ п/п', s: {font: {bold: true}, border: this.cellBorder}};
+        header['B7'] = {v: 'Дата', s: {font: {bold: true}, border: this.cellBorder}};
+        header['C7'] = {v: 'ID инвойса и платежа', s: {font: {bold: true}, border: this.cellBorder}};
+        header['D7'] = {v: 'Принято, руб.', s: {font: {bold: true}, border: this.cellBorder}};
+        header['E7'] = {v: 'К зачислению, руб.', s: {font: {bold: true}, border: this.cellBorder}};
+        header['F7'] = {v: 'Наименование товара', s: {font: {bold: true}, border: this.cellBorder}};
+        header['G7'] = {v: 'Описание предоставленных товаров или услуг', s: {font: {bold: true}, border: this.cellBorder}};
         header['!ref'] = this.excelService.getEncodeRange(this.worksheetHeaderSizes.rows, this.worksheetHeaderSizes.columns);
+        header['!cols'] = [{wch: 10}, {wch: 18}, {wch: 20}, {wch: 18}, {wch: 18}, {wch: 30}, {wch: 50}];
         header['!merges'] = [
             {s: {r: 0, c: 0}, e: {r: 0, c: 6}},
             {s: {r: 5, c: 0}, e: {r: 5, c: 6}}
@@ -68,7 +78,7 @@ export class RegistryExportService {
     private createRegistryBody(registryItems: RegistryItem[]): Object {
         const offsetRow = this.worksheetHeaderSizes.rows;
         const arrayOfArrays = this.arrayOfArraysFromRegistry(registryItems);
-        return this.excelService.worksheetFromArrayOfArrays(arrayOfArrays, offsetRow);
+        return this.excelService.worksheetFromArrayOfArrays(arrayOfArrays, offsetRow, {border: this.cellBorder});
     }
 
     private arrayOfArraysFromRegistry(registryItems: RegistryItem[]): any[][] {
