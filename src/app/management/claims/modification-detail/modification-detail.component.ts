@@ -2,13 +2,12 @@ import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'kof-modification-detail',
-    templateUrl: 'modification-detail.component.pug',
-    styleUrls: [`.modification-detail-value { word-wrap: break-word }`]
+    templateUrl: 'modification-detail.component.pug'
 })
 export class ModificationDetailComponent {
 
     @Input()
-    public displayName: string;
+    public name: string;
 
     @Input()
     public value: string;

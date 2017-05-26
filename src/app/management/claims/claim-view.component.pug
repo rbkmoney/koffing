@@ -1,0 +1,35 @@
+.panel.panel-default(*ngIf="!isDeleted")
+    .panel-heading((click)="show()")
+        a Активная заявка
+        i.fa.pull-right.custom-chevron([ngClass]="{'fa-chevron-down': showPanel, 'fa-chevron-right': !showPanel}")
+    .panel-body(*ngIf="showPanel")
+        div(*ngFor="let changeSet of claim.changeset")
+            kof-contract-creation(*ngIf="changeSet.contractModificationType === 'ContractCreation'", [changeSet]="changeSet")
+            kof-contract-termination(*ngIf="changeSet.contractModificationType === 'ContractTermination'", [changeSet]="changeSet")
+            kof-contract-adjustment-creation(*ngIf="changeSet.contractModificationType === 'ContractAdjustmentCreation'", [changeSet]="changeSet")
+            kof-contract-legal-agreement-binding(*ngIf="changeSet.contractModificationType === 'ContractLegalAgreementBinding'", [changeSet]="changeSet")
+            kof-contract-payout-tool-creation(*ngIf="changeSet.contractModificationType === 'ContractPayoutToolCreation'", [changeSet]="changeSet")
+            kof-shop-creation(*ngIf="changeSet.shopModificationType === 'ShopCreation'", [changeSet]="changeSet")
+            kof-shop-account-creation(*ngIf="changeSet.shopModificationType === 'ShopAccountCreation'", [changeSet]="changeSet")
+            kof-shop-contract-binding(*ngIf="changeSet.shopModificationType === 'ShopContractBinding'", [changeSet]="changeSet")
+            kof-shop-details-change(*ngIf="changeSet.shopModificationType === 'ShopDetailsChange'", [changeSet]="changeSet")
+            kof-shop-category-change(*ngIf="changeSet.shopModificationType === 'ShopCategoryChange'", [changeSet]="changeSet")
+            kof-shop-location-change(*ngIf="changeSet.shopModificationType === 'ShopLocationChange'", [changeSet]="changeSet")
+            kof-shop-callback-handler-setup(*ngIf="changeSet.shopModificationType === 'ShopCallbackHandlerSetup'", [changeSet]="changeSet")
+            kof-shop-callback-handler-teardown(*ngIf="changeSet.shopModificationType === 'ShopCallbackHandlerTeardown'", [changeSet]="changeSet")
+        button.btn.btn-danger.pull-right(data-toggle="modal" data-target=".revoke-modal" data-backdrop="false") Отмена заявки
+
+.modal.fade.revoke-modal(tabindex="-1" role="dialog")
+    .modal-dialog.modal-sm
+        .modal-content
+            .modal-header
+                h5.modal-title Подтверждение отмены заявки
+            .modal-body Введите причину отмены
+                textarea.form-control(required, [(ngModel)]="revokeReason", #reason="ngModel")
+            .modal-footer
+                .btn-toolbar.pull-left
+                    .btn-group.btn-group-sm
+                        button.btn.btn-default(type="button", data-dismiss="modal") Назад
+                .btn-toolbar.pull-right
+                    .btn-group.btn-group-sm
+                        button.btn.btn-danger(type="button", data-dismiss="modal", (click)="revokeClaim(revokeReason)") Отменить заявку

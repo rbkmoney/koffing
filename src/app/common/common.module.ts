@@ -23,4 +23,4 @@ export class CommonModule { }
 
 export * from './components/loading/loading.component';
 export * from './components/select/select.component';
-export * from './components/select/select.class';
+export * from './components/select/select-item.class';

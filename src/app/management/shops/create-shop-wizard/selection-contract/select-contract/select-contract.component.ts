@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import * as _ from 'lodash';
 
 import { SelectItem } from 'koffing/common/common.module';
-import { Contract } from 'koffing/backend/classes/contract.class';
+import { Contract } from 'koffing/backend/model/contract/contract.class';
 import { ContractService } from 'koffing/backend/services/contract.service';
 
 @Component({
@@ -15,13 +15,15 @@ export class SelectContractComponent implements OnInit {
     public onContractSelected = new EventEmitter();
 
     public selectableItems: SelectItem[] = [];
-    public selectedContractId: number;
+    public selectedContractID: string;
     public contracts: Contract[];
     public selectedContract: Contract;
     public isLoading: boolean = true;
     public errorHighlighted: boolean = false;
 
-    constructor(private contractService: ContractService) { }
+    constructor(
+        private contractService: ContractService
+    ) { }
 
     public ngOnInit() {
          this.contractService.getContracts().then((contracts) => {
@@ -36,16 +38,16 @@ export class SelectContractComponent implements OnInit {
     }
 
     public selectContract() {
-        this.selectedContract = this.findSelectedContract(this.contracts, this.selectedContractId);
+        this.selectedContract = this.findContractByID(this.contracts, this.selectedContractID);
         this.errorHighlighted = false;
         this.onContractSelected.emit(this.selectedContract);
     }
 
     private prepareSelectableItems(contracts: Contract[]) {
-        return _.map(contracts, (contract: Contract) => new SelectItem(contract.id, String(contract.id)));
+        return _.map(contracts, (contract: Contract) => new SelectItem(String(contract.id), String(contract.id)));
     }
 
-    private findSelectedContract(contracts: Contract[], contractId: number) {
-        return _.find(contracts, (contract: Contract) => contract.id === Number(contractId));
+    private findContractByID(contracts: Contract[], contractID: string) {
+        return _.find(contracts, (contract: Contract) => String(contract.id) === contractID);
     }
 }

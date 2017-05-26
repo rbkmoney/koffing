@@ -14,7 +14,7 @@ export class NotificationHandleComponent implements OnInit {
 
     constructor(
         private claimCreateBroadcaster: ClaimCreateBroadcaster,
-    ) {}
+    ) { }
 
     public ngOnInit() {
         this.claimCreateBroadcaster.on().subscribe(() => {

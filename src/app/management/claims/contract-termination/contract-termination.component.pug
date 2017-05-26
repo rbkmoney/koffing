@@ -1,0 +1,6 @@
+.panel.panel-default
+    .panel-heading((click)="show()")
+        a Расторжение договора
+        i.fa.pull-right.custom-chevron([ngClass]="{'fa-chevron-down': showPanel, 'fa-chevron-right': !showPanel}")
+    .panel-body(*ngIf="showPanel")
+        kof-modification-detail([name]="'ID договора'", [value]="changeSet.contractID")

@@ -1,0 +1,8 @@
+.panel.panel-default
+    .panel-heading((click)="show()")
+        a Изменение деталей магазина
+        i.fa.pull-right.custom-chevron([ngClass]="{'fa-chevron-down': showPanel, 'fa-chevron-right': !showPanel}")
+    .panel-body(*ngIf="showPanel")
+        kof-modification-detail([name]="'ID магазина'", [value]="changeSet.shopID")
+        kof-modification-detail([name]="'Название магазина'", [value]="changeSet.details.name")
+        kof-modification-detail([name]="'Описание магазина'", [value]="changeSet.details.description")

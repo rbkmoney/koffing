@@ -1,23 +1,23 @@
-import { ShopDetails } from 'koffing/backend/backend.module';
 import * as _ from 'lodash';
 
+// todo remove this
 export class ShopParams {
 
     public categoryID: number;
-    public details: ShopDetails;
-    public contractID: number;
-    public payoutToolID: number;
+    public details: any;
+    public contractID: string;
+    public payoutToolID: string;
     public callbackUrl: string;
 
     constructor(
         categoryID?: number,
-        details?: ShopDetails,
-        contractID?: number,
-        payoutToolID?: number,
+        details?: any,
+        contractID?: string,
+        payoutToolID?: string,
         callbackUrl?: string
     ) {
         this.categoryID = categoryID;
-        this.details = details ? details : new ShopDetails();
+        this.details = details ? details : {};
         this.contractID = contractID;
         this.payoutToolID = payoutToolID;
         this.callbackUrl = callbackUrl;

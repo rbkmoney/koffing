@@ -1,10 +1,10 @@
 import { groupBy, keys, round } from 'lodash';
 import * as moment from 'moment';
 
-import { PaymentGeoStat } from 'koffing/backend/model/payment-geo-stat.class';
-import { PaymentMethodStat } from 'koffing/backend/model/payment-method-stat.class';
-import { PaymentConversionStat } from 'koffing/backend/model/payment-conversion-stat.class';
-import { PaymentRevenueStat } from 'koffing/backend/model/payment-revenue-stat.class';
+import { PaymentGeoStat } from 'koffing/backend/model/statistics/payment-geo-stat.class';
+import { PaymentMethodStat } from 'koffing/backend/model/statistics/payment-method-stat.class';
+import { PaymentConversionStat } from 'koffing/backend/model/statistics/payment-conversion-stat.class';
+import { PaymentRevenueStat } from 'koffing/backend/model/statistics/payment-revenue-stat.class';
 import { PaymentCount } from './payment-count.class';
 import { LineChartData } from './line-chart-data';
 import { Dataset } from './dataset';

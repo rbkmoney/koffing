@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
-import { Category } from 'koffing/backend/backend.module';
-import { CategoryService } from 'koffing/backend/backend.module';
-import { ShopService } from 'koffing/backend/backend.module';
-import { Shop } from 'koffing/backend/classes/shop.class';
-import { ClaimRevokeBroadcaster } from 'koffing/broadcaster/services/claim-revoke-broadcaster.service';
-import { Claim } from '../shared/claim.class';
-import { ClaimService } from '../shared/claim.service';
+import { Shop } from 'koffing/backend/model/shop/shop.class';
+import { ShopService } from 'koffing/backend/services/shop.service';
+import { Category } from 'koffing/backend/model/shop/category.class';
+import { CategoryService } from 'koffing/backend/services/category.service';
 
 @Component({
     templateUrl: 'shops.component.pug',
@@ -14,27 +11,18 @@ import { ClaimService } from '../shared/claim.service';
 })
 export class ShopsComponent implements OnInit {
 
-    public shops: Shop[] = [];
+    public shops: any[] = [];
     public categories: Category[] = [];
     public isLoading: boolean;
     public panelsVisibilities: {[key: number]: boolean} = {};
-    public claimFound: boolean = false;
 
     constructor(
         private shopService: ShopService,
         private categoryService: CategoryService,
-        private claimService: ClaimService,
-        private claimRevokeBroadcaster: ClaimRevokeBroadcaster
-    ) {}
+    ) { }
 
     public ngOnInit() {
         this.loadData();
-        this.claimRevokeBroadcaster.on().subscribe(() => {
-            this.isLoading = true;
-            this.checkClaim().then(() => {
-                this.isLoading = false;
-            });
-        });
     }
 
     public loadData() {
@@ -42,16 +30,15 @@ export class ShopsComponent implements OnInit {
         Promise.all([
             this.loadShops(),
             this.loadCategories(),
-            this.checkClaim()
         ]).then(() => {
             this.isLoading = false;
         });
     }
 
-    public loadShops(): Promise<Shop[]> {
+    public loadShops(): Promise<any[]> {
         this.panelsVisibilities = {};
         return new Promise((resolve) => {
-            this.shopService.getShops().then(shops => {
+            this.shopService.getShops().then((shops: Shop[]) => {
                 this.shops = shops;
                 resolve();
             });
@@ -60,7 +47,7 @@ export class ShopsComponent implements OnInit {
 
     public loadCategories(): Promise<Category[]> {
         return new Promise((resolve) => {
-            this.categoryService.getCategories().then(categories => {
+            this.categoryService.getCategories().then((categories: Category[]) => {
                 this.categories = categories;
                 resolve();
             });
@@ -82,14 +69,5 @@ export class ShopsComponent implements OnInit {
         if (this.categories.length > 0) {
             return (_.find(this.categories, (category: Category) => category.categoryID === categoryID)).name;
         }
-    }
-
-    private checkClaim(): Promise<Claim[]> {
-        return new Promise((resolve) => {
-            this.claimService.getClaim({status: 'pending'}).then((claims: Claim[]) => {
-                this.claimFound = claims.length > 0;
-                resolve();
-            });
-        });
     }
 }

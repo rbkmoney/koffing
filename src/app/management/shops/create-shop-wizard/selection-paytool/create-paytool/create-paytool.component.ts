@@ -2,9 +2,9 @@ import { Component, Output, Input, EventEmitter, OnInit, ViewChild, AfterViewIni
 import { NgForm } from '@angular/forms';
 import * as _ from 'lodash';
 
-import { PayoutToolBankAccount } from 'koffing/backend/classes/payout-tool-bank-account.class';
-import { BankAccount } from 'koffing/backend/classes/bank-account.class';
-import { PaytoolTransfer } from './paytool-transfer.class';
+import { PayoutToolBankAccount } from 'koffing/backend/model/contract/payout-tool-bank-account.class';
+import { BankAccount } from 'koffing/backend/model/contract/bank-account.class';
+import { PayoutToolTransfer } from './paytool-transfer.class';
 import { SuggestionsService } from 'koffing/suggestions/services/suggestions.service';
 import { SuggestionConverterService } from 'koffing/suggestions/services/suggestion-converter.service';
 import { BankAccountComparator } from './payout-tool-comparator.service';
@@ -18,25 +18,23 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
 
     @Input()
     public contractBankAccount: BankAccount;
+
     @Output()
     public onChange = new EventEmitter();
-    public payoutToolParams: PayoutToolBankAccount;
+
+    public payoutToolBankAccount: PayoutToolBankAccount;
+    public sameBankAccountChecked: boolean;
+    public errorsHighlighted: boolean = false;
+
     @ViewChild('createPaytoolForm')
     public form: NgForm;
-    public sameBankAccountChecked: boolean;
-    @Input()
-    private defaultPayoutToolParams: PayoutToolBankAccount;
-    private errorsHighlighted: boolean = false;
 
     constructor(
         private suggestionsService: SuggestionsService
     ) { }
 
     public ngOnInit() {
-        this.payoutToolParams = this.getInstance();
-        if (this.defaultPayoutToolParams) {
-            _.assign(this.payoutToolParams, this.defaultPayoutToolParams);
-        }
+        this.payoutToolBankAccount = new PayoutToolBankAccount();
         this.compareAccounts();
     }
 
@@ -46,7 +44,7 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
 
     public emitData() {
         this.compareAccounts();
-        const transfer = new PaytoolTransfer(this.payoutToolParams, this.form.valid);
+        const transfer = new PayoutToolTransfer(this.payoutToolBankAccount, this.form.valid);
         this.onChange.emit(transfer);
     }
 
@@ -70,17 +68,9 @@ export class CreatePayoutToolComponent implements OnInit, AfterViewInit {
     }
 
     public compareAccounts() {
-        if (this.payoutToolParams) {
-            this.sameBankAccountChecked = BankAccountComparator.isEqual(this.payoutToolParams.bankAccount, this.contractBankAccount);
+        if (this.payoutToolBankAccount && this.contractBankAccount) {
+            this.sameBankAccountChecked = BankAccountComparator.isEqual(this.payoutToolBankAccount.bankAccount, this.contractBankAccount);
         }
-    }
-
-    private getInstance() {
-        const bankAccount = new BankAccount();
-        const instance = new PayoutToolBankAccount();
-        instance.currency = 'rub';
-        instance.bankAccount = bankAccount;
-        return instance;
     }
 
     private handleBankSuggestion(suggestion: BankSuggestion) {

@@ -165,6 +165,9 @@ ul.bar_tabs > li {
     z-index: auto;
 }
 
+.x_title {
+    border-bottom-width: 1px;
+}
 .x_title span, .x_title i {
     color: #BDBDBD;
 }
@@ -173,10 +176,29 @@ span.highlighted {
     color: #a94442;
 }
 
-.cursor-pointer {
+.table-hover tbody tr:first-child {
     cursor: pointer;
 }
-
-.table > tbody > tr > td {
-    vertical-align: middle;
+.table {
+    > tbody + tbody {
+        border-top-width: 1px;
+    }
+    > thead > tr > th {
+        border-bottom-width: 1px;
+    }
+    > tbody > tr > td {
+        vertical-align: middle;
+    }
+}
+.panel, dl {
+    margin-bottom: 10px;
+}
+.panel-heading {
+    cursor: pointer;
+}
+.checkbox label {
+    line-height: 20px;
+}
+.cursor-pointer {
+  cursor: pointer;
 }

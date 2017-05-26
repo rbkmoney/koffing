@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { Shop } from 'koffing/backend/classes/shop.class';
 import { ShopService } from 'koffing/backend/services/shop.service';
+import { Shop } from 'koffing/backend/model/shop/shop.class';
 
 @Component({
     selector: 'kof-shop-details-panel',
@@ -16,9 +16,6 @@ export class ShopDetailsPanelComponent {
     
     @Input()
     public shop: Shop;
-
-    @Input()
-    public claimFound: boolean = false;
 
     @Output()
     public onChange = new EventEmitter();

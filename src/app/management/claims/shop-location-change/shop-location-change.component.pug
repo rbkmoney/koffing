@@ -1,0 +1,7 @@
+.panel.panel-default
+    .panel-heading((click)="show()")
+        a Изменение местоположения магазина в Интернете
+        i.fa.pull-right.custom-chevron([ngClass]="{'fa-chevron-down': showPanel, 'fa-chevron-right': !showPanel}")
+    .panel-body(*ngIf="showPanel")
+        kof-modification-detail([name]="'ID магазина'", [value]="changeSet.shopID")
+        kof-modification-detail([name]="'Местоположение в Интернете'", [value]="changeSet.location.url")
