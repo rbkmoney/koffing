@@ -55,7 +55,7 @@ export class RegistryDataService {
             registryItem.invoiceID = `${payment.invoiceID}.${payment.id}`;
             registryItem.paymentDate = payment.createdAt;
             registryItem.amount = payment.amount;
-            registryItem.someAmount = 0;
+            registryItem.fee = payment.fee;
             registryItem.product = foundInvoice.product;
             registryItem.description = foundInvoice.description;
             registryItems.push(registryItem);
