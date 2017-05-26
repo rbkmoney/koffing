@@ -82,20 +82,13 @@ export class RegistryExportService {
     }
 
     private arrayOfArraysFromRegistry(registryItems: RegistryItem[]): any[][] {
-        const divide = (dividend: number, divisor: number) => {
-            if (!dividend || !divisor) {
-                return 0;
-            } else {
-                return dividend / divisor;
-            }
-        };
         return _.map(registryItems, (item: RegistryItem, index) => {
             const row = [];
             row.push(index + 1);
-            row.push(moment(item.paymentDate).format('DD.MM.YY HH:MM:SS'));
+            row.push(moment(item.paymentDate).format('DD.MM.YY HH:mm:ss'));
             row.push(item.invoiceID);
-            row.push(divide(item.amount, 100));
-            row.push(divide(item.fee, 100));
+            row.push(item.amount / 100);
+            row.push((item.amount - (item.fee || 0)) / 100);
             row.push(item.product);
             row.push(item.description);
             return row;
