@@ -34,7 +34,6 @@ export class SearchDetailsComponent implements OnInit {
         this.searchDetailsService.search(String(this.invoice.shopID), this.invoice.id, this.searchParams).subscribe((result) => {
             this.isLoading = false;
             this.searchResult = result;
-            console.log(result);
         });
     }
 }
