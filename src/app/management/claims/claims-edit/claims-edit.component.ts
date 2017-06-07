@@ -59,7 +59,6 @@ export class ClaimsEditComponent implements OnInit {
         this.formsTouched = true;
         this.shopReady = value.valid;
         this.claimData.shop.details = value.shopDetail;
-        this.claimData.shop.categoryID = value.categoryID;
     }
     
     public onShopEditingChange(value: ShopEditingTransfer) {

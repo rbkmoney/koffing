@@ -14,17 +14,6 @@
                         (keyup)="keyup(form)")
                 .form-group
                     .col-xs-12.col-sm-3
-                        label.text-left Категория
-                            span.highlighted  *
-                    .col-xs-12.col-sm-6
-                        kof-select(
-                        [(ngModel)]="categoryID",
-                        [items]="categories",
-                        [modelOptions]="{standalone: true}",
-                        name="category",
-                        (onChange)="onCategoryChange($event, form)")
-                .form-group
-                    .col-xs-12.col-sm-3
                         label.text-left Описание магазина
                     .col-xs-12.col-sm-6
                         input.form-control(type="text", name="shop_details_description",

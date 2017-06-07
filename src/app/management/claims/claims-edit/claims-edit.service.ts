@@ -79,7 +79,6 @@ export class ClaimsEditService {
     private createContractAndShop(contractor: Contractor, payoutToolParams: PayoutToolParams, shop: Shop): Promise<any> {
         return this.paytoolDecisionService.createContract(contractor, payoutToolParams).then((decision: PaytoolDecision) => {
             return this.shopService.createShop(new ShopParams(
-                shop.categoryID,
                 shop.details,
                 decision.contractID,
                 decision.payoutToolID
@@ -94,7 +93,6 @@ export class ClaimsEditService {
     private createPayoutToolAndShop(contractID: number, payoutToolsParams: PayoutToolParams, shop: Shop): Promise<string> {
         return this.createPayoutTool(contractID, payoutToolsParams).then((decision: PaytoolDecision) => {
             return this.shopService.createShop(new ShopParams(
-                shop.categoryID,
                 shop.details,
                 decision.contractID,
                 decision.payoutToolID
