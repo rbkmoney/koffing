@@ -30,7 +30,6 @@ export class SelectionShopComponent {
         this.createShopArgs.contractID = this.payoutToolDecision.contractID;
         this.createShopArgs.payoutToolID = this.payoutToolDecision.payoutToolID;
         this.createShopArgs.categoryID = value.categoryID;
-        this.createShopArgs.callbackUrl = value.callbackUrl;
         this.createShopArgs.details = value.shopDetail;
     }
 

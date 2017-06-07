@@ -22,8 +22,7 @@ export class AddShopComponent implements OnInit {
     public isLoading: boolean = false;
     public url: string;
     public shopDetail: ShopDetails;
-    public categoryId: number;
-    public callbackUrl: string;
+    public categoryID: number;
     private errorsHighlighted: boolean = false;
 
     @Input()
@@ -37,7 +36,7 @@ export class AddShopComponent implements OnInit {
         this.isLoading = true;
         this.getCategories().then(() => {
             if (this.defaultShop) {
-                this.categoryId = this.defaultShop.categoryID;
+                this.categoryID = this.defaultShop.categoryID;
             }
             this.isLoading = false;
         });
@@ -52,9 +51,6 @@ export class AddShopComponent implements OnInit {
         if (this.defaultShop.details.location) {
             this.url = (<ShopLocationUrl> this.defaultShop.details.location).url;
         }
-        if (this.defaultShop.callbackHandler) {
-            this.callbackUrl = this.defaultShop.callbackHandler.url;
-        }
     }
 
     public getCategories() {
@@ -64,7 +60,7 @@ export class AddShopComponent implements OnInit {
                     .sortBy((category) => category.name)
                     .map((category) => new SelectItem(category.categoryID, category.name))
                     .value();
-                this.categoryId = this.categories[0].value;
+                this.categoryID = this.categories[0].value;
                 resolve();
             });
         });
@@ -79,7 +75,7 @@ export class AddShopComponent implements OnInit {
     }
 
     public keyup(form: any) {
-        this.onChange.emit(new ShopDetailTransfer(this.shopDetail, _.toNumber(this.categoryId), this.callbackUrl, form.valid));
+        this.onChange.emit(new ShopDetailTransfer(this.shopDetail, _.toNumber(this.categoryID), form.valid));
     }
 
     public setLocation(url: string, form: any) {

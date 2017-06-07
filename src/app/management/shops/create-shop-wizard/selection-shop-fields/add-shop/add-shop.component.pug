@@ -18,7 +18,7 @@
                             span.highlighted  *
                     .col-xs-12.col-sm-6
                         kof-select(
-                        [(ngModel)]="categoryId",
+                        [(ngModel)]="categoryID",
                         [items]="categories",
                         [modelOptions]="{standalone: true}",
                         name="category",
@@ -36,9 +36,3 @@
                     .col-xs-12.col-sm-6
                         input.form-control(type="text", name="shop_details_location", placeholder="https://example.com",
                         [ngModel]="url", (ngModelChange)="setLocation($event, form)")
-                .form-group
-                    .col-xs-12.col-sm-3
-                        label.text-left CallbackHandler URL
-                    .col-xs-12.col-sm-6
-                        input.form-control(type="text", name="callback_handler_url", placeholder="https://example.com",
-                        [(ngModel)]="callbackUrl", (keyup)="keyup(form)")

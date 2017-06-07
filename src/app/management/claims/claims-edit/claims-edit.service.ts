@@ -82,8 +82,7 @@ export class ClaimsEditService {
                 shop.categoryID,
                 shop.details,
                 decision.contractID,
-                decision.payoutToolID,
-                shop.callbackHandler ? shop.callbackHandler.url : undefined
+                decision.payoutToolID
             ));
         });
     }
@@ -98,8 +97,7 @@ export class ClaimsEditService {
                 shop.categoryID,
                 shop.details,
                 decision.contractID,
-                decision.payoutToolID,
-                shop.callbackHandler ? shop.callbackHandler.url : undefined
+                decision.payoutToolID
             ));
         });
     }
