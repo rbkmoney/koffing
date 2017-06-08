@@ -11,6 +11,7 @@ import { ToggleMenuBroadcaster } from 'koffing/broadcaster/broadcaster.module';
 export class TopPanelComponent {
 
     public profileName: string = AuthService.getAccountInfo().profileName;
+    public mailHref: string = this.generateMailHref();
 
     constructor(
         private toggleMenuBroadcaster: ToggleMenuBroadcaster
@@ -22,5 +23,12 @@ export class TopPanelComponent {
 
     public toggleMenu() {
         this.toggleMenuBroadcaster.fire();
+    }
+
+    private generateMailHref() {
+        const email = 'test@example.com';
+        const subject = 'Проблема с использованием личного кабинета';
+        const body = `Опишите свою проблему\n\n\n--------------------\nEmail, на который зарегистрирован личный кабинет: ${AuthService.getAccountInfo().email}`;
+        return `mailto:${email}?subject=${encodeURI(subject)}&body=${encodeURI(body)}`;
     }
 }
