@@ -52,7 +52,6 @@ export class RegistryDataService {
         _.forEach(payments, (payment: Payment) => {
             const foundInvoice = _.find(invoices, (invoice: Invoice) => invoice.id === payment.invoiceID);
             const registryItem = new RegistryItem();
-            console.log(payment);
             registryItem.invoiceID = `${payment.invoiceID}.${payment.id}`;
             registryItem.paymentDate = payment.createdAt;
             registryItem.amount = payment.amount;
