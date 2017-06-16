@@ -12,7 +12,7 @@ import { ConfigService } from 'koffing/backend/services/config.service';
 export class TopPanelComponent {
 
     public profileName: string = AuthService.getAccountInfo().profileName;
-    public mailHref: string = `mailto:${this.configService.supportEmail}`;
+    public mailHref: string = `mailto:${this.configService.supportEmail || 'support@rbkmoney.com'}`;
 
     constructor(
         private toggleMenuBroadcaster: ToggleMenuBroadcaster,
