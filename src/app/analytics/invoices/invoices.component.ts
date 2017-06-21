@@ -20,8 +20,8 @@ export class InvoicesComponent implements OnInit {
     public offset: number = 0;
     public limit: number = 20;
     public searchParams: FormSearchParams = {
-        from: moment().subtract(1, 'month').hour(0).minute(0).second(0).toDate(),
-        to: moment().hour(23).minute(59).second(59).toDate()
+        from: moment().subtract(1, 'month').startOf('day').toDate(),
+        to: moment().endOf('day').toDate()
     };
 
     constructor(private route: ActivatedRoute,

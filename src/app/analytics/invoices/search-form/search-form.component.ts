@@ -6,6 +6,7 @@ import { SelectItem } from 'koffing/common/common.module';
 import { FormSearchParams } from './form-search-params';
 import { invoiceStatuses } from '../invoice-statuses';
 import { paymentStatuses } from '../payment-statuses';
+import { Invoice } from 'koffing/backend/model/invoice';
 
 @Component({
     selector: 'kof-search-form',
@@ -18,6 +19,9 @@ export class SearchFormComponent implements OnInit {
     @Input()
     public searchParams: FormSearchParams;
 
+    @Input()
+    public shopID: string;
+
     @Output()
     public onSearch: EventEmitter<FormSearchParams> = new EventEmitter<FormSearchParams>();
 
@@ -29,6 +33,8 @@ export class SearchFormComponent implements OnInit {
 
     public isValidCardNumber: boolean = true;
 
+    public showAdditionalSearchParams: boolean = false;
+
     private initParams: FormSearchParams;
 
     public ngOnInit() {
@@ -38,13 +44,11 @@ export class SearchFormComponent implements OnInit {
     }
 
     public selectFrom() {
-        this.searchParams.from = moment(this.searchParams.from)
-            .hour(0).minute(0).second(0).toDate();
+        this.searchParams.from = moment(this.searchParams.from).startOf('day').toDate();
     }
 
     public selectTo() {
-        this.searchParams.to = moment(this.searchParams.to)
-            .hour(23).minute(59).second(59).toDate();
+        this.searchParams.to = moment(this.searchParams.to).endOf('day').toDate();
     }
 
     public search() {
@@ -56,6 +60,14 @@ export class SearchFormComponent implements OnInit {
     public reset() {
         this.searchParams = clone(this.initParams);
         this.search();
+    }
+
+    public toggleAdditionalSearchParams() {
+        this.showAdditionalSearchParams = !this.showAdditionalSearchParams;
+    }
+
+    public onCreateInvoice(invoice: Invoice) {
+        console.log(invoice);
     }
 
     private validate(): boolean {
