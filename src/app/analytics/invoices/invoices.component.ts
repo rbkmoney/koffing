@@ -46,6 +46,10 @@ export class InvoicesComponent implements OnInit {
         this.search();
     }
 
+    public onCreateInvoice(invoice: Invoice) {
+        this.invoices.next([invoice]);
+    }
+
     private search() {
         this.isLoading = true;
         const request = InvoicesService.toSearchParams(this.limit, this.offset, this.searchParams);

@@ -36,4 +36,8 @@ export class SearchDetailsComponent implements OnInit {
             this.searchResult = result;
         });
     }
+
+    public isPaymentLinkAvailable() {
+        return this.invoice.status === 'unpaid';
+    }
 }

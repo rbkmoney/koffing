@@ -25,6 +25,9 @@ export class SearchFormComponent implements OnInit {
     @Output()
     public onSearch: EventEmitter<FormSearchParams> = new EventEmitter<FormSearchParams>();
 
+    @Output()
+    public onCreateInvoice: EventEmitter<Invoice> = new EventEmitter<Invoice>();
+
     public invoiceStatuses: SelectItem[];
 
     public paymentStatuses: SelectItem[];
@@ -66,8 +69,8 @@ export class SearchFormComponent implements OnInit {
         this.showAdditionalSearchParams = !this.showAdditionalSearchParams;
     }
 
-    public onCreateInvoice(invoice: Invoice) {
-        console.log(invoice);
+    public onCreate(invoice: Invoice) {
+        this.onCreateInvoice.emit(invoice);
     }
 
     private validate(): boolean {

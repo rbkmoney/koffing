@@ -1,8 +1,17 @@
 .row
     .col-xs-12
-        kof-search-form([searchParams]="searchParams", [shopID]="shopID", (onSearch)="onSearch($event)")
+        kof-search-form(
+        [searchParams]="searchParams",
+        [shopID]="shopID",
+        (onSearch)="onSearch($event)",
+        (onCreateInvoice)="onCreateInvoice($event)")
 .row
     .col-xs-12
         kof-loading([isLoading]="isLoading")
             kof-search-result([invoices]="invoices", [searchParams]="searchParams")
-            kof-paginate([size]="totalCount", [limit]="limit", [offset]="offset", [pagesOnScreen]="10", (onChange)="onChangePage($event)")
+            kof-paginate(
+            [size]="totalCount",
+            [limit]="limit",
+            [offset]="offset",
+            [pagesOnScreen]="10",
+            (onChange)="onChangePage($event)")

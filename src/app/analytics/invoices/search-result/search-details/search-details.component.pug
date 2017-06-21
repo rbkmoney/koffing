@@ -21,6 +21,10 @@ form.form-horizontal.form-label-left.css-form
             .form-group
                 label Описание предлагаемых товаров или услуг:
                 div {{invoice.description}}
+    .ln_solid(*ngIf="isPaymentLinkAvailable()")
+    .row(*ngIf="isPaymentLinkAvailable()")
+        .col-xs-12
+            button.btn.btn-default.btn-sm Сформировать ссылку на оплату
     .ln_solid
     .row
         .col-xs-6
