@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import * as moment from 'moment';
 
 import { CreateInvoiceFormData } from './create-invoice-form-data';
@@ -7,7 +7,8 @@ import { Invoice } from 'koffing/backend/model/invoice';
 
 @Component({
     selector: 'kof-create-invoice',
-    templateUrl: 'create-invoice.component.pug'
+    templateUrl: 'create-invoice.component.pug',
+    encapsulation: ViewEncapsulation.None
 })
 export class CreateInvoiceComponent implements OnInit {
 
@@ -25,9 +26,7 @@ export class CreateInvoiceComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this.formData = new CreateInvoiceFormData();
-        this.formData.amount = 10;
-        this.formData.dueDate = moment().add(1, 'h').toDate();
+        this.formData = this.createInstance();
     }
 
     public create() {
@@ -40,7 +39,20 @@ export class CreateInvoiceComponent implements OnInit {
             product: this.formData.product,
             description: this.formData.description
         };
-        this.invoiceService.createInvoice(params)
-            .subscribe((invoice) => this.onCreate.emit(invoice));
+        this.invoiceService.createInvoice(params).subscribe((invoice) => {
+            this.cancel();
+            this.onCreate.emit(invoice);
+        });
+    }
+
+    public cancel() {
+        this.formData = this.createInstance();
+    }
+
+    private createInstance(): CreateInvoiceFormData {
+        const result = new CreateInvoiceFormData();
+        result.amount = 10;
+        result.dueDate = moment().add(1, 'h').toDate();
+        return result;
     }
 }

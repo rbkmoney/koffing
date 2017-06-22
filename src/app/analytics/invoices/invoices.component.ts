@@ -7,6 +7,7 @@ import { Invoice } from 'koffing/backend/model/invoice';
 import { FormSearchParams } from 'koffing/analytics/invoices/search-form/form-search-params';
 import { SearchService } from 'koffing/backend/search.service';
 import { InvoicesService } from 'koffing/analytics/invoices/invoices.service';
+import { Action } from 'koffing/analytics/invoices/actions/action';
 
 @Component({
     templateUrl: './invoices.component.pug'
@@ -23,6 +24,8 @@ export class InvoicesComponent implements OnInit {
         from: moment().subtract(1, 'month').startOf('day').toDate(),
         to: moment().endOf('day').toDate()
     };
+    public activeAction: Action = Action.none;
+    public action = Action;
 
     constructor(private route: ActivatedRoute,
                 private searchService: SearchService) {
@@ -33,6 +36,10 @@ export class InvoicesComponent implements OnInit {
             this.shopID = params['shopID'];
             this.search();
         });
+    }
+
+    public onAction(action: Action) {
+        this.activeAction = action;
     }
 
     public onSearch(searchParams: FormSearchParams) {
@@ -46,7 +53,9 @@ export class InvoicesComponent implements OnInit {
         this.search();
     }
 
-    public onCreateInvoice(invoice: Invoice) {
+    public onCreate(invoice: Invoice) {
+        this.activeAction = Action.none;
+        this.searchParams.invoiceID = invoice.id;
         this.invoices.next([invoice]);
     }
 

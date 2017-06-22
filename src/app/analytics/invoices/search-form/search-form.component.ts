@@ -6,7 +6,6 @@ import { SelectItem } from 'koffing/common/common.module';
 import { FormSearchParams } from './form-search-params';
 import { invoiceStatuses } from '../invoice-statuses';
 import { paymentStatuses } from '../payment-statuses';
-import { Invoice } from 'koffing/backend/model/invoice';
 
 @Component({
     selector: 'kof-search-form',
@@ -25,9 +24,6 @@ export class SearchFormComponent implements OnInit {
     @Output()
     public onSearch: EventEmitter<FormSearchParams> = new EventEmitter<FormSearchParams>();
 
-    @Output()
-    public onCreateInvoice: EventEmitter<Invoice> = new EventEmitter<Invoice>();
-
     public invoiceStatuses: SelectItem[];
 
     public paymentStatuses: SelectItem[];
@@ -36,14 +32,15 @@ export class SearchFormComponent implements OnInit {
 
     public isValidCardNumber: boolean = true;
 
-    public showAdditionalSearchParams: boolean = false;
-
     private initParams: FormSearchParams;
 
     public ngOnInit() {
         this.invoiceStatuses = map(invoiceStatuses, (name, key) => new SelectItem(key, name));
         this.paymentStatuses = map(paymentStatuses, (name, key) => new SelectItem(key, name));
-        this.initParams = clone(this.searchParams);
+        this.initParams = clone({
+            from: this.searchParams.from,
+            to: this.searchParams.to
+        });
     }
 
     public selectFrom() {
@@ -63,14 +60,6 @@ export class SearchFormComponent implements OnInit {
     public reset() {
         this.searchParams = clone(this.initParams);
         this.search();
-    }
-
-    public toggleAdditionalSearchParams() {
-        this.showAdditionalSearchParams = !this.showAdditionalSearchParams;
-    }
-
-    public onCreate(invoice: Invoice) {
-        this.onCreateInvoice.emit(invoice);
     }
 
     private validate(): boolean {
