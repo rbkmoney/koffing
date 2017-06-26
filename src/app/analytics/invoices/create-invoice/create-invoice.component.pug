@@ -4,7 +4,7 @@ form.css-form(novalidate, name="createInvoiceForm", #createInvoiceForm="ngForm")
             .form-group
                 label.text-left Стоимость:
                     span.highlighted  *
-                input.form-control(type="number", name="amount", min="10", required, [(ngModel)]="formData.amount", #amount="ngModel")
+                input.form-control(type="number", name="amount", kofMin=10, required, [(ngModel)]="formData.amount", #amount="ngModel")
         .col-sm-6.col-xs-12
             .form-group
                 label.text-left Окончание действия инвойса:
@@ -19,5 +19,4 @@ form.css-form(novalidate, name="createInvoiceForm", #createInvoiceForm="ngForm")
         label.text-left Описание предлагаемых товаров или услуг:
         textarea.form-control(rows="3", name="description", maxlength="1000", [(ngModel)]="formData.description", #description="ngModel")
     .form-group
-        button.btn.btn-default(type="button", (click)="cancel()") Отмена
         button.btn.btn-primary.pull-right(type="button", (click)="create()", [disabled]="!createInvoiceForm.valid") Создать
