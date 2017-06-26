@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { Subject } from 'rxjs/Subject';
@@ -10,7 +10,9 @@ import { InvoicesService } from 'koffing/analytics/invoices/invoices.service';
 import { Action } from 'koffing/analytics/invoices/actions/action';
 
 @Component({
-    templateUrl: './invoices.component.pug'
+    templateUrl: './invoices.component.pug',
+    styleUrls: ['invoices.component.less'],
+    encapsulation: ViewEncapsulation.None
 })
 export class InvoicesComponent implements OnInit {
 

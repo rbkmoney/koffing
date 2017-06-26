@@ -38,6 +38,8 @@ export class SearchDetailsComponent implements OnInit {
     }
 
     public isPaymentLinkAvailable() {
-        return this.invoice.status === 'unpaid';
+        // TODO uncomment after payment link implementation
+        // return this.invoice.status === 'unpaid';
+        return false;
     }
 }
