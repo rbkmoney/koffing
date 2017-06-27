@@ -1,1 +1,18 @@
+ul.account-navigation
+    li
+        a.back([routerLink]=["/"])
+            i.fa.fa-reply &nbsp;
+            | Назад
+    li
+        a([routerLinkActive]="['active']", [routerLink]=["/account/edit"]) Учетная запись
+    li
+        a([routerLinkActive]="['active']", [routerLink]=["/account/password"]) Пароль
+    li
+        a([routerLinkActive]="['active']", [routerLink]=["/account/totp"]) Аутентификатор
+    li
+        a([routerLinkActive]="['active']", [routerLink]=["/account/sessions"]) Сессии
+    li
+        a([routerLinkActive]="['active']", [routerLink]=["/account/applications"]) Приложения
+    li
+        a([routerLinkActive]="['active']", [routerLink]=["/account/log"]) Логи
 iframe.account-frame(frameborder="0", scrolling="no", [src]="accountFrameUrl")
