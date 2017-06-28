@@ -16,5 +16,3 @@ import { CommonModule } from 'koffing/common/common.module';
     ]
 })
 export class AccountModule { }
-
-export * from './account.component';
