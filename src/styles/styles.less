@@ -84,6 +84,10 @@ form {
     vertical-align: middle;
 }
 
+.form-group label span {
+    line-height: inherit;
+}
+
 div.tile_count {
     .tile_stats_count {
         padding-top: 5px;
@@ -189,4 +193,8 @@ span.highlighted {
     .left_col, .nav.toggle {
         display: none !important;
     }
+}
+// fix bootstrap backdrop
+.modal.fade.in {
+    background-color: rgba(0,0,0,0.5);
 }

@@ -1,0 +1,50 @@
+button.btn.btn-default.btn-sm(data-toggle="modal", [attr.data-target]="'#' + invoiceID", data-backdrop="false")
+    | Сформировать ссылку на оплату
+
+.modal.fade(tabindex="-1" role="dialog", id="{{invoiceID}}", data-backdrop="true")
+    .modal-dialog.modal-md
+        .modal-content
+            .modal-header
+                h4.modal-title Конфигурирование платежной формы
+                    a(href="https://rbkmoney.github.io/docs/integrations/checkout/", target="_blank") &nbsp;
+                        u Checkout
+            .modal-body
+                .form-group
+                    .col-xs-12.col-sm-5
+                        label.text-left Наименование вашей компании или сайта
+                    .col-xs-12.col-sm-7
+                        input.form-control(type="text", [(ngModel)]="paymentLinkArguments.name", placeholder="Наименование вашей компании или сайта")
+                .form-group
+                    .col-xs-12.col-sm-5
+                        label.text-left URL для задания логотипа
+                    .col-xs-12.col-sm-7
+                        input.form-control(type="text", [(ngModel)]="paymentLinkArguments.logo", placeholder="http(s)://example.png")
+                .form-group
+                    .col-xs-12.col-sm-5
+                        label.text-left Описание вашего продукта или сервиса
+                    .col-xs-12.col-sm-7
+                        input.form-control(type="text", [(ngModel)]="paymentLinkArguments.description", placeholder="Описание вашего продукта или сервиса")
+                .form-group
+                    .col-xs-12.col-sm-5
+                        label.text-left Текст кнопки оплаты
+                    .col-xs-12.col-sm-7
+                        input.form-control(type="text", [(ngModel)]="paymentLinkArguments.payButtonLabel", placeholder="Оплатить")
+                .form-group
+                    .col-xs-12.col-sm-5
+                        label.text-left Email плательщика
+                    .col-xs-12.col-sm-7
+                        input.form-control(type="text", [(ngModel)]="paymentLinkArguments.email", placeholder="example@mail.com")
+                .form-group
+                    .col-xs-12.col-sm-5
+                        label.text-left Redirect URL после упешного завершения платежа
+                    .col-xs-12.col-sm-7
+                        input.form-control(type="text", [(ngModel)]="paymentLinkArguments.redirectUrl", placeholder="http(s)://example.com")
+                textarea.form-control(*ngIf="paymentLink", readonly, rows="20") {{paymentLink}}
+
+            .modal-footer
+                .btn-toolbar.pull-right
+                    .btn-group.btn-group-sm
+                        button.btn.btn-default(data-dismiss="modal") Отмена
+                    .btn-group.btn-group-sm
+                        button.btn.btn-success(data-dismiss="modal", (click)="createPaymentLink($event)")
+                            | Сформировать платежную ссылку
