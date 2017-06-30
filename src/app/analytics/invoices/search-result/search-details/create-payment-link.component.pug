@@ -1,7 +1,7 @@
-button.btn.btn-default.btn-sm(data-toggle="modal", [attr.data-target]="'#' + invoiceID", data-backdrop="false")
+button.btn.btn-default.btn-sm(data-toggle="modal", [attr.data-target]="'#' + invoiceID")
     | Сформировать ссылку на оплату
 
-.modal.fade(tabindex="-1" role="dialog", id="{{invoiceID}}", data-backdrop="true")
+.modal.fade(tabindex="-1", role="dialog", id="{{invoiceID}}", data-backdrop="static")
     .modal-dialog.modal-lg
         .modal-content
             .modal-header
