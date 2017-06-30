@@ -25,13 +25,12 @@ export class CreatePaymentLinkComponent implements OnInit {
     ) {}
 
     public ngOnInit() {
-        this.paymentLinkArguments = new PaymentLinkArguments();
-        this.paymentLinkArguments.invoiceID = this.invoiceID;
-        this.paymentLinkArguments.popupMode = true;
-
         this.isLoading = true;
         this.invoiceService.createInvoiceAccessToken(this.invoiceID).subscribe((response) => {
+            this.paymentLinkArguments = new PaymentLinkArguments();
+            this.paymentLinkArguments.invoiceID = this.invoiceID;
             this.paymentLinkArguments.invoiceAccessToken = response.payload;
+            this.paymentLinkArguments.popupMode = true;
             this.createPaymentLink();
             this.isLoading = false;
         });
