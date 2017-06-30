@@ -19,6 +19,7 @@ export class Shop {
         this.account = new ShopAccount();
     }
 
+    //TODO: избавиться от этого метода
     public update(params: ShopParams) {
         assign(this.details, params.details);
         this.contractID = defaultTo(params.contractID, this.contractID);

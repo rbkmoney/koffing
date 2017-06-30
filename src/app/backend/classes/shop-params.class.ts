@@ -1,6 +1,7 @@
 import { ShopDetails } from 'koffing/backend/model/shop-details.class';
 import * as _ from 'lodash';
 
+//TODO: этот класс не соответствует swag-definitions, перенемти в другое место
 export class ShopParams {
 
     public details: ShopDetails;
