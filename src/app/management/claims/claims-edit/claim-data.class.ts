@@ -1,6 +1,6 @@
-import { PayoutToolParams } from 'koffing/backend/classes/payout-tool-params.class';
-import { Contractor } from 'koffing/backend/classes/contractor.class';
-import { Shop } from 'koffing/backend/classes/shop.class';
+import { PayoutToolParams } from 'koffing/backend/model/payout-tool-params.class';
+import { Contractor } from 'koffing/backend/model/contractor.class';
+import { Shop } from 'koffing/backend/model/shop.class';
 import { ShopEditingParams } from './shop-editing-params.class';
 
 export class ClaimData {

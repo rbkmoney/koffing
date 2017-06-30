@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
 
-import { Shop } from 'koffing/backend/classes/shop.class';
+import { Shop } from 'koffing/backend/model/shop.class';
 import { ShopService } from 'koffing/backend/services/shop.service';
 import { ClaimData } from './claim-data.class';
 import { ShopEditingParams } from './shop-editing-params.class';

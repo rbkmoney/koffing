@@ -13,9 +13,10 @@ import { SearchPaymentsParams } from 'koffing/backend/requests/search-payments-r
 @Injectable()
 export class SearchService {
 
-    constructor(private http: Http,
-                private config: ConfigService) {
-    }
+    constructor(
+        private http: Http,
+        private config: ConfigService
+    ) { }
 
     public searchInvoices(shopID: string, invoiceParams: SearchInvoicesParams): Observable<InvoiceSearchResult> {
         const params = this.toSearchParams(invoiceParams);

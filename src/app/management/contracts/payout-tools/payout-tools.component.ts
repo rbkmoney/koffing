@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { ContractService } from 'koffing/backend/services/contract.service';
-import { PayoutTool } from 'koffing/backend/classes/payout-tool.class';
+import { PayoutTool } from 'koffing/backend/model/payout-tool.class';
 
 @Component({
     selector: 'kof-payout-tools',

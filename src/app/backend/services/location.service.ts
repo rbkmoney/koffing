@@ -10,9 +10,10 @@ import { LocationName } from 'koffing/backend/model/location-name.class';
 @Injectable()
 export class LocationService {
 
-    constructor(private http: Http,
-                private config: ConfigService) {
-    }
+    constructor(
+        private http: Http,
+        private config: ConfigService
+    ) { }
 
     public getLocationsNames(geoIDs: string[], language?: string): Observable<LocationName[]> {
         if (isNil(geoIDs) || geoIDs.length === 0) {

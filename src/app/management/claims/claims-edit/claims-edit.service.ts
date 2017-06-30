@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { Shop } from 'koffing/backend/classes/shop.class';
-import { Contractor } from 'koffing/backend/classes/contractor.class';
+import { Shop } from 'koffing/backend/model/shop.class';
+import { Contractor } from 'koffing/backend/model/contractor.class';
 import { ShopService } from 'koffing/backend/services/shop.service';
 import { ShopParams } from 'koffing/backend/classes/shop-params.class';
-import { PayoutToolParams } from 'koffing/backend/classes/payout-tool-params.class';
+import { PayoutToolParams } from 'koffing/backend/model/payout-tool-params.class';
 import { PaytoolDecision } from 'koffing/management/shops/create-shop-wizard/selection-paytool/paytool-decision.class';
 import { PaytoolDecisionService } from 'koffing/management/shops/create-shop-wizard/selection-paytool/paytool-decision.service';
 import { ClaimDataService } from './claim-data.service';

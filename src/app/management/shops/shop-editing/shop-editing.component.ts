@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ShopService } from 'koffing/backend/services/shop.service';
-import { Shop } from 'koffing/backend/classes/shop.class';
+import { Shop } from 'koffing/backend/model/shop.class';
 import { ShopParams } from 'koffing/backend/classes/shop-params.class';
 import { ShopEditingTransfer } from './edit-shop/shop-editing-transfer.class';
 

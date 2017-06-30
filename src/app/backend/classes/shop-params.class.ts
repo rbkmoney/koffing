@@ -1,4 +1,4 @@
-import { ShopDetails } from 'koffing/backend/backend.module';
+import { ShopDetails } from 'koffing/backend/model/shop-details.class';
 import * as _ from 'lodash';
 
 export class ShopParams {

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { ShopService } from 'koffing/backend/backend.module';
+import { ShopService } from 'koffing/backend/services/shop.service';
 import { WebhookListItem } from '../webhook-item.class';
 
 @Component({

@@ -1,14 +1,14 @@
 import { Component, OnInit, Input, EventEmitter, Output, ViewChild, AfterViewInit } from '@angular/core';
 import * as _ from 'lodash';
 
-import { Shop } from 'koffing/backend/classes/shop.class';
-import { Contract } from 'koffing/backend/classes/contract.class';
-import { PayoutTool } from 'koffing/backend/classes/payout-tool.class';
+import { Shop } from 'koffing/backend/model/shop.class';
+import { Contract } from 'koffing/backend/model/contract.class';
+import { PayoutTool } from 'koffing/backend/model/payout-tool.class';
 import { ContractService } from 'koffing/backend/services/contract.service';
 import { SelectItem } from 'koffing/common/common.module';
 import { ShopParams } from 'koffing/backend/classes/shop-params.class';
-import { ShopDetails } from 'koffing/backend/backend.module';
-import { ShopLocationUrl } from 'koffing/backend/classes/shop-location-url.class';
+import { ShopDetails } from 'koffing/backend/model/shop-details.class';
+import { ShopLocationUrl } from 'koffing/backend/model/shop-location-url.class';
 import { ShopEditingTransfer } from './shop-editing-transfer.class';
 import { NgForm } from '@angular/forms';
 

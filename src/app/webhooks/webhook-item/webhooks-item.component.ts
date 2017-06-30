@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { WebhooksService, ShopService } from 'koffing/backend/backend.module';
+import { ShopService } from 'koffing/backend/services/shop.service';
+import { WebhooksService } from 'koffing/backend/services/webhooks.service';
 import { CreateWebhook } from 'koffing/backend/queries/create-webhook';
 import { SelectItem } from 'koffing/common/components/select/select.class';
 

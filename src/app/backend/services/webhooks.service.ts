@@ -9,9 +9,10 @@ import { CreateWebhook } from 'koffing/backend/queries/create-webhook';
 @Injectable()
 export class WebhooksService {
 
-    constructor(private http: Http,
-                private config: ConfigService) {
-    }
+    constructor(
+        private http: Http,
+        private config: ConfigService
+    ) { }
 
     public createWebhook(webhook: CreateWebhook): Observable<Webhook> {
         return this.http.post(`${this.config.capiUrl}/processing/webhooks`, webhook).map(res => res.json());

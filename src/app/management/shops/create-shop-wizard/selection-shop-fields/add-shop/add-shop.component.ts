@@ -1,9 +1,9 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import * as _ from 'lodash';
 
-import { ShopDetails } from 'koffing/backend/backend.module';
-import { ShopLocationUrl } from 'koffing/backend/classes/shop-location-url.class';
-import { Shop } from 'koffing/backend/classes/shop.class';
+import { ShopDetails } from 'koffing/backend/model/shop-details.class';
+import { ShopLocationUrl } from 'koffing/backend/model/shop-location-url.class';
+import { Shop } from 'koffing/backend/model/shop.class';
 import { ShopDetailTransfer } from './shop-detail-transfer.class';
 
 @Component({

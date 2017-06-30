@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
-import { Shop } from '../classes/shop.class';
+import { Shop } from '../model/shop.class';
 import { ConfigService } from './config.service';
 import { ShopParams } from 'koffing/backend/classes/shop-params.class';
 import { Observable } from 'rxjs';
@@ -12,7 +12,10 @@ export class ShopService {
 
     private shopsUrl: string = `${this.config.capiUrl}/processing/shops`;
 
-    constructor(private http: Http, private config: ConfigService) {}
+    constructor(
+        private http: Http,
+        private config: ConfigService
+    ) { }
 
     public getShops(): Promise<Shop[]> {
         return this.http.get(this.shopsUrl)

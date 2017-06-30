@@ -1,4 +1,4 @@
-import { ShopLocation } from 'koffing/backend/classes/shop-location.class';
+import { ShopLocation } from './shop-location.class';
 
 export class ShopLocationUrl extends ShopLocation {
 

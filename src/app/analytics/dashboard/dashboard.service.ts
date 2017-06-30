@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 
-import { LocationService } from 'koffing/backend/location.service';
-import { AnalyticsService } from 'koffing/backend/analytics.service';
+import { LocationService } from 'koffing/backend/services/location.service';
+import { AnalyticsService } from 'koffing/backend/services/analytics.service';
 import { DoughnutChartData } from './stats-data/doughnut-chart-data';
 import { StatsDataConverter } from './stats-data/stats-data.converter';
 import { PaymentConversionData } from './stats-data/payment-conversion-data.class';

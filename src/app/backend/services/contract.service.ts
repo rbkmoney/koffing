@@ -1,21 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { Observable } from 'rxjs';
 import 'rxjs/add/operator/toPromise';
 
 import { ConfigService } from './config.service';
-import { Contract } from '../classes/contract.class';
-import { PayoutTool } from '../classes/payout-tool.class';
-import { ContractParams } from 'koffing/backend/classes/contract-params.class';
-import { PayoutToolParams } from 'koffing/backend/classes/payout-tool-params.class';
-import { Observable } from 'rxjs';
+import { Contract } from '../model/contract.class';
+import { PayoutTool } from '../model/payout-tool.class';
+import { ContractParams } from '../model/contract-params.class';
+import { PayoutToolParams } from '../model/payout-tool-params.class';
 
 @Injectable()
 export class ContractService {
 
     private contractsUrl: string = `${this.config.capiUrl}/processing/contracts`;
 
-    constructor(private http: Http, private config: ConfigService) {
-    }
+    constructor(
+        private http: Http,
+        private config: ConfigService
+    ) { }
 
     public getContracts(): Promise<Contract[]> {
         return this.http.get(this.contractsUrl)

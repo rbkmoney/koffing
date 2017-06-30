@@ -5,12 +5,12 @@ import 'rxjs/add/observable/forkJoin';
 
 import { ShopService } from 'koffing/backend/services/shop.service';
 import { ContractService } from 'koffing/backend/services/contract.service';
-import { SearchService } from 'koffing/backend/search.service';
-import { Shop } from 'koffing/backend/classes/shop.class';
-import { Contract } from 'koffing/backend/classes/contract.class';
+import { SearchService } from 'koffing/backend/services/search.service';
+import { Shop } from 'koffing/backend/model/shop.class';
+import { Contract } from 'koffing/backend/model/contract.class';
 import { Invoice } from 'koffing/backend/model/invoice';
 import { Payment } from 'koffing/backend/model/payment';
-import { RussianLegalEntity } from 'koffing/backend/classes/russian-legal-entity.class';
+import { RussianLegalEntity } from 'koffing/backend/model/russian-legal-entity.class';
 import { SearchPaymentsParams } from 'koffing/backend/requests/search-payments-request';
 import { Registry } from './registry';
 import { RegistryItem } from './registry-item';

@@ -3,7 +3,7 @@ import { Component, Output, EventEmitter, ViewChild } from '@angular/core';
 import { SelectionOptions } from '../selection-options.class';
 import { ContractDecision } from './contract-decision.class';
 import { ContractorTransfer } from './create-contract/contractor-transfer.class';
-import { Contract } from 'koffing/backend/classes/contract.class';
+import { Contract } from 'koffing/backend/model/contract.class';
 import { CreateContractComponent } from './create-contract/create-contract.component';
 import { SelectContractComponent } from './select-contract/select-contract.component';
 

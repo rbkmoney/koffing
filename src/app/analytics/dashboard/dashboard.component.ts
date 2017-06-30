@@ -4,7 +4,7 @@ import * as moment from 'moment';
 import { Subject } from 'rxjs/Subject';
 
 import { ShopService } from 'koffing/backend/services/shop.service';
-import { AccountsService } from 'koffing/backend/accounts.service';
+import { AccountsService } from 'koffing/backend/services/accounts.service';
 import { DateRange } from '../date-range-selector/date-range.class';
 import { PanelData } from '../statistic-panel/panel-data';
 import { DashboardService } from './dashboard.service';
