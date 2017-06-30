@@ -39,7 +39,7 @@ export class CreatePaymentLinkComponent implements OnInit {
 
     public createPaymentLink() {
         const paymentLinkArguments = chain(this.paymentLinkArguments)
-            .map((value: string | boolean | number, key: string) => `${key}=${encodeURI(String(value))}`)
+            .map((value: string | boolean | number, key: string) => `${key}=${encodeURIComponent(String(value))}`)
             .join('&')
             .value();
 
