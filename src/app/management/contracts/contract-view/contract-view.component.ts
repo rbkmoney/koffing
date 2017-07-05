@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Contract } from 'koffing/backend/model/contract.class';
+import { Contract } from 'koffing/backend/model/contract';
 
 @Component({
     selector: 'kof-contract-view',

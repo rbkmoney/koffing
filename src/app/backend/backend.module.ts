@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 
-import { CategoryService } from './services/category.service';
-import { ContractService } from './services/contract.service';
-import { ShopService } from './services/shop.service';
-import { ConfigService } from './services/config.service';
-import { WebhooksService } from './services/webhooks.service';
-import { AnalyticsService } from './services/analytics.service';
-import { LocationService } from './services/location.service';
-import { AccountsService } from './services/accounts.service';
-import { SearchService } from './services/search.service';
-import { InvoiceService } from './services/invoice.service';
+import { CategoryService } from './category.service';
+import { ContractService } from './contract.service';
+import { ShopService } from './shop.service';
+import { ConfigService } from './config.service';
+import { WebhooksService } from './webhooks.service';
+import { AnalyticsService } from './analytics.service';
+import { LocationService } from './location.service';
+import { AccountsService } from './accounts.service';
+import { SearchService } from './search.service';
+import { InvoiceService } from './invoice.service';
 
 @NgModule({
     providers: [

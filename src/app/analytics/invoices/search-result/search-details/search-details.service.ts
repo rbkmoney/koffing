@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { FormSearchParams } from 'koffing/analytics/invoices/search-form/form-search-params';
 import { SearchPaymentsParams } from 'koffing/backend/requests/search-payments-request';
-import { SearchService } from 'koffing/backend/services/search.service';
+import { SearchService } from 'koffing/backend/search.service';
 import { SearchResult } from 'koffing/analytics/invoices/search-result/search-details/search-result';
 import { PaymentSearchResult } from 'koffing/backend/model/payment-search-result';
 

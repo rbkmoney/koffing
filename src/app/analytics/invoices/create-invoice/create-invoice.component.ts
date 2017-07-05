@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } fro
 import * as moment from 'moment';
 
 import { CreateInvoiceFormData } from './create-invoice-form-data';
-import { InvoiceService } from 'koffing/backend/services/invoice.service';
+import { InvoiceService } from 'koffing/backend/invoice.service';
 import { Invoice } from 'koffing/backend/model/invoice';
 
 @Component({

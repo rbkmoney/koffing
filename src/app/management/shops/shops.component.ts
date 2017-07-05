@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { find } from 'lodash';
 
-import { Shop } from 'koffing/backend/model/shop.class';
-import { Category } from 'koffing/backend/model/category.class';
-import { ShopService } from 'koffing/backend/services/shop.service';
-import { CategoryService } from 'koffing/backend/services/category.service';
+import { Shop } from 'koffing/backend/model/shop';
+import { Category } from 'koffing/backend/model/category';
+import { ShopService } from 'koffing/backend/shop.service';
+import { CategoryService } from 'koffing/backend/category.service';
 import { ClaimRevokeBroadcaster } from 'koffing/broadcaster/services/claim-revoke-broadcaster.service';
-import { Claim } from '../shared/claim.class';
+import { Claim } from '../shared/claim';
 import { ClaimService } from '../shared/claim.service';
 
 @Component({

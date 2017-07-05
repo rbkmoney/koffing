@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ShopService } from 'koffing/backend/services/shop.service';
-import { WebhooksService } from 'koffing/backend/services/webhooks.service';
-import { CreateWebhook } from 'koffing/backend/queries/create-webhook';
-import { SelectItem } from 'koffing/common/components/select/select.class';
+import { ShopService } from 'koffing/backend/shop.service';
+import { WebhooksService } from 'koffing/backend/webhooks.service';
+import { CreateWebhookParams } from 'koffing/backend/requests/create-webhook-request';
+import { SelectItem } from 'koffing/common/select/select-item';
 
 @Component({
     selector: 'kof-webhook-item',
@@ -16,7 +16,7 @@ export class WebhooksItemComponent implements OnInit  {
 
     public shops: SelectItem[];
 
-    public model: CreateWebhook = {
+    public model: CreateWebhookParams = {
         url: undefined,
         scope: {
             topic: 'InvoicesTopic',

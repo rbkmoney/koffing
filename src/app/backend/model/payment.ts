@@ -1,5 +1,5 @@
-import { LogicError } from 'koffing/backend/model/logic-error';
-import { ContactInfo } from 'koffing/backend/model/contact-info';
+import { LogicError } from './logic-error';
+import { ContactInfo } from './contact-info';
 
 export class Payment {
     public id: string;

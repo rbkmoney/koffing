@@ -5,7 +5,7 @@ import { Subject } from 'rxjs/Subject';
 
 import { Invoice } from 'koffing/backend/model/invoice';
 import { FormSearchParams } from 'koffing/analytics/invoices/search-form/form-search-params';
-import { SearchService } from 'koffing/backend/services/search.service';
+import { SearchService } from 'koffing/backend/search.service';
 import { InvoicesService } from 'koffing/analytics/invoices/invoices.service';
 import { Action } from 'koffing/analytics/invoices/actions/action';
 
