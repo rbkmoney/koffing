@@ -2,7 +2,7 @@ import { assign, defaultTo } from 'lodash';
 
 import { ShopDetails } from './shop-details';
 import { ShopAccount } from './shop-account';
-import { ShopParams } from '../requests/shop-request';
+import { ShopParams } from '../requests/shop-params';
 
 export class Shop {
     public id: number;

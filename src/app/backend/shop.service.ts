@@ -4,7 +4,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { Shop } from './model/shop';
 import { ConfigService } from './config.service';
-import { ShopParams } from './requests/shop-request';
+import { ShopParams } from './requests/shop-params';
 import { Observable } from 'rxjs';
 
 @Injectable()

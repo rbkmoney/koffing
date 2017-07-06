@@ -11,7 +11,7 @@ import { Contract } from 'koffing/backend/model/contract';
 import { Invoice } from 'koffing/backend/model/invoice';
 import { Payment } from 'koffing/backend/model/payment';
 import { RussianLegalEntity } from 'koffing/backend/model/russian-legal-entity';
-import { SearchPaymentsParams } from 'koffing/backend/requests/search-payments-request';
+import { SearchPaymentsParams } from 'koffing/backend/requests/search-payments-params';
 import { Registry } from './registry';
 import { RegistryItem } from './registry-item';
 
