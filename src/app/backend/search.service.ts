@@ -7,8 +7,8 @@ import { toString, forEach, isNumber, isDate } from 'lodash';
 import { ConfigService } from './config.service';
 import { InvoiceSearchResult } from './model/invoice-search-result';
 import { PaymentSearchResult } from './model/payment-search-result';
-import { SearchInvoicesParams } from './requests/search-invoices-request';
-import { SearchPaymentsParams } from './requests/search-payments-request';
+import { SearchInvoicesParams } from './requests/search-invoices-params';
+import { SearchPaymentsParams } from './requests/search-payments-params';
 
 @Injectable()
 export class SearchService {

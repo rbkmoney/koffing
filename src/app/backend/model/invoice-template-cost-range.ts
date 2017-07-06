@@ -1,0 +1,12 @@
+import { InvoiceTemplateCost } from './invoice-template-cost';
+import { CostAmountRange } from './cost-amount-range';
+
+export class InvoiceTemplateCostRange extends InvoiceTemplateCost {
+    public range: CostAmountRange;
+
+    constructor() {
+        super();
+        this.invoiceTemplateCostType = 'InvoiceTemplateCostRange';
+        this.range = new CostAmountRange();
+    }
+}

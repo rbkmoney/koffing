@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { CreateInvoiceFormData } from './create-invoice-form-data';
 import { InvoiceService } from 'koffing/backend/invoice.service';
 import { Invoice } from 'koffing/backend/model/invoice';
+import { InvoiceParamsAll } from 'koffing/backend/requests/invoice-params-all';
 
 @Component({
     selector: 'kof-create-invoice',
@@ -30,15 +31,14 @@ export class CreateInvoiceComponent implements OnInit {
     }
 
     public create() {
-        const params = {
-            shopID: Number(this.shopID),
-            amount: this.formData.amount * 100,
-            currency: 'RUB',
-            metadata: {},
-            dueDate: moment(this.formData.dueDate).utc().format(),
-            product: this.formData.product,
-            description: this.formData.description
-        };
+        const params = new InvoiceParamsAll();
+        params.shopID = Number(this.shopID);
+        params.amount = this.formData.amount * 100;
+        params.currency = 'RUB';
+        params.metadata = {};
+        params.dueDate = moment(this.formData.dueDate).utc().format();
+        params.product = this.formData.product;
+        params.description = this.formData.description;
         this.invoiceService.createInvoice(params).subscribe((invoice) => {
             this.cancel();
             this.onCreate.emit(invoice);
