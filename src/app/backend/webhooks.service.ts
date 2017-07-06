@@ -14,8 +14,8 @@ export class WebhooksService {
         private config: ConfigService
     ) { }
 
-    public createWebhook(webhook: WebhookParams): Observable<Webhook> {
-        return this.http.post(`${this.config.capiUrl}/processing/webhooks`, webhook).map(res => res.json());
+    public createWebhook(params: WebhookParams): Observable<Webhook> {
+        return this.http.post(`${this.config.capiUrl}/processing/webhooks`, params).map(res => res.json());
     }
 
     public getWebhooks(): Observable<Webhook[]> {
