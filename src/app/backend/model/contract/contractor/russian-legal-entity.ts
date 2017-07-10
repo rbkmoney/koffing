@@ -1,9 +1,13 @@
 import { LegalEntity } from './legal-entity';
+import { BankAccount } from '../../bank-account';
 
-/**
- * @deprecated
- */
 export class RussianLegalEntity extends LegalEntity {
+
+    constructor() {
+        super();
+        this.entityType = 'RussianLegalEntity';
+    }
+
     public registeredName: string;
     public registeredNumber: string;
     public inn: string;
@@ -12,9 +16,5 @@ export class RussianLegalEntity extends LegalEntity {
     public representativePosition: string;
     public representativeFullName: string;
     public representativeDocument: string;
-
-    constructor() {
-        super();
-        this.entityType = 'RussianLegalEntity';
-    }
+    public bankAccount: BankAccount;
 }
