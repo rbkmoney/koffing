@@ -28,7 +28,7 @@ export class CategoryService {
         return this.http.get(this.endpoint).map((res) => res.json());
     }
 
-    public getCategoryByRef(categoryID: number): Observable<Category> {
+    public getCategoryByID(categoryID: number): Observable<Category> {
         return this.http.get(`${this.endpoint}/${categoryID}`).map((res) => res.json());
     }
 }
