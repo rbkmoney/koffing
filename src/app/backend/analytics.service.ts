@@ -28,7 +28,7 @@ export class AnalyticsService {
         search.set('splitUnit', splitUnit || 'minute');
         search.set('splitSize', this.getSplitSize(splitSize));
         search.set('paymentMethod', paymentMethod || 'bankCard');
-        return this.http.get(`${this.getEndpoint(shopID)}/payment_method`, {search})
+        return this.http.get(`${this.getEndpoint(shopID, 'customers')}/payment_method`, {search})
             .map((res) => res.json());
     }
 
@@ -39,7 +39,7 @@ export class AnalyticsService {
         const search = new URLSearchParams();
         search.set('fromTime', this.toUTC(from));
         search.set('toTime', this.toUTC(to));
-        return this.http.get(`${this.getEndpoint(shopID)}/rate`, {search})
+        return this.http.get(`${this.getEndpoint(shopID, 'customers')}/rate`, {search})
             .map((res) => res.json());
     }
 
@@ -52,7 +52,7 @@ export class AnalyticsService {
         search.set('toTime', this.toUTC(to));
         search.set('splitUnit', splitUnit || 'minute');
         search.set('splitSize', this.getSplitSize(splitSize));
-        return this.http.get(`${this.getEndpoint(shopID)}/conversion`, {search})
+        return this.http.get(`${this.getEndpoint(shopID, 'payments')}/conversion`, {search})
             .map((res) => res.json());
     }
 
@@ -65,7 +65,7 @@ export class AnalyticsService {
         search.set('toTime', this.toUTC(to));
         search.set('splitUnit', splitUnit || 'day');
         search.set('splitSize', this.getSplitSize(splitSize));
-        return this.http.get(`${this.getEndpoint(shopID)}/geo`, {search})
+        return this.http.get(`${this.getEndpoint(shopID, 'payments')}/geo`, {search})
             .map((res) => res.json());
     }
 
@@ -78,12 +78,12 @@ export class AnalyticsService {
         search.set('toTime', this.toUTC(to));
         search.set('splitUnit', splitUnit || 'minute');
         search.set('splitSize', this.getSplitSize(splitSize));
-        return this.http.get(`${this.getEndpoint(shopID)}/revenue`, {search})
+        return this.http.get(`${this.getEndpoint(shopID, 'payments')}/revenue`, {search})
             .map(res => res.json());
     }
 
-    private getEndpoint(shopID: number): string {
-        return `${this.config.capiUrl}/analytics/shops/${shopID}/payments/stats`;
+    private getEndpoint(shopID: number, resource: 'customers' | 'payments'): string {
+        return `${this.config.capiUrl}/analytics/shops/${shopID}/${resource}/stats`;
     }
 
     private toUTC(date: Date): string {
