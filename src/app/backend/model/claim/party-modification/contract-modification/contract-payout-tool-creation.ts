@@ -3,12 +3,16 @@ import { PayoutToolDetails } from '../../../payout-tool/payout-tool-details/payo
 
 export class ContractPayoutToolCreation extends ContractModification {
 
-    constructor() {
-        super();
-        this.contractModificationType = 'ContractPayoutToolCreation';
-    }
-
     public payoutToolID: string;
     public currency: string;
     public details: PayoutToolDetails;
+
+    constructor(contractID: string, payoutToolID: string, details: PayoutToolDetails) {
+        super();
+        this.currency = 'RUB';
+        this.contractModificationType = 'ContractPayoutToolCreation';
+        this.contractID = contractID;
+        this.payoutToolID = payoutToolID;
+        this.details = details;
+    }
 }

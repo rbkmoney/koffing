@@ -3,10 +3,11 @@ import { BankAccount } from '../../bank-account';
 
 export class PayoutToolBankAccount extends PayoutToolDetails {
 
-    constructor() {
+    public bankAccount: BankAccount;
+
+    constructor(bankAccount: BankAccount) {
         super();
         this.type = 'PayoutToolBankAccount';
+        this.bankAccount = bankAccount;
     }
-
-    public bankAccount: BankAccount;
 }

@@ -1,0 +1,20 @@
+form.form-horizontal.form-label-left.css-form([formGroup]="shopGroup", novalidate)
+    .ln_solid
+    .form-group
+        .col-xs-12.col-sm-5
+            label.text-left URL сайта магазина
+                span.highlighted  *
+        .col-xs-12.col-sm-7
+            input.form-control(type="text", formControlName="url")
+    .form-group
+        .col-xs-12.col-sm-5
+            label.text-left Название магазина
+                span.highlighted  *
+        .col-xs-12.col-sm-7
+            input.form-control(type="text", formControlName="name")
+    .form-group
+        .col-xs-12.col-sm-5
+            label.text-left Краткое описание
+        .col-xs-12.col-sm-7
+            input.form-control(type="text", formControlName="description")
+    .ln_solid
