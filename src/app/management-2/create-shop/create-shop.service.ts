@@ -1,75 +1,49 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
+import { Subject } from 'rxjs/Subject';
 
-import { ContractCreation } from 'koffing/backend/model/claim/party-modification/contract-modification/contract-creation';
-import { RussianLegalEntity } from 'koffing/backend/model/contract/contractor/russian-legal-entity';
-import { ContractPayoutToolCreation } from 'koffing/backend/model/claim/party-modification/contract-modification/contract-payout-tool-creation';
-import { PayoutToolBankAccount } from 'koffing/backend/model/payout-tool/payout-tool-details/payout-tool-bank-account';
-import { ShopCreation } from 'koffing/backend/model/claim/party-modification/shop-modification/shop-creation';
-import { ShopLocationUrl } from 'koffing/backend/model/shop/shop-location/shop-location-url';
-import { ShopDetails } from 'koffing/backend/model/shop/shop-details';
+import { PartyModification } from 'koffing/backend/model/claim/party-modification/party-modification';
+import { FormResolver } from 'koffing/management-2/create-shop/form-resolver.service';
+import { ShopCreationStep } from 'koffing/management-2/create-shop/shop-creation-step';
 
 @Injectable()
 export class CreateShopService {
 
-    constructor(private fb: FormBuilder) { }
+    public contractGroup: FormGroup;
+    public payoutToolGroup: FormGroup;
+    public shopGroup: FormGroup;
+    public changesetEmitter: Subject<PartyModification[]> = new Subject();
+    private changeset: PartyModification[] = [ , , ];
+    private contractID: string;
+    private payoutToolID: string;
 
-    public prepareContractForm(): FormGroup {
-        return this.fb.group({
-            registeredName: ['', Validators.required],
-            registeredNumber: ['', Validators.required],
-            inn: ['', Validators.required],
-            postAddress: ['', Validators.required],
-            actualAddress: ['', Validators.required],
-            representativePosition: ['', Validators.required],
-            representativeFullName: ['', Validators.required],
-            representativeDocument: ['', Validators.required],
-            bankAccount: this.prepareBankAccountForm()
+    constructor(private formResolver: FormResolver) {
+        this.contractGroup = this.formResolver.prepareContractGroup();
+        this.payoutToolGroup = this.formResolver.prepareBankAccountGroup();
+        this.shopGroup = this.formResolver.prepareShopGroup();
+        this.handleGroups();
+    }
+
+    private handleGroups() {
+        this.handleStatus(this.contractGroup, () => {
+            const contractCreation = this.formResolver.toContractCreation(this.contractGroup);
+            this.contractID = contractCreation.contractID;
+            this.changeset[ShopCreationStep.contract] = contractCreation;
+        });
+        this.handleStatus(this.payoutToolGroup, () => {
+            const payoutToolCreation = this.formResolver.toPayoutToolCreation(this.contractID, this.payoutToolGroup);
+            this.payoutToolID = payoutToolCreation.payoutToolID;
+            this.changeset[ShopCreationStep.payoutTool] = payoutToolCreation;
+        });
+        this.handleStatus(this.shopGroup, () => {
+            this.changeset[ShopCreationStep.shop] = this.formResolver.toShopCreation(this.contractID, this.payoutToolID, this.shopGroup);
         });
     }
 
-    public prepareBankAccountForm(): FormGroup {
-        return this.fb.group({
-            account: ['', Validators.required],
-            bankName: ['', Validators.required],
-            bankPostAccount: ['', Validators.required],
-            bankBik: ['', Validators.required]
-        });
-    }
-
-    public prepareShopForm(): FormGroup {
-        return this.fb.group({
-            url: ['', Validators.required],
-            name: ['', Validators.required],
-            description: ''
-        });
-    }
-
-    public toContractCreation(contractForm: FormGroup): ContractCreation {
-        const contractor = new RussianLegalEntity(contractForm.value);
-        return new ContractCreation(this.generateID(), contractor);
-    }
-
-    public toPayoutToolCreation(contractID: string, bankAccount: FormGroup): ContractPayoutToolCreation {
-        const details = new PayoutToolBankAccount(bankAccount.value);
-        return new ContractPayoutToolCreation(contractID, this.generateID(), details);
-    }
-
-    public toShopCreation(contractID: string, payoutToolID: string, shopForm: FormGroup): ShopCreation {
-        const val = shopForm.value;
-        return new ShopCreation({
-            shopID: this.generateID(),
-            location: new ShopLocationUrl(val.url),
-            details: new ShopDetails(val.name, val.description),
-            contractID, payoutToolID
-        });
-    }
-
-    private generateID(): string {
-        function s4() {
-            return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-        }
-
-        return `${s4()}${s4()}-${s4()}${s4()}-${s4()}${s4()}-${s4()}${s4()}`;
+    private handleStatus(group: FormGroup, doHandler: any) {
+        group.statusChanges
+            .filter((status) => status === 'VALID')
+            .do(doHandler)
+            .subscribe(() => this.changesetEmitter.next(this.changeset));
     }
 }

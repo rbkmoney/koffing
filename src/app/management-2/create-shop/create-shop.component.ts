@@ -1,41 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { CreateShopService } from './create-shop.service';
 import { ShopCreationStep } from './shop-creation-step';
 import { ClaimService } from 'koffing/backend/claim.service';
 import { PartyModification } from 'koffing/backend/model/claim/party-modification/party-modification';
+import { FormResolver } from 'koffing/management-2/create-shop/form-resolver.service';
 
 @Component({
     templateUrl: 'create-shop.component.pug',
-    providers: [CreateShopService, ClaimService]
+    providers: [CreateShopService, ClaimService, FormResolver]
 })
-export class CreateShopComponent {
+export class CreateShopComponent implements OnInit {
 
-    public valid = false;
+    public validStep = false;
 
     public step = ShopCreationStep;
 
     public currentStep = ShopCreationStep.contract;
 
-    private claimChangeset: PartyModification[] = [ , , ];
+    private changeset: PartyModification[];
 
-    constructor(private claimService: ClaimService) {}
+    constructor(private claimService: ClaimService,
+                private createShopService: CreateShopService) { }
+
+    public ngOnInit() {
+        this.createShopService.changesetEmitter.subscribe((changeset) => {
+            this.changeset = changeset;
+            this.validStep = !!changeset[this.currentStep];
+        });
+    }
 
     public next() {
-        this.valid = false;
+        this.validStep = false;
         this.currentStep = this.currentStep + 1;
     }
 
     public createClaim() {
-        this.claimService.createClaim(this.claimChangeset);
-    }
-
-    public onStatusChange(value: false | PartyModification) {
-        if (value) {
-            this.valid = true;
-            this.claimChangeset[this.currentStep] = value;
-        } else {
-            this.valid = false;
-        }
+        console.log(this.changeset);
+        this.claimService.createClaim(this.changeset);
     }
 }

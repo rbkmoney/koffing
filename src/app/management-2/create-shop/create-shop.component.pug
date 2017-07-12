@@ -1,24 +1,15 @@
 .x_panel
     .x_content
-        kof-contract-group(
-            *ngIf="currentStep === step.contract",
-            (onStatusChange)="onStatusChange($event)")
-        kof-payout-tool-group(
-            *ngIf="currentStep === step.payoutTool",
-            [contractID]="claimChangeset[step.contract].contractID",
-            (onStatusChange)="onStatusChange($event)")
-        kof-shop-group(
-            *ngIf="currentStep === step.shop",
-            [contractID]="claimChangeset[step.contract].contractID",
-            [payoutToolID]="claimChangeset[step.payoutTool].payoutToolID",
-            (onStatusChange)="onStatusChange($event)")
+        kof-contract-group(*ngIf="currentStep === step.contract")
+        kof-payout-tool-group(*ngIf="currentStep === step.payoutTool")
+        kof-shop-group(*ngIf="currentStep === step.shop")
         .row
             .col-xs-12
                 button.btn.btn-default.pull-right(
                     *ngIf="currentStep !== step.shop",
-                    [disabled]="!valid",
+                    [disabled]="!validStep",
                     (click)="next()") Далее
                 button.btn.btn-primary.pull-right(
                     *ngIf="currentStep === step.shop",
-                    [disabled]="!valid",
+                    [disabled]="!validStep",
                     (click)="createClaim()") Создать заявку
