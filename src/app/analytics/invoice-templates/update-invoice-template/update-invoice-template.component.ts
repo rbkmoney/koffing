@@ -22,7 +22,6 @@ export class UpdateInvoiceTemplateComponent implements OnInit {
 
     public formParams: InvoiceTemplateFormParams;
     public costTypesItems: SelectItem[] = [];
-    public isLoading: boolean = false;
 
     constructor(
         private invoiceTemplateService: InvoiceTemplateService,
