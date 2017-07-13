@@ -8,16 +8,18 @@ import { FormResolver } from 'koffing/management-2/create-shop/form-resolver.ser
 
 @Component({
     templateUrl: 'create-shop.component.pug',
-    providers: [CreateShopService, ClaimService, FormResolver]
+    providers: [
+        CreateShopService,
+        ClaimService,
+        FormResolver
+    ]
 })
 export class CreateShopComponent implements OnInit {
 
     public validStep = false;
-
     public step = ShopCreationStep;
-
     public currentStep = ShopCreationStep.contract;
-
+    public payoutToolGroup = this.createShopService.payoutToolGroup;
     private changeset: PartyModification[];
 
     constructor(private claimService: ClaimService,

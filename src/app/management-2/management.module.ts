@@ -8,8 +8,8 @@ import { SuggestionsModule } from 'koffing/suggestions/suggestions.module';
 import { ManagementRoutingModule } from './management-routing.module';
 import { CreateShopComponent } from './create-shop/create-shop.component';
 import { ContractGroupComponent } from './create-shop/contract-group/contract-group.component';
-import { PayoutToolGroupComponent } from './create-shop/payout-tool-group/payout-tool-group.component';
 import { ShopGroupComponent } from './create-shop/shop-group/shop-group.component';
+import { BankAccountFormComponent } from './create-shop/bank-account-form/bank-account-form.component';
 
 @NgModule({
     imports: [
@@ -24,8 +24,8 @@ import { ShopGroupComponent } from './create-shop/shop-group/shop-group.componen
     declarations: [
         CreateShopComponent,
         ContractGroupComponent,
-        PayoutToolGroupComponent,
-        ShopGroupComponent
+        ShopGroupComponent,
+        BankAccountFormComponent
     ]
 })
 export class ManagementModule { }

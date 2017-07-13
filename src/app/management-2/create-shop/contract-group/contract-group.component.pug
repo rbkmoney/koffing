@@ -1,29 +1,32 @@
 form.form-horizontal.form-label-left.css-form([formGroup]="contractGroup", novalidate)
-    .ln_solid
     .form-group
         .col-xs-12.col-sm-5
             label.text-left Зарегистрированное наименование юридического лица
                 span.highlighted  *
         .col-xs-12.col-sm-7
-            input.form-control(type="text", formControlName="registeredName")
+            input.form-control.has-feedback-right.contractor-suggestions(type="text", formControlName="registeredName")
+            i.fa.fa-magic.form-control-feedback.right(aria-hidden="true")
     .form-group
         .col-xs-12.col-sm-5
             label.text-left Регистрационный номер (ОГРН/ОГРНИП)
                 span.highlighted  *
         .col-xs-12.col-sm-7
-            input.form-control(type="text", formControlName="registeredNumber")
+            input.form-control.has-feedback-right.contractor-suggestions(type="text", formControlName="registeredNumber")
+            i.fa.fa-magic.form-control-feedback.right(aria-hidden="true")
     .form-group
         .col-xs-12.col-sm-5
             label.text-left Идентификационный номер налогоплательщика (ИНН)
                 span.highlighted  *
         .col-xs-12.col-sm-7
-            input.form-control(type="text", formControlName="inn")
+            input.form-control.has-feedback-right.contractor-suggestions(type="text", formControlName="inn")
+            i.fa.fa-magic.form-control-feedback.right(aria-hidden="true")
     .form-group
         .col-xs-12.col-sm-5
             label.text-left Почтовый адрес для отправки корреспонденции
                 span.highlighted  *
         .col-xs-12.col-sm-7
-            input.form-control(type="text", formControlName="postAddress")
+            input.form-control.has-feedback-right.contractor-suggestions(type="text", formControlName="postAddress")
+            i.fa.fa-magic.form-control-feedback.right(aria-hidden="true")
     .form-group
         .col-xs-12.col-sm-5
             label.text-left Почтовый адрес места нахождения
@@ -49,29 +52,4 @@ form.form-horizontal.form-label-left.css-form([formGroup]="contractGroup", noval
         .col-xs-12.col-sm-7
             input.form-control(type="text", formControlName="representativeDocument")
     .ln_solid
-    div(formGroupName="bankAccount")
-        .form-group
-            .col-xs-12.col-sm-5
-                label.text-left БИК банковской организации
-                    span.highlighted  *
-            .col-xs-12.col-sm-7
-                input.form-control(type="text", formControlName="bankBik")
-        .form-group
-            .col-xs-12.col-sm-5
-                label.text-left Наименование банка
-                    span.highlighted  *
-            .col-xs-12.col-sm-7
-                input.form-control(type="text", formControlName="bankName")
-        .form-group
-            .col-xs-12.col-sm-5
-                label.text-left Корреспондентский счет
-                    span.highlighted  *
-            .col-xs-12.col-sm-7
-                input.form-control(type="text", formControlName="bankPostAccount")
-        .form-group
-            .col-xs-12.col-sm-5
-                label.text-left Расчетный счет
-                    span.highlighted  *
-            .col-xs-12.col-sm-7
-                input.form-control(type="text", formControlName="account")
-    .ln_solid
+    kof-bank-account-form([form]="accountGroup")

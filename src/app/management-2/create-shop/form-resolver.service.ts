@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { ContractCreation } from 'koffing/backend/model/claim/party-modification/contract-modification/contract-creation';
+import { ContractCreation, ContractPayoutToolCreation, ShopCreation } from 'koffing/backend/model/claim';
+// TODO fix urls
 import { RussianLegalEntity } from 'koffing/backend/model/contract/contractor/russian-legal-entity';
-import { ContractPayoutToolCreation } from 'koffing/backend/model/claim/party-modification/contract-modification/contract-payout-tool-creation';
 import { PayoutToolBankAccount } from 'koffing/backend/model/payout-tool/payout-tool-details/payout-tool-bank-account';
-import { ShopCreation } from 'koffing/backend/model/claim/party-modification/shop-modification/shop-creation';
-import { ShopLocationUrl } from 'koffing/backend/model/shop/shop-location/shop-location-url';
 import { ShopDetails } from 'koffing/backend/model/shop/shop-details';
+import { ShopLocationUrl } from 'koffing/backend/model/shop/shop-location/shop-location-url';
 
 @Injectable()
 export class FormResolver {

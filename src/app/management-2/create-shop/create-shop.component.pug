@@ -1,8 +1,10 @@
 .x_panel
     .x_content
+        .ln_solid
         kof-contract-group(*ngIf="currentStep === step.contract")
-        kof-payout-tool-group(*ngIf="currentStep === step.payoutTool")
+        kof-bank-account-form(*ngIf="currentStep === step.payoutTool", [form]="payoutToolGroup")
         kof-shop-group(*ngIf="currentStep === step.shop")
+        .ln_solid
         .row
             .col-xs-12
                 button.btn.btn-default.pull-right(

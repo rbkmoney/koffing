@@ -1,17 +1,18 @@
-form.form-horizontal.form-label-left.css-form([formGroup]="bankAccountGroup", novalidate)
-    .ln_solid
+form.form-horizontal.form-label-left.css-form([formGroup]="form", novalidate)
     .form-group
         .col-xs-12.col-sm-5
             label.text-left БИК банковской организации
                 span.highlighted  *
         .col-xs-12.col-sm-7
-            input.form-control(type="text", formControlName="bankBik")
+            input.form-control.has-feedback-right.bank-suggestions(type="text", formControlName="bankBik")
+            i.fa.fa-magic.form-control-feedback.right(aria-hidden="true")
     .form-group
         .col-xs-12.col-sm-5
             label.text-left Наименование банка
                 span.highlighted  *
         .col-xs-12.col-sm-7
-            input.form-control(type="text", formControlName="bankName")
+            input.form-control.has-feedback-right.bank-suggestions(type="text", formControlName="bankName")
+            i.fa.fa-magic.form-control-feedback.right(aria-hidden="true")
     .form-group
         .col-xs-12.col-sm-5
             label.text-left Корреспондентский счет
@@ -24,4 +25,3 @@ form.form-horizontal.form-label-left.css-form([formGroup]="bankAccountGroup", no
                 span.highlighted  *
         .col-xs-12.col-sm-7
             input.form-control(type="text", formControlName="account")
-    .ln_solid
