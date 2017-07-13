@@ -1,5 +1,6 @@
 import { round } from 'lodash';
 
+import { SelectItem } from 'koffing/common/select/select-item';
 import { LifetimeInterval } from 'koffing/backend/model/lifetime-interval';
 import { InvoiceTemplateCostRange } from 'koffing/backend/model/invoice-template-cost-range';
 import { InvoiceTemplateCostFixed } from 'koffing/backend/model/invoice-template-cost-fixed';
@@ -37,7 +38,7 @@ export class InvoiceTemplateFormService {
         return params;
     }
 
-    public static getCostTypesItems() {
+    public static getCostTypesItems(): SelectItem[] {
         return [
             { value: COST_TYPES[COST_TYPES.InvoiceTemplateCostFixed], label: 'Фиксированная стоимость' },
             { value: COST_TYPES[COST_TYPES.InvoiceTemplateCostRange], label: 'Диапазон стоимости' }
