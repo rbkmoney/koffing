@@ -7,9 +7,9 @@ import { BackendModule } from 'koffing/backend/backend.module';
 import { SuggestionsModule } from 'koffing/suggestions/suggestions.module';
 import { ManagementRoutingModule } from './management-routing.module';
 import { CreateShopComponent } from './create-shop/create-shop.component';
-import { ContractGroupComponent } from './create-shop/contract-group/contract-group.component';
-import { ShopGroupComponent } from './create-shop/shop-group/shop-group.component';
-import { BankAccountFormComponent } from './create-shop/bank-account-form/bank-account-form.component';
+import { ContractFormComponent } from './contract-form/contract-form.component';
+import { ShopGroupComponent } from './shop-form/shop-form.component';
+import { BankAccountFormComponent } from './bank-account-form/bank-account-form.component';
 
 @NgModule({
     imports: [
@@ -23,7 +23,7 @@ import { BankAccountFormComponent } from './create-shop/bank-account-form/bank-a
     ],
     declarations: [
         CreateShopComponent,
-        ContractGroupComponent,
+        ContractFormComponent,
         ShopGroupComponent,
         BankAccountFormComponent
     ]
