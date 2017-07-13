@@ -30,12 +30,12 @@ import { SearchDetailsComponent } from './invoices/search-result/search-details/
 import { PaymentInfoComponent } from './invoices/search-result/payment-info/payment-info.component';
 import { InvoiceTemplatesComponent } from './invoice-templates/invoice-templates.component';
 import { ActionsInvoiceTemplatesComponent } from './invoice-templates/actions-invoice-templates/actions-invoice-templates.component';
-import { SearchFormInvoiceTemplatesComponent } from './invoice-templates/search-form-invoice-templates/search-form-invoice-templates.component';
-import { SearchResultInvoiceTemplatesComponent } from './invoice-templates/search-result-invoice-templates/search-result-invoice-templates.component';
-import { SearchDetailsInvoiceTemplateComponent } from './invoice-templates/search-result-invoice-templates/search-details-invoice-template.component';
 import { CreateInvoiceTemplateComponent } from './invoice-templates/create-invoice-template/create-invoice-template.component';
 import { UpdateInvoiceTemplateComponent } from './invoice-templates/update-invoice-template/update-invoice-template.component';
 import { DeleteInvoiceTemplateComponent } from './invoice-templates/delete-invoice-template/delete-invoice-template.component';
+import { SearchFormInvoiceTemplatesComponent } from './invoice-templates/search-form-invoice-templates/search-form-invoice-templates.component';
+import { SearchResultInvoiceTemplatesComponent } from './invoice-templates/search-result-invoice-templates/search-result-invoice-templates.component';
+import { SearchDetailsInvoiceTemplateComponent } from './invoice-templates/search-result-invoice-templates/search-details-invoice-template.component';
 
 @NgModule({
     imports: [
