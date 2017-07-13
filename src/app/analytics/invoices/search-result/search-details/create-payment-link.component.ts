@@ -8,7 +8,7 @@ import { PaymentLinkArguments } from './payment-link-arguments';
 @Component({
     selector: 'kof-create-payment-link',
     templateUrl: './create-payment-link.component.pug',
-    styles: [` textarea { resize: vertical } input.form-control { height: 30px }`]
+    styles: [` input.form-control { height: 30px }`]
 })
 export class CreatePaymentLinkComponent implements OnInit {
 

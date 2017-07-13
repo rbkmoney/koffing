@@ -1,0 +1,21 @@
+.ln_solid
+kof-actions-invoice-templates([activeAction]="activeAction", (onAction)="onAction($event)")
+.ln_solid
+.row(*ngIf="activeAction === actions.search")
+    .col-xs-12
+        kof-search-form-invoice-templates(
+            [searchInvoiceTemplatesParams]="searchInvoiceTemplatesParams",
+            (onSearch)="onSearch($event)",
+            [isSearching]="isLoading")
+.row(*ngIf="activeAction === actions.create")
+    .col-xs-12
+        kof-create-invoice-template([shopID]="shopID", (onCreate)="onCreate($event)")
+.row
+    .col-xs-12
+        kof-search-result-invoice-templates([invoiceTemplates]="invoiceTemplates")
+        kof-paginate(
+            [size]="totalCount",
+            [limit]="limit",
+            [offset]="offset",
+            [pagesOnScreen]="10",
+            (onChange)="onChangePage($event)")

@@ -6,7 +6,6 @@ import { ConfigService } from './config.service';
 import { InvoiceTemplate } from './model/invoice-template';
 import { InvoiceTemplateParams } from './requests/invoice-template-params';
 
-
 @Injectable()
 export class InvoiceTemplateService {
 

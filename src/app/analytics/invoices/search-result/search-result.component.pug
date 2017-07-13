@@ -17,7 +17,7 @@ table.table.table-striped
             td.hidden-xs {{item.invoice.dueDate | date: "dd.MM.yyyy HH:mm:ss"}}
             td
                 .pull-right
-                    button.btn.btn-xs.btn-default((click)="togglePaymentPanel(item)") {{item.visible ? 'Скрыть' : 'Показать'}} детали
+                    button.btn.btn-xs.btn-default((click)="toggleVisibilityDetailPanel(item)") {{item.visible ? 'Скрыть' : 'Показать'}} детали
         tr(*ngIf="item.visible")
             td(colspan=6)
                 kof-search-details([invoice]="item.invoice", [searchParams]="searchParams")

@@ -11,6 +11,5 @@ export class InvoiceTemplateParams {
 
     constructor() {
         this.lifetime = new LifetimeInterval();
-        this.cost = new InvoiceTemplateCost();
     }
 }

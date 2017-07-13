@@ -4,11 +4,11 @@ kof-loading([isLoading]="isLoading")
             .row.shop-selector
                 .col-xs-12.col-sm-6
                     kof-select(*ngIf="shopItems.length",
-                    [(ngModel)]="currentShopID",
-                    [items]="shopItems",
-                    (onChange)="navigate()",
-                    [modelOptions]="{standalone: true}",
-                    name='shopId')
+                        [(ngModel)]="currentShopID",
+                        [items]="shopItems",
+                        (onChange)="navigate()",
+                        [modelOptions]="{standalone: true}",
+                        name='shopId')
             .row
                 .col-xs-12
                     ul.nav.nav-tabs.bar_tabs(*ngIf="currentShopID")
@@ -16,6 +16,8 @@ kof-loading([isLoading]="isLoading")
                             a Статистика
                         li.hand-cursor([routerLink]="['invoices']", [routerLinkActive]="['active']")
                             a Инвойсы
+                        li.hand-cursor([routerLink]="['invoice-templates']", [routerLinkActive]="['active']")
+                            a Шаблоны инвойсов
                         li.hand-cursor([routerLink]="['registry']", [routerLinkActive]="['active']")
                             a Реестры
                     .tab-content

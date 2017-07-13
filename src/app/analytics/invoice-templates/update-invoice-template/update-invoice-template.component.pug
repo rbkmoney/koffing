@@ -1,0 +1,63 @@
+button.btn.btn-default.btn-sm(data-toggle="modal", [attr.data-target]="'#' + invoiceTemplate.id")
+    | Редактировать шаблон
+
+.modal.fade(tabindex="-1", role="dialog", id="{{invoiceTemplate.id}}", data-backdrop="false")
+    .modal-dialog.modal-lg
+        .modal-content
+            .modal-header
+                button(class="close", data-dismiss="modal", aria-label="Close")
+                    span(aria-hidden="true") &times;
+                h4.modal-title Редактирование шаблона инвойса
+            .modal-body
+                form.css-form(novalidate, name="updateInvoiceTemplateForm", #updateInvoiceTemplateForm="ngForm")
+                    .row
+                        .col-xs-12
+                            .form-group
+                                label.text-left Наименование предлагаемых товаров или услуг:
+                                    span.highlighted  *
+                                input.form-control([(ngModel)]="formParams.product", maxlength="100", required, name="product", #product="ngModel")
+                    .row
+                        .col-xs-12
+                            .form-group
+                                label.text-left Тип ограничения стоимости:
+                                    span.highlighted
+                                kof-select([(ngModel)]="formParams.costType", [items]="costTypesItems", [placeholder]="'Без ограничений'", [modelOptions]="{standalone: true}", name="costTypesItems")
+                        div(*ngIf="formParams.costType === 'InvoiceTemplateCostFixed'")
+                            .col-xs-12
+                                .form-group
+                                    label.text-left Стоимость предлагаемых товаров или услуг:
+                                        span.highlighted  *
+                                    input.form-control(type="number", [(ngModel)]="formParams.costAmount", kofMin=10, required, name="amount", #amount="ngModel")
+                        div(*ngIf="formParams.costType === 'InvoiceTemplateCostRange'")
+                            .col-xs-6.col-sm-6
+                                .form-group
+                                    label.text-left Нижняя граница стоимости:
+                                        span.highlighted  *
+                                    input.form-control(type="number", [(ngModel)]="formParams.costLowerBound", kofMin=10, kofMax="{{ formParams.costUpperBound }}", required, name="lowerBound", #lowerBound="ngModel")
+                            .col-xs-6.col-sm-6
+                                .form-group
+                                    label.text-left Верхняя граница стоимости:
+                                        span.highlighted  *
+                                    input.form-control(type="number", [(ngModel)]="formParams.costUpperBound", kofMin="{{ formParams.costLowerBound }}", required, name="upperBound", #upperBound="ngModel")
+                    .row
+                        .col-xs-12
+                            .form-group
+                                label.text-left Описание предлагаемых товаров или услуг:
+                                textarea.form-control([(ngModel)]="formParams.description", maxlength="1000", rows="3", name="description", #description="ngModel")
+                    .row
+                        .col-xs-12
+                            .form-group
+                                label.text-left Время жизни инвойса:
+                        .col-xs-4
+                            .form-group
+                                input.form-control(type="number", [(ngModel)]="formParams.lifetimeDays", kofMin=0, [placeholder]="'дни'", name="days", #days="ngModel")
+                        .col-xs-4
+                            .form-group
+                                input.form-control(type="number", [(ngModel)]="formParams.lifetimeMonths", kofMin=0, [placeholder]="'месяцы'", name="months", #months="ngModel")
+                        .col-xs-4
+                            .form-group
+                                input.form-control(type="number", [(ngModel)]="formParams.lifetimeYears", kofMin=0, [placeholder]="'года'", name="years", #years="ngModel")
+            .modal-footer
+                .btn-toolbar.pull-right
+                    .btn-group.btn-group-sm
+                        button.btn.btn-primary(data-dismiss="modal", (click)="updateInvoiceTemplate()", [disabled]="!updateInvoiceTemplateForm.valid") Сохранить шаблон

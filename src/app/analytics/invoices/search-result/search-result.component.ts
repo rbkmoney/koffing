@@ -38,7 +38,7 @@ export class SearchResultComponent implements OnInit {
         };
     }
 
-    public togglePaymentPanel(item: InvoiceTableItem) {
+    public toggleVisibilityDetailPanel(item: InvoiceTableItem) {
         item.visible = !item.visible;
     }
 }
