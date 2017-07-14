@@ -3,7 +3,8 @@ import { FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'kof-shop-form',
-    templateUrl: 'shop-form.component.pug'
+    templateUrl: 'shop-form.component.pug',
+    styleUrls: ['shop-form.component.less']
 })
 export class ShopGroupComponent {
 

@@ -7,6 +7,7 @@ import { ContractFormService } from './contract-form.service';
 @Component({
     selector: 'kof-contract-form',
     templateUrl: 'contract-form.component.pug',
+    styleUrls: ['contract-form.component.less'],
     providers: [ContractFormService]
 })
 export class ContractFormComponent implements OnInit, AfterViewInit {

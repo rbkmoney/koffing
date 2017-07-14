@@ -7,6 +7,7 @@ import { BankAccountFormService } from './bank-account-form.service';
 @Component({
     selector: 'kof-bank-account-form',
     templateUrl: 'bank-account-form.component.pug',
+    styleUrls: ['bank-account-form.component.less'],
     providers: [BankAccountFormService]
 })
 export class BankAccountFormComponent implements AfterViewInit {
@@ -22,7 +23,7 @@ export class BankAccountFormComponent implements AfterViewInit {
     }
 
     private initBankSuggestions() {
-        const selector = '.bank-suggestions'; // TODO need dynamic selector
+        const selector = '.bank-suggestions';
         this.suggestionsService.initBankSuggestions(selector, this.handleBank.bind(this));
     }
 

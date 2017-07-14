@@ -7,7 +7,7 @@ import { CreateShopComponent } from 'koffing/management-2/create-shop/create-sho
     imports: [
         RouterModule.forChild([
             {
-                path: 'management2/shop/create',
+                path: 'management/shop/create',
                 component: CreateShopComponent
             }
         ])

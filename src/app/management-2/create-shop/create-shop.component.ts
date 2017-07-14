@@ -4,7 +4,7 @@ import { CreateShopService } from './create-shop.service';
 import { ShopCreationStep } from './shop-creation-step';
 import { ClaimService } from 'koffing/backend/claim.service';
 import { PartyModification } from 'koffing/backend/model/claim/party-modification/party-modification';
-import { FormResolver } from 'koffing/management-2/create-shop/form-resolver.service';
+import { FormResolver } from './form-resolver.service';
 
 @Component({
     templateUrl: 'create-shop.component.pug',
@@ -13,15 +13,7 @@ import { FormResolver } from 'koffing/management-2/create-shop/form-resolver.ser
         ClaimService,
         FormResolver
     ],
-    styles: [` 
-        .wizard_steps {
-            padding-left: 0;
-        }
-        .wizard_horizontal ul.wizard_steps li {
-            width: 33%;
-            display: table-cell!important;
-        }
-    `]
+    styleUrls: ['create-shop.component.less']
 })
 export class CreateShopComponent implements OnInit {
 
