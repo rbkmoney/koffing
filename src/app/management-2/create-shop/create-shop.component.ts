@@ -13,7 +13,7 @@ import { FormResolver } from 'koffing/management-2/create-shop/form-resolver.ser
         ClaimService,
         FormResolver
     ],
-    styleUrls: [` 
+    styles: [` 
         .wizard_steps {
             padding-left: 0;
         }
@@ -39,21 +39,26 @@ export class CreateShopComponent implements OnInit {
     public ngOnInit() {
         this.createShopService.changesetEmitter.subscribe((changeset) => {
             this.changeset = changeset;
-            this.validStep = !!changeset[this.currentStep]; // TODO fix it
+            this.validStep = this.isValid();
         });
     }
 
     public next() {
-        this.validStep = false;
         this.currentStep = this.currentStep + 1;
+        this.validStep = this.isValid();
     }
 
     public prev() {
         this.currentStep = this.currentStep - 1;
+        this.validStep = this.isValid();
     }
 
     public createClaim() {
         console.log(this.changeset);
-        this.claimService.createClaim(this.changeset);
+        this.claimService.createClaim(this.changeset).subscribe((result) => console.log(result));
+    }
+
+    private isValid(): boolean {
+        return !!this.changeset[this.currentStep];
     }
 }

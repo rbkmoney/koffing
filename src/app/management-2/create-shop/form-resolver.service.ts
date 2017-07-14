@@ -11,37 +11,78 @@ import { ShopLocationUrl } from 'koffing/backend/model/shop/shop-location/shop-l
 @Injectable()
 export class FormResolver {
 
-    constructor(private fb: FormBuilder) {
-    }
+    constructor(private fb: FormBuilder) { }
 
     public prepareContractGroup(): FormGroup {
         return this.fb.group({
-            registeredName: ['', Validators.required],
-            registeredNumber: ['', Validators.required],
-            inn: ['', Validators.required],
-            postAddress: ['', Validators.required],
-            actualAddress: ['', Validators.required],
-            representativePosition: ['', Validators.required],
-            representativeFullName: ['', Validators.required],
-            representativeDocument: ['', Validators.required],
+            registeredName: ['', [
+                Validators.required,
+                Validators.maxLength(100)
+            ]],
+            registeredNumber: ['', [
+                Validators.required,
+                Validators.pattern(/^(\d{13}|\d{15})$/)
+            ]],
+            inn: ['', [
+                Validators.required,
+                Validators.pattern(/^\d{10}$/)
+            ]],
+            postAddress: ['', [
+                Validators.required,
+                Validators.maxLength(1000)
+            ]],
+            actualAddress: ['', [
+                Validators.required,
+                Validators.maxLength(1000)
+            ]],
+            representativePosition: ['', [
+                Validators.required,
+                Validators.maxLength(100)
+            ]],
+            representativeFullName: ['', [
+                Validators.required,
+                Validators.maxLength(100)
+            ]],
+            representativeDocument: ['', [
+                Validators.required,
+                Validators.maxLength(1000)
+            ]],
             bankAccount: this.prepareBankAccountGroup()
         });
     }
 
     public prepareBankAccountGroup(): FormGroup {
         return this.fb.group({
-            account: ['', Validators.required],
-            bankName: ['', Validators.required],
-            bankPostAccount: ['', Validators.required],
-            bankBik: ['', Validators.required]
+            account: ['', [
+                Validators.required,
+                Validators.pattern(/^\d{20}$/)
+            ]],
+            bankName: ['', [
+                Validators.required,
+                Validators.maxLength(100)
+            ]],
+            bankPostAccount: ['', [
+                Validators.required,
+                Validators.pattern(/^\d{20}$/)
+            ]],
+            bankBik: ['', [
+                Validators.required,
+                Validators.pattern(/^\d{9}$/)
+            ]]
         });
     }
 
     public prepareShopGroup(): FormGroup {
         return this.fb.group({
-            url: ['', Validators.required],
-            name: ['', Validators.required],
-            description: ''
+            url: ['', [
+                Validators.required,
+                Validators.maxLength(1000)
+            ]],
+            name: ['', [
+                Validators.required,
+                Validators.maxLength(100)
+            ]],
+            description: ['', Validators.maxLength(1000)]
         });
     }
 

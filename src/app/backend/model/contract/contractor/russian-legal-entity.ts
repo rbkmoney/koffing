@@ -32,6 +32,7 @@ export class RussianLegalEntity extends LegalEntity {
         this.actualAddress = options.actualAddress;
         this.postAddress = options.postAddress;
         this.representativePosition = options.representativePosition;
+        this.representativeFullName = options.representativeFullName;
         this.representativeDocument = options.representativeDocument;
         this.bankAccount = options.bankAccount;
     }

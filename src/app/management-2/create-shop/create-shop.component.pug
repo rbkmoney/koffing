@@ -3,7 +3,7 @@
         .form_wizard.wizard_horizontal
             ul.wizard_steps
                 li.first_step
-                    a([ngClass]="{'done': currentStep > contractStep, 'selected': currentStep === step.contract}")
+                    a([ngClass]="{'done': currentStep > step.contract, 'selected': currentStep === step.contract}")
                         span.step_no 1
                         span.step_descr Контракт
                 li
@@ -15,9 +15,9 @@
                         span.step_no 3
                         span.step_descr Данные магазина
         .ln_solid
-        kof-contract-group(*ngIf="currentStep === step.contract", [form]="contractGroup")
+        kof-contract-form(*ngIf="currentStep === step.contract", [form]="contractGroup")
         kof-bank-account-form(*ngIf="currentStep === step.payoutTool", [form]="payoutToolGroup")
-        kof-shop-group(*ngIf="currentStep === step.shop", [form]="shopGroup")
+        kof-shop-form(*ngIf="currentStep === step.shop", [form]="shopGroup")
         .ln_solid
         .row
             .col-xs-12

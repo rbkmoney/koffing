@@ -5,7 +5,7 @@ import { SuggestionsService } from 'koffing/suggestions/services/suggestions.ser
 import { ContractFormService } from './contract-form.service';
 
 @Component({
-    selector: 'kof-contract-group',
+    selector: 'kof-contract-form',
     templateUrl: 'contract-form.component.pug',
     providers: [ContractFormService]
 })
