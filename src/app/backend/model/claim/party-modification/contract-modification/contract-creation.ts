@@ -3,10 +3,12 @@ import { Contractor } from '../../../contract/contractor/contractor';
 
 export class ContractCreation extends ContractModification {
 
-    constructor() {
+    public contractor: Contractor;
+
+    constructor(contractID: string, contractor: Contractor) {
         super();
         this.contractModificationType = 'ContractCreation';
+        this.contractID = contractID;
+        this.contractor = contractor;
     }
-
-    public contractor: Contractor;
 }
