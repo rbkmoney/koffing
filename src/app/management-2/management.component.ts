@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-
 import { ClaimService } from 'koffing/backend/claim.service';
 import { Claim } from 'koffing/backend';
 
