@@ -10,6 +10,8 @@ import { CreateShopComponent } from './create-shop/create-shop.component';
 import { ContractFormComponent } from './contract-form/contract-form.component';
 import { ShopGroupComponent } from './shop-form/shop-form.component';
 import { BankAccountFormComponent } from './bank-account-form/bank-account-form.component';
+import { ManagementComponent } from './management.component';
+import { ClaimService } from 'koffing/backend/claim.service';
 
 @NgModule({
     imports: [
@@ -22,10 +24,12 @@ import { BankAccountFormComponent } from './bank-account-form/bank-account-form.
         SuggestionsModule
     ],
     declarations: [
+        ManagementComponent,
         CreateShopComponent,
         ContractFormComponent,
         ShopGroupComponent,
         BankAccountFormComponent
-    ]
+    ],
+    providers: [ClaimService]
 })
 export class ManagementModule { }

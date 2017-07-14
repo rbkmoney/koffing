@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { CreateShopService } from './create-shop.service';
 import { ShopCreationStep } from './shop-creation-step';
@@ -10,7 +11,6 @@ import { FormResolver } from './form-resolver.service';
     templateUrl: 'create-shop.component.pug',
     providers: [
         CreateShopService,
-        ClaimService,
         FormResolver
     ],
     styleUrls: ['create-shop.component.less']
@@ -26,7 +26,8 @@ export class CreateShopComponent implements OnInit {
     private changeset: PartyModification[];
 
     constructor(private claimService: ClaimService,
-                private createShopService: CreateShopService) { }
+                private createShopService: CreateShopService,
+                private router: Router) { }
 
     public ngOnInit() {
         this.createShopService.changesetEmitter.subscribe((changeset) => {
@@ -46,8 +47,8 @@ export class CreateShopComponent implements OnInit {
     }
 
     public createClaim() {
-        console.log(this.changeset);
-        this.claimService.createClaim(this.changeset).subscribe((result) => console.log(result));
+        this.claimService.createClaim(this.changeset).subscribe(() =>
+            this.router.navigate(['/management']));
     }
 
     private isValid(): boolean {
