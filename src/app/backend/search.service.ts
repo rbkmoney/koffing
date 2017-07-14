@@ -7,7 +7,7 @@ import { toString, forEach, isNumber, isDate } from 'lodash';
 import { ConfigService } from './config.service';
 import { InvoiceSearchResult } from './model/invoice-search-result';
 import { PaymentSearchResult } from './model/payment-search-result';
-import { InvoiceTemplatesSearchResult } from './model/invoice-templates-search-result';
+import { InvoiceTemplatesSearchResult } from './model/invoice-template/invoice-templates-search-result';
 import { SearchInvoicesParams } from './requests/search-invoices-params';
 import { SearchPaymentsParams } from './requests/search-payments-params';
 import { SearchInvoiceTemplatesParams } from './requests/search-invoice-templates-params';

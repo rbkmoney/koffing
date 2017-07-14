@@ -1,10 +1,10 @@
 import { round } from 'lodash';
 
 import { SelectItem } from 'koffing/common/select/select-item';
-import { LifetimeInterval } from 'koffing/backend/model/lifetime-interval';
-import { InvoiceTemplateCostRange } from 'koffing/backend/model/invoice-template-cost-range';
-import { InvoiceTemplateCostFixed } from 'koffing/backend/model/invoice-template-cost-fixed';
-import { InvoiceTemplateParams } from 'koffing/backend/requests/invoice-template-params';
+import { LifetimeInterval } from 'koffing/backend';
+import { InvoiceTemplateCostRange } from 'koffing/backend';
+import { InvoiceTemplateCostFixed } from 'koffing/backend';
+import { InvoiceTemplateParams } from 'koffing/backend';
 import { InvoiceTemplateFormParams } from './invoice-template-form-params';
 import { InvoiceTemplateCostTypes as COST_TYPES } from './invoice-template-cost-types';
 

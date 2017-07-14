@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { SelectItem } from 'koffing/common/select/select-item';
-import { InvoiceTemplate } from 'koffing/backend/model/invoice-template';
-import { InvoiceTemplateService } from 'koffing/backend/invoice-template.service';
+import { InvoiceTemplate } from 'koffing/backend';
+import { InvoiceTemplateService } from 'koffing/backend';
 import { InvoiceTemplateFormParams } from './invoice-template-form-params';
 import { InvoiceTemplateFormService } from './invoice-template-form.service';
 

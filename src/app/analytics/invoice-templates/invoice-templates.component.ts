@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 
-import { InvoiceTemplate } from 'koffing/backend/model/invoice-template';
-import { InvoiceTemplateService } from 'koffing/backend/invoice-template.service';
-import { SearchService } from 'koffing/backend/search.service';
-import { SearchInvoiceTemplatesParams } from 'koffing/backend/requests/search-invoice-templates-params';
+import { InvoiceTemplate } from 'koffing/backend';
+import { InvoiceTemplateService } from 'koffing/backend';
+import { SearchService } from 'koffing/backend';
+import { SearchInvoiceTemplatesParams } from 'koffing/backend';
+import { SearchInvoiceTemplatesBroadcaster } from 'koffing/broadcaster';
 import { ActionsInvoiceTemplates } from './actions-invoice-templates/actions-invoice-templates';
-import { SearchInvoiceTemplatesBroadcaster } from 'koffing/broadcaster/broadcaster.module';
 
 @Component({
     templateUrl: 'invoice-templates.component.pug',

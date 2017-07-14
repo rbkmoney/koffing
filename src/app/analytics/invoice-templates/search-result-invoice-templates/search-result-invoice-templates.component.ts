@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { InvoiceTemplate } from 'koffing/backend/model/invoice-template';
+import { InvoiceTemplate } from 'koffing/backend';
 import { DataTransformService } from 'koffing/common/data-transform/data-transform.service';
 import { HidingTableItem } from 'koffing/common/data-transform/hiding-table-item';
 

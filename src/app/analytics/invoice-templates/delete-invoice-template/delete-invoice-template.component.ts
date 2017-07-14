@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
-import { InvoiceTemplateService } from 'koffing/backend/invoice-template.service';
-import { SearchInvoiceTemplatesBroadcaster } from 'koffing/broadcaster/broadcaster.module';
+import { InvoiceTemplateService } from 'koffing/backend';
+import { SearchInvoiceTemplatesBroadcaster } from 'koffing/broadcaster';
 
 @Component({
     selector: 'kof-delete-invoice-template',

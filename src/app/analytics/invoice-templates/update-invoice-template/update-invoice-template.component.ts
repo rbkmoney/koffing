@@ -2,11 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { divide } from 'lodash';
 
 import { SelectItem } from 'koffing/common/select/select-item';
-import { InvoiceTemplate } from 'koffing/backend/model/invoice-template';
-import { InvoiceTemplateService } from 'koffing/backend/invoice-template.service';
-import { InvoiceTemplateCostFixed } from 'koffing/backend/model/invoice-template-cost-fixed';
-import { InvoiceTemplateCostRange } from 'koffing/backend/model/invoice-template-cost-range';
-import { SearchInvoiceTemplatesBroadcaster } from 'koffing/broadcaster/broadcaster.module';
+import { InvoiceTemplate } from 'koffing/backend';
+import { InvoiceTemplateService } from 'koffing/backend';
+import { InvoiceTemplateCostFixed } from 'koffing/backend';
+import { InvoiceTemplateCostRange } from 'koffing/backend';
+import { SearchInvoiceTemplatesBroadcaster } from 'koffing/broadcaster';
 import { InvoiceTemplateCostTypes as COST_TYPES } from '../create-invoice-template/invoice-template-cost-types';
 import { InvoiceTemplateFormParams } from '../create-invoice-template/invoice-template-form-params';
 import { InvoiceTemplateFormService } from '../create-invoice-template/invoice-template-form.service';

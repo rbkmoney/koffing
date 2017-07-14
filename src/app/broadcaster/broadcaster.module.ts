@@ -26,4 +26,3 @@ export * from './services/http-error-broadcaster.service';
 export * from './services/claim-receive.broadcaster.service';
 export * from './services/claim-revoke-broadcaster.service';
 export * from './services/claim-create.broadcaster.service';
-export * from './services/search-invoice-templates.broadcaster.service';

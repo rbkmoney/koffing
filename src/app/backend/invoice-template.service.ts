@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { ConfigService } from './config.service';
-import { InvoiceTemplate } from './model/invoice-template';
+import { InvoiceTemplate } from './model/invoice-template/invoice-template';
 import { InvoiceTemplateParams } from './requests/invoice-template-params';
 
 @Injectable()

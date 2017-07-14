@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { InvoiceTemplate } from 'koffing/backend/model/invoice-template';
+import { InvoiceTemplate } from 'koffing/backend';
 
 @Component({
     selector: 'kof-search-details-invoice-template',

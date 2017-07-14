@@ -1,7 +1,7 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { clone } from 'lodash';
 
-import { SearchInvoiceTemplatesParams } from 'koffing/backend/requests/search-invoice-templates-params';
+import { SearchInvoiceTemplatesParams } from 'koffing/backend';
 
 @Component({
     selector: 'kof-search-form-invoice-templates',
