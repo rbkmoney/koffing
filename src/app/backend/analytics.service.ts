@@ -18,10 +18,7 @@ export class AnalyticsService {
                 private config: ConfigService) {
     }
 
-    /**
-     * @deprecated shopID has string type
-     */
-    public getPaymentMethodStats(shopID: number, from: Date, to: Date, splitUnit?: string, splitSize?: number, paymentMethod?: string): Observable<PaymentMethodStat[]> {
+    public getPaymentMethodStats(shopID: string, from: Date, to: Date, splitUnit?: string, splitSize?: number, paymentMethod?: string): Observable<PaymentMethodStat[]> {
         const search = new URLSearchParams();
         search.set('fromTime', this.toUTC(from));
         search.set('toTime', this.toUTC(to));
@@ -32,10 +29,7 @@ export class AnalyticsService {
             .map((res) => res.json());
     }
 
-    /**
-     * @deprecated shopID has string type
-     */
-    public getPaymentRateStats(shopID: number, from: Date, to: Date): Observable<PaymentRateStat> {
+    public getPaymentRateStats(shopID: string, from: Date, to: Date): Observable<PaymentRateStat> {
         const search = new URLSearchParams();
         search.set('fromTime', this.toUTC(from));
         search.set('toTime', this.toUTC(to));
@@ -43,10 +37,7 @@ export class AnalyticsService {
             .map((res) => res.json());
     }
 
-    /**
-     * @deprecated shopID has string type
-     */
-    public getPaymentConversionStats(shopID: number, from: Date, to: Date, splitUnit?: string, splitSize?: number): Observable<PaymentConversionStat[]> {
+    public getPaymentConversionStats(shopID: string, from: Date, to: Date, splitUnit?: string, splitSize?: number): Observable<PaymentConversionStat[]> {
         const search = new URLSearchParams();
         search.set('fromTime', this.toUTC(from));
         search.set('toTime', this.toUTC(to));
@@ -56,10 +47,7 @@ export class AnalyticsService {
             .map((res) => res.json());
     }
 
-    /**
-     * @deprecated shopID has string type
-     */
-    public getPaymentGeoStats(shopID: number, from: Date, to: Date, splitUnit?: string, splitSize?: number): Observable<PaymentGeoStat[]> {
+    public getPaymentGeoStats(shopID: string, from: Date, to: Date, splitUnit?: string, splitSize?: number): Observable<PaymentGeoStat[]> {
         const search = new URLSearchParams();
         search.set('fromTime', this.toUTC(from));
         search.set('toTime', this.toUTC(to));
@@ -69,10 +57,7 @@ export class AnalyticsService {
             .map((res) => res.json());
     }
 
-    /**
-     * @deprecated shopID has string type
-     */
-    public getPaymentRevenueStats(shopID: number, from: Date, to: Date, splitUnit?: string, splitSize?: number): Observable<PaymentRevenueStat[]> {
+    public getPaymentRevenueStats(shopID: string, from: Date, to: Date, splitUnit?: string, splitSize?: number): Observable<PaymentRevenueStat[]> {
         const search = new URLSearchParams();
         search.set('fromTime', this.toUTC(from));
         search.set('toTime', this.toUTC(to));
@@ -82,7 +67,7 @@ export class AnalyticsService {
             .map(res => res.json());
     }
 
-    private getEndpoint(shopID: number, resource: 'customers' | 'payments'): string {
+    private getEndpoint(shopID: string, resource: 'customers' | 'payments'): string {
         return `${this.config.capiUrl}/analytics/shops/${shopID}/${resource}/stats`;
     }
 

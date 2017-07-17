@@ -12,6 +12,7 @@ import { ShopGroupComponent } from './shop-form/shop-form.component';
 import { BankAccountFormComponent } from './bank-account-form/bank-account-form.component';
 import { ManagementComponent } from './management.component';
 import { ClaimService } from 'koffing/backend/claim.service';
+import { ClaimStatusPipe } from 'koffing/management-2/claim-status.pipe';
 
 @NgModule({
     imports: [
@@ -28,7 +29,8 @@ import { ClaimService } from 'koffing/backend/claim.service';
         CreateShopComponent,
         ContractFormComponent,
         ShopGroupComponent,
-        BankAccountFormComponent
+        BankAccountFormComponent,
+        ClaimStatusPipe
     ],
     providers: [ClaimService]
 })
