@@ -23,7 +23,7 @@ export class AnalyticsService {
             return this.toShopItems(shops);
         });
     }
-
+      
     public getActiveShopID(): string {
         const routeShopID = this.route.snapshot.params['shopID'];
         return routeShopID ? routeShopID : this.getFromStorage(this.shops);
