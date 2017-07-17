@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import * as uuid from 'uuid/v4';
 
 import { ContractCreation, ContractPayoutToolCreation, ShopCreation } from 'koffing/backend/model/claim';
 // TODO fix urls
@@ -88,29 +89,21 @@ export class FormResolver {
 
     public toContractCreation(contractForm: FormGroup): ContractCreation {
         const contractor = new RussianLegalEntity(contractForm.value);
-        return new ContractCreation(this.generateID(), contractor);
+        return new ContractCreation(uuid(), contractor);
     }
 
     public toPayoutToolCreation(contractID: string, bankAccount: FormGroup): ContractPayoutToolCreation {
         const details = new PayoutToolBankAccount(bankAccount.value);
-        return new ContractPayoutToolCreation(contractID, this.generateID(), details);
+        return new ContractPayoutToolCreation(contractID, uuid(), details);
     }
 
     public toShopCreation(contractID: string, payoutToolID: string, shopForm: FormGroup): ShopCreation {
         const val = shopForm.value;
         return new ShopCreation({
-            shopID: this.generateID(),
+            shopID: uuid(),
             location: new ShopLocationUrl(val.url),
             details: new ShopDetails(val.name, val.description),
             contractID, payoutToolID
         });
-    }
-
-    private generateID(): string {
-        function s4() {
-            return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-        }
-
-        return `${s4()}${s4()}-${s4()}${s4()}-${s4()}${s4()}-${s4()}${s4()}`;
     }
 }

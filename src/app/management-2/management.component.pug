@@ -18,7 +18,7 @@
             tbody(*ngFor="let claim of claims")
                 tr
                     td {{claim.id}}
-                    td {{claim.status}}
+                    td {{claim.status | kofClaimStatus}}
                     td {{claim.createdAt | date: "dd.MM.yyyy HH:mm:ss"}}
                     td {{claim.updatedAt | date: "dd.MM.yyyy HH:mm:ss"}}
                     td {{claim.revision}}
