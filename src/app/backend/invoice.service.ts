@@ -10,16 +10,18 @@ import { InvoiceParamsAll } from './requests/invoice-params-all';
 @Injectable()
 export class InvoiceService {
 
+    private endpoint = `${this.config.capiUrl}/processing/invoices`;
+
     constructor(
         private http: Http,
         private config: ConfigService
     ) {}
 
     public createInvoice(params: InvoiceParamsAll): Observable<Invoice> {
-        return this.http.post(`${this.config.capiUrl}/processing/invoices`, params).map(res => res.json());
+        return this.http.post(this.endpoint, params).map(res => res.json());
     }
 
     public createInvoiceAccessToken(invoiceID: string): Observable<InvoiceAccessToken> {
-        return this.http.post(`${this.config.capiUrl}/processing/invoices/${invoiceID}/access_tokens`, {}).map(res => res.json());
+        return this.http.post(`${this.endpoint}/${invoiceID}/access_tokens`, {}).map(res => res.json());
     }
 }
