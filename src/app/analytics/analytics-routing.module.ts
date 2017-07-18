@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { AnalyticsComponent } from './analytics.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { InvoicesComponent } from './invoices/invoices.component';
+import { InvoiceTemplatesComponent } from './invoice-templates/invoice-templates.component';
 import { RegistryComponent } from './registry/registry.component';
 
 @NgModule({
@@ -24,6 +25,10 @@ import { RegistryComponent } from './registry/registry.component';
                     {
                         path: 'invoices',
                         component: InvoicesComponent
+                    },
+                    {
+                        path: 'invoice-templates',
+                        component: InvoiceTemplatesComponent
                     },
                     {
                         path: 'registry',

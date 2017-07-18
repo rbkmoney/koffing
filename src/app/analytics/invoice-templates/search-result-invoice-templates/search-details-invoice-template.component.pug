@@ -1,0 +1,35 @@
+form.form-horizontal.form-label-left.css-form
+    .row.visible-xs
+        .col-xs-12
+            .form-group
+                label Идентификатор:
+                div {{invoiceTemplate.id}}
+    .row(*ngIf="invoiceTemplate?.cost?.amount")
+        .col-xs-12
+            .form-group
+                label Стоимость предлагаемых товаров или услуг:
+                div {{invoiceTemplate.cost.amount | kofRoubleCurrency}} {{invoiceTemplate.cost.currency}}
+    .row(*ngIf="invoiceTemplate?.cost?.range")
+        .col-xs-12.col-sm-6
+            .form-group
+                label Нижняя граница стоимости:
+                div {{invoiceTemplate.cost.range.lowerBound | kofRoubleCurrency}} {{invoiceTemplate.cost.currency}}
+        .col-xs-12.col-sm-6
+            .form-group
+                label Верхняя граница стоимости:
+                div {{invoiceTemplate.cost.range.upperBound | kofRoubleCurrency}} {{invoiceTemplate.cost.currency}}
+    .row
+        .col-xs-12.col-sm-6
+            .form-group
+                label Наименование предлагаемых товаров или услуг:
+                div {{invoiceTemplate.product}}
+        .col-xs-12.col-sm-6
+            .form-group
+                label Описание предлагаемых товаров или услуг:
+                div {{invoiceTemplate.description}}
+.ln_solid
+.row
+    .col-xs-12
+        button.btn.btn-sm.btn-primary Сформировать платежную ссылку
+        kof-update-invoice-template([invoiceTemplate]="invoiceTemplate")
+        kof-delete-invoice-template([invoiceTemplateID]="invoiceTemplate.id")

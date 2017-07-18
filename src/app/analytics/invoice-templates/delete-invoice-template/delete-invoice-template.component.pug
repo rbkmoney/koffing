@@ -1,0 +1,15 @@
+button.btn.btn-default.btn-sm(data-toggle="modal", [attr.data-target]="'#delete' + invoiceTemplateID")
+    | Удалить шаблон
+
+.modal.fade(tabindex="-1", role="dialog", id="delete{{invoiceTemplateID}}", data-backdrop="false")
+    .modal-dialog.modal-sm
+        .modal-content
+            .modal-header
+                h5.modal-title Подтвердите свое действие
+            .modal-body Удалить шаблон инвойса с индентификатором {{invoiceTemplateID}}?
+            .modal-footer
+                .btn-toolbar.pull-right
+                    .btn-group.btn-group-sm
+                        button.btn.btn-default(data-dismiss="modal") Нет
+                    .btn-group.btn-group-sm
+                        button.btn.btn-danger(data-dismiss="modal", (click)="deleteInvoiceTemplate()") Да

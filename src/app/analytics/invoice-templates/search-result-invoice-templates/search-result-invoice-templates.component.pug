@@ -1,0 +1,16 @@
+table.table.table-striped
+    thead
+        tr
+            th.hidden-xs(width=130) Идентификатор
+            th Наименование предлагаемых товаров или услуг
+            th(width=130)
+    tbody(*ngFor="let item of invoiceTemplatesTableItems | async")
+        tr
+            td.hidden-xs {{item.invoiceTemplate.id}}
+            td {{item.invoiceTemplate.product}}
+            td
+                .pull-right
+                    button.btn.btn-xs.btn-default((click)="toggleVisibilityDetailPanel(item)") {{item.visible ? 'Скрыть' : 'Показать'}} детали
+        tr(*ngIf="item.visible")
+            td(colspan=6)
+                kof-search-details-invoice-template([invoiceTemplate]="item.invoiceTemplate")

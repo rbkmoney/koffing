@@ -1,5 +1,5 @@
-import { InvoiceTemplateCost } from '../model/invoice-template-cost';
-import { LifetimeInterval } from '../model/lifetime-interval';
+import { InvoiceTemplateCost } from '../model/invoice-template/invoice-template-cost';
+import { LifetimeInterval } from '../model/invoice-template/lifetime-interval';
 
 export class InvoiceTemplateParams {
     public shopID: string;
@@ -11,6 +11,5 @@ export class InvoiceTemplateParams {
 
     constructor() {
         this.lifetime = new LifetimeInterval();
-        this.cost = new InvoiceTemplateCost();
     }
 }

@@ -1,0 +1,20 @@
+form
+    .row
+        .col-sm-6.col-xs-12
+            .form-group
+                label Идентификатор шаблона:
+                input.form-control(name="invoiceTemplateID", [(ngModel)]="searchInvoiceTemplatesParams.invoiceTemplateID")
+        .col-sm-6.col-xs-12
+            .form-group
+                label Идентификатор инвойса:
+                input.form-control(name="invoiceID", [(ngModel)]="searchInvoiceTemplatesParams.invoiceID")
+    .row
+        .col-xs-12
+            .form-group
+                label Наименование предлагаемых товаров или услуг:
+                input.form-control(name="product", maxlength="100", [(ngModel)]="searchInvoiceTemplatesParams.product")
+    .row
+        .col-xs-12
+            .action-group
+                button.btn.btn-primary.pull-right([disabled]="isSearching", (click)="search()") Найти
+                button.btn.btn-default.pull-right([disabled]="isSearching", (click)="reset()") Сбросить

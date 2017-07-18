@@ -1,0 +1,7 @@
+.row
+    .col-xs-12.col-sm-6.col-lg-3
+        button.btn.btn-default.btn-lg.btn-block(type="button", (click)="select(actions.search)") Поиск шаблонов
+            i.fa(style="margin-left: 10px;", [ngClass]="getClass(actions.search)")
+    .col-xs-12.col-sm-6.col-lg-3
+        button.btn.btn-default.btn-lg.btn-block(type="button", (click)="select(actions.create)") Создать шаблон инвойса
+            i.fa(style="margin-left: 10px;", [ngClass]="getClass(actions.create)")
