@@ -9,39 +9,40 @@ form.css-form([formGroup]="form", novalidate)
             .form-group
                 label.text-left Тип ограничения стоимости:
                     span.highlighted
-                kof-select(formControlName="costType", [items]="costTypesItems", [placeholder]="'Без ограничений'")
-        div(*ngIf="form.value.costType === 'InvoiceTemplateCostFixed'")
-            .col-xs-12.col-sm-8
-                .form-group
-                    label.text-left Стоимость предлагаемых товаров или услуг, в рублях:
-                        span.highlighted  *
-                    input.form-control(type="number", formControlName="costAmount", kofMin=10)
-        div(*ngIf="form.value.costType === 'InvoiceTemplateCostRange'")
-            .col-xs-6.col-sm-4
-                .form-group
-                    label.text-left Нижняя граница стоимости, в рублях:
-                        span.highlighted  *
-                    input.form-control(type="number", formControlName="costLowerBound", kofMin=10, kofMax="{{form.value.costUpperBound}}")
-            .col-xs-6.col-sm-4
-                .form-group
-                    label.text-left Верхняя граница стоимости, в рублях:
-                        span.highlighted  *
-                    input.form-control(type="number", formControlName="costUpperBound", kofMin="{{form.value.costLowerBound}}")
+                kof-select(formControlName="selectedCostType", [items]="costTypesItems", [placeholder]="'Без ограничений'")
+        div(formGroupName="cost")
+            div(*ngIf="form.value.cost.costType === 'InvoiceTemplateCostFixed'")
+                .col-xs-12.col-sm-8
+                    .form-group
+                        label.text-left Стоимость предлагаемых товаров или услуг, в рублях:
+                            span.highlighted  *
+                        input.form-control(type="number", formControlName="amount")
+            div(*ngIf="form.value.cost.costType === 'InvoiceTemplateCostRange'")
+                .col-xs-6.col-sm-4
+                    .form-group
+                        label.text-left Нижняя граница стоимости, в рублях:
+                            span.highlighted  *
+                        input.form-control(type="number", formControlName="lowerBound")
+                .col-xs-6.col-sm-4
+                    .form-group
+                        label.text-left Верхняя граница стоимости, в рублях:
+                            span.highlighted  *
+                        input.form-control(type="number", formControlName="upperBound")
     .row.form-group
         .col-xs-12
             label.text-left Описание предлагаемых товаров или услуг:
             input.form-control(formControlName="description")
-    .row.form-group
+    .row.form-group(formGroupName="lifetime")
         .col-xs-12
             label.text-left Время жизни инвойса:
         .col-xs-4
-            input.form-control(type="number", formControlName="lifetimeDays", kofMin=0, [placeholder]="'дни'")
+            input.form-control(type="number", formControlName="days", [placeholder]="'дни'")
         .col-xs-4
-            input.form-control(type="number", formControlName="lifetimeMonths", kofMin=0, [placeholder]="'месяцы'")
+            input.form-control(type="number", formControlName="month", [placeholder]="'месяцы'")
         .col-xs-4
-            input.form-control(type="number", formControlName="lifetimeYears", kofMin=0, [placeholder]="'года'")
+            input.form-control(type="number", formControlName="years", [placeholder]="'года'")
     .row.form-group
         .col-xs-12
-            button.btn.btn-primary.pull-right((click)="createInvoiceTemplate(form.value)", [disabled]="!form.valid || isLoading") Создать шаблон
+            button.btn.btn-primary.pull-right((click)="createInvoiceTemplate()", [disabled]="!form.valid") Создать шаблон
 p Form value: {{ form.value | json }}
 p Form status: {{ form.status | json }}

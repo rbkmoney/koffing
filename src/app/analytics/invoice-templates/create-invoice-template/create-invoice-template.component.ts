@@ -4,13 +4,12 @@ import { FormGroup } from '@angular/forms';
 import { SelectItem } from 'koffing/common/select/select-item';
 import { InvoiceTemplate } from 'koffing/backend';
 import { InvoiceTemplateService } from 'koffing/backend';
-import { InvoiceTemplateFormParams } from './invoice-template-form-params';
-import { InvoiceTemplateFormService } from './invoice-template-form.service';
+import { InvoiceTemplateForm2Service } from './invoice-template-form-2.service';
 
 @Component({
     selector: 'kof-create-invoice-template',
     templateUrl: 'create-invoice-template.component.pug',
-    providers: [ InvoiceTemplateFormService ]
+    providers: [InvoiceTemplateForm2Service]
 })
 export class CreateInvoiceTemplateComponent implements OnInit {
 
@@ -19,28 +18,22 @@ export class CreateInvoiceTemplateComponent implements OnInit {
 
     @Output()
     public onCreate: EventEmitter<InvoiceTemplate> = new EventEmitter();
-    
+
     public form: FormGroup;
     public costTypesItems: SelectItem[] = [];
-    public isLoading: boolean = false;
 
-    constructor(
-        private invoiceTemplateService: InvoiceTemplateService,
-        private invoiceTemplateFormService: InvoiceTemplateFormService
-    ) { }
-
-    public ngOnInit() {
-        this.form = this.invoiceTemplateFormService.initForm();
-        this.invoiceTemplateFormService.subscribeCostTypeChanges();
-        this.costTypesItems = InvoiceTemplateFormService.getCostTypesItems();
+    constructor(private invoiceTemplateService: InvoiceTemplateService,
+                private invoiceTemplateFormService: InvoiceTemplateForm2Service) {
     }
 
-    public createInvoiceTemplate(formParams: InvoiceTemplateFormParams) {
-        this.isLoading = true;
-        const params = InvoiceTemplateFormService.toSearchParamsFromFormParams(formParams, this.shopID);
-        this.invoiceTemplateService.createInvoiceTemplate(params).subscribe((invoiceTemplate) => {
-            this.onCreate.emit(invoiceTemplate);
-            this.isLoading = false;
-        });
+    public ngOnInit() {
+        this.form = this.invoiceTemplateFormService.form;
+        this.costTypesItems = this.invoiceTemplateFormService.getCostTypesItems();
+    }
+
+    public createInvoiceTemplate() {
+        const params = this.invoiceTemplateFormService.toInvoiceParams(this.shopID, this.form);
+        this.invoiceTemplateService.createInvoiceTemplate(params)
+            .subscribe((invoiceTemplate) => this.onCreate.emit(invoiceTemplate));
     }
 }
