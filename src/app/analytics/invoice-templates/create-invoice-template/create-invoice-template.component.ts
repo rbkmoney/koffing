@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 import { SelectItem } from 'koffing/common/select/select-item';
 import { InvoiceTemplate } from 'koffing/backend';
@@ -8,7 +9,8 @@ import { InvoiceTemplateFormService } from './invoice-template-form.service';
 
 @Component({
     selector: 'kof-create-invoice-template',
-    templateUrl: 'create-invoice-template.component.pug'
+    templateUrl: 'create-invoice-template.component.pug',
+    providers: [ InvoiceTemplateFormService ]
 })
 export class CreateInvoiceTemplateComponent implements OnInit {
 
@@ -18,22 +20,24 @@ export class CreateInvoiceTemplateComponent implements OnInit {
     @Output()
     public onCreate: EventEmitter<InvoiceTemplate> = new EventEmitter();
     
-    public formParams: InvoiceTemplateFormParams;
+    public form: FormGroup;
     public costTypesItems: SelectItem[] = [];
     public isLoading: boolean = false;
 
     constructor(
-        private invoiceTemplateService: InvoiceTemplateService
+        private invoiceTemplateService: InvoiceTemplateService,
+        private invoiceTemplateFormService: InvoiceTemplateFormService
     ) { }
 
     public ngOnInit() {
-        this.formParams = new InvoiceTemplateFormParams();
+        this.form = this.invoiceTemplateFormService.initForm();
+        this.invoiceTemplateFormService.subscribeCostTypeChanges();
         this.costTypesItems = InvoiceTemplateFormService.getCostTypesItems();
     }
 
-    public createInvoiceTemplate() {
+    public createInvoiceTemplate(formParams: InvoiceTemplateFormParams) {
         this.isLoading = true;
-        const params = InvoiceTemplateFormService.toSearchParamsFromFormParams(this.formParams, this.shopID);
+        const params = InvoiceTemplateFormService.toSearchParamsFromFormParams(formParams, this.shopID);
         this.invoiceTemplateService.createInvoiceTemplate(params).subscribe((invoiceTemplate) => {
             this.onCreate.emit(invoiceTemplate);
             this.isLoading = false;

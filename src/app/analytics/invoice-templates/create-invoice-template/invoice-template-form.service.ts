@@ -1,3 +1,5 @@
+import { Injectable } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { round } from 'lodash';
 
 import { SelectItem } from 'koffing/common/select/select-item';
@@ -8,6 +10,7 @@ import { InvoiceTemplateParams } from 'koffing/backend';
 import { InvoiceTemplateFormParams } from './invoice-template-form-params';
 import { InvoiceTemplateCostTypes as COST_TYPES } from './invoice-template-cost-types';
 
+@Injectable()
 export class InvoiceTemplateFormService {
 
     public static toSearchParamsFromFormParams(formParams: InvoiceTemplateFormParams, shopID?: string): InvoiceTemplateParams {
@@ -43,5 +46,55 @@ export class InvoiceTemplateFormService {
             { value: COST_TYPES[COST_TYPES.InvoiceTemplateCostFixed], label: 'Фиксированная стоимость' },
             { value: COST_TYPES[COST_TYPES.InvoiceTemplateCostRange], label: 'Диапазон стоимости' }
         ];
+    }
+
+    public form: FormGroup;
+
+    constructor(
+        private fb: FormBuilder
+    ) { }
+
+    public initForm(): FormGroup {
+        this.form = this.fb.group({
+            product: ['', [
+                Validators.required,
+                Validators.maxLength(100)
+            ]],
+            description: ['', [
+                Validators.maxLength(1000)
+            ]],
+            lifetimeDays: null,
+            lifetimeMonths: null,
+            lifetimeYears: null,
+            costType: '',
+            costAmount: null,
+            costLowerBound: null,
+            costUpperBound: null,
+        });
+        return this.form;
+    }
+
+    public subscribeCostTypeChanges() {
+        const formControls = this.form.controls;
+        const changeCostType$ = formControls.costType.valueChanges;
+        changeCostType$.subscribe((costType: any) => {
+            formControls.costAmount.setValidators(null);
+            formControls.costLowerBound.setValidators(null);
+            formControls.costUpperBound.setValidators(null);
+            switch (costType) {
+                case COST_TYPES[COST_TYPES.InvoiceTemplateCostFixed]: {
+                    formControls.costAmount.setValidators([Validators.required]);
+                    break;
+                }
+                case COST_TYPES[COST_TYPES.InvoiceTemplateCostRange]: {
+                    formControls.costLowerBound.setValidators([Validators.required]);
+                    formControls.costUpperBound.setValidators([Validators.required]);
+                    break;
+                }
+            }
+            formControls.costAmount.updateValueAndValidity();
+            formControls.costLowerBound.updateValueAndValidity();
+            formControls.costUpperBound.updateValueAndValidity();
+        });
     }
 }

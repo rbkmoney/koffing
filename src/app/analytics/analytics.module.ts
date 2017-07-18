@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BaseChartDirective } from 'ng2-charts';
 
 import { CalendarModule } from 'primeng/components/calendar/calendar';
@@ -42,6 +42,7 @@ import { SearchDetailsInvoiceTemplateComponent } from './invoice-templates/searc
         AnalyticsRoutingModule,
         BrowserModule,
         FormsModule,
+        ReactiveFormsModule,
         CommonModule,
         CalendarModule,
         BackendModule
