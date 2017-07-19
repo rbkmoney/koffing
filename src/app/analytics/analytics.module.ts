@@ -27,6 +27,7 @@ import { PaymentStatusPipe } from './invoices/payment-statuses.pipe';
 import { CreateInvoiceComponent } from './invoices/create-invoice/create-invoice.component';
 import { ActionsComponent } from './invoices/actions/actions.component';
 import { PaymentLinkComponent } from './invoices/search-result/payment-link/payment-link.component';
+import { InvoiceTemplatePaymentLinkComponent } from './invoice-template-payment-link/invoice-template-payment-link.component';
 
 @NgModule({
     imports: [
@@ -58,7 +59,8 @@ import { PaymentLinkComponent } from './invoices/search-result/payment-link/paym
         PaymentInfoComponent,
         CreateInvoiceComponent,
         ActionsComponent,
-        PaymentLinkComponent
+        PaymentLinkComponent,
+        InvoiceTemplatePaymentLinkComponent
     ]
 })
 export class AnalyticsModule { }
