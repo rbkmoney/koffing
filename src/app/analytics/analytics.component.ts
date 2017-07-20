@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
 import { SelectItem } from 'koffing/common/select/select-item';
-import { AnalyticsService } from 'koffing/analytics/analytics.service';
+import { AnalyticsService } from './analytics.service';
+import { CheckoutConfigFormService } from './payment-link/checkout-config-form.service';
+import { InvoiceTemplateFormService } from './payment-link/invoice-template-form.service';
 
 @Component({
     selector: 'kof-analytics',
     templateUrl: './analytics.component.pug',
-    providers: [AnalyticsService],
+    providers: [ AnalyticsService, CheckoutConfigFormService, InvoiceTemplateFormService ],
     styles: [`
         .shop-selector {
             padding-bottom: 10px;

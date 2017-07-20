@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BaseChartDirective } from 'ng2-charts';
 
 import { CalendarModule } from 'primeng/components/calendar/calendar';
@@ -28,12 +28,15 @@ import { CreateInvoiceComponent } from './invoices/create-invoice/create-invoice
 import { ActionsComponent } from './invoices/actions/actions.component';
 import { PaymentLinkComponent } from './invoices/search-result/payment-link/payment-link.component';
 import { InvoiceTemplatePaymentLinkComponent } from './invoice-template-payment-link/invoice-template-payment-link.component';
+import { CheckoutConfigFormComponent } from './payment-link/checkout-config-form.component';
+import { InvoiceTemplateFormComponent } from './payment-link/invoice-template-form.component';
 
 @NgModule({
     imports: [
         AnalyticsRoutingModule,
         BrowserModule,
         FormsModule,
+        ReactiveFormsModule,
         CommonModule,
         CalendarModule,
         BackendModule
@@ -60,7 +63,9 @@ import { InvoiceTemplatePaymentLinkComponent } from './invoice-template-payment-
         CreateInvoiceComponent,
         ActionsComponent,
         PaymentLinkComponent,
-        InvoiceTemplatePaymentLinkComponent
+        InvoiceTemplatePaymentLinkComponent,
+        CheckoutConfigFormComponent,
+        InvoiceTemplateFormComponent
     ]
 })
 export class AnalyticsModule { }

@@ -4,13 +4,12 @@ import { LifetimeInterval } from '../model/invoice-template/lifetime-interval';
 export class InvoiceTemplateParams {
     public shopID: string;
     public product: string;
-    public description: string;
+    public description?: string;
     public lifetime: LifetimeInterval;
-    public cost: InvoiceTemplateCost;
+    public cost?: InvoiceTemplateCost;
     public metadata?: object;
 
     constructor() {
         this.lifetime = new LifetimeInterval();
-        this.cost = new InvoiceTemplateCost();
     }
 }
