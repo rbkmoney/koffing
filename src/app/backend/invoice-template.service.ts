@@ -20,7 +20,7 @@ export class InvoiceTemplateService {
         return this.http.get(`${this.invoiceTemplatesUrl}/${invoiceTemplateID}`).map(res => res.json());
     }
 
-    public createInvoiceTemplate(params: InvoiceTemplateParams): Observable<InvoiceTemplate> {
+    public createInvoiceTemplate(params: InvoiceTemplateParams): Observable<any> {
         return this.http.post(this.invoiceTemplatesUrl, params).map(res => res.json());
     }
 

@@ -28,8 +28,8 @@ import { CreateInvoiceComponent } from './invoices/create-invoice/create-invoice
 import { ActionsComponent } from './invoices/actions/actions.component';
 import { PaymentLinkComponent } from './invoices/search-result/payment-link/payment-link.component';
 import { InvoiceTemplatePaymentLinkComponent } from './invoice-template-payment-link/invoice-template-payment-link.component';
-import { CheckoutConfigFormComponent } from './payment-link/checkout-config-form.component';
-import { InvoiceTemplateFormComponent } from './payment-link/invoice-template-form.component';
+import { CheckoutConfigFormComponent } from './checkout-config-form/checkout-config-form.component';
+import { InvoiceTemplateFormComponent } from './invoice-template-form/invoice-template-form.component';
 
 @NgModule({
     imports: [

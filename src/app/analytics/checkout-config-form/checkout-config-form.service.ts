@@ -12,7 +12,7 @@ export class CheckoutConfigFormService {
 
     private initForm(): FormGroup {
         return this.fb.group({
-            product: ['', [Validators.maxLength(30)]],
+            name: ['', [Validators.maxLength(30)]],
             description: ['', [Validators.maxLength(30)]],
             payButtonLabel: ['', [Validators.maxLength(30)]],
             logo: [''],

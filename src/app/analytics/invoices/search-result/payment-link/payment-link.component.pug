@@ -17,32 +17,32 @@ button.btn.btn-default.btn-sm(data-toggle="modal", [attr.data-target]="'#' + inv
                         .col-xs-12.col-sm-5
                             label.text-left Наименование вашей компании или сайта
                         .col-xs-12.col-sm-7
-                            input.form-control(type="text", [(ngModel)]="paymentLinkArguments.name", (keyup)="createPaymentLink()")
+                            input.form-control(type="text", [(ngModel)]="paymentLinkArguments.name", (keyup)="getPaymentLink()")
                     .form-group
                         .col-xs-12.col-sm-5
                             label.text-left Описание вашего продукта или сервиса
                         .col-xs-12.col-sm-7
-                            input.form-control(type="text", [(ngModel)]="paymentLinkArguments.description", (keyup)="createPaymentLink()")
+                            input.form-control(type="text", [(ngModel)]="paymentLinkArguments.description", (keyup)="getPaymentLink()")
                     .form-group
                         .col-xs-12.col-sm-5
                             label.text-left Текст кнопки оплаты
                         .col-xs-12.col-sm-7
-                            input.form-control(type="text", [(ngModel)]="paymentLinkArguments.payButtonLabel", (keyup)="createPaymentLink()")
+                            input.form-control(type="text", [(ngModel)]="paymentLinkArguments.payButtonLabel", (keyup)="getPaymentLink()")
                     .form-group
                         .col-xs-12.col-sm-5
                             label.text-left URL для задания логотипа
                         .col-xs-12.col-sm-7
-                            input.form-control(type="text", [(ngModel)]="paymentLinkArguments.logo", placeholder="http(s)://example.com/image.png", (keyup)="createPaymentLink()")
+                            input.form-control(type="text", [(ngModel)]="paymentLinkArguments.logo", placeholder="http(s)://example.com/image.png", (keyup)="getPaymentLink()")
                     .form-group
                         .col-xs-12.col-sm-5
                             label.text-left Email плательщика (если известен)
                         .col-xs-12.col-sm-7
-                            input.form-control(type="text", [(ngModel)]="paymentLinkArguments.email", placeholder="example@mail.com", (keyup)="createPaymentLink()")
+                            input.form-control(type="text", [(ngModel)]="paymentLinkArguments.email", placeholder="example@mail.com", (keyup)="getPaymentLink()")
                     .form-group
                         .col-xs-12.col-sm-5
                             label.text-left Redirect URL после упешного завершения платежа
                         .col-xs-12.col-sm-7
-                            input.form-control(type="text", [(ngModel)]="paymentLinkArguments.redirectUrl", placeholder="http(s)://example.com", (keyup)="createPaymentLink()")
+                            input.form-control(type="text", [(ngModel)]="paymentLinkArguments.redirectUrl", placeholder="http(s)://example.com", (keyup)="getPaymentLink()")
                     .ln_solid
                     .form-group
                         .col-xs-12

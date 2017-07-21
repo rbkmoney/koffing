@@ -21,7 +21,7 @@ button.btn.btn-default.btn-lg.btn-block(data-toggle="modal", [attr.data-target]=
             .modal-footer
                 button.btn.btn-sm.btn-primary.pull-right(
                     *ngIf="!isCreated",
-                    [disabled]="invoiceTemplateForm.invalid || invoiceTemplateForm.disabled",
+                    [disabled]="invoiceTemplateForm.invalid",
                     (click)="createInvoiceTemplate()")
                     | Создать
                 .form-group.text-left(*ngIf="isCreated")

@@ -3,7 +3,7 @@ import { chain } from 'lodash';
 
 import { ConfigService } from 'koffing/backend/config.service';
 import { InvoiceService } from 'koffing/backend/invoice.service';
-import { PaymentLinkArguments } from './payment-link-arguments';
+import { PaymentLinkArguments } from '../../../payment-link/payment-link-arguments';
 
 @Component({
     selector: 'kof-payment-link',
