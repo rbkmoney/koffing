@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { ConfigService } from './config.service';
 import { InvoiceTemplate } from './model/invoice-template/invoice-template';
+import { InvoiceTemplateAndToken } from './model/invoice-template/invoice-template-and-token';
 import { InvoiceTemplateParams } from './requests/invoice-template-params';
 
 @Injectable()
@@ -20,7 +21,7 @@ export class InvoiceTemplateService {
         return this.http.get(`${this.invoiceTemplatesUrl}/${invoiceTemplateID}`).map(res => res.json());
     }
 
-    public createInvoiceTemplate(params: InvoiceTemplateParams): Observable<any> {
+    public createInvoiceTemplate(params: InvoiceTemplateParams): Observable<InvoiceTemplateAndToken> {
         return this.http.post(this.invoiceTemplatesUrl, params).map(res => res.json());
     }
 

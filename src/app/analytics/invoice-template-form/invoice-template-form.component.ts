@@ -18,9 +18,9 @@ export class InvoiceTemplateFormComponent implements OnInit {
 
     public ngOnInit() {
         this.costTypesItems = [
-            new SelectItem('', 'Без ограничений'),
-            new SelectItem(COST_TYPES.Fixed, 'Фиксированная'),
-            new SelectItem(COST_TYPES.Range, 'Диапазон')
+            new SelectItem(COST_TYPES.unlim, 'Без ограничений'),
+            new SelectItem(COST_TYPES.fixed, 'Фиксированная'),
+            new SelectItem(COST_TYPES.range, 'Диапазон')
         ];
     }
 

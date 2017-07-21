@@ -48,11 +48,13 @@ form([formGroup]="form", novalidate)
                         input.form-control(type="number", formControlName="upperBound")
     .form-group(formGroupName="lifetime")
         .row
-            .col-xs-12
+            .col-xs-12.col-sm-5
                 label.text-left Время жизни инвойса:
-            .col-xs-4
-                input.form-control(type="number", formControlName="days", [placeholder]="'дни'")
-            .col-xs-4
-                input.form-control(type="number", formControlName="months", [placeholder]="'месяцы'")
-            .col-xs-4
-                input.form-control(type="number", formControlName="years", [placeholder]="'года'")
+            .col-xs-12.col-sm-7
+                .row
+                    .col-xs-4
+                        input.form-control(type="number", formControlName="days", [placeholder]="'дни'")
+                    .col-xs-4
+                        input.form-control(type="number", formControlName="months", [placeholder]="'месяцы'")
+                    .col-xs-4
+                        input.form-control(type="number", formControlName="years", [placeholder]="'года'")

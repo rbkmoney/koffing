@@ -1,11 +1,8 @@
 import { Component, OnInit, ElementRef, ViewChild, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { round } from 'lodash';
 
 import { InvoiceTemplateService } from 'koffing/backend/invoice-template.service';
-import { InvoiceTemplateParams } from 'koffing/backend/requests/invoice-template-params';
-import { InvoiceTemplateCostFixed, InvoiceTemplateCostRange, LifetimeInterval} from 'koffing/backend';
-import { COST_TYPES } from '../invoice-template-form/invoice-template-cost-types';
+import { InvoiceTemplatePaymentLinkService } from './invoice-template-payment-link.service';
 import { InvoiceTemplateFormService } from '../invoice-template-form/invoice-template-form.service';
 import { CheckoutConfigFormService } from '../checkout-config-form/checkout-config-form.service';
 import { PaymentLinkService } from '../payment-link/payment-link.service';
@@ -61,7 +58,7 @@ export class InvoiceTemplatePaymentLinkComponent implements OnInit {
     }
 
     public createInvoiceTemplate() {
-        const params = this.toInvoiceTemplateParams(this.invoiceTemplateForm.value, this.shopID);
+        const params = InvoiceTemplatePaymentLinkService.toInvoiceTemplateParams(this.invoiceTemplateForm.value, this.shopID);
         this.invoiceTemplateService.createInvoiceTemplate(params).subscribe((response) => {
             this.isCreated = true;
             this.invoiceTemplateForm.disable();
@@ -70,30 +67,5 @@ export class InvoiceTemplatePaymentLinkComponent implements OnInit {
             const accessData = new PaymentLinkInvoiceTemplate(this.invoiceTemplateID, this.invoiceTemplateAccessToken);
             this.paymentLink = this.paymentLinkService.getPaymentLink(this.checkoutConfigForm.value, accessData);
         });
-    }
-
-    private toInvoiceTemplateParams(formValue: any, shopID?: string): InvoiceTemplateParams {
-        const params = new InvoiceTemplateParams();
-        if (shopID) {
-            params.shopID = shopID;
-        }
-        params.product = formValue.product || '';
-        params.description = formValue.description || '';
-        params.lifetime = new LifetimeInterval(formValue.lifetime.days, formValue.lifetime.months, formValue.lifetime.years);
-        if (formValue.selectedCostType) {
-            let cost;
-            if (formValue.selectedCostType === COST_TYPES.Fixed) {
-                cost = new InvoiceTemplateCostFixed();
-                cost.amount = round(formValue.cost.amount * 100);
-            } else
-            if (formValue.selectedCostType === COST_TYPES.Range) {
-                cost = new InvoiceTemplateCostRange();
-                cost.range.lowerBound = round(formValue.cost.lowerBound * 100);
-                cost.range.upperBound = round(formValue.cost.upperBound * 100);
-            }
-            cost.currency = 'RUB';
-            params.cost = cost;
-        }
-        return params;
     }
 }

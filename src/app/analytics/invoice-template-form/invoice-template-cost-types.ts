@@ -1,4 +1,5 @@
 export const COST_TYPES = {
-    Fixed: 'InvoiceTemplateCostFixed',
-    Range: 'InvoiceTemplateCostRange'
+    unlim: 'InvoiceTemplateCostUnlim',
+    fixed: 'InvoiceTemplateCostFixed',
+    range: 'InvoiceTemplateCostRange'
 };
