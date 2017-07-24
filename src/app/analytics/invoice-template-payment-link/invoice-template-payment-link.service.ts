@@ -21,7 +21,7 @@ export class InvoiceTemplatePaymentLinkService {
             params.description = formValue.description;
         }
         // TODO write validator
-        if (!Boolean(formValue.lifetime.days) && !Boolean(formValue.lifetime.months) && !Boolean(formValue.lifetime.years)) {
+        if (!formValue.lifetime.days && !formValue.lifetime.months && !formValue.lifetime.years) {
             formValue.lifetime.days = 1;
         }
         params.lifetime = new LifetimeInterval(formValue.lifetime.days || 0, formValue.lifetime.months || 0, formValue.lifetime.years || 0);
