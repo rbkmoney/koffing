@@ -1,6 +1,5 @@
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Injectable } from '@angular/core';
-import { values } from 'lodash';
 
 import { COST_TYPES } from './invoice-template-cost-types';
 
@@ -33,7 +32,7 @@ export class InvoiceTemplateFormService {
     }
 
     private lifetimeValidator(control: FormControl): { [key: string]: any } {
-        const valid = values(control.value).some((value: any) => value > 0);
+        const valid = Object.values(control.value).some((value: any) => value > 0);
         return valid ? null : {lifetime: 'need some days, month or years value'};
     }
 
