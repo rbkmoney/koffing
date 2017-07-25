@@ -32,16 +32,16 @@ export class CreateInvoiceComponent implements OnInit {
 
     public create() {
         const params = new InvoiceParamsAll();
-        params.shopID = Number(this.shopID);
+        params.shopID = this.shopID;
         params.amount = this.formData.amount * 100;
         params.currency = 'RUB';
         params.metadata = {};
         params.dueDate = moment(this.formData.dueDate).utc().format();
         params.product = this.formData.product;
         params.description = this.formData.description;
-        this.invoiceService.createInvoice(params).subscribe((invoice) => {
+        this.invoiceService.createInvoice(params).subscribe((invoiceAndToken) => {
             this.cancel();
-            this.onCreate.emit(invoice);
+            this.onCreate.emit(invoiceAndToken.invoice);
         });
     }
 
