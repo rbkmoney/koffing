@@ -4,10 +4,10 @@ export class InvoiceTemplateCostFixed extends InvoiceTemplateCost {
     public amount: number;
     public currency: string;
 
-    constructor(amount: number, currency: string) {
+    constructor(amount: number) {
         super();
         this.invoiceTemplateCostType = 'InvoiceTemplateCostFixed';
         this.amount = amount;
-        this.currency = currency;
+        this.currency = 'RUB';
     }
 }

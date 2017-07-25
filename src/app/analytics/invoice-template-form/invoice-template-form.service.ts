@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Injectable } from '@angular/core';
 
 import { COST_TYPES } from './invoice-template-cost-types';
@@ -10,6 +10,7 @@ export class InvoiceTemplateFormService {
 
     constructor(private fb: FormBuilder) {
         this.form = this.initForm();
+        this.form.controls.lifetime.setValidators(this.lifetimeValidator);
         this.form.valueChanges.subscribe((change) => this.setCostGroup(change));
     }
 
@@ -28,6 +29,11 @@ export class InvoiceTemplateFormService {
                 years: ['', Validators.min(0)]
             })
         });
+    }
+
+    private lifetimeValidator(control: FormControl): { [key: string]: any } {
+        const valid = Object.values(control.value).some((value: any) => value > 0);
+        return valid ? null : {lifetime: 'need some days, month or years value'};
     }
 
     private setCostGroup(change: any) {

@@ -16,7 +16,6 @@ form([formGroup]="form", novalidate)
         .row
             .col-xs-12.col-sm-5
                 label.text-left Тип ограничения стоимости:
-                    span.highlighted
             .col-xs-12.col-sm-7
                 .btn-group
                     label.btn.btn-sm.btn-default(*ngFor="let costType of costTypesItems", [ngClass]="{'active': isSelected(costType.value)}")
@@ -50,6 +49,7 @@ form([formGroup]="form", novalidate)
         .row
             .col-xs-12.col-sm-5
                 label.text-left Время жизни инвойса:
+                    span.highlighted &nbsp;*
             .col-xs-12.col-sm-7
                 .row
                     .col-xs-4
