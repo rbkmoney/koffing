@@ -39,9 +39,9 @@ export class InvoiceTemplatePaymentLinkService {
 
     private static toLifetimeInterval(formLifetime: any): LifetimeInterval {
         return new LifetimeInterval(
-            formLifetime.lifetime.days || 0,
-            formLifetime.lifetime.months || 0,
-            formLifetime.lifetime.years || 0
+            formLifetime.days || 0,
+            formLifetime.months || 0,
+            formLifetime.years || 0
         );
     }
 
