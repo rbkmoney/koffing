@@ -39,9 +39,8 @@ export class InvoiceTemplatePaymentLinkComponent implements OnInit {
     public ngOnInit() {
         this.invoiceTemplateForm = this.invoiceTemplateFormService.form;
         this.checkoutConfigForm = this.checkoutConfigFormService.form;
-        this.checkoutConfigForm.valueChanges.subscribe((formValue) => {
-            const accessData = new PaymentLinkInvoiceTemplate(this.invoiceTemplateID, this.invoiceTemplateAccessToken);
-            this.paymentLink = this.paymentLinkService.getPaymentLink(formValue, accessData);
+        this.checkoutConfigForm.valueChanges.subscribe(() => {
+            this.generatePaymentLink();
         });
     }
 
@@ -64,8 +63,12 @@ export class InvoiceTemplatePaymentLinkComponent implements OnInit {
             this.invoiceTemplateForm.disable();
             this.invoiceTemplateID = response.invoiceTemplate.id;
             this.invoiceTemplateAccessToken = response.invoiceTemplateAccessToken.payload;
-            const accessData = new PaymentLinkInvoiceTemplate(this.invoiceTemplateID, this.invoiceTemplateAccessToken);
-            this.paymentLink = this.paymentLinkService.getPaymentLink(this.checkoutConfigForm.value, accessData);
+            this.generatePaymentLink();
         });
+    }
+
+    private generatePaymentLink() {
+        const accessData = new PaymentLinkInvoiceTemplate(this.invoiceTemplateID, this.invoiceTemplateAccessToken);
+        this.paymentLink = this.paymentLinkService.getPaymentLink(this.checkoutConfigForm.value, accessData);
     }
 }
