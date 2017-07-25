@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { ConfigService } from './config.service';
-import { Invoice } from './model/invoice';
+import { InvoiceAndToken } from './model/invoice-and-token';
 import { InvoiceAccessToken } from './model/invoice-access-token';
 import { InvoiceParamsAll } from './requests/invoice-params-all';
 
@@ -17,7 +17,7 @@ export class InvoiceService {
         private config: ConfigService
     ) {}
 
-    public createInvoice(params: InvoiceParamsAll): Observable<Invoice> {
+    public createInvoice(params: InvoiceParamsAll): Observable<InvoiceAndToken> {
         return this.http.post(this.endpoint, params).map(res => res.json());
     }
 

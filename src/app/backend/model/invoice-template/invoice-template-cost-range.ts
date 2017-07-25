@@ -3,10 +3,12 @@ import { CostAmountRange } from './cost-amount-range';
 
 export class InvoiceTemplateCostRange extends InvoiceTemplateCost {
     public range: CostAmountRange;
+    public currency: string;
 
-    constructor() {
+    constructor(range: CostAmountRange) {
         super();
         this.invoiceTemplateCostType = 'InvoiceTemplateCostRange';
-        this.range = new CostAmountRange();
+        this.range = range;
+        this.currency = 'RUB';
     }
 }
