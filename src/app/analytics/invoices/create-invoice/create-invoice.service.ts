@@ -1,8 +1,9 @@
-import { round } from 'lodash';
+import { round, map } from 'lodash';
 import * as moment from 'moment';
 
 import { InvoiceParamsAll } from 'koffing/backend/requests/invoice-params-all';
 import { INVOICE_TYPES } from '../../invoice-form/invoice-types';
+import { Product } from '../../invoice-form/product';
 
 export class CreateInvoiceService {
 
@@ -19,7 +20,10 @@ export class CreateInvoiceService {
         } else if (formValue.selectedInvoiceType === INVOICE_TYPES.cart) {
             params.amount = this.toMinor(formValue.cartAmount);
             params.metadata = {
-                items: formValue.cart
+                items: map(formValue.cart, (product: Product) => {
+                    product.price = this.toMinor(product.price);
+                    return product;
+                })
             };
         }
         return params;

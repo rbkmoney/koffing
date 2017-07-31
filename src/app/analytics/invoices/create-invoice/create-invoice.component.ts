@@ -4,10 +4,9 @@ import * as moment from 'moment';
 
 import { Invoice } from 'koffing/backend/model/invoice';
 import { InvoiceService } from 'koffing/backend/invoice.service';
-import { InvoiceParamsAll } from 'koffing/backend/requests/invoice-params-all';
+import { CreateInvoiceService } from './create-invoice.service';
 import { InvoiceFormService } from '../../invoice-form/invoice-form.service';
 import { INVOICE_TYPES } from '../../invoice-form/invoice-types';
-import { CreateInvoiceService } from './create-invoice.service';
 
 @Component({
     selector: 'kof-create-invoice',
@@ -22,7 +21,6 @@ export class CreateInvoiceComponent implements OnInit {
     @Output()
     public onCreate: EventEmitter<Invoice> = new EventEmitter();
 
-    public invoice: Invoice;
     public invoiceForm: FormGroup;
 
     constructor(
@@ -44,6 +42,7 @@ export class CreateInvoiceComponent implements OnInit {
     }
 
     private setDefaultFormValues() {
+        this.invoiceForm.reset();
         this.invoiceForm.patchValue({
             amount: 10,
             product: '',
