@@ -37,7 +37,7 @@ form([formGroup]="form", novalidate)
                 input.form-control(type="number", formControlName="amount")
     div(*ngIf="form.value.selectedInvoiceType === 'cart'")
         div(formArrayName="cart")
-            .form-group(*ngFor="let getProduct of form.controls.cart.controls; let i=index", [formGroupName]="i")
+            .form-group(*ngFor="let product of form.controls.cart.controls; let i=index", [formGroupName]="i")
                 .row
                     .col-xs-2
                         input.form-control(type="number", formControlName="price", placeholder="Цена")
