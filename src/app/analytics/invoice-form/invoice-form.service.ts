@@ -16,8 +16,7 @@ export class InvoiceFormService {
 
     constructor(private fb: FormBuilder) {
         this.form = this.initForm();
-        this.form.controls.selectedInvoiceType.valueChanges.subscribe((change) => this.initCart(change));
-        this.form.controls.cart.valueChanges.subscribe((change) => this.calculateCartAmount(change));
+        this.form.controls.selectedInvoiceType.valueChanges.subscribe((invoiceType) => this.initCart(invoiceType));
     }
 
     public addProduct() {
@@ -42,11 +41,18 @@ export class InvoiceFormService {
         });
     }
 
-    private initCart(changeType: string) {
+    private initCart(invoiceType: string) {
         this.form.setControl('cart', this.fb.array([]));
-        if (changeType === INVOICE_TYPES.cart) {
+        if (invoiceType === INVOICE_TYPES.cart) {
             this.addProduct();
+            this.form.controls.cart.valueChanges.subscribe((cart) => this.calculateCartAmount(cart));
         }
+    }
+
+    private calculateCartAmount(cart: Product[]) {
+        this.form.patchValue({
+            cartAmount: reduce(cart, (result, product) => result + product.price * product.quantity, 0)
+        });
     }
 
     private getProduct(): FormGroup {
@@ -54,12 +60,6 @@ export class InvoiceFormService {
             quantity: ['', [ Validators.required, Validators.min(1) ]],
             price: ['', [ Validators.required, Validators.min(10) ]],
             description: ['', [ Validators.required, Validators.maxLength(1000) ]],
-        });
-    }
-
-    private calculateCartAmount(cart: Product[]) {
-        this.form.patchValue({
-            cartAmount: reduce(cart, (result, product) => result + product.price * product.quantity, 0)
         });
     }
 }
