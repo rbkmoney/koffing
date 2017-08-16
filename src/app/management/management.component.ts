@@ -14,12 +14,16 @@ export class ManagementComponent implements OnInit {
     constructor(private claimService: ClaimService, private router: Router) { }
 
     public ngOnInit() {
-        this.claimService.getClaims().subscribe((claims: Claim[]) => {
+        this.claimService.getClaims('pending').subscribe((claims: Claim[]) => {
             this.claims = claims;
         });
     }
 
     public createShop() {
         this.router.navigate(['/management/shop/create']);
+    }
+
+    public goToClaimDetails(claimID: number) {
+        this.router.navigate(['/management/claim/', claimID]);
     }
 }
