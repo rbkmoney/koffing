@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { FormSearchParams } from 'koffing/analytics/invoices/search-form/form-search-params';
 import { SearchPaymentsParams } from 'koffing/backend/requests/search-payments-params';
 import { SearchService } from 'koffing/backend/search.service';
-import { SearchResult } from 'koffing/analytics/invoices/search-result/search-details/search-result';
 import { PaymentSearchResult } from 'koffing/backend/model/payment-search-result';
+import { SearchResult } from 'koffing/invoices/search-result/search-details/search-result';
+import { FormSearchParams } from 'koffing/invoices/search-form/form-search-params';
 
 @Injectable()
 export class SearchDetailsService {

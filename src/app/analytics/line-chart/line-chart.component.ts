@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { LineChartData } from 'koffing/analytics/dashboard/stats-data/line-chart-data';
+import { LineChartData } from 'koffing/analytics/stats-data/line-chart-data';
 
 @Component({
     selector: 'kof-line-chart',

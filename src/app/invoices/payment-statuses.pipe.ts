@@ -1,6 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-
-import { paymentStatuses } from 'koffing/analytics/invoices/payment-statuses';
+import { paymentStatuses } from 'koffing/invoices/payment-statuses';
 
 @Pipe({
     name: 'kofPaymentStatus'

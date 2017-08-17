@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Invoice } from 'koffing/backend/model/invoice';
 import { InvoiceTableItem } from './invoice-table-item';
 import { SearchResultService } from './search-result.service';
-import { FormSearchParams } from 'koffing/analytics/invoices/search-form/form-search-params';
+import { FormSearchParams } from 'koffing/invoices/search-form/form-search-params';
 
 @Component({
     selector: 'kof-search-result',

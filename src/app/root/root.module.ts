@@ -18,8 +18,8 @@ import { NotificationHandleComponent } from './components/notification-handle/no
 import { ShopSelectorComponent } from './components/top-panel/shop-selector/shop-selector.component';
 import { InvoicesModule } from 'koffing/invoices/invoices.module';
 import { DocumentsModule } from 'koffing/documents/documents.module';
-import { DashboardModule } from 'koffing/dashboard/dashboard.module';
 import { ShopComponent } from 'koffing/root/components/shop/shop.component';
+import { AnalyticsModule } from 'koffing/analytics/analytics.module';
 
 @NgModule({
     imports: [
@@ -35,7 +35,7 @@ import { ShopComponent } from 'koffing/root/components/shop/shop.component';
         WebhooksModule,
         InvoicesModule,
         DocumentsModule,
-        DashboardModule
+        AnalyticsModule
     ],
     declarations: [
         ContainerComponent,

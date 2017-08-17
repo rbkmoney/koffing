@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { Invoice } from 'koffing/backend/model/invoice';
-import { FormSearchParams } from 'koffing/analytics/invoices/search-form/form-search-params';
-import { SearchDetailsService } from 'koffing/analytics/invoices/search-result/search-details/search-details.service';
-import { SearchResult } from 'koffing/analytics/invoices/search-result/search-details/search-result';
+import { SearchDetailsService } from 'koffing/invoices/search-result/search-details/search-details.service';
+import { FormSearchParams } from 'koffing/invoices/search-form/form-search-params';
+import { SearchResult } from 'koffing/invoices/search-result/search-details/search-result';
 
 @Component({
     selector: 'kof-search-details',

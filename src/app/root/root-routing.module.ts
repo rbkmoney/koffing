@@ -3,10 +3,10 @@ import { RouterModule } from '@angular/router';
 
 import { InvoicesComponent } from 'koffing/invoices/invoices.component';
 import { RegistryComponent } from 'koffing/documents/registry/registry.component';
-import { DashboardComponent } from 'koffing/dashboard/dashboard.component';
 import { ShopComponent } from 'koffing/root/components/shop/shop.component';
 import { WebhookComponent } from 'koffing/webhooks/webhook.component';
 import { TokenComponent } from 'koffing/tokenization/components/token/token.component';
+import { AnalyticsComponent } from 'koffing/analytics/analytics.component';
 
 @NgModule({
     imports: [
@@ -26,7 +26,7 @@ import { TokenComponent } from 'koffing/tokenization/components/token/token.comp
                     },
                     {
                         path: 'analytics',
-                        component: DashboardComponent
+                        component: AnalyticsComponent
                     },
                     {
                         path: 'documents/registry',

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { InvoiceTableItem } from 'koffing/analytics/invoices/search-result/invoice-table-item';
 import { Invoice } from 'koffing/backend/model/invoice';
+import { InvoiceTableItem } from 'koffing/invoices/search-result/invoice-table-item';
 
 @Injectable()
 export class SearchResultService {

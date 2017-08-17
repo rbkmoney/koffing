@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { find } from 'lodash';
 
@@ -8,7 +8,7 @@ import { SidebarStateService } from './sidebar-state.service';
 @Component({
     templateUrl: 'shop.component.pug'
 })
-export class ShopComponent {
+export class ShopComponent implements OnInit {
 
     public isSidebarOpened: boolean;
     public isSidebarDisabled: boolean;
