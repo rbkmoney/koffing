@@ -19,6 +19,7 @@ import { BankAccountDetailsComponent } from './claim-details/bank-account-detail
 import { ContractPayoutToolCreationDetailsComponent } from './claim-details/contract-payout-tool-creation-details/contract-payout-tool-creation-details.component';
 import { ShopCreationDetailsComponent } from './claim-details/shop-creation-details/shop-creation-details.component';
 import { RevokeClaimComponent } from './claim-details/revoke-claim/revoke-claim.component';
+import { PayoutToolFormComponent } from './payout-tool-form/payout-tool-form.component';
 
 @NgModule({
     imports: [
@@ -42,7 +43,8 @@ import { RevokeClaimComponent } from './claim-details/revoke-claim/revoke-claim.
         BankAccountDetailsComponent,
         ContractPayoutToolCreationDetailsComponent,
         ShopCreationDetailsComponent,
-        RevokeClaimComponent
+        RevokeClaimComponent,
+        PayoutToolFormComponent
     ],
     providers: [ClaimService]
 })

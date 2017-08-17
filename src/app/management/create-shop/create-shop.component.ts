@@ -6,6 +6,7 @@ import { ShopCreationStep } from './shop-creation-step';
 import { ClaimService } from 'koffing/backend/claim.service';
 import { PartyModification } from 'koffing/backend/model';
 import { FormResolver } from './form-resolver.service';
+import { BankAccount } from 'koffing/backend/model/bank-account';
 
 @Component({
     templateUrl: 'create-shop.component.pug',
@@ -23,6 +24,7 @@ export class CreateShopComponent implements OnInit {
     public contractGroup = this.createShopService.contractGroup;
     public payoutToolGroup = this.createShopService.payoutToolGroup;
     public shopGroup = this.createShopService.shopGroup;
+    public contractBankAccount: BankAccount;
     private changeset: PartyModification[];
 
     constructor(private claimService: ClaimService,
@@ -34,6 +36,7 @@ export class CreateShopComponent implements OnInit {
             if (changeset) {
                 this.validStep = true;
                 this.changeset = changeset;
+                this.contractBankAccount = this.createShopService.getContractBankAccount();
             } else {
                 this.validStep = false;
             }
@@ -52,10 +55,11 @@ export class CreateShopComponent implements OnInit {
 
     public createClaim() {
         this.claimService.createClaim(this.changeset).subscribe(() =>
-            this.router.navigate(['/']));
+            this.router.navigate(['/management']));
     }
 
     private isValid(): boolean {
         return !!this.changeset[this.currentStep];
     }
+
 }

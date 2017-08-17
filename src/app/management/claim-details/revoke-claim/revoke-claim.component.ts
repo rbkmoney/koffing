@@ -19,6 +19,6 @@ export class RevokeClaimComponent {
 
     public revokeClaim(reason: string) {
         this.claimService.revokeClaimByID(this.claim.id, this.claim.revision, reason)
-            .subscribe(() => this.router.navigate(['/']));
+            .subscribe(() => this.router.navigate(['/management']));
     }
 }

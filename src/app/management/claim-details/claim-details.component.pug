@@ -34,24 +34,20 @@
                 .row
                     .col-xs-12
                         kof-revoke-claim([claim]="claim")
-.row
-    .col-sm-8.col-sm-offset-2.col-xs-12(*ngIf="contractCreations")
-        .x_panel
+
+        .x_panel(*ngIf="contractCreations")
             .x_title
                 h5 Данные контракта
             .x_content
                 kof-contract-creation-details([contractCreations]="contractCreations")
-.row
-    .col-sm-8.col-sm-offset-2.col-xs-12(*ngIf="contractPayoutToolCreations")
-        .x_panel
+
+        .x_panel(*ngIf="contractPayoutToolCreations")
             .x_title
                 h5 Средство вывода
             .x_content
                 kof-contract-payout-tool-creation-details([contractPayoutToolCreations]="contractPayoutToolCreations")
 
-.row
-    .col-sm-8.col-sm-offset-2.col-xs-12(*ngIf="shopCreations")
-        .x_panel
+        .x_panel(*ngIf="shopCreations")
             .x_title
                 h5 Данные магазина
             .x_content
