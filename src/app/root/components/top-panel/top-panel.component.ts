@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from 'koffing/auth/auth.module';
 import { ToggleMenuBroadcaster } from 'koffing/broadcaster/broadcaster.module';

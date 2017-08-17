@@ -37,6 +37,6 @@ export class ManagementComponent implements OnInit {
     }
 
     public goToShop(shopID: string) {
-        this.router.navigate([`/analytics/${shopID}/invoices`]);
+        this.router.navigate([`/shop/${shopID}/invoices`]);
     }
 }

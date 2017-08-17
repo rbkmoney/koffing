@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 
-import { DateRange } from '../date-range-selector/date-range';
 import { RegistryExportService } from './registry-export.service';
 import { RegistryDataService } from './registry-data.service';
 import { ExcelService } from './excel/excel.service';
+import { DateRange } from 'koffing/common/date-range-selector/date-range';
 
 @Component({
     templateUrl: 'registry.component.pug',

@@ -5,11 +5,11 @@ import { Subject } from 'rxjs/Subject';
 
 import { ShopService } from 'koffing/backend/shop.service';
 import { AccountsService } from 'koffing/backend/accounts.service';
-import { DateRange } from '../date-range-selector/date-range';
 import { PanelData } from '../statistic-panel/panel-data';
 import { DashboardService } from './dashboard.service';
 import { LineChartData } from './stats-data/line-chart-data';
 import { DoughnutChartData } from './stats-data/doughnut-chart-data';
+import { DateRange } from 'koffing/common/date-range-selector/date-range';
 
 @Component({
     templateUrl: './dashboard.component.pug',

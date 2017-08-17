@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BaseChartDirective } from 'ng2-charts';
 
 import { CalendarModule } from 'primeng/components/calendar/calendar';
 import { BackendModule } from 'koffing/backend/backend.module';
@@ -16,7 +15,6 @@ import { SearchResultComponent } from './invoices/search-result/search-result.co
 import { PaginationPipe } from './invoices/paginate/pagination.pipe';
 import { RoubleCurrencyPipe } from './rouble-currency.pipe';
 import { AnalyticsComponent } from './analytics.component';
-import { DateRangeSelectorComponent } from './date-range-selector/date-range-selector.component';
 import { LineChartComponent } from './dashboard/line-chart/line-chart.component';
 import { DoughnutChartComponent } from './dashboard/doughnut-chart/doughnut-chart.component';
 import { StatisticPanelComponent } from './statistic-panel/statistic-panel.component';
@@ -42,7 +40,6 @@ import { InvoiceTemplateFormComponent } from './invoice-template-form/invoice-te
         BackendModule
     ],
     declarations: [
-        DateRangeSelectorComponent,
         AnalyticsComponent,
         DashboardComponent,
         InvoicesComponent,
@@ -50,7 +47,6 @@ import { InvoiceTemplateFormComponent } from './invoice-template-form/invoice-te
         PaginateComponent,
         SearchFormComponent,
         SearchResultComponent,
-        BaseChartDirective,
         InvoiceStatusPipe,
         PaymentStatusPipe,
         RoubleCurrencyPipe,
