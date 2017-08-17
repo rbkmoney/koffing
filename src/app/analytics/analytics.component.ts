@@ -9,7 +9,7 @@ import { PaymentLinkService } from './payment-link/payment-link.service';
 
 @Component({
     selector: 'kof-analytics',
-    templateUrl: './analytics.component.pug',
+    templateUrl: './analtics.component.pug',
     providers: [
         AnalyticsService,
         InvoiceFormService,

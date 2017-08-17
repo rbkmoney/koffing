@@ -19,6 +19,7 @@ import { ShopSelectorComponent } from './components/top-panel/shop-selector/shop
 import { InvoicesModule } from 'koffing/invoices/invoices.module';
 import { DocumentsModule } from 'koffing/documents/documents.module';
 import { DashboardModule } from 'koffing/dashboard/dashboard.module';
+import { ShopComponent } from 'koffing/root/components/shop/shop.component';
 
 @NgModule({
     imports: [
@@ -42,7 +43,8 @@ import { DashboardModule } from 'koffing/dashboard/dashboard.module';
         TopPanelComponent,
         HttpErrorHandleComponent,
         NotificationHandleComponent,
-        ShopSelectorComponent
+        ShopSelectorComponent,
+        ShopComponent
     ]
 })
 export class RootModule { }

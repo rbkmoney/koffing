@@ -16,9 +16,9 @@ export class ShopSelectorService {
                 private route: ActivatedRoute,
                 private router: Router) {
         this.router.events.subscribe((event) => {
-            if (event instanceof NavigationEnd) {
-                console.log(event);
-            }
+            // if (event instanceof NavigationEnd) {
+            //     console.log(event);
+            // }
         });
     }
 

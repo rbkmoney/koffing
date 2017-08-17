@@ -43,7 +43,7 @@ export class InvoicesComponent implements OnInit {
     ) { }
 
     public ngOnInit() {
-        this.route.params.subscribe((params) => {
+        this.route.parent.params.subscribe((params) => {
             this.shopID = params['shopID'];
             this.search();
         });

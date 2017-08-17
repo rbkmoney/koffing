@@ -28,7 +28,7 @@ export class RegistryComponent implements OnInit {
     ) { }
 
     public ngOnInit() {
-        this.route.params.subscribe((params) => {
+        this.route.parent.params.subscribe((params) => {
             this.shopID = params['shopID'];
         });
         this.fromTime = moment().subtract(1, 'month').hour(0).minute(0).second(0).toDate();
