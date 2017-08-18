@@ -29,11 +29,11 @@ export class ManagementComponent implements OnInit {
     }
 
     public createShop() {
-        this.router.navigate(['/management/shop/create']);
+        this.router.navigate(['/shop/create']);
     }
 
     public goToClaimDetails(claimID: number) {
-        this.router.navigate(['/management/claim', claimID]);
+        this.router.navigate(['/claim', claimID]);
     }
 
     public goToShop(shopID: string) {

@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from 'koffing/common/common.module';
 import { BackendModule } from 'koffing/backend/backend.module';
 import { SuggestionsModule } from 'koffing/suggestions/suggestions.module';
-import { ManagementRoutingModule } from './management-routing.module';
 import { CreateShopComponent } from './create-shop/create-shop.component';
 import { ContractFormComponent } from './contract-form/contract-form.component';
 import { ShopGroupComponent } from './shop-form/shop-form.component';
@@ -23,7 +22,6 @@ import { PayoutToolFormComponent } from './payout-tool-form/payout-tool-form.com
 
 @NgModule({
     imports: [
-        ManagementRoutingModule,
         BrowserModule,
         FormsModule,
         ReactiveFormsModule,

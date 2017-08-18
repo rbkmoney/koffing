@@ -18,8 +18,9 @@ import { NotificationHandleComponent } from './components/notification-handle/no
 import { ShopSelectorComponent } from './components/top-panel/shop-selector/shop-selector.component';
 import { InvoicesModule } from 'koffing/invoices/invoices.module';
 import { DocumentsModule } from 'koffing/documents/documents.module';
-import { ShopComponent } from 'koffing/root/components/shop/shop.component';
 import { AnalyticsModule } from 'koffing/analytics/analytics.module';
+import { LandingContainerComponent } from './components/landing-container/landing-container.component';
+import { ShopContainerComponent } from 'koffing/root/components/shop-container/shop-container.component';
 
 @NgModule({
     imports: [
@@ -39,12 +40,13 @@ import { AnalyticsModule } from 'koffing/analytics/analytics.module';
     ],
     declarations: [
         ContainerComponent,
+        LandingContainerComponent,
+        ShopContainerComponent,
         SidebarComponent,
         TopPanelComponent,
         HttpErrorHandleComponent,
         NotificationHandleComponent,
-        ShopSelectorComponent,
-        ShopComponent
+        ShopSelectorComponent
     ]
 })
 export class RootModule { }

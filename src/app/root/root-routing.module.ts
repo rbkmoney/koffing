@@ -3,22 +3,50 @@ import { RouterModule } from '@angular/router';
 
 import { InvoicesComponent } from 'koffing/invoices/invoices.component';
 import { RegistryComponent } from 'koffing/documents/registry/registry.component';
-import { ShopComponent } from 'koffing/root/components/shop/shop.component';
 import { WebhookComponent } from 'koffing/webhooks/webhook.component';
 import { TokenComponent } from 'koffing/tokenization/components/token/token.component';
 import { AnalyticsComponent } from 'koffing/analytics/analytics.component';
+import { ManagementComponent } from 'koffing/management/management.component';
+import { LandingContainerComponent } from './components/landing-container/landing-container.component';
+import { ShopContainerComponent } from './components/shop-container/shop-container.component';
+import { CreateShopComponent } from 'koffing/management/create-shop/create-shop.component';
+import { ClaimDetailsComponent } from 'koffing/management/claim-details/claim-details.component';
+import { AccountComponent } from 'koffing/account/account.component';
+import { WebhooksItemComponent } from 'koffing/webhooks/webhook-item/webhooks-item.component';
 
 @NgModule({
     imports: [
         RouterModule.forRoot([
-            // {
-            //     path: '',
-            //     redirectTo: '/analytics',
-            //     pathMatch: 'full'
-            // },
+            {
+                path: '',
+                redirectTo: '/',
+                pathMatch: 'full'
+            },
+            {
+                path: '',
+                component: LandingContainerComponent,
+                children: [
+                    {
+                        path: '',
+                        component: ManagementComponent
+                    },
+                    {
+                        path: 'shop/create',
+                        component: CreateShopComponent
+                    },
+                    {
+                        path: 'claim/:claimID',
+                        component: ClaimDetailsComponent
+                    },
+                    {
+                        path: 'account/:path',
+                        component: AccountComponent
+                    }
+                ]
+            },
             {
                 path: 'shop/:shopID',
-                component: ShopComponent,
+                component: ShopContainerComponent,
                 children: [
                     {
                         path: 'invoices',
@@ -35,6 +63,10 @@ import { AnalyticsComponent } from 'koffing/analytics/analytics.component';
                     {
                         path: 'webhooks',
                         component: WebhookComponent
+                    },
+                    {
+                        path: 'webhook/create',
+                        component: WebhooksItemComponent
                     },
                     {
                         path: 'key',

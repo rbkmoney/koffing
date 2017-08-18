@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ShopService } from 'koffing/backend/shop.service';
 import { Shop } from 'koffing/backend';
@@ -14,13 +14,7 @@ export class ShopSelectorService {
 
     constructor(private shopService: ShopService,
                 private route: ActivatedRoute,
-                private router: Router) {
-        this.router.events.subscribe((event) => {
-            // if (event instanceof NavigationEnd) {
-            //     console.log(event);
-            // }
-        });
-    }
+                private router: Router) {}
 
     public getSelectorItems(): Observable<SelectItem[]> {
         return this.shopService.getShops().map((shops: Shop[]) => {
@@ -36,10 +30,10 @@ export class ShopSelectorService {
 
     public navigateToShop(shopID: string) {
         ShopIDStorage.set(shopID);
-        // const hasChildren = this.route.children.length > 0;
-        // const childComponent = hasChildren ? this.route.children[0].routeConfig.path : 'dashboard';
-        // this.router.navigate(['analytics', shopID, childComponent]);
-        this.router.navigate(['analytics', shopID, 'dashboard']);
+        const hasChildren = this.route.children.length > 0;
+        const childRoute = hasChildren ? this.route.children[0].routeConfig.path : 'invoices';
+        const childComponents = childRoute.split('/');
+        this.router.navigate(['shop', shopID].concat(childComponents));
     }
 
     private toSelectorItems(shops: Shop[]): SelectItem[] {

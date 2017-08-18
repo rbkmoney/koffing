@@ -55,7 +55,7 @@ export class CreateShopComponent implements OnInit {
 
     public createClaim() {
         this.claimService.createClaim(this.changeset).subscribe(() =>
-            this.router.navigate(['/management']));
+            this.router.navigate(['/']));
     }
 
     private isValid(): boolean {
