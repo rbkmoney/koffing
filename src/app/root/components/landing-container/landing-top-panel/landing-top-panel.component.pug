@@ -1,7 +1,11 @@
 .top_nav
     nav.nav_menu
+        .nav.toggle.logo
+            a([routerLink]=["/"])
+                | RBKmoney
         ol.breadcrumb.landing-top-panel-breadcrumb
             li
                 a(routerLink="/") Главная
             li.active Создание магазина
-        kof-top-panel-actions
+        .top-panel-actions
+            kof-top-panel-actions

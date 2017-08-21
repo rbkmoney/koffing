@@ -25,17 +25,36 @@ form {
         float: none;
         display: table;
         margin: 0;
+        @media (max-width: 991px) {
+            display: block;
+            padding: 11px 0;
+        }
         .toggle {
             float: none;
             display: table-cell;
-            vertical-align: middle;
+            width: 52px;
             padding: 0;
+            vertical-align: middle;
         }
-        .navbar-right {
-            float: none;
-            display: table-cell;
-            vertical-align: middle;
-            padding: 0;
+        .logo {
+            font-size: 24px;
+            font-weight: 500;
+        }
+        .shop-selector {
+            @media (max-width: 991px) {
+                display: none;
+            }
+        }
+        .toggle-menu {
+            display: none;
+            @media (max-width: 991px) {
+                display: table-cell;
+            }
+        }
+        .top-panel-actions {
+            @media (max-width: 991px) {
+                display: none;
+            }
         }
     }
 }
@@ -204,7 +223,11 @@ span.highlighted {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.btn.pull-right {
-    margin-right: 0;
-    margin-left: 5px;
+.btn {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    &.pull-right {
+        margin-right: 0;
+        margin-left: 5px;
+    }
 }

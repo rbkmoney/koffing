@@ -1,8 +1,12 @@
 .top_nav
     nav.nav_menu
-        .nav.toggle
+        .nav.toggle.toggle-menu
             a((click)="toggleMenu()")
                 i.fa.fa-bars
-        .nav.toggle
-            kof-shop-selector()
-        kof-top-panel-actions
+        .nav.toggle.logo
+            a([routerLink]=["/"])
+                | RBKmoney
+        .nav.toggle.shop-selector
+            kof-shop-selector
+        .top-panel-actions
+            kof-top-panel-actions
