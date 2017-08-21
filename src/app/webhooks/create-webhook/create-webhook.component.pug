@@ -1,23 +1,17 @@
 .row
-    .col-xs-12
+    .col-xs-12.col-md-10.col-md-offset-1
         .x_panel
             .x_title
                 .row
                     .col-xs-6
-                        h4 Создание нового webhook
+                        h5 Создание webhook
             form.form-horizontal.form-label-left
                 .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                         span.required URL
                             span.highlighted  *
                     .col-md-6.col-sm-6.col-xs-12
-                        input.form-control.col-md-7.col-xs-12(type="text", id="url", name="url", [(ngModel)]="model.url", (change)="validateForm()", placeholder="http(s)://example.com/")
-                .form-group
-                    label.control-label.col-md-3.col-sm-3.col-xs-12
-                        span.required Магазин
-                            span.highlighted  *
-                    .col-md-6.col-sm-6.col-xs-12
-                        kof-select([ngModel]="model.scope.shopID", [items]="shops", [modelOptions]="{standalone: true}", name='shopID', (onChange)="onChangeShop($event)")
+                        input.form-control.col-md-7.col-xs-12(type="text", id="url", name="url", [(ngModel)]="model.url", (change)="validateForm()", placeholder="http(s)://example.com")
                 .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                         span.required События
@@ -29,7 +23,7 @@
                                 span
                                     strong {{checkbox.name}}
                                     |  ({{checkbox.description}})
-
+                .ln_solid
                 .form-group
                     .col-sm-6.col-sm-offset-3
                         button.btn.btn-default((click)="goBack()") Назад

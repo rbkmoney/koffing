@@ -1,20 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { ShopService } from 'koffing/backend/shop.service';
 import { WebhooksService } from 'koffing/backend/webhooks.service';
 import { WebhookParams } from 'koffing/backend/requests/webhook-params';
-import { SelectItem } from 'koffing/common/select/select-item';
 
 @Component({
     selector: 'kof-webhook-item',
-    templateUrl: './webhooks-item.component.pug',
+    templateUrl: 'create-webhook.component.pug',
 })
-export class WebhooksItemComponent implements OnInit  {
+export class CreateWebhookComponent implements OnInit  {
 
     public valid: boolean = false;
-
-    public shops: SelectItem[];
 
     public model: WebhookParams = {
         url: undefined,
@@ -37,10 +33,12 @@ export class WebhooksItemComponent implements OnInit  {
 
     constructor(private webhooksService: WebhooksService,
                 private router: Router,
-                private shopService: ShopService) {}
+                private route: ActivatedRoute) {}
 
-    public onChangeShop(shopID: string) {
-        this.model.scope.shopID = shopID;
+    public ngOnInit() {
+        this.route.parent.params.subscribe((params) => {
+            this.model.scope.shopID = params['shopID'];
+        });
     }
 
     public onChangeEventTypes() {
@@ -55,29 +53,17 @@ export class WebhooksItemComponent implements OnInit  {
     }
 
     public goBack() {
-        this.router.navigate(['/webhooks']);
+        this.router.navigate(['shop', this.model.scope.shopID, 'webhooks']);
     }
 
     public createWebhook() {
         this.webhooksService.createWebhook(this.model).subscribe(() => {
-            this.router.navigate(['/webhooks']);
+            this.goBack();
         });
     }
 
     public validateForm() {
         const model = this.model;
         this.valid = !!(model.url && model.scope.shopID && model.scope.topic && model.scope.eventTypes && model.scope.eventTypes.length > 0);
-    }
-
-    public ngOnInit() {
-        this.shopService.getShops().subscribe((shops) => {
-            this.model.scope.shopID = shops[0].id;
-            this.shops = shops.map((shop) => {
-                return {
-                    label: shop.details.name,
-                    value: shop.id
-                };
-            });
-        });
     }
 }

@@ -4,8 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { WebhookComponent } from './webhook.component';
 import { WebhooksListDetailsComponent } from './webhook-details/webhook-details.component';
-import { WebhooksItemComponent } from './webhook-item/webhooks-item.component';
 import { CommonModule } from 'koffing/common/common.module';
+import { CreateWebhookComponent } from './create-webhook/create-webhook.component';
+import { WebhookStatusPipe } from './webhook-status.pipe';
 
 @NgModule({
     imports: [
@@ -16,7 +17,8 @@ import { CommonModule } from 'koffing/common/common.module';
     declarations: [
         WebhookComponent,
         WebhooksListDetailsComponent,
-        WebhooksItemComponent
+        CreateWebhookComponent,
+        WebhookStatusPipe
     ]
 })
 export class WebhooksModule { }

@@ -7,6 +7,7 @@ import { ClaimService } from 'koffing/backend/claim.service';
 import { PartyModification } from 'koffing/backend/model';
 import { FormResolver } from './form-resolver.service';
 import { BankAccount } from 'koffing/backend/model/bank-account';
+import { BreadcrumbBroadcaster } from 'koffing/broadcaster/services/breadcrumb.broadcaster';
 
 @Component({
     templateUrl: 'create-shop.component.pug',
@@ -29,7 +30,9 @@ export class CreateShopComponent implements OnInit {
 
     constructor(private claimService: ClaimService,
                 private createShopService: CreateShopService,
-                private router: Router) { }
+                private router: Router,
+                private breadcrumbBroadcaster: BreadcrumbBroadcaster) {
+    }
 
     public ngOnInit() {
         this.createShopService.changesetEmitter.subscribe((changeset) => {
@@ -41,6 +44,7 @@ export class CreateShopComponent implements OnInit {
                 this.validStep = false;
             }
         });
+        this.breadcrumbBroadcaster.fire([{label: 'Создание магазина'}]);
     }
 
     public next() {

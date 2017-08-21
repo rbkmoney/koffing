@@ -1,7 +1,7 @@
 .top_nav
     nav.nav_menu
-        ol.breadcrumb.landing-top-panel-breadcrumb
-            li
-                a(routerLink="/") Главная
-            li.active Создание магазина
+        ol.breadcrumb.landing-top-panel-breadcrumb(*ngIf="breadcrumbConfig.length > 1")
+            li(*ngFor="let config of breadcrumbConfig", [ngClass]="{'active': !config.routerLink}")
+                a(*ngIf="config.routerLink", [routerLink]="config.routerLink") {{config.label}}
+                span(*ngIf="!config.routerLink") {{config.label}}
         kof-top-panel-actions

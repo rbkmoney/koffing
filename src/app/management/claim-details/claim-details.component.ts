@@ -8,6 +8,7 @@ import {
     ContractPayoutToolCreation,
     ShopCreation
 } from 'koffing/backend';
+import { BreadcrumbBroadcaster } from 'koffing/broadcaster/services/breadcrumb.broadcaster';
 
 @Component({
     templateUrl: 'claim-details.component.pug',
@@ -25,7 +26,8 @@ export class ClaimDetailsComponent implements OnInit {
 
     constructor(private claimService: ClaimService,
                 private route: ActivatedRoute,
-                private claimDetailsService: ClaimDetailsService) {
+                private claimDetailsService: ClaimDetailsService,
+                private breadcrumbBroadcaster: BreadcrumbBroadcaster) {
     }
 
     public ngOnInit() {
@@ -36,5 +38,6 @@ export class ClaimDetailsComponent implements OnInit {
             this.contractPayoutToolCreations = this.claimDetailsService.toContractPayoutToolCreations(claim.changeset);
             this.shopCreations = this.claimDetailsService.toShopCreation(claim.changeset);
         });
+        this.breadcrumbBroadcaster.fire([{label: 'Детали заявки'}]);
     }
 }
