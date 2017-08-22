@@ -12,7 +12,7 @@ import { ShopContainerComponent } from './components/shop-container/shop-contain
 import { CreateShopComponent } from 'koffing/management/create-shop/create-shop.component';
 import { ClaimDetailsComponent } from 'koffing/management/claim-details/claim-details.component';
 import { AccountComponent } from 'koffing/account/account.component';
-import { WebhooksItemComponent } from 'koffing/webhooks/webhook-item/webhooks-item.component';
+import { CreateWebhookComponent } from 'koffing/webhooks/create-webhook/create-webhook.component';
 
 @NgModule({
     imports: [
@@ -66,7 +66,7 @@ import { WebhooksItemComponent } from 'koffing/webhooks/webhook-item/webhooks-it
                     },
                     {
                         path: 'webhook/create',
-                        component: WebhooksItemComponent
+                        component: CreateWebhookComponent
                     },
                     {
                         path: 'key',

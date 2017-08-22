@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ClaimService } from 'koffing/backend/claim.service';
 import { ShopService } from 'koffing/backend/shop.service';
 import { Claim, Shop } from 'koffing/backend';
+import { BreadcrumbBroadcaster } from 'koffing/broadcaster/services/breadcrumb.broadcaster';
 
 @Component({
     templateUrl: 'management.component.pug'
@@ -16,7 +17,8 @@ export class ManagementComponent implements OnInit {
 
     constructor(private claimService: ClaimService,
                 private router: Router,
-                private shopService: ShopService) {
+                private shopService: ShopService,
+                private breadcrumbBroadcaster: BreadcrumbBroadcaster) {
     }
 
     public ngOnInit() {
@@ -26,6 +28,7 @@ export class ManagementComponent implements OnInit {
         this.shopService.getShops().subscribe((shops: Shop[]) => {
             this.shops = shops;
         });
+        this.breadcrumbBroadcaster.fire([]);
     }
 
     public createShop() {
