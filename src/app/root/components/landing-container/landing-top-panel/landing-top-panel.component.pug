@@ -7,5 +7,4 @@
             li(*ngFor="let config of breadcrumbConfig", [ngClass]="{'active': !config.routerLink}")
                 a(*ngIf="config.routerLink", [routerLink]="config.routerLink") {{config.label}}
                 span(*ngIf="!config.routerLink") {{config.label}}
-        .top-panel-actions
-            kof-top-panel-actions
+        kof-top-panel-actions

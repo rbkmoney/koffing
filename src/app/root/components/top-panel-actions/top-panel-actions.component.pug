@@ -12,9 +12,9 @@ ul.nav.navbar-nav.navbar-right
                 a((click)="logout()")
                     i.fa.fa-sign-out.pull-right
                     | Выйти
-    li
+    li.desktop-only
         a.user-profile.dropdown-toggle(href="{{ mailHref }}", title="Написать письмо в поддержку")
             i.fa.fa-envelope
-    li
+    li.desktop-only
         a.user-profile.dropdown-toggle(href="https://rbkmoney.github.io/docs", target="_blank", title="Документация")
             i.fa.fa-file-text-o

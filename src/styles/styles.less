@@ -21,14 +21,13 @@ form {
 
 .top_nav {
     margin: 0 !important;
+    .navbar-right {
+        width: 100%;
+    }
     .nav_menu {
         float: none;
         display: table;
         margin: 0;
-        @media (max-width: 991px) {
-            display: block;
-            padding: 11px 0;
-        }
         .toggle {
             float: none;
             display: table-cell;
@@ -51,10 +50,26 @@ form {
                 display: table-cell;
             }
         }
-        .top-panel-actions {
-            @media (max-width: 991px) {
-                display: none;
-            }
+    }
+}
+
+@media (min-width: 992px) {
+    // этот media - это переписывание стилей gentelella для того, чтобы на больших размерах экрана sidebar был таким же как и на маленьких
+    .left_col {
+        width: 70px !important;
+    }
+    .right_col {
+        margin-left: 70px !important;
+    }
+    .nav.side-menu li a {
+        font-size: 9px !important;
+        font-weight: 400 !important;
+        text-align: center !important;
+        padding: 10px 5px !important;
+        i {
+            font-size: 25px !important;
+            width: 100% !important;
+            margin-bottom: 5px !important;
         }
     }
 }
@@ -229,5 +244,11 @@ span.highlighted {
     &.pull-right {
         margin-right: 0;
         margin-left: 5px;
+    }
+}
+
+.desktop-only {
+    @media (max-width: 991px) {
+        display: none !important;
     }
 }
