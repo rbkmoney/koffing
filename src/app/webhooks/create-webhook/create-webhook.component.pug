@@ -8,7 +8,7 @@
                     .form-group
                         .row
                             .col-xs-12.col-sm-5
-                                label.text-left URL:
+                                label.text-left URL, на который будут поступать оповещения о произошедших событиях:
                                     span.highlighted &nbsp;*
                             .col-xs-12.col-sm-7
                                 input.form-control(formControlName="url", placeholder="http(s)://example.com")
@@ -16,7 +16,7 @@
                         .form-group
                             .row
                                 .col-xs-12.col-sm-5
-                                    label.text-left События:
+                                    label.text-left Набор типов событий, о которых следует оповещать:
                                         span.highlighted &nbsp;*
                                 .col-xs-12.col-sm-7(formGroupName="eventTypes")
                                     .checkbox(*ngFor="let eventType of eventTypes")
