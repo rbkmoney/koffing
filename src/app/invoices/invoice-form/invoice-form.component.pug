@@ -44,7 +44,7 @@ form([formGroup]="form", novalidate)
                     .col-xs-2
                         input.form-control(type="number", formControlName="quantity", placeholder="Количество")
                     .col-xs-7
-                        input.form-control(type="text", formControlName="description", placeholder="Описание")
+                        input.form-control(type="text", formControlName="product", placeholder="Продукт")
                     .col-xs-1
                         button.btn.btn-sm.btn-default.pull-right(type="button", (click)="removeProduct(i)")
                             i.fa.fa-trash

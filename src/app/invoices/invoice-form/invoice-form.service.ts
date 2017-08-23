@@ -2,7 +2,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Injectable } from '@angular/core';
 import { reduce } from 'lodash';
 
-import { Product } from './product';
+import { InvoiceLine } from 'koffing/backend/model/invoice-cart/invoice-line';
 import { INVOICE_TYPES } from './invoice-types';
 
 @Injectable()
@@ -49,7 +49,7 @@ export class InvoiceFormService {
         }
     }
 
-    private calculateCartAmount(cart: Product[]) {
+    private calculateCartAmount(cart: InvoiceLine[]) {
         this.form.patchValue({
             cartAmount: reduce(cart, (result, product) => result + product.price * product.quantity, 0)
         });
@@ -59,7 +59,7 @@ export class InvoiceFormService {
         return this.fb.group({
             quantity: ['', [ Validators.required, Validators.min(1) ]],
             price: ['', [ Validators.required, Validators.min(10) ]],
-            description: ['', [ Validators.required, Validators.maxLength(1000) ]],
+            product: ['', [ Validators.required, Validators.maxLength(1000) ]],
         });
     }
 }
