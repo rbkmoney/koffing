@@ -43,8 +43,10 @@ form([formGroup]="form", novalidate)
                         input.form-control(type="number", formControlName="price", placeholder="Цена")
                     .col-xs-2
                         input.form-control(type="number", formControlName="quantity", placeholder="Количество")
-                    .col-xs-7
-                        input.form-control(type="text", formControlName="product", placeholder="Продукт")
+                    .col-xs-2
+                        kof-select([items]="invoiceLineTaxItems", formControlName="tax", title="Налог")
+                    .col-xs-5
+                        input.form-control(type="text", formControlName="product", placeholder="Описание")
                     .col-xs-1
                         button.btn.btn-sm.btn-default.pull-right(type="button", (click)="removeProduct(i)")
                             i.fa.fa-trash

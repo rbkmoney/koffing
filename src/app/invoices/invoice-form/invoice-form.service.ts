@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { reduce } from 'lodash';
 
 import { InvoiceLine } from 'koffing/backend/model/invoice-cart/invoice-line';
+import { INVOICE_LINE_TAX_VAT_RATES } from 'koffing/backend/model/invoice-cart/invoice-line-tax-vat-rates';
 import { INVOICE_TYPES } from './invoice-types';
 
 @Injectable()
@@ -60,6 +61,7 @@ export class InvoiceFormService {
             quantity: ['', [ Validators.required, Validators.min(1) ]],
             price: ['', [ Validators.required, Validators.min(10) ]],
             product: ['', [ Validators.required, Validators.maxLength(1000) ]],
+            tax: [INVOICE_LINE_TAX_VAT_RATES.percent_18, [ Validators.required ]],
         });
     }
 }
