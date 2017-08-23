@@ -44,7 +44,7 @@ form([formGroup]="form", novalidate)
                     .col-xs-2
                         input.form-control(type="number", formControlName="quantity", placeholder="Количество")
                     .col-xs-2
-                        kof-select([items]="invoiceLineTaxItems", formControlName="tax", title="Налог")
+                        kof-select([items]="invoiceLineTaxItems", formControlName="tax", [placeholder]="'без НДС'")
                     .col-xs-5
                         input.form-control(type="text", formControlName="product", placeholder="Описание")
                     .col-xs-1

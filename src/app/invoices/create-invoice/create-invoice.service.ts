@@ -3,6 +3,8 @@ import * as moment from 'moment';
 
 import { InvoiceParams } from 'koffing/backend/requests/invoice-params';
 import { InvoiceLine } from 'koffing/backend/model/invoice-cart/invoice-line';
+import { InvoiceLineTaxVAT } from 'koffing/backend/model/invoice-cart/invoice-line-tax-vat';
+import { Product } from '../invoice-form/product';
 import { INVOICE_TYPES } from '../invoice-form/invoice-types';
 
 export class CreateInvoiceService {
@@ -19,8 +21,11 @@ export class CreateInvoiceService {
             params.amount = this.toMinor(formValue.amount);
         } else if (formValue.selectedInvoiceType === INVOICE_TYPES.cart) {
             params.amount = this.toMinor(formValue.cartAmount);
-            params.cart = map(formValue.cart, (invoiceLine: InvoiceLine) => {
-                invoiceLine.price = this.toMinor(invoiceLine.price);
+            params.cart = map(formValue.cart, (product: Product) => {
+                const invoiceLine = new InvoiceLine(product.product, product.quantity, this.toMinor(product.price));
+                if (product.tax) {
+                    invoiceLine.taxMode = new InvoiceLineTaxVAT(product.tax);
+                }
                 return invoiceLine;
             });
         }

@@ -58,10 +58,10 @@ export class InvoiceFormService {
 
     private getProduct(): FormGroup {
         return this.fb.group({
+            product: ['', [ Validators.required, Validators.maxLength(1000) ]],
             quantity: ['', [ Validators.required, Validators.min(1) ]],
             price: ['', [ Validators.required, Validators.min(10) ]],
-            product: ['', [ Validators.required, Validators.maxLength(1000) ]],
-            tax: [INVOICE_LINE_TAX_VAT_RATES.percent_18, [ Validators.required ]],
+            tax: [''],
         });
     }
 }
