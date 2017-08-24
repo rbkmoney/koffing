@@ -1,22 +1,23 @@
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Injectable } from '@angular/core';
 import { reduce } from 'lodash';
+import * as moment from 'moment';
 
 import { InvoiceLine } from 'koffing/backend/model/invoice-cart/invoice-line';
-import { INVOICE_TYPES } from './invoice-types';
 
 @Injectable()
 export class InvoiceFormService {
 
     public form: FormGroup;
+    private cartControlName: string = 'cart';
 
     get cart(): FormArray {
-        return this.form.get('cart') as FormArray;
+        return this.form.get(this.cartControlName) as FormArray;
     }
 
     constructor(private fb: FormBuilder) {
         this.form = this.initForm();
-        this.form.controls.selectedInvoiceType.valueChanges.subscribe((invoiceType) => this.initCart(invoiceType));
+        this.initCart();
     }
 
     public addProduct() {
@@ -29,29 +30,34 @@ export class InvoiceFormService {
         }
     }
 
+    public setDefaultValues() {
+        this.form.reset();
+        this.form.patchValue({
+            product: '',
+            description: '',
+            dueDate: moment().add(1, 'd').toDate()
+        });
+        this.initCart();
+    }
+
     private initForm(): FormGroup {
         return this.fb.group({
-            amount: ['', [ Validators.required, Validators.min(10) ]],
             product: ['', [ Validators.required, Validators.maxLength(100) ]],
             description: ['', [ Validators.maxLength(1000) ]],
             dueDate: ['', [ Validators.required ]],
-            selectedInvoiceType: ['', [ Validators.required ]],
-            cart: this.fb.array([]),
-            cartAmount: ['']
+            amount: ['']
         });
     }
 
-    private initCart(invoiceType: string) {
-        this.form.setControl('cart', this.fb.array([]));
-        if (invoiceType === INVOICE_TYPES.cart) {
-            this.addProduct();
-            this.form.controls.cart.valueChanges.subscribe((cart) => this.calculateCartAmount(cart));
-        }
+    private initCart() {
+        this.form.setControl(this.cartControlName, this.fb.array([]));
+        this.form.controls.cart.valueChanges.subscribe((cart) => this.calculateCartAmount(cart));
+        this.addProduct();
     }
 
     private calculateCartAmount(cart: InvoiceLine[]) {
         this.form.patchValue({
-            cartAmount: reduce(cart, (result, product) => result + product.price * product.quantity, 0)
+            amount: reduce(cart, (result, product) => result + product.price * product.quantity, 0)
         });
     }
 
