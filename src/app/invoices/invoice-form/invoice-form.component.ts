@@ -23,9 +23,7 @@ export class InvoiceFormComponent implements OnInit {
     constructor(private invoiceFormService: InvoiceFormService) { }
 
     public ngOnInit() {
-        this.invoiceLineTaxItems = map(INVOICE_LINE_TAX_VAT_RATES, (value) => {
-            return new SelectItem(value, value);
-        });
+        this.invoiceLineTaxItems = map(INVOICE_LINE_TAX_VAT_RATES, (value) => new SelectItem(value, value));
     }
 
     public addProduct() {

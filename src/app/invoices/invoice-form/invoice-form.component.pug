@@ -28,7 +28,7 @@ form([formGroup]="form", novalidate)
                 .form-group(*ngFor="let product of form.controls.cart.controls; let i=index", [formGroupName]="i")
                     .row
                         .col-xs-4.col-sm-2
-                            input.form-control(type="number", formControlName="price", placeholder="Цена")
+                            input.form-control(type="number", formControlName="price", placeholder="Стоимость")
                         .col-xs-4.col-sm-2
                             input.form-control(type="number", formControlName="quantity", placeholder="Количество")
                         .col-xs-4.col-sm-2
