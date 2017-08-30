@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
-import { clone, forEach, find, isEqual } from 'lodash';
+import { clone, find } from 'lodash';
 
 import { Event } from 'koffing/backend/model/event/event';
 import { InvoiceChange } from 'koffing/backend/model/event/invoice-change';
