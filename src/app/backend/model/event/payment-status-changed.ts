@@ -6,7 +6,7 @@ export class PaymentStatusChanged extends InvoiceChange {
     public paymentID: string;
     public error: LogicError;
 
-    constructor(status: string, paymentID?: string, error?: LogicError) {
+    constructor(status: string, paymentID: string, error?: LogicError) {
         super();
         this.changeType = 'PaymentStatusChanged';
         this.status = status;

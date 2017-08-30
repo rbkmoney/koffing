@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
-import { clone, forEach } from 'lodash';
+import { clone, forEach, find, isEqual } from 'lodash';
 
 import { Event } from 'koffing/backend/model/event/event';
 import { InvoiceChange } from 'koffing/backend/model/event/invoice-change';
@@ -13,32 +13,33 @@ import { EventService } from 'koffing/backend/event.service';
 export class EventPollerService {
 
     private interval: number = 300;
-    private retries: number = 5;
-    private limitStartEvents: number = 10;
-    private lastEvent: Event = new Event();
+    private retries: number = 60;
+    private limitStartEvents: number = 100;
 
     constructor(
         private eventService: EventService,
     ) { }
 
-    public startPolling(invoiceID: string, pollingChange: InvoiceChange): Observable<boolean> {
-        return Observable.create((observer: Observer<boolean>) => {
+    public startPolling(invoiceID: string, expectedChange: InvoiceChange): Observable<InvoiceChange> {
+        return Observable.create((observer: Observer<InvoiceChange>) => {
             let i = 0;
+            let lastEvent = new Event();
             const interval = setInterval(() => {
-                this.getNextLastEvent(invoiceID, this.lastEvent.id).subscribe((event) => {
+                this.getNextLastEvent(invoiceID, lastEvent.id).subscribe((event) => {
                     if (event) {
-                        this.lastEvent = clone(event);
+                        lastEvent = clone(event);
                     }
 
-                    if (this.checkEvent(this.lastEvent, pollingChange)) {
+                    const targetChange = this.findTargetChange(lastEvent.changes, expectedChange);
+                    if (targetChange) {
                         clearInterval(interval);
-                        observer.next(true);
+                        observer.next(targetChange);
                         observer.complete();
                     }
 
                     if (++i >= this.retries) {
                         clearInterval(interval);
-                        observer.next(false);
+                        observer.error({ message: 'completed by timeout' });
                         observer.complete();
                     }
                 });
@@ -46,23 +47,23 @@ export class EventPollerService {
         });
     }
 
-    private checkEvent(event: Event, pollingChange: InvoiceChange): boolean {
-        let result = false;
-        forEach(event.changes, (eventChange) => {
-            if (pollingChange instanceof InvoiceStatusChanged && pollingChange.changeType === eventChange.changeType) {
-                const change = eventChange as InvoiceStatusChanged;
-                if (pollingChange.status === change.status) {
-                    result = true;
-                }
-            } else
-            if (pollingChange instanceof PaymentStatusChanged && pollingChange.changeType === eventChange.changeType) {
-                const change = eventChange as PaymentStatusChanged;
-                if (pollingChange.status === change.status) {
-                    result = true;
+    private findTargetChange(changes: InvoiceChange[], expectedChange: InvoiceChange): InvoiceChange {
+        return find(changes, (change) => {
+            if (change.changeType === expectedChange.changeType) {
+                if (expectedChange instanceof InvoiceStatusChanged) {
+                    const eventChange = change as InvoiceStatusChanged;
+                    if (expectedChange.status === eventChange.status) {
+                        return true;
+                    }
+                } else
+                if (expectedChange instanceof PaymentStatusChanged) {
+                    const eventChange = change as PaymentStatusChanged;
+                    if (expectedChange.status === eventChange.status) {
+                        return true;
+                    }
                 }
             }
         });
-        return result;
     }
 
     private getNextLastEvent(invoiceID: string, currentLastEventID?: number): Observable<Event> {
