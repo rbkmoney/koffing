@@ -15,12 +15,6 @@ export class SearchResultComponent implements OnInit {
     @Input()
     public invoices: Observable<Invoice[]>;
 
-    @Input()
-    public searchParams: FormSearchParams;
-
-    @Input()
-    public shopID: string;
-
     public invoiceTableItems: Observable<InvoiceTableItem[]>;
 
     public ngOnInit() {

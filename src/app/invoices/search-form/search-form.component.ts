@@ -1,11 +1,11 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
-import * as moment from 'moment';
-import { map, clone } from 'lodash';
+import { FormGroup } from '@angular/forms';
+import { map } from 'lodash';
 
 import { SelectItem } from 'koffing/common/select/select-item';
-import { FormSearchParams } from './form-search-params';
 import { invoiceStatuses } from '../invoice-statuses';
 import { paymentStatuses } from '../payment-statuses';
+import { SearchFormService } from './search-form.service';
 
 @Component({
     selector: 'kof-search-form',
@@ -14,57 +14,33 @@ import { paymentStatuses } from '../payment-statuses';
 export class SearchFormComponent implements OnInit {
 
     @Input()
-    public searchParams: FormSearchParams;
-
-    @Input()
-    public shopID: string;
-
-    @Input()
     public isSearch: boolean = false;
 
     @Output()
-    public onSearch: EventEmitter<FormSearchParams> = new EventEmitter<FormSearchParams>();
+    public onSearch: EventEmitter<void> = new EventEmitter<void>();
+
+    public searchForm: FormGroup;
 
     public invoiceStatuses: SelectItem[];
 
     public paymentStatuses: SelectItem[];
 
-    public isValidCardNumber: boolean = true;
-
-    private initParams: FormSearchParams;
+    constructor(private searchFormService: SearchFormService) { }
 
     public ngOnInit() {
         this.invoiceStatuses = map(invoiceStatuses, (name, key) => new SelectItem(key, name));
         this.paymentStatuses = map(paymentStatuses, (name, key) => new SelectItem(key, name));
-        this.initParams = clone({
-            from: this.searchParams.from,
-            to: this.searchParams.to
-        });
-    }
-
-    public selectFrom() {
-        this.searchParams.from = moment(this.searchParams.from).startOf('day').toDate();
-    }
-
-    public selectTo() {
-        this.searchParams.to = moment(this.searchParams.to).endOf('day').toDate();
+        this.searchForm = this.searchFormService.searchForm;
     }
 
     public search() {
-        if (this.validate()) {
-            this.onSearch.emit(this.searchParams);
+        if (this.searchForm.valid) {
+            this.onSearch.emit();
         }
     }
 
     public reset() {
-        this.searchParams = clone(this.initParams);
+        this.searchFormService.reset();
         this.search();
-    }
-
-    private validate(): boolean {
-        this.isValidCardNumber = this.searchParams.cardNumberMask
-            ? /^\d{4}$/.test(this.searchParams.cardNumberMask)
-            : true;
-        return this.isValidCardNumber;
     }
 }
