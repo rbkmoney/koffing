@@ -2,31 +2,6 @@ form([formGroup]="searchForm", novalidate)
     .row
         .col-sm-3.col-xs-12
             .form-group
-                label Временной интервал:
-                .row
-                    .col-sm-6.col-xs-12
-                        .ui-calendar.search-form
-                            p-calendar.ui-inputtext.search-form(
-                            formControlName="from",
-                            dateFormat = "dd.mm.yy",
-                            [maxDate]="searchForm.controls.to.value",
-                            readonlyInput="true")
-                    .col-sm-6.col-xs-12
-                        .ui-calendar.search-form
-                            p-calendar.ui-inputtext.search-form(
-                            formControlName="to",
-                            dateFormat = "dd.mm.yy",
-                            [minDate]="searchForm.controls.from.value",
-                            readonlyInput="true")
-        .col-sm-3.col-xs-12
-            .form-group
-                label Номер карты (последние 4 цифры):
-                input.form-control(
-                type="number",
-                maxlength=4
-                formControlName="cardNumberMask")
-        .col-sm-3.col-xs-12
-            .form-group
                 label Идентификатор инвойса:
                 input.form-control(formControlName="invoiceID")
         .col-sm-3.col-xs-12
@@ -36,19 +11,6 @@ form([formGroup]="searchForm", novalidate)
                 [items]="invoiceStatuses",
                 [placeholder]="'Любой статус'",
                 formControlName="invoiceStatus")
-    .row
-        .col-sm-3.col-xs-12
-            .form-group
-                label IP-адрес плательщика:
-                input.form-control(formControlName="ip")
-        .col-sm-3.col-xs-12
-            .form-group
-                label Email плательщика:
-                input.form-control(formControlName="email")
-        .col-sm-3.col-xs-12
-            .form-group
-                label Идентификатор платежа:
-                input.form-control(type="number", formControlName="paymentID")
         .col-sm-3.col-xs-12
             .form-group
                 label Статус платежа:
@@ -56,12 +18,54 @@ form([formGroup]="searchForm", novalidate)
                 [items]="paymentStatuses",
                 [placeholder]="'Любой статус'",
                 formControlName="paymentStatus")
-    .row
         .col-sm-3.col-xs-12
-            .form-group
-                label Fingerprint:
-                input.form-control(formControlName="fingerprint")
-        .col-sm-9.col-xs-12
             .action-group
-                button.btn.btn-primary.pull-right([disabled]="!searchForm.valid", (click)="search()") Найти
-                button.btn.btn-default.pull-right((click)="reset()") Сбросить
+                button.btn.btn-default((click)="toggleAdditionalParamsVisible()") ...
+
+    div(*ngIf="additionalParamsVisible")
+        .row
+            .col-sm-3.col-xs-12
+                .form-group
+                    label Временной интервал:
+                    .row
+                        .col-sm-6.col-xs-12
+                            .ui-calendar.search-form
+                                p-calendar.ui-inputtext.search-form(
+                                formControlName="from",
+                                dateFormat = "dd.mm.yy",
+                                [maxDate]="searchForm.controls.to.value",
+                                readonlyInput="true")
+                        .col-sm-6.col-xs-12
+                            .ui-calendar.search-form
+                                p-calendar.ui-inputtext.search-form(
+                                formControlName="to",
+                                dateFormat = "dd.mm.yy",
+                                [minDate]="searchForm.controls.from.value",
+                                readonlyInput="true")
+            .col-sm-3.col-xs-12
+                .form-group
+                    label Номер карты (последние 4 цифры):
+                    input.form-control(
+                    type="number",
+                    maxlength=4
+                    formControlName="cardNumberMask")
+            .col-sm-3.col-xs-12
+                .form-group
+                    label Fingerprint:
+                    input.form-control(formControlName="fingerprint")
+        .row
+            .col-sm-3.col-xs-12
+                .form-group
+                    label IP-адрес плательщика:
+                    input.form-control(formControlName="ip")
+            .col-sm-3.col-xs-12
+                .form-group
+                    label Email плательщика:
+                    input.form-control(formControlName="email")
+            .col-sm-3.col-xs-12
+                .form-group
+                    label Идентификатор платежа:
+                    input.form-control(type="number", formControlName="paymentID")
+        .row
+            .col-sm-9.col-xs-12
+                button.btn.btn-default((click)="reset()") Сбросить параметры поиска

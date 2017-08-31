@@ -25,22 +25,27 @@ export class SearchFormComponent implements OnInit {
 
     public paymentStatuses: SelectItem[];
 
-    constructor(private searchFormService: SearchFormService) { }
+    public additionalParamsVisible: boolean = false;
+
+    constructor(private searchFormService: SearchFormService) {
+    }
 
     public ngOnInit() {
         this.invoiceStatuses = map(invoiceStatuses, (name, key) => new SelectItem(key, name));
         this.paymentStatuses = map(paymentStatuses, (name, key) => new SelectItem(key, name));
         this.searchForm = this.searchFormService.searchForm;
-    }
-
-    public search() {
-        if (this.searchForm.valid) {
-            this.onSearch.emit();
-        }
+        this.searchForm.valueChanges
+            .filter((value) => this.searchForm.status === 'VALID')
+            .debounceTime(300)
+            .subscribe(() => this.onSearch.emit());
     }
 
     public reset() {
         this.searchFormService.reset();
-        this.search();
+        this.onSearch.emit();
+    }
+
+    public toggleAdditionalParamsVisible() {
+        this.additionalParamsVisible = !this.additionalParamsVisible;
     }
 }

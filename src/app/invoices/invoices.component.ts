@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
 
 import { Invoice } from 'koffing/backend/model/invoice';
@@ -10,7 +11,6 @@ import { CheckoutConfigFormService } from 'koffing/invoices/checkout-config-form
 import { PaymentLinkService } from 'koffing/invoices/payment-link/payment-link.service';
 import { InvoicesService } from 'koffing/invoices/invoices.service';
 import { SearchFormService } from 'koffing/invoices/search-form/search-form.service';
-import { FormGroup } from '@angular/forms';
 
 @Component({
     templateUrl: 'invoices.component.pug',
@@ -29,7 +29,6 @@ export class InvoicesComponent implements OnInit {
 
     public invoices: Subject<Invoice[]> = new Subject();
     public isLoading: boolean = false;
-    public isSearchAction: boolean = false;
     public shopID: string;
     public totalCount: number;
     public offset: number = 0;
@@ -64,7 +63,6 @@ export class InvoicesComponent implements OnInit {
         // this.searchParams.invoiceID = invoice.id;
         this.totalCount = 1;
         this.invoices.next([invoice]);
-        this.isSearchAction = true;
     }
 
     private search() {
@@ -74,7 +72,6 @@ export class InvoicesComponent implements OnInit {
             this.isLoading = false;
             this.totalCount = response.totalCount;
             this.invoices.next(response.result);
-            this.isSearchAction = true;
         });
     }
 }

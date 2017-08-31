@@ -16,9 +16,9 @@ export class SearchFormService {
         to: moment().endOf('day').toDate()
     };
 
-    constructor(protected fb: FormBuilder,
-                protected router: Router,
-                protected route: ActivatedRoute) {
+    constructor(private fb: FormBuilder,
+                private router: Router,
+                private route: ActivatedRoute) {
         this.searchForm = this.initForm();
         this.route.parent.params.subscribe((params) => {
             this.shopID = params['shopID'];
