@@ -25,10 +25,9 @@ export class SearchFormComponent implements OnInit {
 
     public paymentStatuses: SelectItem[];
 
-    public additionalParamsVisible: boolean = false;
+    public additionalParamsVisible: boolean;
 
-    constructor(private searchFormService: SearchFormService) {
-    }
+    constructor(private searchFormService: SearchFormService) { }
 
     public ngOnInit() {
         this.invoiceStatuses = map(invoiceStatuses, (name, key) => new SelectItem(key, name));
@@ -38,6 +37,7 @@ export class SearchFormComponent implements OnInit {
             .filter((value) => this.searchForm.status === 'VALID')
             .debounceTime(300)
             .subscribe(() => this.onSearch.emit());
+        this.additionalParamsVisible = this.searchFormService.hasFormAdditionalParams();
     }
 
     public reset() {

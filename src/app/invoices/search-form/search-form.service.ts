@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import * as moment from 'moment';
-import { mapValues, isEqual } from 'lodash';
+import { mapValues, isEqual, chain, keys, difference } from 'lodash';
 
 @Injectable()
 export class SearchFormService {
@@ -15,6 +15,8 @@ export class SearchFormService {
         from: moment().subtract(1, 'month').startOf('day').toDate(),
         to: moment().endOf('day').toDate()
     };
+
+    private mainSearchFields = ['invoiceID', 'invoiceStatus', 'paymentStatus'];
 
     constructor(private fb: FormBuilder,
                 private router: Router,
@@ -29,6 +31,15 @@ export class SearchFormService {
 
     public reset() {
         this.searchForm.reset(this.defaultValues);
+    }
+
+    public hasFormAdditionalParams(): boolean {
+        const formFields = chain(this.searchForm.getRawValue())
+            .map((value: string, key: string) => isEqual(value, '') ? null : key)
+            .filter((mapped) => mapped !== null)
+            .value();
+        const defaultFields = keys(this.defaultValues);
+        return difference(formFields, defaultFields, this.mainSearchFields).length > 0;
     }
 
     private updateFormValue(queryParams: Params) {
