@@ -1,5 +1,6 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 import { map } from 'lodash';
 
 import { SelectItem } from 'koffing/common/select/select-item';
@@ -9,7 +10,26 @@ import { SearchFormService } from './search-form.service';
 
 @Component({
     selector: 'kof-search-form',
-    templateUrl: 'search-form.component.pug'
+    templateUrl: 'search-form.component.pug',
+    styleUrls: ['search-form.component.less'],
+    animations: [
+        trigger('flyInOut', [
+            state('in', style({
+                opacity: 1
+            })),
+            transition('void => *', [
+                style({
+                    opacity: 0
+                }),
+                animate('0.1s ease-in')
+            ]),
+            transition('* => void', [
+                animate('0.1s ease-out', style({
+                    opacity: 0
+                }))
+            ])
+        ])
+    ]
 })
 export class SearchFormComponent implements OnInit {
 
@@ -27,7 +47,7 @@ export class SearchFormComponent implements OnInit {
 
     public additionalParamsVisible: boolean;
 
-    constructor(private searchFormService: SearchFormService) { }
+    constructor(private searchFormService: SearchFormService) {}
 
     public ngOnInit() {
         this.invoiceStatuses = map(invoiceStatuses, (name, key) => new SelectItem(key, name));

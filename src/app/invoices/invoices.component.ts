@@ -60,7 +60,6 @@ export class InvoicesComponent implements OnInit {
     }
 
     public onCreate(invoice: Invoice) {
-        // this.searchParams.invoiceID = invoice.id;
         this.totalCount = 1;
         this.invoices.next([invoice]);
     }
