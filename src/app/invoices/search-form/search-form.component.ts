@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { Component, Output, OnInit, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { map } from 'lodash';
@@ -32,9 +32,6 @@ import { SearchFormService } from './search-form.service';
     ]
 })
 export class SearchFormComponent implements OnInit {
-
-    @Input()
-    public isSearch: boolean = false;
 
     @Output()
     public onSearch: EventEmitter<void> = new EventEmitter<void>();

@@ -28,7 +28,6 @@ import { SearchFormService } from 'koffing/invoices/search-form/search-form.serv
 export class InvoicesComponent implements OnInit {
 
     public invoices: Subject<Invoice[]> = new Subject();
-    public isLoading: boolean = false;
     public shopID: string;
     public totalCount: number;
     public offset: number = 0;
@@ -65,10 +64,8 @@ export class InvoicesComponent implements OnInit {
     }
 
     private search() {
-        this.isLoading = true;
         const request = this.invoicesService.toSearchParams(this.limit, this.offset, this.searchForm.value);
         this.searchService.searchInvoices(this.shopID, request).subscribe((response) => {
-            this.isLoading = false;
             this.totalCount = response.totalCount;
             this.invoices.next(response.result);
         });
