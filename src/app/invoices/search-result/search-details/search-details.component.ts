@@ -27,7 +27,7 @@ export class SearchDetailsComponent implements OnInit {
 
     public searchResult: SearchResult;
     public isLoading: boolean;
-    private processInProgressStatus: boolean;
+    private paymentInStatusProcessed: boolean;
 
     constructor(private searchDetailsService: SearchDetailsService) { }
 
@@ -40,15 +40,15 @@ export class SearchDetailsComponent implements OnInit {
         this.searchDetailsService.search(String(this.invoice.shopID), this.invoice.id, this.searchParams).subscribe((result) => {
             this.isLoading = false;
             this.searchResult = result;
-            this.processInProgressStatus = Boolean(this.findPaymentInProcessStatus(result.payments));
+            this.paymentInStatusProcessed = Boolean(this.findPaymentInStatusProcessed(result.payments));
         });
     }
 
     public isPaymentLinkAvailable() {
-        return (this.invoice.status === INVOICE_STATUS.unpaid && !this.processInProgressStatus && !this.isLoading);
+        return (this.invoice.status === INVOICE_STATUS.unpaid && !this.paymentInStatusProcessed && !this.isLoading);
     }
     
-    private findPaymentInProcessStatus(payments: Payment[]): Payment {
+    private findPaymentInStatusProcessed(payments: Payment[]): Payment {
         return find(payments, { status: PAYMENT_STATUS.processed });
     }
 }
