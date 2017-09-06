@@ -39,9 +39,9 @@ export class SearchFormComponent implements OnInit {
     public searchForm: FormGroup;
 
     public invoiceStatuses: SelectItem[];
-
+  
     public paymentStatuses: SelectItem[];
-
+  
     public additionalParamsVisible: boolean;
 
     constructor(private searchFormService: SearchFormService) {}

@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
+import { INVOICE_STATUS } from 'koffing/backend/constants/invoice-status';
+import { PAYMENT_STATUS } from 'koffing/backend/constants/payment-status';
 import { Invoice } from 'koffing/backend/model/invoice';
 import { SearchDetailsService } from './search-details.service';
 import { SearchResult } from './search-result';
@@ -17,8 +19,8 @@ export class SearchDetailsComponent implements OnInit {
     public invoice: Invoice;
 
     public searchResult: SearchResult;
-
     public isLoading: boolean;
+    private paymentInStatusProcessed: boolean;
 
     public searchForm: FormGroup;
 
@@ -36,10 +38,15 @@ export class SearchDetailsComponent implements OnInit {
         this.searchDetailsService.search(this.invoice.shopID, this.invoice.id, this.searchForm.value).subscribe((result) => {
             this.isLoading = false;
             this.searchResult = result;
+            this.paymentInStatusProcessed = Boolean(this.findPaymentInStatusProcessed(result.payments));
         });
     }
 
     public isPaymentLinkAvailable() {
-        return this.invoice.status === 'unpaid';
+        return (this.invoice.status === INVOICE_STATUS.unpaid && !this.paymentInStatusProcessed && !this.isLoading);
+    }
+
+    private findPaymentInStatusProcessed(payments: Payment[]): Payment {
+        return find(payments, { status: PAYMENT_STATUS.processed });
     }
 }
