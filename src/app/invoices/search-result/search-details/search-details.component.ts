@@ -47,7 +47,7 @@ export class SearchDetailsComponent implements OnInit {
     public isPaymentLinkAvailable() {
         return (this.invoice.status === INVOICE_STATUS.unpaid && !this.paymentInStatusProcessed && !this.isLoading);
     }
-    
+
     private findPaymentInStatusProcessed(payments: Payment[]): Payment {
         return find(payments, { status: PAYMENT_STATUS.processed });
     }

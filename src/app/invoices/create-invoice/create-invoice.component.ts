@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import * as moment from 'moment';
 
-import { INVOICE_TYPES } from 'koffing/invoices/invoice-form/invoice-types';
 import { Invoice } from 'koffing/backend/model/invoice';
 import { InvoiceService } from 'koffing/backend/invoice.service';
 import { CreateInvoiceService } from './create-invoice.service';
@@ -42,13 +40,6 @@ export class CreateInvoiceComponent implements OnInit {
     }
 
     public setDefaultFormValues() {
-        this.invoiceForm.reset();
-        this.invoiceForm.patchValue({
-            amount: 10,
-            product: '',
-            description: '',
-            dueDate: moment().add(1, 'h').toDate(),
-            selectedInvoiceType: INVOICE_TYPES.fixed,
-        });
+        this.invoiceFormService.setDefaultValues();
     }
 }
