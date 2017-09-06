@@ -8,7 +8,7 @@ import {
     CostAmountRange
 } from 'koffing/backend';
 import { InvoiceTemplateParams } from 'koffing/backend/requests/invoice-template-params';
-import { COST_TYPES } from '../invoice-template-form/invoice-template-cost-types';
+import { COST_TYPE } from 'koffing/backend/constants/invoice-template-cost-type';
 
 export class InvoiceTemplatePaymentLinkService {
 
@@ -22,11 +22,11 @@ export class InvoiceTemplatePaymentLinkService {
         params.lifetime = this.toLifetimeInterval(formValue.lifetime);
         if (formValue.selectedCostType) {
             let cost;
-            if (formValue.selectedCostType === COST_TYPES.unlim) {
+            if (formValue.selectedCostType === COST_TYPE.unlim) {
                 cost = new InvoiceTemplateCostUnlim();
-            } else if (formValue.selectedCostType === COST_TYPES.fixed) {
+            } else if (formValue.selectedCostType === COST_TYPE.fixed) {
                 cost = new InvoiceTemplateCostFixed(this.toMinor(formValue.cost.amount));
-            } else if (formValue.selectedCostType === COST_TYPES.range) {
+            } else if (formValue.selectedCostType === COST_TYPE.range) {
                 const lowerBound = this.toMinor(formValue.cost.lowerBound);
                 const upperBound = this.toMinor(formValue.cost.upperBound);
                 const range = new CostAmountRange(lowerBound, upperBound);

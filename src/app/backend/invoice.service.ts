@@ -18,10 +18,18 @@ export class InvoiceService {
     ) {}
 
     public createInvoice(params: InvoiceParamsAll): Observable<InvoiceAndToken> {
-        return this.http.post(this.endpoint, params).map(res => res.json());
+        return this.http.post(this.endpoint, params).map((res) => res.json());
     }
 
     public createInvoiceAccessToken(invoiceID: string): Observable<InvoiceAccessToken> {
-        return this.http.post(`${this.endpoint}/${invoiceID}/access_tokens`, {}).map(res => res.json());
+        return this.http.post(`${this.endpoint}/${invoiceID}/access_tokens`, {}).map((res) => res.json());
+    }
+
+    public capturePayment(invoiceID: string, paymentID: string, reason: string): Observable<any> {
+        return this.http.post(`${this.endpoint}/${invoiceID}/payments/${paymentID}/capture`, {reason});
+    }
+
+    public cancelPayment(invoiceID: string, paymentID: string, reason: string): Observable<any> {
+        return this.http.post(`${this.endpoint}/${invoiceID}/payments/${paymentID}/cancel`, {reason});
     }
 }

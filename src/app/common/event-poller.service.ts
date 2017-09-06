@@ -65,7 +65,7 @@ export class EventPollerService {
 
     private getNextLastEvent(invoiceID: string, currentLastEventID?: number): Observable<Event> {
         if (currentLastEventID || currentLastEventID === 0) {
-            return this.eventService.getInvoiceEvents(invoiceID, 1, currentLastEventID).map((events) => events[0]);
+            return this.eventService.getInvoiceEvents(invoiceID, 2, currentLastEventID).map((events) => events[0]);
         } else {
             return this.eventService.getInvoiceEvents(invoiceID, this.limitStartEvents).map((events) => this.filterLastEvent(events));
         }
