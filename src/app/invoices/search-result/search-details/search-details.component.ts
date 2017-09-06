@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { find } from 'lodash';
 
 import { INVOICE_STATUS } from 'koffing/backend/constants/invoice-status';
 import { PAYMENT_STATUS } from 'koffing/backend/constants/payment-status';
@@ -7,6 +8,7 @@ import { Invoice } from 'koffing/backend/model/invoice';
 import { SearchDetailsService } from './search-details.service';
 import { SearchResult } from './search-result';
 import { SearchFormService } from 'koffing/invoices/search-form/search-form.service';
+import { Payment } from 'koffing/backend/model/payment';
 
 @Component({
     selector: 'kof-search-details',
@@ -19,10 +21,12 @@ export class SearchDetailsComponent implements OnInit {
     public invoice: Invoice;
 
     public searchResult: SearchResult;
+
     public isLoading: boolean;
-    private paymentInStatusProcessed: boolean;
 
     public searchForm: FormGroup;
+
+    private paymentInStatusProcessed: boolean;
 
     constructor(private searchDetailsService: SearchDetailsService,
                 private searchFormService: SearchFormService) {
