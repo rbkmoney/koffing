@@ -1,0 +1,17 @@
+.row
+    .col-xs-12.col-md-10.col-md-offset-1
+        .x_panel
+            .x_title
+                h5 Инвойс
+            .x_content
+                kof-invoice-details([invoice]="invoice")
+        .x_panel(*ngIf="invoice?.cart")
+            .x_title
+                h5 Корзина товаров или услуг
+            .x_content
+                kof-invoice-line-details([cart]="invoice?.cart")
+        .x_panel(*ngIf="invoice?.cart")
+            .x_title
+                h5 Платежи
+            .x_content
+                kof-payment([invoice]="invoice")

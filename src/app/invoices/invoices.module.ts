@@ -9,8 +9,6 @@ import { InvoicesComponent } from 'koffing/invoices/invoices.component';
 import { PaginateComponent } from 'koffing/invoices/paginate/paginate.component';
 import { SearchFormComponent } from 'koffing/invoices/search-form/search-form.component';
 import { SearchResultComponent } from 'koffing/invoices/search-result/search-result.component';
-import { InvoiceStatusPipe } from 'koffing/invoices/invoice-statuses.pipe';
-import { PaymentStatusPipe } from 'koffing/invoices/payment-statuses.pipe';
 import { PaginationPipe } from 'koffing/invoices/paginate/pagination.pipe';
 import { SearchDetailsComponent } from 'koffing/invoices/search-result/search-details/search-details.component';
 import { CreateInvoiceComponent } from 'koffing/invoices/create-invoice/create-invoice.component';
@@ -38,8 +36,6 @@ import { PaymentCancelComponent } from 'koffing/invoices/search-result/payment-i
         PaginateComponent,
         SearchFormComponent,
         SearchResultComponent,
-        InvoiceStatusPipe,
-        PaymentStatusPipe,
         PaginationPipe,
         SearchDetailsComponent,
         CreateInvoiceComponent,

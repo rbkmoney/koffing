@@ -15,6 +15,7 @@ import { HttpErrorHandleComponent } from './components/http-error-handle/http-er
 import { AccountModule } from 'koffing/account/account.module';
 import { NotificationHandleComponent } from './components/notification-handle/notification-handle.component';
 import { InvoicesModule } from 'koffing/invoices/invoices.module';
+import { InvoiceModule } from 'koffing/invoice/invoice.module';
 import { DocumentsModule } from 'koffing/documents/documents.module';
 import { AnalyticsModule } from 'koffing/analytics/analytics.module';
 import { LandingContainerComponent } from './components/landing-container/landing-container.component';
@@ -37,6 +38,7 @@ import { ShopTopPanelComponent } from 'koffing/root/components/shop-container/sh
         AccountModule,
         WebhooksModule,
         InvoicesModule,
+        InvoiceModule,
         DocumentsModule,
         AnalyticsModule
     ],
