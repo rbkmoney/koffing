@@ -1,0 +1,175 @@
+.row(*ngIf="!isLoading")
+    .col-xs-12.col-md-8.col-md-offset-2
+        .x_panel
+            .x_title
+                h5 Детали магазина
+            .x_content
+                form.form-horizontal.form-label-left.css-form
+                    .form-group
+                        .col-xs-12.col-sm-4
+                            label.text-left Название:
+                        .col-xs-12.col-sm-8
+                            div {{shop.details.name}}
+                    .form-group
+                        .col-xs-12.col-sm-4
+                            label.text-left Идентификатор:
+                        .col-xs-12.col-sm-8
+                            div {{shop.id}}
+                    .form-group
+                        .col-xs-12.col-sm-4
+                            label.text-left Статус:
+                        .col-xs-12.col-sm-8
+                            span.label.label-default([ngClass]="getShopLabel()", [innerHTML]="getShopStatus()")
+                    .form-group
+                        .col-xs-12.col-sm-4
+                            label.text-left Дата и время создания:
+                        .col-xs-12.col-sm-8
+                            div {{shop.createdAt | date: "dd.MM.yyyy HH:mm:ss"}}
+                    .form-group
+                        .col-xs-12.col-sm-4
+                            label.text-left Краткое описание:
+                        .col-xs-12.col-sm-8
+                            div {{shop.details.description || "отсутствует"}}
+                    .form-group
+                        .col-xs-12.col-sm-4
+                            label.text-left Категория магазина:
+                        .col-xs-12.col-sm-8
+                            div {{category.name}}
+                    .form-group
+                        .col-xs-12.col-sm-4
+                            label.text-left Описание категории:
+                        .col-xs-12.col-sm-8
+                            div {{category.description}}
+                    .form-group
+                        .col-xs-12.col-sm-4
+                            label.text-left Местоположение:
+                        .col-xs-12.col-sm-8
+                            div {{shop.location.url || "отсутствует"}}
+
+        .x_panel
+            .x_title
+                h5 Детали контракта
+            .x_content
+                form.form-horizontal.form-label-left.css-form
+                    .form-group
+                        .col-xs-12.col-sm-4
+                            label.text-left Идентификатор:
+                        .col-xs-12.col-sm-8
+                            div {{contract.id}}
+                    .form-group
+                        .col-xs-12.col-sm-4
+                            label.text-left Статус:
+                        .col-xs-12.col-sm-8
+                            span.label.label-default([ngClass]="getContractLabel()", [innerHTML]="getContractStatus()")
+                    .form-group
+                        .col-xs-12.col-sm-4
+                            label.text-left Дата и время создания:
+                        .col-xs-12.col-sm-8
+                            div {{contract.createdAt | date: "dd.MM.yyyy HH:mm:ss"}}
+                    div(*ngIf="contract.contractor?.entityType === 'RussianLegalEntity'")
+                        .form-group
+                            .col-xs-12.col-sm-4
+                                label.text-left Зарегистрированное наименование юридического лица:
+                            .col-xs-12.col-sm-8
+                                div {{contract.contractor?.registeredName}}
+                        .form-group
+                            .col-xs-12.col-sm-4
+                                label.text-left Регистрационный номер (ОГРН/ОГРНИП):
+                            .col-xs-12.col-sm-8
+                                div {{contract.contractor?.registeredNumber}}
+                        .form-group
+                            .col-xs-12.col-sm-4
+                                label.text-left Идентификационный номер налогоплательщика (ИНН):
+                            .col-xs-12.col-sm-8
+                                div {{contract.contractor?.inn}}
+                        .form-group
+                            .col-xs-12.col-sm-4
+                                label.text-left Почтовый адрес для отправки корреспонденции:
+                            .col-xs-12.col-sm-8
+                                div {{contract.contractor?.postAddress}}
+                        .form-group
+                            .col-xs-12.col-sm-4
+                                label.text-left Почтовый адрес места нахождения:
+                            .col-xs-12.col-sm-8
+                                div {{contract.contractor?.actualAddress}}
+                        .form-group
+                            .col-xs-12.col-sm-4
+                                label.text-left Наименование должности ЕИО/представителя:
+                            .col-xs-12.col-sm-8
+                                div {{contract.contractor?.representativePosition}}
+                        .form-group
+                            .col-xs-12.col-sm-4
+                                label.text-left ФИО ЕИО/представителя:
+                            .col-xs-12.col-sm-8
+                                div {{contract.contractor?.representativeFullName}}
+                        .form-group
+                            .col-xs-12.col-sm-4
+                                label.text-left Данные документа ЕИО/представителя:
+                            .col-xs-12.col-sm-8
+                                div {{contract.contractor?.representativeDocument}}
+                        .form-group
+                            .col-xs-12.col-sm-4
+                                label.text-left Наименование банка:
+                            .col-xs-12.col-sm-8
+                                div {{contract.contractor?.bankAccount?.bankName}}
+                        .form-group
+                            .col-xs-12.col-sm-4
+                                label.text-left БИК банковской организации:
+                            .col-xs-12.col-sm-8
+                                div {{contract.contractor?.bankAccount?.bankBik}}
+                        .form-group
+                            .col-xs-12.col-sm-4
+                                label.text-left Корреспондентский счет:
+                            .col-xs-12.col-sm-8
+                                div {{contract.contractor?.bankAccount?.bankPostAccount}}
+                        .form-group
+                            .col-xs-12.col-sm-4
+                                label.text-left Расчетный счет:
+                            .col-xs-12.col-sm-8
+                                div {{contract.contractor?.bankAccount?.account}}
+
+        .x_panel
+            .x_title
+                h5 Детали средства вывода
+            .x_content
+                form.form-horizontal.form-label-left.css-form
+                    .form-group
+                        .col-xs-12.col-sm-4
+                            label.text-left Идентификатор:
+                        .col-xs-12.col-sm-8
+                            div {{payoutTool.id}}
+                    .form-group
+                        .col-xs-12.col-sm-4
+                            label.text-left Валюта:
+                        .col-xs-12.col-sm-8
+                            div {{payoutTool.currency}}
+                    div(*ngIf="payoutTool.details?.payoutToolType === 'PayoutToolBankAccount'")
+                        .form-group
+                            .col-xs-12.col-sm-4
+                                label.text-left Наименование банка:
+                            .col-xs-12.col-sm-8
+                                div {{payoutTool.details?.bankAccount?.bankName}}
+                        .form-group
+                            .col-xs-12.col-sm-4
+                                label.text-left БИК банковской организации:
+                            .col-xs-12.col-sm-8
+                                div {{payoutTool.details?.bankAccount?.bankBik}}
+                        .form-group
+                            .col-xs-12.col-sm-4
+                                label.text-left Корреспондентский счет:
+                            .col-xs-12.col-sm-8
+                                div {{payoutTool.details?.bankAccount?.bankPostAccount}}
+                        .form-group
+                            .col-xs-12.col-sm-4
+                                label.text-left Расчетный счет:
+                            .col-xs-12.col-sm-8
+                                div {{payoutTool.details?.bankAccount?.account}}
+
+
+        .x_panel
+            .x_title
+                h5 Действия
+            .x_content
+                div(*ngIf="!shop.isBlocked")
+                    button.btn.btn-primary.btn-sm(*ngIf="shop.isSuspended", (click)="activateShop()") Активировать магазин
+                    button.btn.btn-primary.btn-sm(*ngIf="!shop.isSuspended", (click)="suspendShop()") Заморозить магазин

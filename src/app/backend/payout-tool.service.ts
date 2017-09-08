@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http/src';
+import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { ConfigService } from './config.service';
@@ -20,7 +20,7 @@ export class PayoutToolService {
         return this.http.get(`${this.getEndpoint(contractID)}/${payoutToolID}`).map((res) => res.json());
     }
 
-    private getEndpoint(contractID: string) {
+    private getEndpoint(contractID: string): string {
         return `${this.config.capiUrl}/processing/contracts/${contractID}/payout_tools`;
     }
 }
