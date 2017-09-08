@@ -13,7 +13,10 @@ import { PaymentLinkInvoiceTemplate } from '../payment-link/payment-link-invoice
 @Component({
     selector: 'kof-invoice-template-payment-link',
     templateUrl: './invoice-template-payment-link.component.pug',
-    providers: [ InvoiceTemplateService, PaymentLinkService ],
+    providers: [
+        InvoiceTemplateService,
+        PaymentLinkService
+    ],
     styles: [`.form-control {height: 30px;}`]
 })
 export class InvoiceTemplatePaymentLinkComponent implements OnInit {
@@ -30,6 +33,7 @@ export class InvoiceTemplatePaymentLinkComponent implements OnInit {
     public isCreated: boolean;
     public invoiceTemplateID: string;
     public invoiceTemplateAccessToken: string;
+    public paymentLinkVisible: boolean = false;
 
     constructor(
         private invoiceTemplateService: InvoiceTemplateService,
@@ -42,7 +46,7 @@ export class InvoiceTemplatePaymentLinkComponent implements OnInit {
         this.invoiceTemplateForm = this.invoiceTemplateFormService.form;
         this.checkoutConfigForm = this.checkoutConfigFormService.form;
         this.checkoutConfigForm.valueChanges.subscribe(() => {
-            this.generatePaymentLink();
+            this.paymentLinkVisible = false;
         });
     }
 
@@ -76,8 +80,11 @@ export class InvoiceTemplatePaymentLinkComponent implements OnInit {
         });
     }
 
-    private generatePaymentLink() {
+    public generatePaymentLink() {
         const accessData = new PaymentLinkInvoiceTemplate(this.invoiceTemplateID, this.invoiceTemplateAccessToken);
-        this.paymentLink = this.paymentLinkService.getPaymentLink(this.checkoutConfigForm.value, accessData, this.shopID);
+        this.paymentLinkService.getPaymentLink(this.checkoutConfigForm.value, accessData, this.shopID).subscribe((paymentLink) => {
+            this.paymentLink = paymentLink;
+            this.paymentLinkVisible = true;
+        });
     }
 }

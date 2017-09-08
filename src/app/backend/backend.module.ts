@@ -12,6 +12,7 @@ import { AccountsService } from './accounts.service';
 import { SearchService } from './search.service';
 import { InvoiceService } from './invoice.service';
 import { EventService } from './event.service';
+import { UrlShortenerService } from './url-shortener.service';
 
 @NgModule({
     providers: [
@@ -26,7 +27,8 @@ import { EventService } from './event.service';
         SearchService,
         WebhooksService,
         InvoiceService,
-        EventService
+        EventService,
+        UrlShortenerService
     ]
 })
 export class BackendModule { }

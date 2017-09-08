@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import { Observable } from 'rxjs';
 
+import { CapiHttp } from './capi-http.service';
 import { ConfigService } from './config.service';
 import { Shop } from './model/shop/shop';
 
@@ -11,7 +11,7 @@ export class ShopService {
     private endpoint: string = `${this.config.capiUrl}/processing/shops`;
 
     constructor(
-        private http: Http,
+        private http: CapiHttp,
         private config: ConfigService
     ) { }
 
