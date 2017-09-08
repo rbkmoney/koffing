@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { CommonModule } from 'koffing/common/common.module';
 import { BackendModule } from 'koffing/backend/backend.module';
+import { DomainInfoModule } from 'koffing/domain-info/domain-info.module';
 import { ShopInfoComponent } from './shop-info.component';
 
 @NgModule({
@@ -11,10 +12,11 @@ import { ShopInfoComponent } from './shop-info.component';
         BrowserModule,
         FormsModule,
         CommonModule,
-        BackendModule
+        BackendModule,
+        DomainInfoModule,
     ],
     declarations: [
-        ShopInfoComponent
+        ShopInfoComponent,
     ]
 })
 export class ShopInfoModule { }

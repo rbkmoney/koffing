@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs/Subject';
 
-import { Contract, Shop, PayoutTool } from 'koffing/backend';
-import { Category } from 'koffing/backend/model/category';
+import { Shop, Category, Contract, PayoutTool } from 'koffing/backend';
 import { ShopService } from 'koffing/backend/shop.service';
 import { CategoryService } from 'koffing/backend/category.service';
 import { ContractService } from 'koffing/backend/contract.service';
@@ -19,10 +17,6 @@ export class ShopInfoComponent implements OnInit {
     public contract: Contract;
     public payoutTool: PayoutTool;
 
-    public isLoading: boolean;
-    private shopEnrichment: Subject<null> = new Subject();
-    private requestCount = 3;
-
     constructor(
         private route: ActivatedRoute,
         private shopService: ShopService,
@@ -35,22 +29,6 @@ export class ShopInfoComponent implements OnInit {
         this.route.parent.params.subscribe((params) => {
             this.loadShop(params['shopID']);
         });
-    }
-
-    public getShopLabel(): string {
-        return this.shop.isBlocked ? 'label-danger' : this.shop.isSuspended ? 'label-warning' : 'label-success';
-    }
-
-    public getShopStatus(): string {
-        return this.shop.isBlocked ? 'Заблокирован' : this.shop.isSuspended ? 'Заморожен' : 'Активен';
-    }
-
-    public getContractLabel(): string {
-        return this.contract.status === 'active' ? 'label-success' : 'label-danger';
-    }
-
-    public getContractStatus(): string {
-        return this.contract.status === 'active' ? 'Активен' : 'Расторгнут';
     }
 
     public activateShop() {
@@ -66,38 +44,29 @@ export class ShopInfoComponent implements OnInit {
     }
 
     private loadShop(shopID: string) {
-        this.isLoading = true;
         this.shopService.getShopByID(shopID).subscribe((shop) => {
             this.shop = shop;
             this.loadCategory(shop.categoryID);
             this.loadContract(shop.contractID);
             this.loadPayoutTool(shop.contractID, shop.payoutToolID);
-
-            const loadSubscription = this.shopEnrichment.skip(this.requestCount - 1).subscribe(() => {
-                this.isLoading = false;
-                loadSubscription.unsubscribe();
-            });
         });
     }
 
     private loadCategory(categoryID: number) {
         this.categoryService.getCategoryByID(categoryID).subscribe((category) => {
             this.category = category;
-            this.shopEnrichment.next();
         });
     }
 
     private loadContract(contractID: string) {
         this.contractService.getContractByID(contractID).subscribe((contract) => {
             this.contract = contract;
-            this.shopEnrichment.next();
         });
     }
 
     private loadPayoutTool(contractID: string, payoutToolID: string) {
         this.payoutToolService.getPayoutToolByID(contractID, payoutToolID).subscribe((payoutTool) => {
             this.payoutTool = payoutTool;
-            this.shopEnrichment.next();
         });
     }
 }
