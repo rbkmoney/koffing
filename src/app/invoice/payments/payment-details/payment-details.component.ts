@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Payment } from 'koffing/backend/model/payment';
+import { Payment } from 'koffing/backend/model/payment/payment';
 import { PAYMENT_STATUS } from 'koffing/backend';
 
 @Component({
@@ -11,6 +11,13 @@ export class PaymentDetailsComponent {
 
     @Input()
     public payment: Payment;
+
+    @Input()
+    public calculatingPaymentStatus: boolean = false;
+
+    public isFlowInformationAvailable(payment: Payment) {
+        return payment.flow.type === 'PaymentFlowHold' && this.payment.status === PAYMENT_STATUS.processed;
+    }
 
     public getLabelClass(status: string) {
         return {

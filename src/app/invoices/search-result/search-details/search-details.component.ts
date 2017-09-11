@@ -8,7 +8,7 @@ import { Invoice } from 'koffing/backend/model/invoice';
 import { SearchDetailsService } from './search-details.service';
 import { SearchResult } from './search-result';
 import { SearchFormService } from 'koffing/invoices/search-form/search-form.service';
-import { Payment } from 'koffing/backend/model/payment';
+import { Payment } from 'koffing/backend/model/payment/payment';
 
 @Component({
     selector: 'kof-search-details',

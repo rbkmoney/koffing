@@ -1,4 +1,4 @@
-import { Payment } from 'koffing/backend/model/payment';
+import { Payment } from 'koffing/backend/model/payment/payment';
 
 export class SearchResult {
     public isNextAvailable: boolean;

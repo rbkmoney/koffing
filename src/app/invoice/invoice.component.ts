@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { Invoice } from 'koffing/backend/model/invoice';
 import { SearchService } from 'koffing/backend/search.service';
+import { INVOICE_STATUS } from 'koffing/backend';
 
 @Component({
     templateUrl: 'invoice.component.pug'
@@ -36,5 +37,9 @@ export class InvoiceComponent implements OnInit {
                     }
                 });
             });
+    }
+
+    public isPaymentLinkAvailable() {
+        return this.invoice && this.invoice.status === INVOICE_STATUS.unpaid;
     }
 }

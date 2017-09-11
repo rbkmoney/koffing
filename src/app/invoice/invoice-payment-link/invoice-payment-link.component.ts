@@ -1,14 +1,16 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
-import { InvoiceService } from 'koffing/backend/invoice.service';
 import { Invoice } from 'koffing/backend/model/invoice';
+import { CheckoutConfigFormService } from 'koffing/checkout/checkout-config-form/checkout-config-form.service';
+import { PaymentLinkService } from 'koffing/checkout/payment-link/payment-link.service';
 
 @Component({
     selector: 'kof-invoice-payment-link',
     templateUrl: 'invoice-payment-link.component.pug',
     styles: [`.form-control {height: 30px;}`]
 })
-export class InvoicePaymentLinkComponent {
+export class InvoicePaymentLinkComponent implements OnInit {
 
     @Input()
     public invoice: Invoice;
@@ -16,12 +18,20 @@ export class InvoicePaymentLinkComponent {
     @ViewChild('paymentLinkInput')
     public paymentLinkInput: ElementRef;
 
-    // public checkoutConfigForm: FormGroup;
+    public checkoutConfigForm: FormGroup;
     public paymentLink: string;
-    public invoiceAccessToken: string;
     public paymentLinkVisible: boolean = false;
 
-    constructor(private invoiceService: InvoiceService) {
+    constructor(
+        private checkoutConfigFormService: CheckoutConfigFormService,
+        private paymentLinkService: PaymentLinkService) {
+    }
+
+    public ngOnInit() {
+        this.checkoutConfigForm = this.checkoutConfigFormService.form;
+        this.checkoutConfigForm.valueChanges.subscribe(() => {
+            this.paymentLinkVisible = false;
+        });
     }
 
     public copy() {
@@ -30,11 +40,9 @@ export class InvoicePaymentLinkComponent {
     }
 
     public generatePaymentLink() {
-    }
-
-    private createInvoiceAccessToken() {
-        this.invoiceService.createInvoiceAccessToken(this.invoice.id).subscribe((response) => {
-            this.invoiceAccessToken = response.payload;
+        this.paymentLinkService.getInvoicePaymentLink(this.invoice, this.checkoutConfigForm.value).subscribe((paymentLink) => {
+            this.paymentLink = paymentLink;
+            this.paymentLinkVisible = true;
         });
     }
 }

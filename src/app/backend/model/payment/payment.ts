@@ -1,5 +1,6 @@
-import { LogicError } from './logic-error';
-import { ContactInfo } from './contact-info';
+import { LogicError } from '../logic-error';
+import { ContactInfo } from '../contact-info';
+import { PaymentFlow } from 'koffing/backend/model/payment/payment-flow';
 
 export class Payment {
     public id: string;
@@ -15,4 +16,5 @@ export class Payment {
     public payerIP: string;
     public status: string;
     public error: LogicError;
+    public flow: PaymentFlow;
 }

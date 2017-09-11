@@ -1,5 +1,19 @@
 div(*ngFor="let payment of searchResult?.payments")
-    kof-payment-details([payment]="payment")
+    kof-payment-details(
+        [payment]="payment",
+        [calculatingPaymentStatus]="calculatingPaymentStatus")
+    .payment-actions.row(*ngIf="isHoldActionsAvailable(payment)")
+        .col-xs-12
+            kof-payment-capture(
+                [invoiceID]="invoice.id",
+                [paymentID]="payment.id",
+                (inProgressPolling)="changeProgressPolling($event)",
+                (onChangeStatus)="changeStatus($event, payment)")
+            kof-payment-cancel(
+                [invoiceID]="invoice.id",
+                [paymentID]="payment.id",
+                (inProgressPolling)="changeProgressPolling($event)",
+                (onChangeStatus)="changeStatus($event, payment)")
     .ln_solid
 .row(*ngIf="searchResult?.isNextAvailable")
     .col-xs-12

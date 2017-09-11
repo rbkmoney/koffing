@@ -34,7 +34,6 @@ export class PaymentCaptureComponent {
         this.invoiceService.capturePayment(this.invoiceID, this.paymentID, this.reason || 'none reason').subscribe(() => {
             const expectedChange = new PaymentStatusChanged(PAYMENT_STATUS.captured, this.paymentID);
             this.eventPollerService.startPolling(this.invoiceID, expectedChange).subscribe(() => {
-                this.inProgressPolling.emit(false);
                 this.onChangeStatus.emit(PAYMENT_STATUS.captured);
             });
         });

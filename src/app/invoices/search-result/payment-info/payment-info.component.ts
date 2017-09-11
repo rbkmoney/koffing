@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { PAYMENT_STATUS } from 'koffing/backend';
-import { Payment } from 'koffing/backend/model/payment';
+import { Payment } from 'koffing/backend/model/payment/payment';
 
 @Component({
     selector: 'kof-payment-info',

@@ -6,7 +6,7 @@
             .x_content
                 kof-invoice-details([invoice]="invoice")
                 .ln_solid
-                kof-invoice-payment-link(*ngIf="invoice", [invoice]="invoice")
+                kof-invoice-payment-link(*ngIf="isPaymentLinkAvailable()", [invoice]="invoice")
         .x_panel(*ngIf="invoice?.cart")
             .x_title
                 h5 Корзина товаров или услуг

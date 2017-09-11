@@ -5,10 +5,10 @@ import { PAYMENT_STATUS, PaymentStatusChanged } from 'koffing/backend';
 import { InvoiceService } from 'koffing/backend/invoice.service';
 
 @Component({
-    selector: 'kof-payment-capture',
-    templateUrl: './payment-capture.component.pug'
+    selector: 'kof-payment-cancel',
+    templateUrl: './payment-cancel.component.pug'
 })
-export class PaymentCaptureComponent {
+export class PaymentCancelComponent {
 
     @Input()
     public invoiceID: string;
@@ -28,14 +28,13 @@ export class PaymentCaptureComponent {
         private eventPollerService: EventPollerService,
         private invoiceService: InvoiceService
     ) { }
-
-    public capturePayment() {
+    
+    public cancelPayment() {
         this.inProgressPolling.emit(true);
-        this.invoiceService.capturePayment(this.invoiceID, this.paymentID, this.reason || 'none reason').subscribe(() => {
-            const expectedChange = new PaymentStatusChanged(PAYMENT_STATUS.captured, this.paymentID);
+        this.invoiceService.cancelPayment(this.invoiceID, this.paymentID, this.reason).subscribe(() => {
+            const expectedChange = new PaymentStatusChanged(PAYMENT_STATUS.cancelled, this.paymentID);
             this.eventPollerService.startPolling(this.invoiceID, expectedChange).subscribe(() => {
-                this.inProgressPolling.emit(false);
-                this.onChangeStatus.emit(PAYMENT_STATUS.captured);
+                this.onChangeStatus.emit(PAYMENT_STATUS.cancelled);
             });
         });
     }
