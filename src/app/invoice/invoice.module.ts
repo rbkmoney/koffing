@@ -9,6 +9,7 @@ import { InvoiceDetailsComponent } from './invoice-details/invoice-details.compo
 import { InvoiceCartDetailsComponent } from './invoice-cart-details/invoice-cart-details.component';
 import { PaymentsComponent } from './payments/payments.component';
 import { PaymentDetailsComponent } from 'koffing/invoice/payments/payment-details/payment-details.component';
+import { InvoicePaymentLinkComponent } from 'koffing/invoice/invoice-payment-link/invoice-payment-link.component';
 
 @NgModule({
     imports: [
@@ -23,7 +24,8 @@ import { PaymentDetailsComponent } from 'koffing/invoice/payments/payment-detail
         InvoiceDetailsComponent,
         InvoiceCartDetailsComponent,
         PaymentsComponent,
-        PaymentDetailsComponent
+        PaymentDetailsComponent,
+        InvoicePaymentLinkComponent,
     ]
 })
 export class InvoiceModule { }

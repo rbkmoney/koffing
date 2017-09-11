@@ -1,3 +1,7 @@
 div(*ngFor="let payment of searchResult?.payments")
     kof-payment-details([payment]="payment")
     .ln_solid
+.row(*ngIf="searchResult?.isNextAvailable")
+    .col-xs-12
+        button.btn.btn-default.btn-block((click)="search()") Показать еще ...
+div(*ngIf="searchResult?.totalCount === 0") Платежи отсутствуют

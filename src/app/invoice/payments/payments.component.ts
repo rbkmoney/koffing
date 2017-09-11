@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
 import { Invoice } from 'koffing/backend/model/invoice';
 import { PaymentsService } from './payments.service';
@@ -9,7 +9,7 @@ import { SearchResult } from './search-result';
     templateUrl: 'payments.component.pug',
     providers: [PaymentsService]
 })
-export class PaymentsComponent implements OnInit {
+export class PaymentsComponent implements OnChanges {
 
     @Input()
     public invoice: Invoice;
@@ -19,8 +19,10 @@ export class PaymentsComponent implements OnInit {
     constructor(private paymentsService: PaymentsService) {
     }
 
-    public ngOnInit() {
-        this.search();
+    public ngOnChanges() {
+        if (this.invoice) {
+            this.search();
+        }
     }
 
     public search() {
