@@ -1,3 +1,4 @@
+p-growl([(value)]="messages", [life]="messageLifeTime", [immutable]= "false")
 .row
     .col-xs-12.col-md-8.col-md-offset-2
         .x_panel
@@ -8,13 +9,13 @@
 
         .x_panel
             .x_title
-                h5 Детали контракта
+                h5 Контракт
             .x_content
                 kof-contract-details([contract]="contract")
 
         .x_panel
             .x_title
-                h5 Детали средства вывода
+                h5 Средство вывода
             .x_content
                 kof-payout-tool-details([payoutTool]="payoutTool")
 
@@ -23,5 +24,5 @@
                 h5 Действия
             .x_content
                 div(*ngIf="shop && !shop.isBlocked")
-                    button.btn.btn-primary.btn-sm(*ngIf="shop.isSuspended", (click)="activateShop()") Активировать магазин
-                    button.btn.btn-primary.btn-sm(*ngIf="!shop.isSuspended", (click)="suspendShop()") Заморозить магазин
+                    button.btn.btn-primary(*ngIf="shop.isSuspended", (click)="activateShop()") Активировать магазин
+                    button.btn.btn-primary(*ngIf="!shop.isSuspended", (click)="suspendShop()") Заморозить магазин

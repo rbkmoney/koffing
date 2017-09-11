@@ -11,7 +11,6 @@ import { HttpErrorBroadcaster } from 'koffing/broadcaster/broadcaster.module';
 export class HttpErrorHandleComponent implements OnInit {
 
     public messages: Message[] = [];
-
     public lifeTime: number = 60000;
 
     constructor(
