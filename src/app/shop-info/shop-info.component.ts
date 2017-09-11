@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Shop, Category, Contract, PayoutTool } from 'koffing/backend';
+import { Shop, Contract, PayoutTool } from 'koffing/backend';
 import { ShopService } from 'koffing/backend/shop.service';
-import { CategoryService } from 'koffing/backend/category.service';
 import { ContractService } from 'koffing/backend/contract.service';
 import { PayoutToolService } from 'koffing/backend/payout-tool.service';
 
@@ -13,14 +12,12 @@ import { PayoutToolService } from 'koffing/backend/payout-tool.service';
 export class ShopInfoComponent implements OnInit {
 
     public shop: Shop;
-    public category: Category;
     public contract: Contract;
     public payoutTool: PayoutTool;
 
     constructor(
         private route: ActivatedRoute,
         private shopService: ShopService,
-        private categoryService: CategoryService,
         private contractService: ContractService,
         private payoutToolService: PayoutToolService
     ) { }
@@ -46,15 +43,8 @@ export class ShopInfoComponent implements OnInit {
     private loadShop(shopID: string) {
         this.shopService.getShopByID(shopID).subscribe((shop) => {
             this.shop = shop;
-            this.loadCategory(shop.categoryID);
             this.loadContract(shop.contractID);
             this.loadPayoutTool(shop.contractID, shop.payoutToolID);
-        });
-    }
-
-    private loadCategory(categoryID: number) {
-        this.categoryService.getCategoryByID(categoryID).subscribe((category) => {
-            this.category = category;
         });
     }
 

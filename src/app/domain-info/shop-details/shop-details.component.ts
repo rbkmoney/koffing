@@ -1,17 +1,25 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { Shop, Category } from 'koffing/backend';
+import { CategoryService } from 'koffing/backend/category.service';
 
 @Component({
     selector: 'kof-shop-details',
     templateUrl: 'shop-details.component.pug'
 })
-export class ShopDetailsComponent {
+export class ShopDetailsComponent implements OnChanges {
 
     @Input()
     public shop: Shop;
 
-    @Input()
     public category: Category;
+
+    constructor(private categoryService: CategoryService) { }
+
+    public ngOnChanges() {
+        if (this.shop && this.shop.categoryID) {
+            this.loadCategory(this.shop.categoryID);
+        }
+    }
 
     public getShopLabel(): string {
         if (this.shop) {
@@ -23,5 +31,11 @@ export class ShopDetailsComponent {
         if (this.shop) {
             return this.shop.isBlocked ? 'Заблокирован' : this.shop.isSuspended ? 'Заморожен' : 'Активен';
         }
+    }
+
+    private loadCategory(categoryID: number) {
+        this.categoryService.getCategoryByID(categoryID).subscribe((category) => {
+            this.category = category;
+        });
     }
 }
