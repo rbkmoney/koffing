@@ -13,7 +13,6 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ContainerComponent } from './components/container/container.component';
 import { HttpErrorHandleComponent } from './components/http-error-handle/http-error-handle.component';
 import { AccountModule } from 'koffing/account/account.module';
-import { NotificationHandleComponent } from './components/notification-handle/notification-handle.component';
 import { InvoicesModule } from 'koffing/invoices/invoices.module';
 import { DocumentsModule } from 'koffing/documents/documents.module';
 import { AnalyticsModule } from 'koffing/analytics/analytics.module';
@@ -49,7 +48,6 @@ import { ShopContainerComponent } from './components/shop-container/shop-contain
         SidebarComponent,
         ShopTopPanelComponent,
         HttpErrorHandleComponent,
-        NotificationHandleComponent,
         ShopSelectorComponent,
         LandingTopPanelComponent,
         TopPanelActionsComponent

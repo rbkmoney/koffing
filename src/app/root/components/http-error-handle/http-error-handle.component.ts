@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Message } from 'primeng/primeng';
 
-import { HttpErrorBroadcaster } from 'koffing/broadcaster/broadcaster.module';
+import { HttpErrorBroadcaster } from 'koffing/broadcaster';
 
 @Component({
     selector: 'kof-http-error-handle',
-    templateUrl: './http-error-handle.component.pug'
+    templateUrl: 'http-error-handle.component.pug'
 })
 export class HttpErrorHandleComponent implements OnInit {
 
