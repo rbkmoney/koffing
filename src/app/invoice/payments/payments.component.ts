@@ -19,8 +19,6 @@ export class PaymentsComponent implements OnChanges {
 
     public searchResult: SearchResult;
 
-    public calculatingPaymentStatus = false;
-
     constructor(private paymentsService: PaymentsService) {
     }
 
@@ -38,10 +36,6 @@ export class PaymentsComponent implements OnChanges {
 
     public isHoldActionsAvailable(payment: Payment) {
         return payment.status === PAYMENT_STATUS.processed;
-    }
-
-    public changeProgressPolling(value: boolean) {
-        this.calculatingPaymentStatus = value;
     }
 
     public changeStatus(status: string, payment: Payment) {
