@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { Observable } from 'rxjs/Observable';
 
@@ -16,8 +16,13 @@ export class InvoiceComponent implements OnInit {
 
     private shopID: string;
 
+    private hasProcessedPayment: boolean = false;
+
+    public invoiceNotFound: boolean = false;
+
     constructor(private searchService: SearchService,
-                private route: ActivatedRoute) {
+                private route: ActivatedRoute,
+                private router: Router) {
     }
 
     public ngOnInit() {
@@ -33,13 +38,21 @@ export class InvoiceComponent implements OnInit {
                     if (searchResult.totalCount === 1) {
                         this.invoice = searchResult.result[0];
                     } else {
-                        // TODO handle it
+                        this.invoiceNotFound = true;
                     }
                 });
             });
     }
 
+    public onProcessedPayment(processed: boolean) {
+        this.hasProcessedPayment = processed;
+    }
+
     public isPaymentLinkAvailable() {
-        return this.invoice && this.invoice.status === INVOICE_STATUS.unpaid;
+        return this.invoice && this.invoice.status === INVOICE_STATUS.unpaid && !this.hasProcessedPayment;
+    }
+
+    public back() {
+        this.router.navigate(['shop', this.shopID, 'invoices']);
     }
 }

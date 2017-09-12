@@ -1,8 +1,12 @@
 .row
-    .col-xs-12.col-md-10.col-md-offset-1
+    .col-xs-12.col-md-10.col-md-offset-1(*ngIf="!invoiceNotFound")
         .x_panel
             .x_title
-                h5 Инвойс
+                .row
+                    .col-xs-6
+                        h5 Инвойс
+                    .col-xs-6
+                        button.btn.btn-default.btn-sm.pull-right((click)="back()") Назад
             .x_content
                 kof-invoice-details([invoice]="invoice")
                 .ln_solid
@@ -16,4 +20,8 @@
             .x_title
                 h5 Платежи
             .x_content
-                kof-payment([invoice]="invoice")
+                kof-payments([invoice]="invoice", (onProcessedPayment)="onProcessedPayment($event)")
+    .col-xs-12.col-md-6.col-md-offset-3(*ngIf="invoiceNotFound")
+        .x_panel
+            .x_content
+                h5.text-center Инвойс не найден

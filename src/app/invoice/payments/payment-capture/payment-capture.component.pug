@@ -10,7 +10,7 @@ button.btn.btn-default.btn-sm(data-toggle="modal", [attr.data-target]="'#' + pay
             .modal-body
                 form(name="captureForm", #captureForm="ngForm")
                     label Причина совершения операции:
-                    input.form-control([(ngModel)]="reason", name="reason", required)
+                    input.form-control.input-sm([(ngModel)]="reason", name="reason", required)
             .modal-footer
                 .btn-toolbar
                     .btn-group.btn-group-sm(*ngIf="!inProcess")
