@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
 
@@ -35,6 +35,7 @@ export class InvoicesComponent implements OnInit {
     private searchForm: FormGroup;
 
     constructor(private route: ActivatedRoute,
+                private router: Router,
                 private searchService: SearchService,
                 private invoicesService: InvoicesService,
                 private searchFormService: SearchFormService) {
@@ -59,8 +60,7 @@ export class InvoicesComponent implements OnInit {
     }
 
     public onCreate(invoice: Invoice) {
-        this.totalCount = 1;
-        this.invoices.next([invoice]);
+        this.router.navigate(['shop', this.shopID, 'invoice', invoice.id]);
     }
 
     private search() {

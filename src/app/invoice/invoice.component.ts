@@ -1,47 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import * as moment from 'moment';
-import { Observable } from 'rxjs/Observable';
 
 import { Invoice } from 'koffing/backend/model/invoice';
-import { SearchService } from 'koffing/backend/search.service';
 import { INVOICE_STATUS } from 'koffing/backend';
+import { InvoiceService } from './invoice.service';
 
 @Component({
-    templateUrl: 'invoice.component.pug'
+    templateUrl: 'invoice.component.pug',
+    providers: [InvoiceService]
 })
 export class InvoiceComponent implements OnInit {
 
     public invoice: Invoice;
 
-    private shopID: string;
+    public invoiceNotFound: boolean = false;
 
     private hasProcessedPayment: boolean = false;
 
-    public invoiceNotFound: boolean = false;
-
-    constructor(private searchService: SearchService,
-                private route: ActivatedRoute,
-                private router: Router) {
+    constructor(private invoiceService: InvoiceService) {
     }
 
     public ngOnInit() {
-        Observable.combineLatest(this.route.parent.params, this.route.params)
-            .subscribe((result) => {
-                this.shopID = result[0].shopID;
-                this.searchService.searchInvoices(this.shopID, {
-                    fromTime: moment().subtract(1, 'year').startOf('day').toDate(),
-                    toTime: moment().endOf('day').toDate(),
-                    limit: 1,
-                    invoiceID: result[1].invoiceID
-                }).subscribe((searchResult) => {
-                    if (searchResult.totalCount === 1) {
-                        this.invoice = searchResult.result[0];
-                    } else {
-                        this.invoiceNotFound = true;
-                    }
-                });
-            });
+        this.invoiceService.invoiceSubject
+            .subscribe(
+                (invoice: Invoice) => this.invoice = invoice,
+                () => this.invoiceNotFound = true);
     }
 
     public onProcessedPayment(processed: boolean) {
@@ -53,6 +35,6 @@ export class InvoiceComponent implements OnInit {
     }
 
     public back() {
-        this.router.navigate(['shop', this.shopID, 'invoices']);
+        this.invoiceService.back();
     }
 }
