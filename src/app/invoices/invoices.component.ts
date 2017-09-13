@@ -7,8 +7,6 @@ import { Invoice } from 'koffing/backend/model/invoice';
 import { SearchService } from 'koffing/backend/search.service';
 import { InvoiceFormService } from 'koffing/invoices/invoice-form/invoice-form.service';
 import { InvoiceTemplateFormService } from 'koffing/invoices/invoice-template-form/invoice-template-form.service';
-import { CheckoutConfigFormService } from 'koffing/invoices/checkout-config-form/checkout-config-form.service';
-import { PaymentLinkService } from 'koffing/invoices/payment-link/payment-link.service';
 import { InvoicesService } from 'koffing/invoices/invoices.service';
 import { SearchFormService } from 'koffing/invoices/search-form/search-form.service';
 
@@ -20,8 +18,6 @@ import { SearchFormService } from 'koffing/invoices/search-form/search-form.serv
         InvoicesService,
         InvoiceFormService,
         InvoiceTemplateFormService,
-        CheckoutConfigFormService,
-        PaymentLinkService,
         SearchFormService
     ]
 })
