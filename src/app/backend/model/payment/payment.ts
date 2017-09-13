@@ -1,6 +1,6 @@
 import { LogicError } from '../logic-error';
 import { ContactInfo } from '../contact-info';
-import { PaymentFlow } from 'koffing/backend/model/payment/payment-flow';
+import { PaymentFlow } from './payment-flow';
 
 export class Payment {
     public id: string;
