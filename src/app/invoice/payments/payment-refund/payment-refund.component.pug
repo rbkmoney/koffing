@@ -1,6 +1,6 @@
 doctype html
 button.btn.btn-default.btn-sm(data-toggle="modal", [attr.data-target]="'#' + paymentID + 'refund'")
-    | Вернуть платеж
+    | Совершить возврат платежа
 
 .modal.fade(tabindex="-1", role="dialog", id="{{paymentID}}refund", data-backdrop="false")
     .modal-dialog.modal-sm
@@ -19,7 +19,7 @@ button.btn.btn-default.btn-sm(data-toggle="modal", [attr.data-target]="'#' + pay
                         button.btn.btn-primary(
                             *ngIf="!inProcess",
                             [disabled]="refundForm.invalid",
-                            (click)="refundPayment()") Вернуть платеж
+                            (click)="refundPayment()") Совершить возврат платежа
                         button.btn.btn-primary(*ngIf="inProcess", disabled="true")
                             i.fa.fa-cog.fa-spin.fa-1x.fa-fw
                             span В процессе...
