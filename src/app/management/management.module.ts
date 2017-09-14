@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CommonModule } from 'koffing/common/common.module';
 import { BackendModule } from 'koffing/backend/backend.module';
-import { DomainInfoModule } from 'koffing/domain-info/domain-info.module';
+import { DomainModule } from 'koffing/domain/domain.module';
 import { SuggestionsModule } from 'koffing/suggestions/suggestions.module';
 import { CreateShopComponent } from './create-shop/create-shop.component';
 import { ContractFormComponent } from './contract-form/contract-form.component';
@@ -27,7 +27,7 @@ import { PayoutToolFormComponent } from './payout-tool-form/payout-tool-form.com
         ReactiveFormsModule,
         CommonModule,
         BackendModule,
-        DomainInfoModule,
+        DomainModule,
         SuggestionsModule
     ],
     declarations: [

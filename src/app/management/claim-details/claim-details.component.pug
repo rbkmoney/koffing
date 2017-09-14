@@ -35,19 +35,19 @@
                     .col-xs-12
                         kof-revoke-claim([claim]="claim")
 
-        .x_panel(*ngIf="contractCreations")
+        .x_panel(*ngIf="contractCreations?.length")
             .x_title
                 h5 Данные контракта
             .x_content
                 kof-contract-creation-details([contractCreations]="contractCreations")
 
-        .x_panel(*ngIf="contractPayoutToolCreations")
+        .x_panel(*ngIf="contractPayoutToolCreations?.length")
             .x_title
                 h5 Средство вывода
             .x_content
                 kof-contract-payout-tool-creation-details([contractPayoutToolCreations]="contractPayoutToolCreations")
 
-        .x_panel(*ngIf="shopCreations")
+        .x_panel(*ngIf="shopCreations?.length")
             .x_title
                 h5 Данные магазина
             .x_content

@@ -5,8 +5,9 @@ import { GrowlModule } from 'primeng/primeng';
 
 import { CommonModule } from 'koffing/common/common.module';
 import { BackendModule } from 'koffing/backend/backend.module';
-import { DomainInfoModule } from 'koffing/domain-info/domain-info.module';
+import { DomainModule } from 'koffing/domain/domain.module';
 import { ShopInfoComponent } from './shop-info.component';
+import { ContractCreateComponent } from './contract-create/contract-create.component';
 
 @NgModule({
     imports: [
@@ -15,10 +16,11 @@ import { ShopInfoComponent } from './shop-info.component';
         GrowlModule,
         CommonModule,
         BackendModule,
-        DomainInfoModule,
+        DomainModule
     ],
     declarations: [
         ShopInfoComponent,
+        ContractCreateComponent
     ]
 })
 export class ShopInfoModule { }

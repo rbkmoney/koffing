@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Message } from 'primeng/primeng';
 
 import { Shop, Contract, PayoutTool } from 'koffing/backend';
@@ -19,6 +19,7 @@ export class ShopInfoComponent implements OnInit {
     public messageLifeTime: number = 1000;
 
     constructor(
+        private router: Router,
         private route: ActivatedRoute,
         private shopService: ShopService,
         private contractService: ContractService,
@@ -29,6 +30,10 @@ export class ShopInfoComponent implements OnInit {
         this.route.parent.params.subscribe((params) => {
             this.loadShop(params['shopID']);
         });
+    }
+
+    public goToCreateContract() {
+        this.router.navigate([`/shop/${this.shop.id}/contract`]);
     }
 
     public activateShop() {
