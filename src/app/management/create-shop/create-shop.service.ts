@@ -1,54 +1,60 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
+import * as uuid from 'uuid/v4';
 
-import { PartyModification } from 'koffing/backend/model/claim/party-modification/party-modification';
-import { FormResolver } from 'koffing/management/create-shop/form-resolver.service';
+import {
+    ShopCreation,
+    ShopDetails,
+    ShopLocationUrl,
+    ContractCreation,
+    ContractPayoutToolCreation,
+    RussianLegalEntity,
+    PayoutToolBankAccount,
+    PartyModification
+} from 'koffing/backend';
+import {
+    ContractFormService,
+    PayoutToolFormService,
+    ShopFormService,
+} from 'koffing/domain';
 import { ShopCreationStep } from 'koffing/management/create-shop/shop-creation-step';
-import { BankAccount } from 'koffing/backend/model/bank-account';
-import { ContractCreation, RussianLegalEntity } from 'koffing/backend';
 
 @Injectable()
 export class CreateShopService {
 
-    public contractGroup: FormGroup;
-    public payoutToolGroup: FormGroup;
-    public shopGroup: FormGroup;
-    public changesetEmitter: Subject<PartyModification[] | false> = new Subject();
-    private changeset: PartyModification[] = [ , , ];
+    public contractForm: FormGroup;
+    public payoutToolForm: FormGroup;
+    public shopForm: FormGroup;
+    public changeSetEmitter: Subject<PartyModification[] | false> = new Subject();
+    private changeSet: PartyModification[] = [];
     private contractID: string;
     private payoutToolID: string;
 
-    constructor(private formResolver: FormResolver) {
-        this.contractGroup = this.formResolver.prepareContractGroup();
-        this.payoutToolGroup = this.formResolver.prepareBankAccountGroup();
-        this.shopGroup = this.formResolver.prepareShopGroup();
+    constructor(
+        private shopFormService: ShopFormService,
+        private contractFormService: ContractFormService,
+        private payoutToolFormService: PayoutToolFormService
+    ) {
+        this.shopForm = this.shopFormService.initForm();
+        this.contractForm = this.contractFormService.initForm();
+        this.payoutToolForm = this.payoutToolFormService.initForm();
         this.handleGroups();
     }
 
-    public getContractBankAccount(): BankAccount {
-        const partyModification = this.changeset[ShopCreationStep.contract];
-        if (!partyModification) {
-            return null;
-        }
-        const contractCreation = partyModification as ContractCreation;
-        const contractor = contractCreation.contractor as RussianLegalEntity;
-        return contractor.bankAccount;
-    }
-
     private handleGroups() {
-        this.handleStatus(this.contractGroup, () => {
-            const contractCreation = this.formResolver.toContractCreation(this.contractGroup);
+        this.handleStatus(this.contractForm, () => {
+            const contractCreation = this.toContractCreation(this.contractForm);
             this.contractID = contractCreation.contractID;
-            this.changeset[ShopCreationStep.contract] = contractCreation;
+            this.changeSet[ShopCreationStep.contract] = contractCreation;
         });
-        this.handleStatus(this.payoutToolGroup, () => {
-            const payoutToolCreation = this.formResolver.toPayoutToolCreation(this.contractID, this.payoutToolGroup);
+        this.handleStatus(this.payoutToolForm, () => {
+            const payoutToolCreation = this.toPayoutToolCreation(this.contractID, this.payoutToolForm);
             this.payoutToolID = payoutToolCreation.payoutToolID;
-            this.changeset[ShopCreationStep.payoutTool] = payoutToolCreation;
+            this.changeSet[ShopCreationStep.payoutTool] = payoutToolCreation;
         });
-        this.handleStatus(this.shopGroup, () => {
-            this.changeset[ShopCreationStep.shop] = this.formResolver.toShopCreation(this.contractID, this.payoutToolID, this.shopGroup);
+        this.handleStatus(this.shopForm, () => {
+            this.changeSet[ShopCreationStep.shop] = this.toShopCreation(this.contractID, this.payoutToolID, this.shopForm);
         });
     }
 
@@ -56,6 +62,27 @@ export class CreateShopService {
         group.statusChanges
             .do(doHandler)
             .subscribe((status) =>
-                this.changesetEmitter.next(status === 'VALID' ? this.changeset : false));
+                this.changeSetEmitter.next(status === 'VALID' ? this.changeSet : false));
+    }
+
+    private toContractCreation(contractForm: FormGroup): ContractCreation {
+        const contractor = new RussianLegalEntity(contractForm.value);
+        return new ContractCreation(uuid(), contractor);
+    }
+
+    private toPayoutToolCreation(contractID: string, payoutTool: FormGroup): ContractPayoutToolCreation {
+        const payoutToolDetails = new PayoutToolBankAccount(payoutTool.value.bankAccount);
+        return new ContractPayoutToolCreation(contractID, uuid(), payoutToolDetails);
+    }
+
+    private toShopCreation(contractID: string, payoutToolID: string, shopForm: FormGroup): ShopCreation {
+        const shop = shopForm.value;
+        return new ShopCreation({
+            shopID: uuid(),
+            location: new ShopLocationUrl(shop.url),
+            details: new ShopDetails(shop.name, shop.description),
+            contractID,
+            payoutToolID
+        });
     }
 }

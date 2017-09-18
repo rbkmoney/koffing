@@ -1,15 +1,15 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Injectable } from '@angular/core';
-import { BankAccountFormService2 } from '../bank-account-form/bank-account-form.service';
+import { BankAccountFormService } from '../bank-account-form/bank-account-form.service';
 
 @Injectable()
-export class ContractFormService2 {
-    // todo переименовать после удаления старого ContractFormService
+export class ContractFormService {
+
     public form: FormGroup;
 
     constructor(
         private fb: FormBuilder,
-        private bankAccountFormService: BankAccountFormService2
+        private bankAccountFormService: BankAccountFormService
     ) { }
 
     public initForm(): FormGroup {

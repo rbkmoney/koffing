@@ -3,7 +3,11 @@ div(*ngIf="contractItems")
         .col-xs-12.col-md-8.col-md-offset-2
             .x_panel
                 .x_title
-                    h5 Выбор контракта
+                    .row
+                        .col-xs-6
+                            h5 Выбор контракта
+                        .col-xs-6
+                            button.btn.btn-default.btn-sm.pull-right((click)="navigateBack()") Назад
                 .x_content
                     .btn-group
                         label.btn.btn-sm.btn-default(*ngFor="let contractItem of contractItems", [ngClass]="{'active': contractItem.value === selectedContractID}")
@@ -19,6 +23,10 @@ div(*ngIf="contractItems")
                     .x_content
                         kof-contract-details([contract]="selectedContract")
 
+                        div(*ngIf="selectedContract && selectedContract.id !== shop.contractID")
+                            .ln_solid
+                            button.btn.btn-primary.pull-right((click)="updateContract()") Привязать данный контракт
+
     div(*ngIf="!selectedContract")
         .row
             .col-xs-12.col-md-8.col-md-offset-2
@@ -26,7 +34,7 @@ div(*ngIf="contractItems")
                     .x_title
                         h5 Создание контракта
                     .x_content
-                        kof-contract-form-2([form]="contractForm")
+                        kof-contract-form([form]="contractForm")
 
         .row
             .col-xs-12.col-md-8.col-md-offset-2
@@ -34,21 +42,14 @@ div(*ngIf="contractItems")
                     .x_title
                         h5 Создание средства вывода
                     .x_content
-                        kof-payout-tool-form-2([form]="payoutToolForm")
+                        kof-payout-tool-form([form]="payoutToolForm", [bankAccount]="contractForm.value.bankAccount")
 
-.row
-    .col-xs-12.col-md-8.col-md-offset-2
-        .x_panel
-            .x_title
-                h5 Действия
-            .x_content
-                button.btn.btn-default((click)="navigateBack()") Вернуться
-                button.btn.btn-primary(
-                    *ngIf="contractItems && !selectedContract",
-                    [disabled]="contractForm.invalid || payoutToolForm.invalid",
-                    (click)="createContract()"
-                ) Создать новый контракт и привязать его
-                button.btn.btn-primary(
-                    *ngIf="selectedContract && selectedContract.id !== shop.contractID",
-                    (click)="updateContract()"
-                ) Привязать выбранный контракт
+        .row
+            .col-xs-12.col-md-8.col-md-offset-2
+                .x_panel
+                    .x_content
+                        button.btn.btn-primary.pull-right(
+                            *ngIf="contractItems && !selectedContract",
+                            [disabled]="contractForm.invalid || payoutToolForm.invalid",
+                            (click)="createContract()"
+                        ) Создать новый контракт и привязать его

@@ -4,9 +4,8 @@ import { FormGroup } from '@angular/forms';
 @Component({
     selector: 'kof-shop-form',
     templateUrl: 'shop-form.component.pug',
-    styleUrls: ['shop-form.component.less']
 })
-export class ShopGroupComponent {
+export class ShopFormComponent {
 
     @Input()
     public form: FormGroup;

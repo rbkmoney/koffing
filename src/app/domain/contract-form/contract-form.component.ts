@@ -4,7 +4,7 @@ import { FormGroup, AbstractControl } from '@angular/forms';
 import { SuggestionsService } from 'koffing/suggestions/services/suggestions.service';
 
 @Component({
-    selector: 'kof-contract-form-2',
+    selector: 'kof-contract-form',
     templateUrl: 'contract-form.component.pug'
 })
 export class ContractFormComponent implements OnInit, AfterViewInit {

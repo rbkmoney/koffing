@@ -32,8 +32,8 @@ export class ShopInfoComponent implements OnInit {
         });
     }
 
-    public goToCreateContract() {
-        this.router.navigate([`/shop/${this.shop.id}/contract`]);
+    public navigateToContractCreate() {
+        this.router.navigate(['shop', this.shop.id, 'contract']);
     }
 
     public activateShop() {

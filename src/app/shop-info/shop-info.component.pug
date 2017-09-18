@@ -26,4 +26,4 @@ p-growl([(value)]="messages", [life]="messageLifeTime", [immutable]= "false")
                 span(*ngIf="shop && !shop.isBlocked")
                     button.btn.btn-default(*ngIf="shop.isSuspended", (click)="activateShop()") Активировать магазин
                     button.btn.btn-default(*ngIf="!shop.isSuspended", (click)="suspendShop()") Заморозить магазин
-                button.btn.btn-default((click)="goToCreateContract()") Изменить контракт
+                button.btn.btn-default((click)="navigateToContractCreate()") Изменить контракт

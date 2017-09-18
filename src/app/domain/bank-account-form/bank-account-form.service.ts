@@ -2,8 +2,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class BankAccountFormService2 {
-    // todo переименовать после удаления старого BankAccountFormService
+export class BankAccountFormService {
+
     public form: FormGroup;
 
     constructor(private fb: FormBuilder) { }

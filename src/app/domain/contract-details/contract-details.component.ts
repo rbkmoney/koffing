@@ -10,15 +10,4 @@ export class ContractDetailsComponent {
     @Input()
     public contract: Contract;
 
-    public getContractLabel(): string {
-        if (this.contract) {
-            return this.contract.status === 'active' ? 'label-success' : 'label-danger';
-        }
-    }
-
-    public getContractStatus(): string {
-        if (this.contract) {
-            return this.contract.status === 'active' ? 'Активен' : 'Расторгнут';
-        }
-    }
 }
