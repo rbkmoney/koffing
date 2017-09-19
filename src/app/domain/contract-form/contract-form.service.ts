@@ -1,5 +1,8 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Injectable } from '@angular/core';
+import * as uuid from 'uuid/v4';
+
+import { ContractCreation, RussianLegalEntity } from 'koffing/backend';
 import { BankAccountFormService } from '../bank-account-form/bank-account-form.service';
 
 @Injectable()
@@ -48,5 +51,10 @@ export class ContractFormService {
             ]],
             bankAccount: this.bankAccountFormService.initForm()
         });
+    }
+
+    public toContractCreation(contractForm: FormGroup): ContractCreation {
+        const contractor = new RussianLegalEntity(contractForm.value);
+        return new ContractCreation(uuid(), contractor);
     }
 }

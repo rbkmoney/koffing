@@ -18,23 +18,23 @@ import { BreadcrumbBroadcaster } from 'koffing/broadcaster';
 export class ClaimDetailsComponent implements OnInit {
 
     public claim: Claim;
-
     public contractCreations: ContractCreation[];
-
     public contractPayoutToolCreations: ContractPayoutToolCreation[];
-
     public shopCreations: ShopCreation[];
+    public claimType: string;
 
-    constructor(private claimService: ClaimService,
-                private route: ActivatedRoute,
-                private claimDetailsService: ClaimDetailsService,
-                private breadcrumbBroadcaster: BreadcrumbBroadcaster) {
-    }
+    constructor(
+        private route: ActivatedRoute,
+        private claimService: ClaimService,
+        private claimDetailsService: ClaimDetailsService,
+        private breadcrumbBroadcaster: BreadcrumbBroadcaster
+    ) { }
 
     public ngOnInit() {
         const claimID = this.route.snapshot.params['claimID'];
         this.claimService.getClaimByID(claimID).subscribe((claim) => {
             this.claim = claim;
+            this.claimType = this.claimDetailsService.defineClaimType(claim);
             this.contractCreations = this.claimDetailsService.toContractCreations(claim.changeset);
             this.contractPayoutToolCreations = this.claimDetailsService.toContractPayoutToolCreations(claim.changeset);
             this.shopCreations = this.claimDetailsService.toShopCreation(claim.changeset);

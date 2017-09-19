@@ -5,6 +5,11 @@
                 h5 Детали заявки
             .x_content
                 form.form-horizontal.form-label-left.css-form
+                    .form-group(*ngIf="claimType")
+                        .col-xs-12.col-sm-4
+                            label.text-left Тип заявки:
+                        .col-xs-12.col-sm-8
+                            div {{claimType}}
                     .form-group
                         .col-xs-12.col-sm-4
                             label.text-left Идентификатор:
