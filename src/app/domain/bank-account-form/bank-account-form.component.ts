@@ -4,7 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { SuggestionsService } from 'koffing/suggestions/services/suggestions.service';
 
 @Component({
-    selector: 'kof-bank-account-form-2',
+    selector: 'kof-bank-account-form',
     templateUrl: 'bank-account-form.component.pug'
 })
 export class BankAccountFormComponent implements AfterViewInit {
