@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { ClaimService } from 'koffing/backend/claim.service';
 import { ShopService } from 'koffing/backend/shop.service';
-import { Claim, Shop } from 'koffing/backend';
+import { Claim, Shop, CLAIM_STATUS } from 'koffing/backend';
 import { BreadcrumbBroadcaster } from 'koffing/broadcaster';
 
 @Component({
@@ -22,7 +22,7 @@ export class ManagementComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this.claimService.getClaims('pending').subscribe((claims: Claim[]) => {
+        this.claimService.getClaims(CLAIM_STATUS.pending).subscribe((claims: Claim[]) => {
             this.claims = claims;
         });
         this.shopService.getShops().subscribe((shops: Shop[]) => {

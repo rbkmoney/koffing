@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/primeng';
 
 import { EventPollerService } from './event-poller.service';
+import { ClaimSupportService } from './claim-support.service';
 import { SelectComponent } from './select/select.component';
 import { LoadingComponent } from './loading/loading.component';
 import { MinValueValidatorDirective } from './min-value.directive';
@@ -40,7 +41,8 @@ import { PaymentStatusPipe } from './payment-statuses.pipe';
         PaymentStatusPipe
     ],
     providers: [
-        EventPollerService
+        EventPollerService,
+        ClaimSupportService
     ]
 })
 export class CommonModule { }

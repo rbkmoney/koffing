@@ -7,7 +7,10 @@ import { CommonModule } from 'koffing/common/common.module';
 import { BackendModule } from 'koffing/backend/backend.module';
 import { DomainModule } from 'koffing/domain/domain.module';
 import { ShopInfoComponent } from './shop-info.component';
+import { ContractManageComponent } from './contract-manage/contract-manage.component';
 import { ContractCreateComponent } from './contract-create/contract-create.component';
+import { ContractSelectComponent } from './contract-select/contract-select.component';
+import { PayoutToolSelectComponent } from './payout-tool-select/payout-tool-select.component';
 
 @NgModule({
     imports: [
@@ -20,7 +23,10 @@ import { ContractCreateComponent } from './contract-create/contract-create.compo
     ],
     declarations: [
         ShopInfoComponent,
-        ContractCreateComponent
+        ContractManageComponent,
+        ContractCreateComponent,
+        ContractSelectComponent,
+        PayoutToolSelectComponent,
     ]
 })
 export class ShopInfoModule { }

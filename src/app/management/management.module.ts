@@ -13,6 +13,7 @@ import { ClaimDetailsComponent } from './claim-details/claim-details.component';
 import { ClaimStatusPipe } from './claim-status.pipe';
 import { ContractCreationDetailsComponent } from './claim-details/contract-creation-details/contract-creation-details.component';
 import { ContractPayoutToolCreationDetailsComponent } from './claim-details/contract-payout-tool-creation-details/contract-payout-tool-creation-details.component';
+import { ContractBindingDetailsComponent } from './claim-details/contract-binding-details/contract-binding-details.component';
 import { ShopCreationDetailsComponent } from './claim-details/shop-creation-details/shop-creation-details.component';
 import { RevokeClaimComponent } from './claim-details/revoke-claim/revoke-claim.component';
 
@@ -33,6 +34,7 @@ import { RevokeClaimComponent } from './claim-details/revoke-claim/revoke-claim.
         ClaimDetailsComponent,
         ContractCreationDetailsComponent,
         ContractPayoutToolCreationDetailsComponent,
+        ContractBindingDetailsComponent,
         ShopCreationDetailsComponent,
         RevokeClaimComponent
     ],

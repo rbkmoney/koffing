@@ -5,11 +5,11 @@
                 h5 Детали заявки
             .x_content
                 form.form-horizontal.form-label-left.css-form
-                    .form-group(*ngIf="claimType")
+                    .form-group(*ngIf="claimLabel")
                         .col-xs-12.col-sm-4
                             label.text-left Тип заявки:
                         .col-xs-12.col-sm-8
-                            div {{claimType}}
+                            div {{claimLabel}}
                     .form-group
                         .col-xs-12.col-sm-4
                             label.text-left Идентификатор:
@@ -57,3 +57,5 @@
                 h5 Данные магазина
             .x_content
                 kof-shop-creation-details([shopCreations]="shopCreations")
+
+        kof-contract-binding-details(*ngIf="contractBindings?.length && !contractCreations?.length", [contractBindings]="contractBindings")

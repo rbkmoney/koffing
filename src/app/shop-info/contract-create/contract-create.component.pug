@@ -1,85 +1,25 @@
-div(*ngIf="shop")
-    .row
-        .col-xs-12.col-md-8.col-md-offset-2
-            .x_panel
-                .x_title
-                    .row
-                        .col-xs-6
-                            h5 Выбор контракта
-                        .col-xs-6
-                            button.btn.btn-default.btn-sm.pull-right((click)="navigateBack()") Назад
-                .x_content
-                    .btn-group
-                        label.btn.btn-sm.btn-default(*ngFor="let contractItem of contractItems", [ngClass]="{'active': contractItem.value === selectedContractID}")
-                            input(type="radio", value="{{contractItem.value}}", (click)="onSelectContract(contractItem.value)")
-                            | {{contractItem.label}}
-
-    div(*ngIf="selectedContract")
-        .row
-            .col-xs-12.col-md-8.col-md-offset-2
-                .x_panel
-                    .x_title
-                        h5 Данные контракта
-                    .x_content
-                        kof-contract-details([contract]="selectedContract")
-
-        .row(*ngIf="payoutToolItems?.length > 1")
-            .col-xs-12.col-md-8.col-md-offset-2
-                .x_panel
-                    .x_title
-                        .row
-                            .col-xs-12
-                                h5 Выбор средства вывода
-                    .x_content
-                        .btn-group
-                            label.btn.btn-sm.btn-default(*ngFor="let payoutToolItem of payoutToolItems", [ngClass]="{'active': payoutToolItem.value === selectedPayoutToolID}")
-                                input(type="radio", value="{{payoutToolItem.value}}", (click)="onSelectPayoutTool(payoutToolItem.value)")
-                                | {{payoutToolItem.label}}
-
-        div(*ngIf="selectedPayoutTool")
-            .row
-                .col-xs-12.col-md-8.col-md-offset-2
-                    .x_panel
-                        .x_title
-                            h5 Данные средства вывода
-                        .x_content
-                            kof-payout-tool-details([payoutTool]="selectedPayoutTool")
-
-            .row(*ngIf="selectedContract.id !== shop.contractID || selectedPayoutTool.id !== shop.payoutToolID")
-                .col-xs-12.col-md-8.col-md-offset-2
-                    .x_panel
-                        .x_content
-                            button.btn.btn-primary.pull-right((click)="bindContract()") Создать заявку на привязку данного контракта
-
-    div(*ngIf="!selectedContract")
-        .row
-            .col-xs-12.col-md-8.col-md-offset-2
-                .x_panel
-                    .x_content
-                        .form_wizard.wizard_horizontal
-                            ul.wizard_steps
-                                li.first_step
-                                    a([ngClass]="{'selected': currentStep === step.contract, 'done': currentStep > step.contract}")
-                                        span.step_no 1
-                                        span.step_descr Контракт
-                                li
-                                    a([ngClass]="{'selected': currentStep === step.payoutTool, 'done': currentStep > step.payoutTool, 'disabled': currentStep < step.payoutTool}")
-                                        span.step_no 2
-                                        span.step_descr Средство вывода
-                        .ln_solid
-                        kof-contract-form(*ngIf="currentStep === step.contract", [form]="contractForm")
-                        kof-payout-tool-form(*ngIf="currentStep === step.payoutTool", [form]="payoutToolForm", [bankAccount]="contractForm.value.bankAccount")
-                        .ln_solid
-                        .row
-                            .col-xs-12
-                                button.btn.btn-default(
-                                    [disabled]="currentStep === step.contract",
-                                    (click)="prev()") Назад
-                                button.btn.btn-default.pull-right(
-                                    *ngIf="currentStep !== step.payoutTool",
-                                    [disabled]="!validStep",
-                                    (click)="next()") Далее
-                                button.btn.btn-primary.pull-right(
-                                    *ngIf="currentStep === step.payoutTool",
-                                    [disabled]="!validStep",
-                                    (click)="createAndBindContract()") Создать заявку на создание контракта
+.form_wizard.wizard_horizontal
+    ul.wizard_steps
+        li.first_step
+            a([ngClass]="{'selected': currentStep === step.contract, 'done': currentStep > step.contract}")
+                span.step_no 1
+                span.step_descr Контракт
+        li
+            a([ngClass]="{'selected': currentStep === step.payoutTool, 'done': currentStep > step.payoutTool, 'disabled': currentStep < step.payoutTool}")
+                span.step_no 2
+                span.step_descr Средство вывода
+.ln_solid
+kof-contract-form(*ngIf="currentStep === step.contract", [form]="contractForm")
+kof-payout-tool-form(*ngIf="currentStep === step.payoutTool", [form]="payoutToolForm", [bankAccount]="contractForm.value.bankAccount")
+.ln_solid
+button.btn.btn-default(
+    [disabled]="currentStep === step.contract",
+    (click)="prev()") Назад
+button.btn.btn-default.pull-right(
+    *ngIf="currentStep !== step.payoutTool",
+    [disabled]="!validStep",
+    (click)="next()") Далее
+button.btn.btn-primary.pull-right(
+    *ngIf="currentStep === step.payoutTool",
+    [disabled]="!validStep",
+    (click)="createAndBindContract()") Создать заявку на создание контракта
