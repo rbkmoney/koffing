@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { BreadcrumbBroadcaster } from 'koffing/broadcaster';
-import { ClaimSupportService } from 'koffing/common/claim-support.service';
 import { ClaimService } from 'koffing/backend/claim.service';
 import {
     Claim,
@@ -30,7 +29,6 @@ export class ClaimDetailsComponent implements OnInit {
         private route: ActivatedRoute,
         private claimService: ClaimService,
         private claimDetailsService: ClaimDetailsService,
-        private claimSupportService: ClaimSupportService,
         private breadcrumbBroadcaster: BreadcrumbBroadcaster
     ) { }
 
@@ -38,7 +36,7 @@ export class ClaimDetailsComponent implements OnInit {
         const claimID = this.route.snapshot.params['claimID'];
         this.claimService.getClaimByID(claimID).subscribe((claim) => {
             this.claim = claim;
-            this.claimLabel = this.claimSupportService.getClaimLabel(claim);
+            this.claimLabel = this.claimDetailsService.getClaimLabel(claim);
             this.contractCreations = this.claimDetailsService.toContractCreations(claim.changeset);
             this.contractPayoutToolCreations = this.claimDetailsService.toContractPayoutToolCreations(claim.changeset);
             this.shopCreations = this.claimDetailsService.toShopCreation(claim.changeset);
