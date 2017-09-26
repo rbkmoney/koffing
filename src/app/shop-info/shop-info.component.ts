@@ -6,7 +6,7 @@ import { Shop, Contract, PayoutTool } from 'koffing/backend';
 import { ShopService } from 'koffing/backend/shop.service';
 import { ContractService } from 'koffing/backend/contract.service';
 import { PayoutToolService } from 'koffing/backend/payout-tool.service';
-import { CLAIM_TYPE } from 'koffing/management/claim-details/claim-type';
+import { CLAIM_TYPE } from 'koffing/management/claim-type';
 import { ShopInfoService } from './shop-info.service';
 
 @Component({
