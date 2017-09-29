@@ -47,9 +47,12 @@
         kof-shop-creation-details(
             *ngIf="modificationType === CLAIM_TYPE.ShopCreation",
             [partyModifications]="claim.changeset")
-        kof-contract-binding-details(
-            *ngIf="modificationType === CLAIM_TYPE.ShopContractBinding",
-            [partyModifications]="claim.changeset")
         kof-contract-creation-details(
             *ngIf="modificationType === CLAIM_TYPE.ContractCreation",
+            [partyModifications]="claim.changeset")
+        kof-payout-tool-creation-details(
+            *ngIf="modificationType === CLAIM_TYPE.ContractPayoutToolCreation",
+            [partyModifications]="claim.changeset")
+        kof-contract-binding-details(
+            *ngIf="modificationType === CLAIM_TYPE.ShopContractBinding",
             [partyModifications]="claim.changeset")

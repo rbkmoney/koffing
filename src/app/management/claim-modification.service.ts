@@ -14,10 +14,10 @@ export class ClaimModificationService {
             } else if (modification.shopModificationType === CLAIM_TYPE.ShopContractBinding) {
                 const hasCreationContract = Boolean(modifications.find((item: any) => item.contractModificationType === CLAIM_TYPE.ContractCreation));
                 const hasCreationPayoutTool = Boolean(modifications.find((item: any) => item.contractModificationType === CLAIM_TYPE.ContractPayoutToolCreation));
-                if (hasCreationPayoutTool) {
-                    result = CLAIM_TYPE.ContractPayoutToolCreation;
-                } else if (hasCreationContract) {
+                if (hasCreationContract) {
                     result = CLAIM_TYPE.ContractCreation;
+                } else if (hasCreationPayoutTool) {
+                    result = CLAIM_TYPE.ContractPayoutToolCreation;
                 } else {
                     result = CLAIM_TYPE.ShopContractBinding;
                 }
