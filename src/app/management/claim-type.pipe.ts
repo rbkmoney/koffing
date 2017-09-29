@@ -1,19 +1,20 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { CLAIM_TYPE } from './claim-type';
 
 @Pipe({
-    name: 'kofClaimModificationType'
+    name: 'kofClaimModificationName'
 })
 export class ClaimTypePipe implements PipeTransform {
 
-    private modificationNames = {
-        0: '', // nan
-        1: 'Создание магазина', // shopCreation
-        2: 'Создание контракта', // contractCreation
-        3: 'Изменение контракта' // contractBinding
+    private MODIFICATION_NAMES = {
+        [CLAIM_TYPE.ShopCreation]: 'Создание магазина',
+        [CLAIM_TYPE.ContractCreation]: 'Создание контракта',
+        [CLAIM_TYPE.ContractPayoutToolCreation]: 'Создание средства вывода',
+        [CLAIM_TYPE.ShopContractBinding]: 'Изменение контракта'
     };
 
-    public transform(input: number): string {
-        const name = this.modificationNames[input];
+    public transform(input: string): string {
+        const name = this.MODIFICATION_NAMES[input];
         return name ? name : input;
     }
 }

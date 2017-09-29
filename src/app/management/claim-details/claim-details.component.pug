@@ -13,7 +13,7 @@
                         .col-xs-12.col-sm-4
                             label.text-left Тип заявки:
                         .col-xs-12.col-sm-8
-                            div {{modificationType | kofClaimModificationType}}
+                            div {{modificationType | kofClaimModificationName}}
                     .form-group
                         .col-xs-12.col-sm-4
                             label.text-left Идентификатор:
@@ -45,11 +45,11 @@
                         kof-revoke-claim([claim]="claim")
 
         kof-shop-creation-details(
-            *ngIf="modificationType === ModificationType.shopCreation",
+            *ngIf="modificationType === CLAIM_TYPE.ShopCreation",
             [partyModifications]="claim.changeset")
         kof-contract-binding-details(
-            *ngIf="modificationType === ModificationType.contractBinding",
+            *ngIf="modificationType === CLAIM_TYPE.ShopContractBinding",
             [partyModifications]="claim.changeset")
         kof-contract-creation-details(
-            *ngIf="modificationType === ModificationType.contractCreation",
+            *ngIf="modificationType === CLAIM_TYPE.ContractCreation",
             [partyModifications]="claim.changeset")

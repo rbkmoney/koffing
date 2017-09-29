@@ -1,0 +1,15 @@
+.row(*ngIf="shop")
+    .col-xs-12.col-md-8.col-md-offset-2
+        .x_panel
+            .x_title
+                .row
+                    .col-xs-6
+                        h5 Выбор средства вывода
+                    .col-xs-6
+                        button.btn.btn-default.btn-sm.pull-right((click)="navigateBack()") Назад
+            .x_content
+                kof-payout-tool-select([contractID]="shop.contractID", [currentPayoutToolID]="shop.payoutToolID", (onSelect)="selectPayoutTool($event)", [isAddNewMode]="true")
+                .ln_solid
+                kof-payout-tool-create(*ngIf="!selectedPayoutTool", [contractID]="shop.contractID", (onCreate)="createAndBindPayoutTool($event)")
+                kof-payout-tool-details(*ngIf="selectedPayoutTool", [payoutTool]="selectedPayoutTool")
+                button.btn.btn-primary.pull-right(*ngIf="selectedPayoutTool && selectedPayoutTool.id !== shop.payoutToolID", (click)="bindPayoutTool()") Создать заявку на изменение средства вывода
