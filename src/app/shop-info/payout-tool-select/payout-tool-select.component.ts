@@ -18,9 +18,6 @@ export class PayoutToolSelectComponent implements OnChanges {
     @Input()
     public currentPayoutToolID: string;
 
-    @Input()
-    public isAddNewMode: boolean;
-
     @Output()
     public onSelect: EventEmitter<PayoutTool> = new EventEmitter();
 
@@ -49,12 +46,10 @@ export class PayoutToolSelectComponent implements OnChanges {
         const result = chain(payoutTools)
             .filter((payoutTool: PayoutTool) => payoutTool.id !== 'TEST' && payoutTool.id !== currentPayoutToolID)
             .map((payoutTool: PayoutTool, index) => new SelectItem(payoutTool.id, `Средство вывода ${index + 1}`))
+            .push(new SelectItem('', 'Новое средство вывода'))
             .value();
         if (currentPayoutToolID) {
             result.unshift(new SelectItem(currentPayoutToolID, 'Текущее средство вывода'));
-        }
-        if (this.isAddNewMode) {
-            result.push(new SelectItem('', 'Новое средство вывода'));
         }
         return result;
     }
