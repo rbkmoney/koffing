@@ -8,7 +8,7 @@ import { ClaimDetailsService } from '../claim-details.service';
 
 @Component({
     selector: 'kof-payout-tool-creation-details',
-    templateUrl: 'contract-binding-details.component.pug'
+    templateUrl: 'payout-tool-creation-details.component.pug'
 })
 export class PayoutToolCreationDetailsComponent implements OnChanges {
 

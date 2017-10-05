@@ -14,7 +14,7 @@
                     tbody(*ngFor="let claim of claims")
                         tr
                             td {{getShopName(claim)}}
-                            td {{getModificationType(claim) | kofClaimModificationName}}
+                            td {{getModificationType(claim) | kofClaimModificationType}}
                             td {{claim.status | kofClaimStatus}}
                             td
                                 button.btn.btn-xs.btn-default.pull-right((click)="goToClaimDetails(claim.id)") Детали заявки

@@ -16,7 +16,6 @@ import { CreateWebhookComponent } from 'koffing/webhooks/create-webhook/create-w
 import { InvoiceComponent } from 'koffing/invoice/invoice.component';
 import { ShopInfoComponent } from 'koffing/shop-info/shop-info.component';
 import { ContractManageComponent } from 'koffing/shop-info/contract-manage/contract-manage.component';
-import { PayoutToolManageComponent } from 'koffing/shop-info/payout-tool-manage/payout-tool-manage.component';
 
 @NgModule({
     imports: [
@@ -71,10 +70,6 @@ import { PayoutToolManageComponent } from 'koffing/shop-info/payout-tool-manage/
                     {
                         path: 'contract',
                         component: ContractManageComponent
-                    },
-                    {
-                        path: 'contract/:contractID/payout-tool',
-                        component: PayoutToolManageComponent
                     },
                     {
                         path: 'documents/registry',

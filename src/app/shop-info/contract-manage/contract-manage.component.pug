@@ -25,7 +25,7 @@
 
         .x_panel(*ngIf="selectedContract && selectedPayoutTool && (selectedContract.id !== shop.contractID || selectedPayoutTool.id !== shop.payoutToolID)")
             .x_content
-                button.btn.btn-primary.pull-right.clear-margin((click)="bindContract()") Создать заявку на изменение контракта
+                button.btn.btn-primary.pull-right.clear-margin((click)="bindContract()") Создать заявку
 
         .x_panel(*ngIf="!selectedContract")
             .x_content

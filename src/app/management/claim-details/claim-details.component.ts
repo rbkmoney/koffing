@@ -6,7 +6,7 @@ import { ClaimService } from 'koffing/backend/claim.service';
 import { Claim } from 'koffing/backend';
 import { ClaimDetailsService } from './claim-details.service';
 import { ClaimModificationService } from '../claim-modification.service';
-import { CLAIM_TYPE } from '../claim-type';
+import { MODIFICATION_TYPE } from '../modification-type';
 
 @Component({
     templateUrl: 'claim-details.component.pug',
@@ -16,7 +16,7 @@ export class ClaimDetailsComponent implements OnInit {
 
     public claim: Claim;
     public modificationType: string;
-    public CLAIM_TYPE = CLAIM_TYPE;
+    public MODIFICATION_TYPE = MODIFICATION_TYPE;
 
     constructor(
         private route: ActivatedRoute,

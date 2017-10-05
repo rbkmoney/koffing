@@ -1,4 +1,4 @@
-export const CLAIM_TYPE = {
+export const MODIFICATION_TYPE = {
     ShopCreation: 'ShopCreation',
     ContractCreation: 'ContractCreation',
     ContractPayoutToolCreation: 'ContractPayoutToolCreation',

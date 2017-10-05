@@ -30,9 +30,4 @@ p-growl([(value)]="messages", [life]="messageLifeTime", [immutable]= "false")
                     [disabled]="isDisabledContractChange",
                     (click)="navigateToContractChange()",
                     [title]="isDisabledContractChange ? 'Заявка на изменение контракта уже существует' : ''"
-                ) Изменить контракт
-                button.btn.btn-default(
-                    [disabled]="isDisabledContractChange",
-                    (click)="navigateToPayoutToolChange()",
-                    [title]="isDisabledContractChange ? 'Заявка на изменение средства вывода уже существует' : ''"
-                ) Изменить средство вывода
+                ) Изменить или создать контракт
