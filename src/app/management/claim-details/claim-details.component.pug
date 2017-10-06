@@ -39,6 +39,11 @@
                             label.text-left Статус:
                         .col-xs-12.col-sm-8
                             div {{claim?.status | kofClaimStatus}}
+                    .form-group(*ngIf="claim?.reason")
+                        .col-xs-12.col-sm-4
+                            label.text-left Причина:
+                        .col-xs-12.col-sm-8
+                            div {{claim?.reason}}
                 .ln_solid
                 .row(*ngIf="claim.status === 'ClaimPending'")
                     .col-xs-12
