@@ -6,16 +6,21 @@ button.btn.btn-default.btn-block(data-toggle="modal", [attr.data-target]="'#invo
     .modal-dialog.modal-lg
         .modal-content
             .modal-header
+                button.close(data-dismiss="modal", aria-label="Close", (click)="resetForms()")
+                    span(aria-hidden="true") &times;
+                h4.modal-title
+                    | Создание платежной ссылки
+                .ln_solid
                 .form_wizard.wizard_horizontal
                     ul.wizard_steps
                         li.first_step
                             a([ngClass]="{'selected': currentStep === step.template, 'done': currentStep > step.template}")
                                 span.step_no 1
-                                span.step_descr Создание шаблона
+                                span.step_descr Конфигурирование инвойса
                         li
                             a([ngClass]="{'selected': currentStep === step.config, 'done': currentStep > step.config, 'disabled': currentStep < step.template}")
                                 span.step_no 2
-                                span.step_descr Создание ссылки
+                                span.step_descr Конфигурирование формы оплаты
             .modal-body
                 kof-invoice-template-form(*ngIf="currentStep === step.template", [form]="invoiceTemplateForm")
                 kof-checkout-config-form(*ngIf="currentStep === step.config", [methods]="methods")
