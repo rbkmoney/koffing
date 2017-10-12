@@ -46,11 +46,9 @@ export class CheckoutConfigFormComponent implements OnInit, OnChanges {
         return this.form.value.holdExpiration === holdExpiration;
     }
 
-    public checkTerminals() {
-        this.form.setValue({
-            ...this.form.value,
-            paymentFlowHold: false,
-            terminals: !this.form.value.terminals
+    public toggleTerminals() {
+        this.form.patchValue({
+            paymentFlowHold: false
         });
     }
 }
