@@ -41,10 +41,10 @@ form([formGroup]="form", novalidate)
                 label.text-left Дополнительные методы оплаты:
             .col-xs-12.col-sm-5
                 .text-left
-                    input(type="checkbox", formControlName="terminals")
+                    input(type="checkbox", formControlName="terminals", (click)="checkTerminals()")
                     | &nbsp;Терминалы "Евросеть"
-    .ln_solid
-    .form-group
+    .ln_solid(*ngIf="!form.value.terminals")
+    .form-group(*ngIf="!form.value.terminals")
         .row
             .col-xs-12
                 label.text-left
