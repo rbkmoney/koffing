@@ -48,7 +48,8 @@ export class CheckoutConfigFormComponent implements OnInit, OnChanges {
 
     public toggleTerminals() {
         this.form.patchValue({
-            paymentFlowHold: false
+            paymentFlowHold: false,
+            terminals: !this.form.value.terminals
         });
     }
 }
