@@ -4,10 +4,12 @@ import { FormGroup} from '@angular/forms';
 
 import { CreateWebhookService } from './create-webhook.service';
 import { EventTypePresent } from './event-type-present';
+import { TopicItem } from './topic-item';
 
 @Component({
     selector: 'kof-webhook-item',
     templateUrl: 'create-webhook.component.pug',
+    styleUrls: ['create-webhook.component.less'],
     providers: [CreateWebhookService]
 })
 export class CreateWebhookComponent implements OnInit  {
@@ -17,6 +19,10 @@ export class CreateWebhookComponent implements OnInit  {
     public form: FormGroup;
 
     public eventTypes: EventTypePresent[];
+
+    public customerEventTypes: EventTypePresent[];
+
+    public topicItems: TopicItem[];
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
@@ -28,6 +34,16 @@ export class CreateWebhookComponent implements OnInit  {
         });
         this.form = this.createWebhookService.createWebhookGroup;
         this.eventTypes = this.createWebhookService.eventTypes;
+        this.customerEventTypes = this.createWebhookService.customerEventTypes;
+        this.topicItems = this.createWebhookService.getTopicItems();
+    }
+
+    public changeTopic(topicName: string) {
+        this.createWebhookService.changeTopic(topicName);
+    }
+
+    public isTopicActive(topicValue: string) {
+        return this.form.value.topic === topicValue;
     }
 
     public goBack() {
