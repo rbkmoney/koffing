@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { forEach, mapValues } from 'lodash';
+import { forEach, mapValues, map } from 'lodash';
 
 import { EventTypePresent } from '../create-webhook/event-type-present';
 import { WebhooksService } from 'koffing/backend/webhooks.service';
 import { WebhookParams } from 'koffing/backend/requests/webhook-params';
 import { Webhook } from 'koffing/backend/model/webhook';
 import { TopicItem } from 'koffing/webhooks/create-webhook/topic-item';
+import { TOPIC_TYPES } from 'koffing/webhooks/topic-types';
 
 @Injectable()
 export class CreateWebhookService {
@@ -18,16 +19,7 @@ export class CreateWebhookService {
 
     public customerEventTypes: EventTypePresent[];
 
-    public topicItems: TopicItem[] = [
-        {
-            value: 'InvoicesTopic',
-            label: 'Invoice events'
-        },
-        {
-            value: 'CustomersTopic',
-            label: 'Customers events'
-        }
-    ];
+    public topicItems: TopicItem[];
 
     private eventTypes: EventTypePresent[] = [
         new EventTypePresent('InvoiceCreated', 'создан новый инвойс', 'InvoicesTopic'),
@@ -54,11 +46,14 @@ export class CreateWebhookService {
         this.createWebhookGroup.controls.eventTypes.setValidators(this.eventTypesValidator);
         this.invoiceEventTypes = this.eventTypes.filter((type) => type.topic === 'InvoicesTopic');
         this.customerEventTypes = this.eventTypes.filter((type) => type.topic === 'CustomersTopic');
+        this.topicItems = map(TOPIC_TYPES, (value, key) => {
+            return {value: key, label: value};
+        });
     }
 
     public createWebhook(shopID: string): Observable<Webhook> {
         if (this.createWebhookGroup.valid && shopID) {
-            const params = this.toWebhookParams(shopID, this.createWebhookGroup.controls);
+            const params = this.toWebhookParams(shopID, this.createWebhookGroup.value);
             return this.webhooksService.createWebhook(params);
         } else {
             return Observable.throw('Webhook form group is not valid or shopID is null');
@@ -70,17 +65,17 @@ export class CreateWebhookService {
         eventTypes.setValue(mapValues(eventTypes.value, () => false));
     }
 
-    private toWebhookParams(shopID: string, controls: any): WebhookParams {
+    private toWebhookParams(shopID: string, formValue: any): WebhookParams {
         const eventTypes: string[] = [];
-        forEach(controls.eventTypes.value, (checked: boolean, eventTypeName: string) => {
+        forEach(formValue.eventTypes, (checked: boolean, eventTypeName: string) => {
             if (checked) {
                 eventTypes.push(eventTypeName);
             }
         });
         return {
-            url: controls.url.value,
+            url: formValue.url,
             scope: {
-                topic: controls.topic.value,
+                topic: formValue.topic,
                 shopID,
                 eventTypes
             }
