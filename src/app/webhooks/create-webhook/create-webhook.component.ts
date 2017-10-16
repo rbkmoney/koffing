@@ -18,7 +18,7 @@ export class CreateWebhookComponent implements OnInit  {
 
     public form: FormGroup;
 
-    public eventTypes: EventTypePresent[];
+    public invoiceEventTypes: EventTypePresent[];
 
     public customerEventTypes: EventTypePresent[];
 
@@ -33,13 +33,9 @@ export class CreateWebhookComponent implements OnInit  {
             this.shopID = params['shopID'];
         });
         this.form = this.createWebhookService.createWebhookGroup;
-        this.eventTypes = this.createWebhookService.eventTypes;
+        this.invoiceEventTypes = this.createWebhookService.invoiceEventTypes;
         this.customerEventTypes = this.createWebhookService.customerEventTypes;
-        this.topicItems = this.createWebhookService.getTopicItems();
-    }
-
-    public changeTopic(topicName: string) {
-        this.createWebhookService.changeTopic(topicName);
+        this.topicItems = this.createWebhookService.topicItems;
     }
 
     public isTopicActive(topicValue: string) {
@@ -53,5 +49,9 @@ export class CreateWebhookComponent implements OnInit  {
     public createWebhook() {
         this.createWebhookService.createWebhook(this.shopID)
             .subscribe(() => this.goBack());
+    }
+
+    public selectTopic() {
+        this.createWebhookService.clearSelectedTypes();
     }
 }
