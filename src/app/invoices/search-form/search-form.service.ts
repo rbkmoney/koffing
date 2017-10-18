@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import * as moment from 'moment';
 import { mapValues, isEqual, chain, keys, difference } from 'lodash';
@@ -13,7 +13,8 @@ export class SearchFormService {
 
     private defaultValues = {
         from: moment().subtract(1, 'month').startOf('day').toDate(),
-        to: moment().endOf('day').toDate()
+        to: moment().endOf('day').toDate(),
+        isHideEmpty: true
     };
 
     private mainSearchFields = ['invoiceID', 'invoiceStatus', 'paymentStatus'];
@@ -75,18 +76,18 @@ export class SearchFormService {
             paymentMethod: '',
             paymentFlow: '',
             fingerprint: '',
-            customerID: ''
+            customerID: '',
+            isHideEmpty: true
         });
     }
 
     private formValueToQueryParams(formValue: any): Params {
-        const mapped = mapValues(formValue, (value) =>
-            isEqual(value, '') ? null : value);
+        const mapped = mapValues(formValue, (value) => isEqual(value, '') ? null : value);
         const urlDateFormat = 'YYYY-MM-DD';
         return {
             ...mapped,
             from: moment(formValue.from).format(urlDateFormat),
-            to: moment(formValue.to).format(urlDateFormat)
+            to: moment(formValue.to).format(urlDateFormat),
         };
     }
 
@@ -94,7 +95,8 @@ export class SearchFormService {
         return {
             ...params,
             from: moment(params.from).startOf('day').toDate(),
-            to: moment(params.to).endOf('day').toDate()
+            to: moment(params.to).endOf('day').toDate(),
+            isHideEmpty: params.isHideEmpty === 'true'
         };
     }
 }
