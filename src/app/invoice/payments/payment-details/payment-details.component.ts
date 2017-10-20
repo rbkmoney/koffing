@@ -20,7 +20,7 @@ export class PaymentDetailsComponent implements OnChanges {
     constructor(private customerService: CustomerService) {}
 
     public ngOnChanges() {
-        if (this.payment && this.payment.payer && this.payment.payer.payerType === 'CustomerPayer') {
+        if (this.payment && this.payment.payer.payerType === 'CustomerPayer') {
             const payer = this.payment.payer as CustomerPayer;
             this.customerService.getCustomerById(payer.customerID)
                 .subscribe((customer) => this.customer = customer);

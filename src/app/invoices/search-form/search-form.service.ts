@@ -14,7 +14,7 @@ export class SearchFormService {
     private defaultValues = {
         from: moment().subtract(1, 'month').startOf('day').toDate(),
         to: moment().endOf('day').toDate(),
-        isHideEmpty: true
+        invoicesWithPayments: true
     };
 
     private mainSearchFields = ['invoiceID', 'invoiceStatus', 'paymentStatus'];
@@ -77,7 +77,7 @@ export class SearchFormService {
             paymentFlow: '',
             fingerprint: '',
             customerID: '',
-            isHideEmpty: true
+            invoicesWithPayments: this.defaultValues.invoicesWithPayments
         });
     }
 
@@ -96,7 +96,7 @@ export class SearchFormService {
             ...params,
             from: moment(params.from).startOf('day').toDate(),
             to: moment(params.to).endOf('day').toDate(),
-            isHideEmpty: params.isHideEmpty === 'true'
+            invoicesWithPayments: params.invoicesWithPayments === 'true'
         };
     }
 }
