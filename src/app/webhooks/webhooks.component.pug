@@ -15,11 +15,13 @@
                     thead
                         tr
                             th URL
+                            th Предмет оповещений
                             th Статус
                             th
                     tbody(*ngFor="let item of webhooksTableItems")
                         tr
                             td {{item.webhook.url}}
+                            td {{item.webhook?.scope?.topic | kofWebhookTopic}}
                             td
                                 span.label.label-success([ngClass]="{'label-danger': !item.webhook.active}") {{item.webhook.active | kofWebhookStatus}}
                             td
