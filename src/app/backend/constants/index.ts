@@ -2,6 +2,7 @@ export * from './claim-status';
 export * from './hold-expiration';
 export * from './invoice-status';
 export * from './invoice-template-cost-type';
+export * from './invoice-template-type';
 export * from './payment-status';
 export * from './payment-flow';
 export * from './payment-method';
