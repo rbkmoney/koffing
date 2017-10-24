@@ -1,5 +1,6 @@
 export * from './claim-status';
 export * from './hold-expiration';
+export * from './invoice-line-tax-vat-rates';
 export * from './invoice-status';
 export * from './invoice-template-cost-type';
 export * from './invoice-template-type';

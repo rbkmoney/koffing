@@ -1,9 +1,8 @@
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Injectable } from '@angular/core';
 import { reduce } from 'lodash';
 
-import { COST_TYPE, TEMPLATE_TYPE } from 'koffing/backend';
-import { InvoiceLine } from 'koffing/backend';
+import { COST_TYPE, TEMPLATE_TYPE, InvoiceLine } from 'koffing/backend';
 
 @Injectable()
 export class InvoiceTemplateFormService {
