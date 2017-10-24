@@ -12,8 +12,7 @@ import { PAYMENT_LINK_CREATION_STEP } from './invoice-template-payment-link-step
 @Component({
     selector: 'kof-invoice-template-payment-link',
     templateUrl: './invoice-template-payment-link.component.pug',
-    providers: [InvoiceTemplateService],
-    styles: [`.form-control { height: 30px; }`]
+    providers: [InvoiceTemplateService]
 })
 export class InvoiceTemplatePaymentLinkComponent implements OnInit {
 
