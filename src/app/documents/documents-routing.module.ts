@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { DocumentsComponent } from './documents.component';
-import { RegistryComponent } from 'koffing/documents/registry/registry.component';
+import { RegistryComponent } from './registry/registry.component';
 
 @NgModule({
     imports: [

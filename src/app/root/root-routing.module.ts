@@ -17,6 +17,7 @@ import { CreateWebhookComponent } from 'koffing/webhooks/create-webhook/create-w
 import { InvoiceComponent } from 'koffing/invoice/invoice.component';
 import { ShopInfoComponent } from 'koffing/shop-info/shop-info.component';
 import { ContractManageComponent } from 'koffing/shop-info/contract-manage/contract-manage.component';
+import { ActsComponent } from 'koffing/documents/acts/acts.component';
 
 @NgModule({
     imports: [
@@ -75,6 +76,10 @@ import { ContractManageComponent } from 'koffing/shop-info/contract-manage/contr
                     {
                         path: 'contract',
                         component: ContractManageComponent
+                    },
+                    {
+                        path: 'documents/acts',
+                        component: ActsComponent
                     },
                     {
                         path: 'documents/registry',

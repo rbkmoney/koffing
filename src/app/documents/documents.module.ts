@@ -2,22 +2,24 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
-import { DocumentsComponent } from 'koffing/documents/documents.component';
-import { DocumentsRoutingModule } from 'koffing/documents/documents-routing.module';
 import { CommonModule } from 'koffing/common/common.module';
 import { BackendModule } from 'koffing/backend/backend.module';
-import { RegistryComponent } from 'koffing/documents/registry/registry.component';
+import { DocumentsRoutingModule } from './documents-routing.module';
+import { DocumentsComponent } from './documents.component';
+import { ActsComponent } from './acts/acts.component';
+import { RegistryComponent } from './registry/registry.component';
 
 @NgModule({
     imports: [
-        DocumentsRoutingModule,
         BrowserModule,
         FormsModule,
         CommonModule,
-        BackendModule
+        BackendModule,
+        DocumentsRoutingModule
     ],
     declarations: [
         DocumentsComponent,
+        ActsComponent,
         RegistryComponent
     ]
 })
