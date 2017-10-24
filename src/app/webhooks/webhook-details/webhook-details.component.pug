@@ -7,6 +7,11 @@ form.form-horizontal.form-label-left.css-form
             div {{webhook.id}}
     .form-group
         .col-xs-12.col-sm-4
+            label.text-left Предмет оповещений:
+        .col-xs-12.col-sm-8
+            div {{webhook.scope.topic | kofWebhookTopic}}
+    .form-group
+        .col-xs-12.col-sm-4
             label.text-left События:
         .col-xs-12.col-sm-8
             .row(*ngFor="let eventType of webhook.scope.eventTypes")
