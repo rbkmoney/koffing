@@ -4,6 +4,7 @@ import { Subject } from 'rxjs/Subject';
 
 import { Report, SearchReportParams } from 'koffing/backend';
 import { SearchService } from 'koffing/backend/search.service';
+import { DownloadService } from 'koffing/backend/download.service';
 import { DateRange } from 'koffing/common/date-range/date-range';
 
 @Component({
@@ -19,6 +20,7 @@ export class ReportsComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private searchService: SearchService,
+        private downloadService: DownloadService
     ) { }
 
     public ngOnInit() {
@@ -28,12 +30,14 @@ export class ReportsComponent implements OnInit {
     public selectDateRange(dateRange: DateRange) {
         const params = new SearchReportParams(dateRange.fromTime, dateRange.toTime);
         this.searchService.getReports(this.shopID, params).subscribe((response) => {
-            // console.log(response);
+            console.log(response);
             this.reports.next(response.result);
         });
     }
 
     public downloadExcel() {
-        // console.log('downloadExcel');
+        this.downloadService.downloadReport('', null, '').subscribe((response) => {
+            console.log(response);
+        });
     }
 }
