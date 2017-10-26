@@ -1,0 +1,17 @@
+//table.table.table-striped
+    thead
+        tr
+            th.hidden-xs Идентификатор
+            th Время создания
+            th fromTime
+            th toTime
+            th type
+            //th files
+    tbody(*ngFor="let report of reports | async")
+        tr
+            td.hidden-xs {{report.id}}
+            td {{report.createdAt | date: "dd.MM.yyyy HH:mm:ss"}}
+            td {{report.fromTime | date: "dd.MM.yyyy HH:mm:ss"}}
+            td {{report.toTime | date: "dd.MM.yyyy HH:mm:ss"}}
+            td {{report.type}}
+            //td files

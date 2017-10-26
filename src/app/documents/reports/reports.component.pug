@@ -1,0 +1,9 @@
+.row
+    .col-xs-12.col-sm-6
+        kof-date-range((onSelect)="selectDateRange($event)")
+.row
+    .col-xs-12
+        button.btn.btn-default((click)="downloadExcel()") Скачать как Excel-файл
+.row
+    .col-xs-12
+        kof-search-reports-result([reports]="reports")

@@ -11,6 +11,7 @@ import { PaymentSearchResult } from './model/payment-search-result';
 import { SearchInvoicesParams } from './requests/search-invoices-params';
 import { SearchPaymentsParams } from './requests/search-payments-params';
 import { SearchPayoutsParams } from './requests/search-payouts-params';
+import { SearchReportParams } from './requests/search-report-params';
 
 @Injectable()
 export class SearchService {
@@ -35,6 +36,12 @@ export class SearchService {
     public searchPayouts(shopID: string, payoutsParams: SearchPayoutsParams): Observable<PaymentSearchResult> {
         const search = this.toSearchParams(payoutsParams);
         return this.http.get(`${this.getEndpoint(shopID)}/payouts`, {search})
+            .map((res) => res.json());
+    }
+
+    public getReports(shopID: string, reportParams: SearchReportParams): Observable<any> { // todo
+        const search = this.toSearchParams(reportParams);
+        return this.http.get(`${this.config.capiUrl}/shops/${shopID}/reports`, {search})
             .map((res) => res.json());
     }
 
