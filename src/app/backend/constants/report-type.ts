@@ -1,4 +1,4 @@
 export const REPORT_TYPE = {
-    provisionOfService: 'provisionOfService',
-    paymentRegistry: 'paymentRegistry'
+    provisionOfService: 'provision_of_service',
+    paymentRegistry: 'payment_registry'
 };

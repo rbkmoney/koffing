@@ -9,3 +9,4 @@ export * from './payment-flow';
 export * from './payment-method';
 export * from './payout-status';
 export * from './payout-tool-type';
+export * from './report-type';

@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { Report } from 'koffing/backend';
+import { ReportTableItem } from './report-item';
 
 @Component({
     selector: 'kof-search-reports-result',
@@ -10,9 +11,17 @@ import { Report } from 'koffing/backend';
 export class SearchReportsResultComponent implements OnInit {
 
     @Input()
-    public reports: Observable<Report[]>;
+    public reports$: Observable<Report[]>;
+
+    public reportItems: ReportTableItem[];
 
     public ngOnInit() {
-        console.log(this.reports);
+        this.reports$.subscribe((reports) => {
+            this.reportItems = reports.map((report) => new ReportTableItem(report, false));
+        });
+    }
+
+    public toggleFilesPanel(item: ReportTableItem) {
+        item.isVisible = !item.isVisible;
     }
 }

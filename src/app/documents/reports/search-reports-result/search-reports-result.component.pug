@@ -1,17 +1,21 @@
-//table.table.table-striped
+table.table.table-striped
     thead
         tr
-            th.hidden-xs Идентификатор
+            th Идентификатор
+            th.hidden-xs Временной интервал
             th Время создания
-            th fromTime
-            th toTime
-            th type
-            //th files
-    tbody(*ngFor="let report of reports | async")
+            th.hidden-xs Тип отчета
+            th
+    tbody(*ngFor="let item of reportItems")
         tr
-            td.hidden-xs {{report.id}}
-            td {{report.createdAt | date: "dd.MM.yyyy HH:mm:ss"}}
-            td {{report.fromTime | date: "dd.MM.yyyy HH:mm:ss"}}
-            td {{report.toTime | date: "dd.MM.yyyy HH:mm:ss"}}
-            td {{report.type}}
-            //td files
+            td {{item.report.id}}
+            td.hidden-xs {{item.report.fromTime | date: "dd.MM.yyyy"}} - {{item.report.toTime | date: "dd.MM.yyyy"}}
+            td {{item.report.createdAt | date: "dd.MM.yyyy HH:mm:ss"}}
+            td.hidden-xs {{item.report.type | kofReportType}}
+            td
+                .pull-right
+                    button.btn.btn-xs.btn-default((click)="toggleFilesPanel(item)")
+                        | {{item.isVisible ? 'Скрыть' : 'Показать'}} файлы
+        tr(*ngIf="item.isVisible")
+            td.row(colspan="5")
+                kof-report-files([files]="item.report.files", [reportID]="item.report.id")
