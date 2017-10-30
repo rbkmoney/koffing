@@ -5,6 +5,9 @@ export * from './invoice-template';
 export * from './payout-tool';
 export * from './shop';
 export * from './payment';
+export * from './payment-method';
+export * from './payment-tool-details';
+export * from './shop';
 
 export * from './access-token';
 export * from './account';
