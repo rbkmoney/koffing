@@ -17,4 +17,4 @@ div(*ngFor="let file of files")
                 div {{file.signatures.sha256}}
         .form-group
             .col-xs-12
-                .btn.btn-sm.btn-primary((click)="downloadFile(file.id)") Скачать
+                .btn.btn-sm.btn-primary((click)="downloadFile(file.id, file.filename)") Загрузить

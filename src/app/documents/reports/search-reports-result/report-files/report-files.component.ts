@@ -15,13 +15,13 @@ export class ReportFilesComponent implements OnInit {
 
     @Input()
     public reportID: number;
-    
+
     private shopID: string;
 
     constructor(
         private route: ActivatedRoute,
-        private downloadService: DownloadService
-    ) { }
+        private downloadService: DownloadService) {
+    }
 
     public ngOnInit() {
         this.route.parent.parent.params.subscribe((params) => {
@@ -29,7 +29,19 @@ export class ReportFilesComponent implements OnInit {
         });
     }
 
-    public downloadFile(fileID: string) {
-        this.downloadService.downloadReport(this.shopID, this.reportID, fileID).subscribe();
+    public downloadFile(fileID: string, fileName: string) {
+        this.downloadService.downloadReport(this.shopID, this.reportID, fileID)
+            .subscribe((file: Blob) => this.download(fileName, file));
+    }
+
+    private download(fileName: string, file: Blob) {
+        const a: any = document.createElement('a');
+        document.body.appendChild(a);
+        a.style = 'display: none';
+        const url = window.URL.createObjectURL(file);
+        a.href = url;
+        a.download = fileName;
+        a.click();
+        window.URL.revokeObjectURL(url);
     }
 }
