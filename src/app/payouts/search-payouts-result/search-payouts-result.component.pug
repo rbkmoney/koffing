@@ -9,5 +9,6 @@ table.table.table-striped
         tr
             td {{payout.id}}
             td {{payout.amount | kofRoubleCurrency}} ₽
-            td {{payout.status | kofPayoutStatus}}
+            td
+                span.label.label-default([ngClass]="getPayoutLabel(payout.status)") {{payout.status | kofPayoutStatus}}
             td {{payout.createdAt | date: "dd.MM.yyyy HH:mm:ss"}}
