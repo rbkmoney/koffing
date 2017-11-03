@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import * as moment from 'moment';
 
 import { DateRange } from 'koffing/common/date-range/date-range';
 import { RegistryExportService } from './registry-export.service';
@@ -18,8 +17,7 @@ import { ExcelService } from './excel/excel.service';
 export class RegistryComponent implements OnInit {
 
     public shopID: string;
-    public fromTime: Date;
-    public toTime: Date;
+    public dateRange: DateRange;
     public isLoading: boolean = false;
 
     constructor(
@@ -32,18 +30,15 @@ export class RegistryComponent implements OnInit {
         this.route.parent.parent.params.subscribe((params) => {
             this.shopID = params['shopID'];
         });
-        this.fromTime = moment().subtract(1, 'month').startOf('day').toDate();
-        this.toTime = moment().endOf('day').toDate();
     }
 
     public selectDateRange(dateRange: DateRange) {
-        this.fromTime = dateRange.fromTime;
-        this.toTime = dateRange.toTime;
+        this.dateRange = dateRange;
     }
 
     public exportRegistryToXLSX() {
         this.isLoading = true;
-        this.registryDataService.getRegistry(this.shopID, this.fromTime, this.toTime).subscribe((registry) => {
+        this.registryDataService.getRegistry(this.shopID, this.dateRange.fromTime, this.dateRange.toTime).subscribe((registry) => {
             this.registryExportService.exportRegistryToXLSX(registry);
             this.isLoading = false;
         });
