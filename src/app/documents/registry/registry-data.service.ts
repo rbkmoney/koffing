@@ -35,10 +35,12 @@ export class RegistryDataService {
                 const invoices = response[1];
                 const contracts = response[2];
                 const shop = response[3];
-                const successPayments = filter(payments, (payment: Payment) => payment.status === PAYMENT_STATUS.captured);
-                const registryItems = this.getRegistryItems(successPayments, invoices);
+                const capturedPayments = filter(payments, (payment: Payment) => payment.status === PAYMENT_STATUS.captured);
+                const refundedPayments = filter(payments, (payment: Payment) => payment.status === PAYMENT_STATUS.refunded);
+                const capturedPaymentItems = this.getRegistryItems(capturedPayments, invoices);
+                const refundedPaymentItems = this.getRegistryItems(refundedPayments, invoices);
                 const client = this.getClient(shop, contracts);
-                observer.next(new Registry(registryItems, fromTime, toTime, client));
+                observer.next(new Registry(fromTime, toTime, client, capturedPaymentItems, refundedPaymentItems));
                 observer.complete();
             });
         });
