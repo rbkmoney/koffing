@@ -1,21 +1,17 @@
 import { Injectable } from '@angular/core';
-import { filter, forEach, find } from 'lodash';
+import { filter, forEach, find, ceil, concat } from 'lodash';
 import { Observable, Observer } from 'rxjs';
 
-import { PAYMENT_STATUS } from 'koffing/backend/constants/payment-status';
+import {
+    PAYMENT_STATUS, Shop, Contract, Invoice, Payment,
+    RussianLegalEntity, PaymentResourcePayer
+} from 'koffing/backend';
 import { ShopService } from 'koffing/backend/shop.service';
 import { ContractService } from 'koffing/backend/contract.service';
 import { SearchService } from 'koffing/backend/search.service';
-import { Invoice } from 'koffing/backend/model/invoice';
-import { Payment } from 'koffing/backend/model/payment/payment';
-import { SearchPaymentsParams } from 'koffing/backend/requests/search-payments-params';
+import { SearchParams } from './search-params';
 import { Registry } from './registry';
 import { RegistryItem } from './registry-item';
-import { Shop } from 'koffing/backend/model/shop/shop';
-import { Contract } from 'koffing/backend/model/contract/contract';
-import { RussianLegalEntity } from 'koffing/backend/model/contract/contractor/russian-legal-entity';
-import { PaymentResourcePayer } from 'koffing/backend/model/payer/payment-resource-payer';
-import { SearchInvoicesParams } from 'koffing/backend/requests/search-invoices-params';
 
 @Injectable()
 export class RegistryDataService {
@@ -23,21 +19,20 @@ export class RegistryDataService {
     private limit: number = 1000;
 
     constructor(
-        private searchService: SearchService,
+        public searchService: SearchService,
         private contractService: ContractService,
         private shopService: ShopService
     ) { }
 
     public getRegistry(shopID: string, fromTime: Date, toTime: Date): Observable<Registry> {
         return Observable.create((observer: Observer<Registry>) => {
-            const searchParams = this.toSearchParams(fromTime, toTime);
-            const observablePayments = this.searchService.searchPayments(shopID, searchParams as SearchPaymentsParams);
-            const observableInvoices = this.searchService.searchInvoices(shopID, searchParams as SearchInvoicesParams);
-            const observableContracts = this.contractService.getContracts();
-            const observableShop = this.shopService.getShopByID(shopID);
-            Observable.forkJoin([observablePayments, observableInvoices, observableContracts, observableShop]).subscribe((response) => {
-                const payments = response[0].result;
-                const invoices = response[1].result;
+            const payments$ = this.loadAllData(this.searchService.searchPayments, shopID, fromTime, toTime);
+            const invoices$ = this.loadAllData(this.searchService.searchInvoices, shopID, fromTime, toTime);
+            const contracts$ = this.contractService.getContracts();
+            const shop$ = this.shopService.getShopByID(shopID);
+            Observable.forkJoin([payments$, invoices$, contracts$, shop$]).subscribe((response) => {
+                const payments = response[0];
+                const invoices = response[1];
                 const contracts = response[2];
                 const shop = response[3];
                 const successPayments = filter(payments, (payment: Payment) => payment.status === PAYMENT_STATUS.captured);
@@ -45,6 +40,33 @@ export class RegistryDataService {
                 const client = this.getClient(shop, contracts);
                 observer.next(new Registry(registryItems, fromTime, toTime, client));
                 observer.complete();
+            });
+        });
+    }
+
+    private loadAllData(request: any, shopID: string, fromTime: Date, toTime: Date): Observable<Payment[] | Invoice[]> {
+        return Observable.create((observer: Observer<Payment[] | Invoice[]>) => {
+            const searchParams = new SearchParams(fromTime, toTime, this.limit);
+            request.apply(this.searchService, [shopID, searchParams]).subscribe((response: any) => {
+                let searchData = response.result;
+                const countRequests = ceil(response.totalCount / this.limit);
+                if (countRequests > 1) {
+                    const streamRequests$ = [];
+                    for (let i = 1; i < countRequests; i++) {
+                        const offset = this.limit * i;
+                        const params = new SearchParams(fromTime, toTime, this.limit, offset);
+                        const request$ = request.apply(this.searchService, [shopID, params]);
+                        streamRequests$.push(request$);
+                    }
+                    Observable.forkJoin(streamRequests$).subscribe((streamData: any[]) => {
+                        forEach(streamData, (data) => searchData = concat(searchData, data.result));
+                        observer.next(searchData);
+                        observer.complete();
+                    });
+                } else {
+                    observer.next(searchData);
+                    observer.complete();
+                }
             });
         });
     }
@@ -64,8 +86,8 @@ export class RegistryDataService {
             } else {
                 registryItem.userEmail = '';
             }
-            registryItem.product = foundInvoice.product;
-            registryItem.description = foundInvoice.description;
+            registryItem.product = foundInvoice.product || '';
+            registryItem.description = foundInvoice.description || '';
             registryItems.push(registryItem);
         });
         return registryItems;
@@ -79,13 +101,5 @@ export class RegistryDataService {
             client = legalEntity.registeredName;
         }
         return client;
-    }
-
-    private toSearchParams(fromTime: Date, toTime: Date): SearchPaymentsParams | SearchInvoicesParams {
-        const searchParams = new SearchPaymentsParams();
-        searchParams.fromTime = fromTime;
-        searchParams.toTime = toTime;
-        searchParams.limit = this.limit;
-        return searchParams;
     }
 }

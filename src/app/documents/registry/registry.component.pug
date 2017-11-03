@@ -7,6 +7,6 @@
                 kof-date-range-selector(
                     [from]="fromTime",
                     [to]="toTime",
+                    [disabled]="isLoading",
                     [buttonName]="'Скачать как Excel-файл'",
-                    (onSelect)="exportRegistryToXLSX($event)"
-                )
+                    (onSelect)="exportRegistryToXLSX($event)")

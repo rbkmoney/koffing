@@ -20,6 +20,7 @@ export class RegistryComponent implements OnInit {
     public shopID: string;
     public fromTime: Date;
     public toTime: Date;
+    public isLoading: boolean = false;
 
     constructor(
         private route: ActivatedRoute,
@@ -31,13 +32,15 @@ export class RegistryComponent implements OnInit {
         this.route.parent.params.subscribe((params) => {
             this.shopID = params['shopID'];
         });
-        this.fromTime = moment().subtract(1, 'month').hour(0).minute(0).second(0).toDate();
-        this.toTime = moment().hour(23).minute(59).second(59).toDate();
+        this.fromTime = moment().subtract(1, 'month').startOf('day').toDate();
+        this.toTime = moment().endOf('day').toDate();
     }
 
     public exportRegistryToXLSX(dateRange: DateRange) {
+        this.isLoading = true;
         this.registryDataService.getRegistry(this.shopID, dateRange.from, dateRange.to).subscribe((registry) => {
             this.registryExportService.exportRegistryToXLSX(registry);
+            this.isLoading = false;
         });
     }
 }
