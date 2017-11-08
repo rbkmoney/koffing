@@ -22,7 +22,7 @@ export class PayoutsComponent implements OnInit {
     public payouts: Subject<Payout[]> = new Subject();
     public shopID: string;
     public totalCount: number;
-    private limit: number = 20;
+    private limit: number = 40;
     private offset: number = 0;
     private searchForm: FormGroup;
 
