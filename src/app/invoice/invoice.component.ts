@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Invoice } from 'koffing/backend/model/invoice';
-import { INVOICE_STATUS } from 'koffing/backend';
+import { InvoiceStatus } from 'koffing/backend';
 import { InvoiceService } from './invoice.service';
 
 @Component({
@@ -31,7 +31,7 @@ export class InvoiceComponent implements OnInit {
     }
 
     public isPaymentLinkAvailable() {
-        return this.invoice && this.invoice.status === INVOICE_STATUS.unpaid && !this.hasProcessedPayment;
+        return this.invoice && this.invoice.status === InvoiceStatus.unpaid && !this.hasProcessedPayment;
     }
 
     public back() {

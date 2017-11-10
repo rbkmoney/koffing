@@ -1,4 +1,4 @@
-export const PAYMENT_METHOD = {
-    bankCard: 'bankCard',
-    paymentTerminal: 'paymentTerminal'
-};
+export enum PaymentMethodType {
+    bankCard = 'bankCard',
+    paymentTerminal = 'paymentTerminal'
+}

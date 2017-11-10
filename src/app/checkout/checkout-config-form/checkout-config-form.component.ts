@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { SelectItem } from 'koffing/common/select/select-item';
-import { HOLD_EXPIRATION } from 'koffing/backend/constants/hold-expiration';
+import { HoldExpiration } from 'koffing/backend/constants/hold-expiration';
 import { CheckoutConfigFormService } from './checkout-config-form.service';
 import { PaymentMethod } from 'koffing/backend/model/payment-method/payment-method';
 import { PaymentMethodTerminal } from 'koffing/backend/model/payment-method/payment-method-terminal';
@@ -27,8 +27,8 @@ export class CheckoutConfigFormComponent implements OnInit, OnChanges {
 
     public ngOnInit() {
         this.holdExpirationItems = [
-            new SelectItem(HOLD_EXPIRATION.cancel, 'в пользу плательщика'),
-            new SelectItem(HOLD_EXPIRATION.capture, 'в пользу мерчанта')
+            new SelectItem(HoldExpiration.cancel, 'в пользу плательщика'),
+            new SelectItem(HoldExpiration.capture, 'в пользу мерчанта')
         ];
         this.form = this.checkoutConfigFormService.form;
     }

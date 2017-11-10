@@ -1,8 +1,8 @@
-import { INVOICE_STATUS } from 'koffing/backend';
+import { InvoiceStatus } from 'koffing/backend';
 
-export const INVOICE_STATUS_LABEL = {
-    [INVOICE_STATUS.unpaid]: 'Не оплачен',
-    [INVOICE_STATUS.cancelled]: 'Отменен',
-    [INVOICE_STATUS.paid]: 'Оплачен',
-    [INVOICE_STATUS.fulfilled]: 'Погашен'
+export const InvoiceStatusLabel = {
+    [InvoiceStatus.unpaid]: 'Не оплачен',
+    [InvoiceStatus.cancelled]: 'Отменен',
+    [InvoiceStatus.paid]: 'Оплачен',
+    [InvoiceStatus.fulfilled]: 'Погашен'
 };

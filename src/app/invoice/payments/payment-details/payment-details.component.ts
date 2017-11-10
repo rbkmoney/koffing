@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
 
 import { Payment } from 'koffing/backend/model/payment/payment';
-import { PAYMENT_STATUS } from 'koffing/backend';
+import { PaymentStatus } from 'koffing/backend';
 import { CustomerService } from 'koffing/backend/customer.service';
 import { Customer } from 'koffing/backend/model/customer';
 import { CustomerPayer } from 'koffing/backend/model/payer/customer-payer';
@@ -28,13 +28,13 @@ export class PaymentDetailsComponent implements OnChanges {
     }
 
     public isFlowInformationAvailable(payment: Payment) {
-        return payment.flow.type === 'PaymentFlowHold' && this.payment.status === PAYMENT_STATUS.processed;
+        return payment.flow.type === 'PaymentFlowHold' && this.payment.status === PaymentStatus.processed;
     }
 
     public getLabelClass(status: string) {
         return {
-            'label-success': status === PAYMENT_STATUS.captured,
-            'label-danger': status === PAYMENT_STATUS.failed
+            'label-success': status === PaymentStatus.captured,
+            'label-danger': status === PaymentStatus.failed
         };
     }
 }

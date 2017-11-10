@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { ClaimService } from 'koffing/backend/claim.service';
 import { ShopService } from 'koffing/backend/shop.service';
-import { Claim, Shop, CLAIM_STATUS } from 'koffing/backend';
+import { Claim, Shop, ClaimStatus } from 'koffing/backend';
 import { BreadcrumbBroadcaster } from 'koffing/broadcaster';
 import { ClaimModificationService } from './claim-modification.service';
 import { Observable } from 'rxjs/Observable';
@@ -26,7 +26,7 @@ export class ManagementComponent implements OnInit {
 
     public ngOnInit() {
         Observable.zip(
-            this.claimService.getClaims(CLAIM_STATUS.pending),
+            this.claimService.getClaims(ClaimStatus.pending),
             this.shopService.getShops()
         ).subscribe((response) => {
             this.claims = response[0];

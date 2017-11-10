@@ -1,5 +1,5 @@
-export const COST_TYPE = {
-    unlim: 'InvoiceTemplateCostUnlim',
-    fixed: 'InvoiceTemplateCostFixed',
-    range: 'InvoiceTemplateCostRange'
-};
+export enum CostType {
+    unlim = 'InvoiceTemplateCostUnlim',
+    fixed = 'InvoiceTemplateCostFixed',
+    range = 'InvoiceTemplateCostRange'
+}

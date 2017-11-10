@@ -1,6 +1,6 @@
-export const MODIFICATION_TYPE = {
-    ShopCreation: 'ShopCreation',
-    ContractCreation: 'ContractCreation',
-    ContractPayoutToolCreation: 'ContractPayoutToolCreation',
-    ShopContractBinding: 'ShopContractBinding'
-};
+export enum ModificationType {
+    ShopCreation = 'ShopCreation',
+    ContractCreation = 'ContractCreation',
+    ContractPayoutToolCreation = 'ContractPayoutToolCreation',
+    ShopContractBinding = 'ShopContractBinding'
+}

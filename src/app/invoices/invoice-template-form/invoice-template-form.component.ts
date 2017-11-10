@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { SelectItem } from 'koffing/common/select/select-item';
-import { COST_TYPE } from 'koffing/backend/constants/invoice-template-cost-type';
+import { CostType } from 'koffing/backend/constants/invoice-template-cost-type';
 
 @Component({
     selector: 'kof-invoice-template-form',
@@ -18,9 +18,9 @@ export class InvoiceTemplateFormComponent implements OnInit {
 
     public ngOnInit() {
         this.costTypesItems = [
-            new SelectItem(COST_TYPE.unlim, 'Без ограничений'),
-            new SelectItem(COST_TYPE.fixed, 'Фиксированная'),
-            new SelectItem(COST_TYPE.range, 'Диапазон')
+            new SelectItem(CostType.unlim, 'Без ограничений'),
+            new SelectItem(CostType.fixed, 'Фиксированная'),
+            new SelectItem(CostType.range, 'Диапазон')
         ];
     }
 

@@ -1,6 +1,6 @@
-export const PAYOUT_STATUS = {
-    confirmed: 'confirmed',
-    paid: 'paid',
-    cancelled: 'cancelled',
-    unpaid: 'unpaid'
-};
+export enum PayoutStatus {
+    confirmed = 'confirmed',
+    paid = 'paid',
+    cancelled = 'cancelled',
+    unpaid = 'unpaid'
+}

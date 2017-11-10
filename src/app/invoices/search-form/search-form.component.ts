@@ -4,10 +4,10 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { map } from 'lodash';
 
 import { SelectItem } from 'koffing/common/select/select-item';
-import { INVOICE_STATUS_LABEL } from '../invoice-status-label';
-import { PAYMENT_STATUS_LABEL } from '../payment-status-label';
-import { PAYMENT_METHOD_LABEL } from '../payment-method-label';
-import { PAYMENT_FLOW_LABEL } from '../payment-flow-label';
+import { InvoiceStatusLabel } from '../invoice-status-label';
+import { PaymentStatusLabel } from '../payment-status-label';
+import { PaymentMethodLabel } from '../payment-method-label';
+import { PaymentFlowLabel } from '../payment-flow-label';
 import { SearchFormService } from './search-form.service';
 
 @Component({
@@ -48,10 +48,10 @@ export class SearchFormComponent implements OnInit {
     constructor(private searchFormService: SearchFormService) {}
 
     public ngOnInit() {
-        this.invoiceStatuses = map(INVOICE_STATUS_LABEL, (name, key) => new SelectItem(key, name));
-        this.paymentStatuses = map(PAYMENT_STATUS_LABEL, (name, key) => new SelectItem(key, name));
-        this.paymentMethods = map(PAYMENT_METHOD_LABEL, (name, key) => new SelectItem(key, name));
-        this.paymentFlows = map(PAYMENT_FLOW_LABEL, (name, key) => new SelectItem(key, name));
+        this.invoiceStatuses = map(InvoiceStatusLabel, (name, key) => new SelectItem(key, name));
+        this.paymentStatuses = map(PaymentStatusLabel, (name, key) => new SelectItem(key, name));
+        this.paymentMethods = map(PaymentMethodLabel, (name, key) => new SelectItem(key, name));
+        this.paymentFlows = map(PaymentFlowLabel, (name, key) => new SelectItem(key, name));
 
         this.searchForm = this.searchFormService.searchForm;
         this.searchForm.valueChanges

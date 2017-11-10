@@ -1,6 +1,6 @@
-import { PAYMENT_FLOW } from 'koffing/backend';
+import { PaymentFlowType } from 'koffing/backend';
 
-export const PAYMENT_FLOW_LABEL = {
-    [PAYMENT_FLOW.instant]: 'Мгновенный',
-    [PAYMENT_FLOW.hold]: 'С удержанием'
+export const PaymentFlowLabel = {
+    [PaymentFlowType.instant]: 'Мгновенный',
+    [PaymentFlowType.hold]: 'С удержанием'
 };

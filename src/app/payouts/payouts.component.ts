@@ -9,7 +9,7 @@ import { SearchService } from 'koffing/backend/search.service';
 import { PayoutsService } from 'koffing/payouts/payouts.service';
 import { SearchPayoutsFormService } from './search-payouts-form/search-payouts-form.service';
 import { Payout } from 'koffing/backend/model/payout';
-import { PAYOUT_STATUS } from 'koffing/backend';
+import { PayoutStatus } from 'koffing/backend';
 
 @Component({
     templateUrl: 'payouts.component.pug',
@@ -52,9 +52,9 @@ export class PayoutsComponent implements OnInit {
 
     public loadPayouts() {
         const paidParams = this.payoutsService.toSearchParams(this.limit, this.offset, this.searchForm.value);
-        paidParams.payoutStatus = PAYOUT_STATUS.paid;
+        paidParams.payoutStatus = PayoutStatus.paid;
         const confirmedParams = this.payoutsService.toSearchParams(this.limit, this.offset, this.searchForm.value);
-        confirmedParams.payoutStatus = PAYOUT_STATUS.confirmed;
+        confirmedParams.payoutStatus = PayoutStatus.confirmed;
         Observable.forkJoin(
             this.searchService.searchPayouts(this.shopID, paidParams),
             this.searchService.searchPayouts(this.shopID, confirmedParams)
