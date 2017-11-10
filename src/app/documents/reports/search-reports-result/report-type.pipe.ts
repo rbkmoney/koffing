@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { REPORT_TYPE } from 'koffing/backend';
+import { ReportType } from 'koffing/backend';
 
 @Pipe({
     name: 'kofReportType'
@@ -9,9 +9,9 @@ export class ReportTypePipe implements PipeTransform {
 
     public transform(reportType: string): string {
         switch (reportType) {
-            case REPORT_TYPE.paymentRegistry:
+            case ReportType.paymentRegistry:
                 return 'Реестр платежей';
-            case REPORT_TYPE.provisionOfService:
+            case ReportType.provisionOfService:
                 return 'Акт об оказании услуг';
             default:
                 return reportType;

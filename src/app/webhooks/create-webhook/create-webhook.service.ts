@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { forEach, mapValues, map } from 'lodash';
+import { forEach, mapValues, map, toString } from 'lodash';
 
 import { EventTypePresent } from '../create-webhook/event-type-present';
 import { WebhooksService } from 'koffing/backend/webhooks.service';
 import { WebhookParams } from 'koffing/backend/requests/webhook-params';
 import { Webhook } from 'koffing/backend/model/webhook';
 import { TopicItem } from 'koffing/webhooks/create-webhook/topic-item';
-import { TOPIC_TYPES } from 'koffing/webhooks/topic-types';
+import { TopicTypes } from 'koffing/webhooks/topic-types';
 
 @Injectable()
 export class CreateWebhookService {
@@ -46,9 +46,7 @@ export class CreateWebhookService {
         this.createWebhookGroup.controls.eventTypes.setValidators(this.eventTypesValidator);
         this.invoiceEventTypes = this.eventTypes.filter((type) => type.topic === 'InvoicesTopic');
         this.customerEventTypes = this.eventTypes.filter((type) => type.topic === 'CustomersTopic');
-        this.topicItems = map(TOPIC_TYPES, (value, key) => {
-            return {value: key, label: value};
-        });
+        this.topicItems = map(TopicTypes, (value, key) => new TopicItem(toString(key), value));
     }
 
     public createWebhook(shopID: string): Observable<Webhook> {

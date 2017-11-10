@@ -1,6 +1,6 @@
-import { PAYMENT_METHOD } from 'koffing/backend';
+import { PaymentMethodType } from 'koffing/backend';
 
-export const PAYMENT_METHOD_LABEL = {
-    [PAYMENT_METHOD.bankCard]: 'Банковская карта',
-    [PAYMENT_METHOD.paymentTerminal]: 'Платежный терминал'
+export const PaymentMethodLabel = {
+    [PaymentMethodType.bankCard]: 'Банковская карта',
+    [PaymentMethodType.paymentTerminal]: 'Платежный терминал'
 };

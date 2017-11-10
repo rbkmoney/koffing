@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { EventPollerService } from 'koffing/common/event-poller.service';
-import { PAYMENT_STATUS, PaymentStatusChanged } from 'koffing/backend';
+import { PaymentStatus, PaymentStatusChanged } from 'koffing/backend';
 import { InvoiceService } from 'koffing/backend/invoice.service';
 
 @Component({
@@ -41,10 +41,10 @@ export class PaymentCancelComponent implements AfterViewInit {
     public cancelPayment() {
         this.inProcess = true;
         this.invoiceService.cancelPayment(this.invoiceID, this.paymentID, this.reason).subscribe(() => {
-            const expectedChange = new PaymentStatusChanged(PAYMENT_STATUS.cancelled, this.paymentID);
+            const expectedChange = new PaymentStatusChanged(PaymentStatus.cancelled, this.paymentID);
             this.eventPollerService.startPolling(this.invoiceID, expectedChange).subscribe(() => {
                 this.inProcess = false;
-                this.onChangeStatus.emit(PAYMENT_STATUS.cancelled);
+                this.onChangeStatus.emit(PaymentStatus.cancelled);
                 this.close();
             });
         });

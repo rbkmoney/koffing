@@ -3,7 +3,7 @@ import { filter, find, ceil, concat, clone } from 'lodash';
 import { Observable, Observer } from 'rxjs';
 
 import {
-    PAYMENT_STATUS,
+    PaymentStatus,
     Shop,
     Contract,
     Invoice,
@@ -46,8 +46,8 @@ export class RegistryDataService {
             const invoices: any = response[1];
             const contracts: any = response[2];
             const shop: any = response[3];
-            const capturedPayments = filter(payments, (payment: Payment) => payment.status === PAYMENT_STATUS.captured);
-            const refundedPayments = filter(payments, (payment: Payment) => payment.status === PAYMENT_STATUS.refunded);
+            const capturedPayments = filter(payments, (payment: Payment) => payment.status === PaymentStatus.captured);
+            const refundedPayments = filter(payments, (payment: Payment) => payment.status === PaymentStatus.refunded);
             const capturedPaymentItems = this.getRegistryItems(capturedPayments, invoices);
             const refundedPaymentItems = this.getRegistryItems(refundedPayments, invoices);
             const client = this.getClient(shop, contracts);

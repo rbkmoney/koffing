@@ -50,14 +50,14 @@
                         kof-revoke-claim([claim]="claim")
 
         kof-shop-creation-details(
-            *ngIf="modificationType === MODIFICATION_TYPE.ShopCreation",
+            *ngIf="modificationType === ModificationType.ShopCreation",
             [partyModifications]="claim.changeset")
         kof-contract-creation-details(
-            *ngIf="modificationType === MODIFICATION_TYPE.ContractCreation",
+            *ngIf="modificationType === ModificationType.ContractCreation",
             [partyModifications]="claim.changeset")
         kof-payout-tool-creation-details(
-            *ngIf="modificationType === MODIFICATION_TYPE.ContractPayoutToolCreation",
+            *ngIf="modificationType === ModificationType.ContractPayoutToolCreation",
             [partyModifications]="claim.changeset")
         kof-contract-binding-details(
-            *ngIf="modificationType === MODIFICATION_TYPE.ShopContractBinding",
+            *ngIf="modificationType === ModificationType.ShopContractBinding",
             [partyModifications]="claim.changeset")

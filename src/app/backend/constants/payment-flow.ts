@@ -1,4 +1,4 @@
-export const PAYMENT_FLOW = {
-    instant: 'instant',
-    hold: 'hold'
-};
+export enum PaymentFlowType {
+    instant = 'instant',
+    hold = 'hold'
+}

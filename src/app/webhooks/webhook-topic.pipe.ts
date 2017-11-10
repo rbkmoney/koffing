@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { TOPIC_TYPES } from './topic-types';
+import { TopicTypes } from './topic-types';
 
 @Pipe({
     name: 'kofWebhookTopic'
@@ -8,7 +8,7 @@ import { TOPIC_TYPES } from './topic-types';
 export class WebhookTopicPipe implements PipeTransform {
 
     public transform(input: string): string {
-        const status = TOPIC_TYPES[input];
+        const status = TopicTypes[input];
         return status ? status : input;
     }
 }

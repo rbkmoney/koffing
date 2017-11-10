@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { MODIFICATION_TYPE } from './modification-type';
+import { ModificationType } from './modification-type';
 
 @Pipe({
     name: 'kofClaimModificationType'
@@ -7,10 +7,10 @@ import { MODIFICATION_TYPE } from './modification-type';
 export class ModificationTypePipe implements PipeTransform {
 
     private MODIFICATION_NAMES = {
-        [MODIFICATION_TYPE.ShopCreation]: 'Создание магазина',
-        [MODIFICATION_TYPE.ContractCreation]: 'Создание контракта',
-        [MODIFICATION_TYPE.ContractPayoutToolCreation]: 'Создание средства вывода',
-        [MODIFICATION_TYPE.ShopContractBinding]: 'Изменение контракта'
+        [ModificationType.ShopCreation]: 'Создание магазина',
+        [ModificationType.ContractCreation]: 'Создание контракта',
+        [ModificationType.ContractPayoutToolCreation]: 'Создание средства вывода',
+        [ModificationType.ShopContractBinding]: 'Изменение контракта'
     };
 
     public transform(input: string): string {

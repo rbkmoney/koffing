@@ -5,7 +5,7 @@ import { map } from 'lodash';
 
 import { SelectItem } from 'koffing/common/select/select-item';
 import { InvoiceFormService } from './invoice-form.service';
-import { INVOICE_LINE_TAX_VAT_RATES } from 'koffing/backend/model/invoice-cart/invoice-line-tax-vat-rates';
+import { InvoiceLineTaxVatRates } from 'koffing/backend';
 
 @Component({
     selector: 'kof-invoice-form',
@@ -23,7 +23,7 @@ export class InvoiceFormComponent implements OnInit {
     constructor(private invoiceFormService: InvoiceFormService) { }
 
     public ngOnInit() {
-        this.invoiceLineTaxItems = map(INVOICE_LINE_TAX_VAT_RATES, (value) => new SelectItem(value, value));
+        this.invoiceLineTaxItems = map(InvoiceLineTaxVatRates, (value) => new SelectItem(value, value));
     }
 
     public addProduct() {

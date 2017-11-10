@@ -1,7 +1,7 @@
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Injectable } from '@angular/core';
 
-import { COST_TYPE } from 'koffing/backend/constants/invoice-template-cost-type';
+import { CostType } from 'koffing/backend/constants/invoice-template-cost-type';
 
 @Injectable()
 export class InvoiceTemplateFormService {
@@ -21,7 +21,7 @@ export class InvoiceTemplateFormService {
                 Validators.maxLength(100)
             ]],
             description: ['', [Validators.maxLength(1000)]],
-            selectedCostType: COST_TYPE.unlim,
+            selectedCostType: CostType.unlim,
             cost: this.getEmptyGroup(),
             lifetime: this.fb.group({
                 days: ['', Validators.min(0)],
@@ -37,11 +37,11 @@ export class InvoiceTemplateFormService {
     }
 
     private setCostGroup(change: any) {
-        if (change.selectedCostType === COST_TYPE.fixed && !this.hasCostType(COST_TYPE.fixed)) {
+        if (change.selectedCostType === CostType.fixed && !this.hasCostType(CostType.fixed)) {
             this.form.setControl('cost', this.getFixedGroup());
-        } else if (change.selectedCostType === COST_TYPE.range && !this.hasCostType(COST_TYPE.range)) {
+        } else if (change.selectedCostType === CostType.range && !this.hasCostType(CostType.range)) {
             this.form.setControl('cost', this.getRangedGroup());
-        } else if (change.selectedCostType === COST_TYPE.unlim && !this.hasCostType(COST_TYPE.unlim)) {
+        } else if (change.selectedCostType === CostType.unlim && !this.hasCostType(CostType.unlim)) {
             this.form.setControl('cost', this.getEmptyGroup());
         }
     }
@@ -52,20 +52,20 @@ export class InvoiceTemplateFormService {
 
     private getEmptyGroup(): FormGroup {
         return this.fb.group({
-            costType: COST_TYPE.unlim
+            costType: CostType.unlim
         });
     }
 
     private getFixedGroup(): FormGroup {
         return this.fb.group({
-            costType: COST_TYPE.fixed,
+            costType: CostType.fixed,
             amount: ['', [Validators.required, Validators.min(10)]]
         });
     }
 
     private getRangedGroup(): FormGroup {
         return this.fb.group({
-            costType: COST_TYPE.range,
+            costType: CostType.range,
             lowerBound: ['', [Validators.required, Validators.min(10)]],
             upperBound: ['', [Validators.required, Validators.min(10)]]
         });

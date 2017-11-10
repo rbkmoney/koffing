@@ -1,4 +1,4 @@
-export const HOLD_EXPIRATION = {
-    cancel: 'cancel',
-    capture: 'capture'
-};
+export enum HoldExpiration {
+    cancel = 'cancel',
+    capture = 'capture'
+}

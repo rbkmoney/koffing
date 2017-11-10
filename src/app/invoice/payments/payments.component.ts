@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 
-import { Invoice, Payment, INVOICE_STATUS, PAYMENT_STATUS } from 'koffing/backend';
+import { Invoice, Payment, InvoiceStatus, PaymentStatus } from 'koffing/backend';
 import { PaymentsService } from './payments.service';
 import { SearchResult } from './search-result';
 
@@ -30,27 +30,27 @@ export class PaymentsComponent implements OnChanges {
 
     public search() {
         this.paymentsService.search(this.invoice.shopID, this.invoice.id).subscribe((result) => {
-            const processedPayment = result.payments.find((payment) => payment.status === PAYMENT_STATUS.processed);
-            const pendingPayment = result.payments.find((payment) => payment.status === PAYMENT_STATUS.pending);
+            const processedPayment = result.payments.find((payment) => payment.status === PaymentStatus.processed);
+            const pendingPayment = result.payments.find((payment) => payment.status === PaymentStatus.pending);
             this.onProcessedPayment.emit(!!processedPayment || !!pendingPayment);
             this.searchResult = result;
         });
     }
 
     public isHoldActionsAvailable(payment: Payment) {
-        return payment.status === PAYMENT_STATUS.processed;
+        return payment.status === PaymentStatus.processed;
     }
 
     public isRefundActionAvailable(payment: Payment) {
-        return payment.status === PAYMENT_STATUS.captured;
+        return payment.status === PaymentStatus.captured;
     }
 
     public changeStatus(status: string, payment: Payment) {
         payment.status = status;
-        if (payment.status === PAYMENT_STATUS.captured) {
-            this.invoice.status = INVOICE_STATUS.paid;
+        if (payment.status === PaymentStatus.captured) {
+            this.invoice.status = InvoiceStatus.paid;
         }
-        if (payment.status !== PAYMENT_STATUS.processed) {
+        if (payment.status !== PaymentStatus.processed) {
             this.onProcessedPayment.emit(false);
         }
     }

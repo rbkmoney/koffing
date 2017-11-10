@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { PartyModification, Shop, ShopCreation, ShopDetails } from 'koffing/backend';
-import { MODIFICATION_TYPE } from 'koffing/management/modification-type';
+import { ModificationType } from 'koffing/management/modification-type';
 
 @Injectable()
 export class ClaimModificationService {
@@ -9,17 +9,17 @@ export class ClaimModificationService {
     public getModificationType(modifications: PartyModification[]): string {
         let result = 'none';
         modifications.forEach((modification: any) => {
-            if (modification.shopModificationType === MODIFICATION_TYPE.ShopCreation) {
-                result = MODIFICATION_TYPE.ShopCreation;
-            } else if (modification.shopModificationType === MODIFICATION_TYPE.ShopContractBinding) {
-                const hasCreationContract = Boolean(modifications.find((item: any) => item.contractModificationType === MODIFICATION_TYPE.ContractCreation));
-                const hasCreationPayoutTool = Boolean(modifications.find((item: any) => item.contractModificationType === MODIFICATION_TYPE.ContractPayoutToolCreation));
+            if (modification.shopModificationType === ModificationType.ShopCreation) {
+                result = ModificationType.ShopCreation;
+            } else if (modification.shopModificationType === ModificationType.ShopContractBinding) {
+                const hasCreationContract = Boolean(modifications.find((item: any) => item.contractModificationType === ModificationType.ContractCreation));
+                const hasCreationPayoutTool = Boolean(modifications.find((item: any) => item.contractModificationType === ModificationType.ContractPayoutToolCreation));
                 if (hasCreationContract) {
-                    result = MODIFICATION_TYPE.ContractCreation;
+                    result = ModificationType.ContractCreation;
                 } else if (hasCreationPayoutTool) {
-                    result = MODIFICATION_TYPE.ContractPayoutToolCreation;
+                    result = ModificationType.ContractPayoutToolCreation;
                 } else {
-                    result = MODIFICATION_TYPE.ShopContractBinding;
+                    result = ModificationType.ShopContractBinding;
                 }
             }
         });
@@ -33,7 +33,7 @@ export class ClaimModificationService {
             if (modification.shopModificationType) {
                 shopID = modification.shopID;
             }
-            return modification.shopModificationType === MODIFICATION_TYPE.ShopCreation;
+            return modification.shopModificationType === ModificationType.ShopCreation;
         }) as ShopCreation;
         if (shopCreation) {
             result = shopCreation.details;
