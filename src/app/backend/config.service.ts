@@ -21,7 +21,6 @@ export class ConfigService {
                     this.checkoutUrl = `${data.checkoutEndpoint}`;
                     this.suggestionsToken = data.suggestionsToken;
                     this.supportEmail = data.supportEmail;
-                    this.shortenUrlEndpoint = data.shortenUrlEndpoint;
                     this.urlShortenerEndpoint = data.urlShortenerEndpoint;
                     resolve();
                 });

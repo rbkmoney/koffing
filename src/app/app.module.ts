@@ -6,6 +6,7 @@ import { CapiHttp } from 'koffing/backend/capi-http.service';
 import { HttpErrorBroadcaster } from 'koffing/broadcaster';
 import { ContainerComponent } from './root/components/container/container.component';
 import { RootModule } from './root/root.module';
+import { ShortenerHttp } from 'koffing/backend/shortener-http.service';
 
 @NgModule({
     imports: [
@@ -15,6 +16,15 @@ import { RootModule } from './root/root.module';
     providers: [
         {
             provide: CapiHttp,
+            useFactory: (
+                backend: XHRBackend,
+                defaultOptions: RequestOptions,
+                httpErrorBroadcaster: HttpErrorBroadcaster
+            ) => new CapiHttp(backend, defaultOptions, httpErrorBroadcaster),
+            deps: [XHRBackend, RequestOptions, HttpErrorBroadcaster]
+        },
+        {
+            provide: ShortenerHttp,
             useFactory: (
                 backend: XHRBackend,
                 defaultOptions: RequestOptions,
