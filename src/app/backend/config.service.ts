@@ -8,7 +8,6 @@ export class ConfigService {
     public checkoutUrl: string;
     public suggestionsToken: string;
     public supportEmail: string;
-    public shortenUrlEndpoint: string;
     public urlShortenerEndpoint: string;
 
     constructor(private http: Http) { }
