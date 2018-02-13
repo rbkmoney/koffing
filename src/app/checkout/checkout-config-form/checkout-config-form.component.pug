@@ -37,13 +37,13 @@ form([formGroup]="form", novalidate)
                 input.form-control(type="text", formControlName="redirectUrl", placeholder="http(s)://example.com")
     .form-group(*ngIf="additionalMethods")
         .row
-            .col-xs-12.col-sm-5
+            .col-xs-12
                 label.text-left Дополнительные методы оплаты:
-            .col-xs-12.col-sm-5
+            .col-xs-12.col-sm-6.col-md-4(*ngFor="let method of uiMethods")
                 label.text-left
-                    input(type="checkbox", formControlName="terminals", (click)="toggleTerminals()")
-                    | &nbsp;Терминалы "Евросеть"
-    div(*ngIf="!form.value.terminals")
+                    input(type="checkbox", formControlName="{{getName(method.method).name}}", (click)="toggleHolds()")
+                    | &nbsp;{{getName(method.method).title}}
+    div(*ngIf="!form.value.terminals && !form.value.wallets")
         .ln_solid
         .form-group
             .row
