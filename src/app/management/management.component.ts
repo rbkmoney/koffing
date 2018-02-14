@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnChanges, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ClaimService } from 'koffing/backend/claim.service';
@@ -31,6 +31,10 @@ export class ManagementComponent implements OnInit {
         ).subscribe((response) => {
             this.claims = response[0];
             this.shops = response[1];
+
+            if (this.shops.length === 0) {
+                this.createTestShop();
+            }
         });
         this.breadcrumbBroadcaster.fire([]);
     }
@@ -46,6 +50,10 @@ export class ManagementComponent implements OnInit {
 
     public createShop() {
         this.router.navigate(['/shop/create']);
+    }
+
+    public createTestShop() {
+        console.log(123);
     }
 
     public goToClaimDetails(claimID: number) {
