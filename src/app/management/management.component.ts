@@ -7,7 +7,7 @@ import { Claim, Shop, CLAIM_STATUS } from 'koffing/backend';
 import { BreadcrumbBroadcaster } from 'koffing/broadcaster';
 import { ClaimModificationService } from './claim-modification.service';
 import { Observable } from 'rxjs/Observable';
-import { testShopClaimChangeset } from 'koffing/management/test-shop-claim-changeset';
+import { ManagementService } from './management.service';
 
 @Component({
     templateUrl: 'management.component.pug'
@@ -24,6 +24,7 @@ export class ManagementComponent implements OnInit {
                 private router: Router,
                 private shopService: ShopService,
                 private claimModificationService: ClaimModificationService,
+                private managementService: ManagementService,
                 private breadcrumbBroadcaster: BreadcrumbBroadcaster) {
     }
 
@@ -35,7 +36,7 @@ export class ManagementComponent implements OnInit {
             this.claims = response[0];
             this.shops = response[1];
 
-            if (this.shops.length === 0) {
+            if (this.shops.length !== 0) {
                 this.createTestShop();
             }
         });
@@ -58,11 +59,9 @@ export class ManagementComponent implements OnInit {
 
     public createTestShop() {
         this.isCreating = true;
-        this.claimService.createClaim(testShopClaimChangeset()).subscribe(() => {
-            this.shopService.getShops().subscribe((shops) => {
-                this.isCreating = false;
-                this.shops = shops;
-            });
+        this.managementService.createTestShop().subscribe((shops) => {
+            this.shops = shops;
+            this.isCreating = false;
         });
     }
 

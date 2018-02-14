@@ -15,22 +15,22 @@ import {
     ShopDetails,
     ShopLocationUrl
 } from 'koffing/backend';
-import { guid } from 'koffing/utils/guid';
+import * as uuid from 'uuid/v4';
 
 const defaultClaimContractor = {
     contractorType: 'LegalEntity',
     entityType: 'RussianLegalEntity',
-    registeredName: 'ООО Тестовов Тест Тестович',
+    registeredName: 'Test registered name',
     registeredNumber: '0000000000000',
     inn: '0000000000',
-    actualAddress: 'г Тест, Тестовый р-н, Тестовский пр-кт, д 0 стр 0',
-    postAddress: 'г Тест, Тестовый р-н, Тестовский пр-кт, д 0 стр 0',
-    representativePosition: 'Тест',
-    representativeFullName: 'Тестовов Тест Тестович',
-    representativeDocument: 'паспорт 0000000000, 00.00.0000, отделом УФМС России по Тесту в Тестовом р-не гор. Тест',
+    actualAddress: 'Test actual address',
+    postAddress: 'Test post address',
+    representativePosition: 'Test representative position',
+    representativeFullName: 'Test representative full name',
+    representativeDocument: 'Test representative document',
     bankAccount: {
         account: '00000000000000000000',
-        bankName: 'ФИЛИАЛ "ТЕСТОВЫЙ" АО "ТЕСТ"',
+        bankName: 'Test bank name',
         bankPostAccount: '00000000000000000000',
         bankBik: '000000000'
     } as BankAccount
@@ -39,7 +39,7 @@ const defaultClaimContractor = {
 const defaultPayoutToolDetails = {
     detailsType: 'PayoutToolDetailsBankAccount',
     account: '00000000000000000000',
-    bankName: 'ФИЛИАЛ "ТЕСТОВЫЙ" АО "ТЕСТ"',
+    bankName: 'Test bank name',
     bankPostAccount: '00000000000000000000',
     bankBik: '000000000'
 } as PayoutToolDetailsBankAccount;
@@ -117,9 +117,9 @@ const shopAccountCreationChange = (shopID: string, currency: string): ShopAccoun
 
 export const testShopClaimChangeset = (id?: string): any => {
 
-    const testShopID = id || guid();
-    const testContractID = id || guid();
-    const testPayoutToolID = id || guid();
+    const testShopID = id || uuid();
+    const testContractID = id || uuid();
+    const testPayoutToolID = id || uuid();
 
     return [
         contractCreationChange(testContractID, 1),
