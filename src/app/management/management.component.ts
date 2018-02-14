@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ClaimService } from 'koffing/backend/claim.service';
@@ -7,6 +7,7 @@ import { Claim, Shop, CLAIM_STATUS } from 'koffing/backend';
 import { BreadcrumbBroadcaster } from 'koffing/broadcaster';
 import { ClaimModificationService } from './claim-modification.service';
 import { Observable } from 'rxjs/Observable';
+import { testShopClaimChangeset } from 'koffing/management/test-shop-claim-changeset';
 
 @Component({
     templateUrl: 'management.component.pug'
@@ -16,6 +17,8 @@ export class ManagementComponent implements OnInit {
     public claims: Claim[];
 
     public shops: Shop[];
+
+    public isCreating: boolean = false;
 
     constructor(private claimService: ClaimService,
                 private router: Router,
@@ -46,6 +49,7 @@ export class ManagementComponent implements OnInit {
     public getShopName(claim: Claim) {
         const details = this.claimModificationService.getRelatedShopDetails(claim.changeset, this.shops);
         return details.name;
+
     }
 
     public createShop() {
@@ -53,7 +57,13 @@ export class ManagementComponent implements OnInit {
     }
 
     public createTestShop() {
-        console.log(123);
+        this.isCreating = true;
+        this.claimService.createClaim(testShopClaimChangeset()).subscribe(() => {
+            this.shopService.getShops().subscribe((shops) => {
+                this.isCreating = false;
+                this.shops = shops;
+            });
+        });
     }
 
     public goToClaimDetails(claimID: number) {
