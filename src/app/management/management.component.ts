@@ -36,7 +36,7 @@ export class ManagementComponent implements OnInit {
             this.claims = response[0];
             this.shops = response[1];
 
-            if (this.shops.length !== 0) {
+            if (this.shops.length === 0) {
                 this.createTestShop();
             }
         });
