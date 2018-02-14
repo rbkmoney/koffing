@@ -20,13 +20,13 @@ import { guid } from 'koffing/utils/guid';
 const defaultClaimContractor = {
     contractorType: 'LegalEntity',
     entityType: 'RussianLegalEntity',
-    registeredName: 'ООО Иванов Иван Иванович',
+    registeredName: 'ООО Тестовов Тест Тестович',
     registeredNumber: '0000000000000',
     inn: '0000000000',
     actualAddress: 'г Тест, Тестовый р-н, Тестовский пр-кт, д 0 стр 0',
     postAddress: 'г Тест, Тестовый р-н, Тестовский пр-кт, д 0 стр 0',
     representativePosition: 'Тест',
-    representativeFullName: 'Тестовов Тетс Тестович',
+    representativeFullName: 'Тестовов Тест Тестович',
     representativeDocument: 'паспорт 0000000000, 00.00.0000, отделом УФМС России по Тесту в Тестовом р-не гор. Тест',
     bankAccount: {
         account: '00000000000000000000',
