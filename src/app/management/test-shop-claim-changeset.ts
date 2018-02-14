@@ -21,31 +21,31 @@ const defaultClaimContractor = {
     contractorType: 'LegalEntity',
     entityType: 'RussianLegalEntity',
     registeredName: 'ООО Иванов Иван Иванович',
-    registeredNumber: '1117800008336',
-    inn: '7840290139',
-    actualAddress: '191040, г Санкт-Петербург, Центральный р-н, Лиговский пр-кт, д 87 стр а, оф 15Н',
-    postAddress: '191040, г Санкт-Петербург, Центральный р-н, Лиговский пр-кт, д 87 стр а, оф 509',
-    representativePosition: 'Директор',
-    representativeFullName: 'Кочетков Игорь Викторович',
-    representativeDocument: 'паспорт 4012688115, 28.02.2013, ТП №71 отдела УФМС России по Санкт-Петербургу и Ленинградской обл. в Пушкинском р-не гор. Санкт-Петербурга',
+    registeredNumber: '0000000000000',
+    inn: '0000000000',
+    actualAddress: 'г Тест, Тестовый р-н, Тестовский пр-кт, д 0 стр 0',
+    postAddress: 'г Тест, Тестовый р-н, Тестовский пр-кт, д 0 стр 0',
+    representativePosition: 'Тест',
+    representativeFullName: 'Тестовов Тетс Тестович',
+    representativeDocument: 'паспорт 0000000000, 00.00.0000, отделом УФМС России по Тесту в Тестовом р-не гор. Тест',
     bankAccount: {
-        account: '40703810432060000034',
-        bankName: 'ФИЛИАЛ "САНКТ-ПЕТЕРБУРГСКИЙ" АО "АЛЬФА-БАНК"',
-        bankPostAccount: '30101810600000000786',
-        bankBik: '044030786'
+        account: '00000000000000000000',
+        bankName: 'ФИЛИАЛ "ТЕСТОВЫЙ" АО "ТЕСТ"',
+        bankPostAccount: '00000000000000000000',
+        bankBik: '000000000'
     } as BankAccount
 } as Contractor;
 
 const defaultPayoutToolDetails = {
     detailsType: 'PayoutToolDetailsBankAccount',
-    account: '40703810432060000034',
-    bankName: 'ФИЛИАЛ "САНКТ-ПЕТЕРБУРГСКИЙ" АО "АЛЬФА-БАНК"',
-    bankPostAccount: '30101810600000000786',
-    bankBik: '044030786'
+    account: '00000000000000000000',
+    bankName: 'ФИЛИАЛ "ТЕСТОВЫЙ" АО "ТЕСТ"',
+    bankPostAccount: '00000000000000000000',
+    bankBik: '000000000'
 } as PayoutToolDetailsBankAccount;
 
 const defaultLegalAgreement = {
-    id: '006815/07',
+    id: '000000/00',
     signedAt: moment().subtract(1, 'days').utc().format() as any
 } as LegalAgreement;
 
