@@ -15,9 +15,7 @@ export class CheckoutConfigFormService {
     private initForm(): FormGroup {
         return this.fb.group({
             name: ['', [Validators.maxLength(30)]],
-            description: ['', [Validators.maxLength(30)]],
-            payButtonLabel: ['', [Validators.maxLength(30)]],
-            logo: [''],
+            description: [''],
             email: [''],
             redirectUrl: [''],
             paymentFlowHold: [false, [Validators.required] ],
