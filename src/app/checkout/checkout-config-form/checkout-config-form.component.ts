@@ -6,9 +6,9 @@ import { HOLD_EXPIRATION } from 'koffing/backend/constants/hold-expiration';
 import { CheckoutConfigFormService } from './checkout-config-form.service';
 import { PaymentMethod } from 'koffing/backend/model/payment-method/payment-method';
 
-interface IUiMethodObject {
-    title: string;
-    name: string;
+interface ConfigurablePaymentMethodInfo {
+    label: string;
+    formControlName: string;
 }
 
 @Component({
@@ -21,7 +21,7 @@ export class CheckoutConfigFormComponent implements OnInit, OnChanges {
     @Input()
     public methods: PaymentMethod[];
 
-    public uiMethods: PaymentMethod[];
+    public configurableMethods: PaymentMethod[];
 
     public form: FormGroup;
 
@@ -42,7 +42,7 @@ export class CheckoutConfigFormComponent implements OnInit, OnChanges {
 
     public ngOnChanges() {
         if (this.methods) {
-            this.uiMethods = this.methods.filter((method) => method.method !== 'BankCard');
+            this.configurableMethods = this.methods.filter((method) => method.method !== 'BankCard');
             this.additionalMethods = this.methods.length > 1;
         }
     }
@@ -51,17 +51,17 @@ export class CheckoutConfigFormComponent implements OnInit, OnChanges {
         return this.form.value.holdExpiration === holdExpiration;
     }
 
-    public getName(methodName: string): IUiMethodObject {
+    public getInfo(methodName: string): ConfigurablePaymentMethodInfo {
         switch (methodName) {
             case 'PaymentTerminal':
                 return {
-                    title: 'Терминалы "Евросеть"',
-                    name: 'terminals'
+                    label: 'Терминалы "Евросеть"',
+                    formControlName: 'terminals'
                 };
             case 'DigitalWallet':
                 return {
-                    title: 'QIWI кошелек',
-                    name: 'wallets'
+                    label: 'QIWI кошелек',
+                    formControlName: 'wallets'
                 };
         }
     }

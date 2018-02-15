@@ -14,18 +14,6 @@ form([formGroup]="form", novalidate)
     .form-group
         .row
             .col-xs-12.col-sm-5
-                label.text-left Текст кнопки оплаты:
-            .col-xs-12.col-sm-7
-                input.form-control(type="text", formControlName="payButtonLabel")
-    .form-group
-        .row
-            .col-xs-12.col-sm-5
-                label.text-left URL для задания логотипа:
-            .col-xs-12.col-sm-7
-                input.form-control(type="text", formControlName="logo", placeholder="http(s)://example.com/image.png")
-    .form-group
-        .row
-            .col-xs-12.col-sm-5
                 label.text-left Email плательщика (если известен):
             .col-xs-12.col-sm-7
                 input.form-control(type="text", formControlName="email", placeholder="example@mail.com")
@@ -39,10 +27,10 @@ form([formGroup]="form", novalidate)
         .row
             .col-xs-12
                 label.text-left Дополнительные методы оплаты:
-            .col-xs-12.col-sm-6.col-md-4(*ngFor="let method of uiMethods")
+            .col-xs-12.col-sm-6.col-md-4(*ngFor="let method of configurableMethods")
                 label.text-left
-                    input(type="checkbox", formControlName="{{getName(method.method).name}}", (click)="toggleHolds()")
-                    | &nbsp;{{getName(method.method).title}}
+                    input(type="checkbox", formControlName="{{getInfo(method.method).formControlName}}", (click)="toggleHolds()")
+                    | &nbsp;{{getInfo(method.method).label}}
     div(*ngIf="!form.value.terminals && !form.value.wallets")
         .ln_solid
         .form-group
