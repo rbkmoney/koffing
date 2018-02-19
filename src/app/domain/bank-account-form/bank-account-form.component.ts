@@ -1,21 +1,32 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { SuggestionsService } from 'koffing/suggestions/services/suggestions.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'kof-bank-account-form',
     templateUrl: 'bank-account-form.component.pug'
 })
-export class BankAccountFormComponent implements AfterViewInit {
+export class BankAccountFormComponent implements AfterViewInit, OnInit {
 
     @Input()
     public form: FormGroup;
 
+    public type: string;
+
     @Input()
     public suggestionCssClass: string;
 
-    constructor(private suggestionsService: SuggestionsService) { }
+    constructor(
+        private suggestionsService: SuggestionsService,
+        private route: ActivatedRoute) { }
+
+    public ngOnInit() {
+        this.route.params.subscribe((params) => {
+            this.type = params.type;
+        });
+    }
 
     public ngAfterViewInit() {
         this.initBankSuggestions();

@@ -2,6 +2,7 @@ import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { FormGroup, AbstractControl } from '@angular/forms';
 
 import { SuggestionsService } from 'koffing/suggestions/services/suggestions.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'kof-contract-form',
@@ -11,12 +12,19 @@ export class ContractFormComponent implements OnInit, AfterViewInit {
 
     @Input()
     public form: FormGroup;
+
+    public type: string;
     
     public bankAccountForm: AbstractControl;
 
-    constructor(private suggestionsService: SuggestionsService) { }
+    constructor(
+        private suggestionsService: SuggestionsService,
+        private route: ActivatedRoute) { }
 
     public ngOnInit() {
+        this.route.params.subscribe((params) => {
+            this.type = params.type;
+        });
         this.bankAccountForm = this.form.get('bankAccount');
     }
 

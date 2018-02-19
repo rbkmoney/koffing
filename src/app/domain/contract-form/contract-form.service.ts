@@ -4,6 +4,8 @@ import * as uuid from 'uuid/v4';
 
 import { ContractCreation, RussianLegalEntity } from 'koffing/backend';
 import { BankAccountFormService } from '../bank-account-form/bank-account-form.service';
+import { ActivatedRoute } from '@angular/router';
+import { InternationalLegalEntity } from 'koffing/backend/model/contract/contractor/international-legal-entity';
 
 @Injectable()
 export class ContractFormService {
@@ -12,10 +14,60 @@ export class ContractFormService {
 
     constructor(
         private fb: FormBuilder,
-        private bankAccountFormService: BankAccountFormService
+        private bankAccountFormService: BankAccountFormService,
+        private route: ActivatedRoute
     ) { }
 
-    public initForm(): FormGroup {
+    public initForm(type?: string): FormGroup {
+        if (type) {
+            switch (type) {
+                case 'resident':
+                    return this.createRussianLegalEntityForm(type);
+                case 'nonresident':
+                    return this.createInternationalLegalEntityForm(type);
+            }
+        } else {
+            return this.createRussianLegalEntityForm(type);
+        }
+    }
+
+    public toContractCreation(contractForm: FormGroup): ContractCreation {
+        return this.route.params.switchMap((params) => {
+            switch (params.type) {
+                case 'resident':
+                    return new RussianLegalEntity(contractForm.value);
+                case 'nonresident':
+                    return new InternationalLegalEntity(contractForm.value);
+            }
+        });
+
+        // let contractor;
+        // this.route.params.subscribe((params) => {
+        //     switch (params.type) {
+        //         case 'resident':
+        //             contractor = new RussianLegalEntity(contractForm.value);
+        //         case 'nonresident':
+        //             contractor = new InternationalLegalEntity(contractForm.value);
+        //     }
+        // });
+        // return new ContractCreation(uuid(), contractor);
+    }
+
+    private createInternationalLegalEntityForm(type: string): FormGroup {
+        return this.fb.group({
+            legalName: ['', [
+                Validators.required
+            ]],
+            registeredOffice: ['', [
+                Validators.required,
+            ]],
+            tradingName: [''],
+            principalPlaceOfBusiness: [''],
+            bankAccount: this.bankAccountFormService.initForm(type)
+        });
+    }
+
+    private createRussianLegalEntityForm(type: string): FormGroup {
         return this.fb.group({
             registeredName: ['', [
                 Validators.required,
@@ -49,12 +101,7 @@ export class ContractFormService {
                 Validators.required,
                 Validators.maxLength(1000)
             ]],
-            bankAccount: this.bankAccountFormService.initForm()
+            bankAccount: this.bankAccountFormService.initForm(type)
         });
-    }
-
-    public toContractCreation(contractForm: FormGroup): ContractCreation {
-        const contractor = new RussianLegalEntity(contractForm.value);
-        return new ContractCreation(uuid(), contractor);
     }
 }

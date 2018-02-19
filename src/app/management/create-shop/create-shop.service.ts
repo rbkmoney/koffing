@@ -5,6 +5,7 @@ import { Subject } from 'rxjs/Subject';
 import { ContractFormService, PayoutToolFormService, ShopFormService } from 'koffing/domain';
 import { PartyModification } from 'koffing/backend';
 import { ShopCreationStep } from './shop-creation-step';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable()
 export class CreateShopService {
@@ -20,12 +21,15 @@ export class CreateShopService {
     constructor(
         private shopFormService: ShopFormService,
         private contractFormService: ContractFormService,
-        private payoutToolFormService: PayoutToolFormService
+        private payoutToolFormService: PayoutToolFormService,
+        private route: ActivatedRoute
     ) {
-        this.shopForm = this.shopFormService.initForm();
-        this.contractForm = this.contractFormService.initForm();
-        this.payoutToolForm = this.payoutToolFormService.initForm();
-        this.handleGroups();
+        this.route.params.subscribe((params) => {
+            this.shopForm = this.shopFormService.initForm();
+            this.contractForm = this.contractFormService.initForm(params.type);
+            this.payoutToolForm = this.payoutToolFormService.initForm(params.type);
+            this.handleGroups();
+        });
     }
 
     private handleGroups() {

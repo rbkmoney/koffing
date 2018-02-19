@@ -15,9 +15,9 @@ export class PayoutToolFormService {
         private bankAccountFormService: BankAccountFormService
     ) { }
 
-    public initForm(): FormGroup {
+    public initForm(type?: string): FormGroup {
         return this.fb.group({
-            bankAccount: this.bankAccountFormService.initForm()
+            bankAccount: this.bankAccountFormService.initForm(type)
         });
     }
 

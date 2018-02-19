@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
 export class InitCreateShopComponent implements OnInit {
 
     public types: SelectItem[] = [
-        {value: LegalEntityTypeEnum.RussianLegalEntity, label: 'Юридическое лицо, ведущее деятельность под юрисдикцией РФ'},
-        {value: LegalEntityTypeEnum.InternationalLegalEntity, label: 'Международное юридическое лицо'}
+        {value: LegalEntityTypeEnum.RussianLegalEntity, label: 'Ведущее деятельность под юрисдикцией РФ'},
+        {value: LegalEntityTypeEnum.InternationalLegalEntity, label: 'Международное'}
     ];
 
     constructor(
