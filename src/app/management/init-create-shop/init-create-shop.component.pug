@@ -1,18 +1,10 @@
 .row
     .col-xs-12.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2
         .x_panel
+            .x_title
+                h5 Выбирите тип юридического лица
             .x_content
-                .ln_solid
-                .row
-                    .col-xs-12
-                        form.form-horizontal.form-label-left.css-form([formGroup]="form", novalidate)
-                            .form-group
-                                .col-xs-12.col-sm-4
-                                    label.text-left Тип юридического лица
-                                .col-xs-12.col-sm-8
-                                    kof-select([items]="types", formControlName="entityType", [placeholder]="'Выберите тип'")
-                .row
-                    .col-xs-12
-                        button.btn.btn-default.pull-right(
-                            [disabled]="!form.valid",
-                            (click)="next()") Далее
+                .btn-group
+                    label.btn.btn-default(*ngFor="let type of types")
+                        input(type="radio", value="type.value", name="entityType", hidden, (click)="next(type.value)")
+                        | {{type.label}}
