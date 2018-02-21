@@ -42,6 +42,15 @@ export class CheckoutConfigFormComponent implements OnInit, OnChanges {
 
     public ngOnChanges() {
         if (this.methods) {
+            const availableMethods = this.methods.reduce((acc, current) => {
+                switch (current.method) {
+                    case 'DigitalWallet':
+                        return {...acc, wallets: false};
+                    case 'PaymentTerminal':
+                        return {...acc, terminals: false};
+                }
+            }, {});
+            this.form.patchValue(availableMethods);
             this.configurableMethods = this.methods.filter((method) => method.method !== 'BankCard');
             this.additionalMethods = this.methods.length > 1;
         }
