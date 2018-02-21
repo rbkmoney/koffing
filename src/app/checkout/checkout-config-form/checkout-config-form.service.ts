@@ -12,7 +12,19 @@ export class CheckoutConfigFormService {
     constructor(private fb: FormBuilder) {
     }
 
-    public initForm(methods: PaymentMethod[]): FormGroup {
+    public initForm(methods: any): FormGroup {
+        return this.fb.group({
+            name: ['', [Validators.maxLength(30)]],
+            description: [''],
+            email: [''],
+            redirectUrl: [''],
+            paymentFlowHold: [false, [Validators.required]],
+            holdExpiration: [HOLD_EXPIRATION.cancel, [Validators.required]],
+            ...this.getAvailableMethods(methods)
+        });
+    }
+
+    private getAvailableMethods(methods: PaymentMethod[]) {
         let availableMethods = {};
         if (methods) {
             availableMethods = methods.reduce((acc: {}, current: PaymentMethod) => {
@@ -21,17 +33,11 @@ export class CheckoutConfigFormService {
                         return {...acc, wallets: false};
                     case 'PaymentTerminal':
                         return {...acc, terminals: false};
+                    default:
+                        return acc;
                 }
             }, {});
         }
-        return this.fb.group({
-            name: ['', [Validators.maxLength(30)]],
-            description: [''],
-            email: [''],
-            redirectUrl: [''],
-            paymentFlowHold: [false, [Validators.required]],
-            holdExpiration: [HOLD_EXPIRATION.cancel, [Validators.required]],
-            ...availableMethods
-        });
+        return availableMethods;
     }
 }
