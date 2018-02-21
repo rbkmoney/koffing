@@ -40,7 +40,7 @@ export class InvoiceTemplatePaymentLinkComponent implements OnInit {
 
     public ngOnInit() {
         this.invoiceTemplateForm = this.invoiceTemplateFormService.form;
-        this.checkoutConfigForm = this.checkoutConfigFormService.form;
+        this.checkoutConfigForm = this.checkoutConfigFormService.initForm(this.methods);
         this.checkoutConfigForm.valueChanges.subscribe(() => {
             this.paymentLinkVisible = false;
         });
