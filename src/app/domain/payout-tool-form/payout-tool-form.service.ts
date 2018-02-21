@@ -21,7 +21,7 @@ export class PayoutToolFormService {
         });
     }
 
-    public toPayoutToolCreation(contractID: string, payoutTool: FormGroup): ContractPayoutToolCreation {
+    public toPayoutToolCreation(contractID: string, payoutTool: FormGroup, type: string): ContractPayoutToolCreation {
         const payoutToolDetails = new PayoutToolDetailsBankAccount(payoutTool.value.bankAccount);
         return new ContractPayoutToolCreation(contractID, uuid(), payoutToolDetails);
     }

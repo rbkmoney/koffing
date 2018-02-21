@@ -1,68 +1,23 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { Injectable } from '@angular/core';
+import { RussianBankAccountFormService } from 'koffing/domain/bank-account-form/russian-bank-account-form/russian-bank-account-form.service';
+import { InternationalBankAccountFormService } from 'koffing/domain/bank-account-form/international-bank-account-form/international-bank-account-form.service';
 
 @Injectable()
 export class BankAccountFormService {
 
-    public form: FormGroup;
-
-    constructor(private fb: FormBuilder) { }
+    constructor(private russianBankAccountFormService: RussianBankAccountFormService,
+                private internationalBankAccountFormService: InternationalBankAccountFormService) {
+    }
 
     public initForm(type?: string): FormGroup {
         if (type) {
             switch (type) {
                 case 'resident':
-                    return this.createRussianBankForm();
+                    return this.russianBankAccountFormService.initForm();
                 case 'nonresident':
-            }       return this.createInternationalBankForm();
-        } else {
-            return this.createRussianBankForm();
+                    return this.internationalBankAccountFormService.initForm();
+            }
         }
-    }
-
-    private createRussianBankForm() {
-        return this.fb.group({
-            account: ['', [
-                Validators.required,
-                Validators.pattern(/^\d{20}$/)
-            ]],
-            bankName: ['', [
-                Validators.required,
-                Validators.maxLength(100)
-            ]],
-            bankPostAccount: ['', [
-                Validators.required,
-                Validators.pattern(/^\d{20}$/)
-            ]],
-            bankBik: ['', [
-                Validators.required,
-                Validators.pattern(/^\d{9}$/)
-            ]]
-        });
-    }
-
-    private createInternationalBankForm() {
-        return this.fb.group({
-            accountHolder: ['', [
-                Validators.required,
-                Validators.maxLength(100)
-            ]],
-            bankName: ['', [
-                Validators.required,
-                Validators.maxLength(100)
-            ]],
-            bankAddress: ['', [
-                Validators.required,
-                Validators.maxLength(150)
-            ]],
-            iban: ['', [
-                Validators.required,
-                Validators.pattern(/^[A-Z0-9]{3,34}$/)
-            ]],
-            bic: ['', [
-                Validators.required,
-                Validators.pattern(/^([A-Z0-9]{8}|[A-Z0-9]{11})$/)
-            ]]
-        });
     }
 }

@@ -19,6 +19,7 @@ import { ModificationTypePipe } from './modification-type.pipe';
 import { ClaimModificationService } from './claim-modification.service';
 import { ManagementService } from './management.service';
 import { InitCreateShopComponent } from 'koffing/management/init-create-shop/init-create-shop.component';
+import { PaymentInstitutionService } from 'koffing/backend/payment-institution.service';
 
 @NgModule({
     imports: [
@@ -45,7 +46,8 @@ import { InitCreateShopComponent } from 'koffing/management/init-create-shop/ini
     ],
     providers: [
         ClaimModificationService,
-        ManagementService
+        ManagementService,
+        PaymentInstitutionService
     ]
 })
 export class ManagementModule { }

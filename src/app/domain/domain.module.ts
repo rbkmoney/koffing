@@ -15,6 +15,14 @@ import { ShopFormService } from './shop-form/shop-form.service';
 import { ContractFormService } from './contract-form/contract-form.service';
 import { PayoutToolFormService } from './payout-tool-form/payout-tool-form.service';
 import { BankAccountFormService } from './bank-account-form/bank-account-form.service';
+import { RussianContractFormComponent } from 'koffing/domain/contract-form/russian-contract-form/russian-contract-form.component';
+import { InternationalContractFormComponent } from 'koffing/domain/contract-form/international-contract-form/international-contract-form.component';
+import { InternationalContractFormService } from 'koffing/domain/contract-form/international-contract-form/international-contract-form.service';
+import { RussianContractFormService } from 'koffing/domain/contract-form/russian-contract-form/russian-contract-form.service';
+import { InternationalBankAccountFormService } from 'koffing/domain/bank-account-form/international-bank-account-form/international-bank-account-form.service';
+import { RussianBankAccountFormService } from 'koffing/domain/bank-account-form/russian-bank-account-form/russian-bank-account-form.service';
+import { InternationalBankAccountFormComponent } from 'koffing/domain/bank-account-form/international-bank-account-form/international-bank-account-form.component';
+import { RussianBankAccountFormComponent } from 'koffing/domain/bank-account-form/russian-bank-account-form/russian-bank-account-form.component';
 
 @NgModule({
     imports: [
@@ -30,8 +38,13 @@ import { BankAccountFormService } from './bank-account-form/bank-account-form.se
         PayoutToolDetailsComponent,
         ShopFormComponent,
         ContractFormComponent,
+        RussianContractFormComponent,
+        InternationalContractFormComponent,
         PayoutToolFormComponent,
         BankAccountFormComponent,
+        RussianContractFormComponent,
+        InternationalBankAccountFormComponent,
+        RussianBankAccountFormComponent
     ],
     exports: [
         ShopDetailsComponent,
@@ -43,12 +56,19 @@ import { BankAccountFormService } from './bank-account-form/bank-account-form.se
         ContractFormComponent,
         PayoutToolFormComponent,
         BankAccountFormComponent,
+        RussianContractFormComponent,
+        InternationalBankAccountFormComponent,
+        RussianBankAccountFormComponent
     ],
     providers: [
         ShopFormService,
         ContractFormService,
         PayoutToolFormService,
         BankAccountFormService,
+        InternationalContractFormService,
+        RussianContractFormService,
+        InternationalBankAccountFormService,
+        RussianBankAccountFormService
     ]
 })
 export class DomainModule { }

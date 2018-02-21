@@ -20,7 +20,7 @@ export class ContractCreateService {
         private contractFormService: ContractFormService,
         private payoutToolFormService: PayoutToolFormService
     ) {
-        this.contractForm = this.contractFormService.initForm();
+        // this.contractForm = this.contractFormService.initForm();
         this.payoutToolForm = this.payoutToolFormService.initForm();
         this.handleGroups();
     }
@@ -34,9 +34,9 @@ export class ContractCreateService {
 
     private handleGroups() {
         this.handleStatus(this.contractForm, () => {
-            const contractCreation = this.contractFormService.toContractCreation(this.contractForm);
-            this.contractID = contractCreation.contractID;
-            this.changeSet[CONTRACT_CREATION_STEP.contract] = contractCreation;
+            // const contractCreation = this.contractFormService.toContractCreation(this.contractForm);
+            // this.contractID = contractCreation.contractID;
+            // this.changeSet[CONTRACT_CREATION_STEP.contract] = contractCreation;
         });
         this.handleStatus(this.payoutToolForm, () => {
             const payoutToolCreation = this.payoutToolFormService.toPayoutToolCreation(this.contractID, this.payoutToolForm);
