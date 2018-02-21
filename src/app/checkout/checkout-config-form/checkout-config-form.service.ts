@@ -25,19 +25,15 @@ export class CheckoutConfigFormService {
     }
 
     private getAvailableMethods(methods: PaymentMethod[]) {
-        let availableMethods = {};
-        if (methods) {
-            availableMethods = methods.reduce((acc: {}, current: PaymentMethod) => {
-                switch (current.method) {
-                    case 'DigitalWallet':
-                        return {...acc, wallets: false};
-                    case 'PaymentTerminal':
-                        return {...acc, terminals: false};
-                    default:
-                        return acc;
-                }
-            }, {});
-        }
-        return availableMethods;
+        return methods.reduce((acc: {}, current: PaymentMethod) => {
+            switch (current.method) {
+                case 'DigitalWallet':
+                    return {...acc, wallets: false};
+                case 'PaymentTerminal':
+                    return {...acc, terminals: false};
+                default:
+                    return acc;
+            }
+        }, {});
     }
 }
