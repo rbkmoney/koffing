@@ -12,7 +12,7 @@ export class CheckoutConfigFormService {
     constructor(private fb: FormBuilder) {
     }
 
-    public initForm(methods: any): FormGroup {
+    public initForm(methods: PaymentMethod[]): FormGroup {
         let availableMethods = {};
         if (methods) {
             availableMethods = methods.reduce((acc: {}, current: PaymentMethod) => {
