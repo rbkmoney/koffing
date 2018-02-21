@@ -20,8 +20,8 @@ export class CheckoutConfigFormService {
             redirectUrl: [''],
             paymentFlowHold: [false, [Validators.required] ],
             holdExpiration: [HOLD_EXPIRATION.cancel, [Validators.required]],
-            terminals: true,
-            wallets: true
+            terminals: null,
+            wallets: null
         });
     }
 }
