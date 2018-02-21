@@ -36,21 +36,12 @@ export class CheckoutConfigFormComponent implements OnInit, OnChanges {
             new SelectItem(HOLD_EXPIRATION.cancel, 'в пользу плательщика'),
             new SelectItem(HOLD_EXPIRATION.capture, 'в пользу мерчанта')
         ];
-        this.form = this.checkoutConfigFormService.form;
 
     }
 
     public ngOnChanges() {
         if (this.methods) {
-            const availableMethods = this.methods.reduce((acc, current) => {
-                switch (current.method) {
-                    case 'DigitalWallet':
-                        return {...acc, wallets: false};
-                    case 'PaymentTerminal':
-                        return {...acc, terminals: false};
-                }
-            }, {});
-            this.form.patchValue(availableMethods);
+            this.form = this.checkoutConfigFormService.initForm(this.methods);
             this.configurableMethods = this.methods.filter((method) => method.method !== 'BankCard');
             this.additionalMethods = this.methods.length > 1;
         }
