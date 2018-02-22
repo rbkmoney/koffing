@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
+import { without } from 'lodash';
 
 import { ContractFormService, PayoutToolFormService, ShopFormService } from 'koffing/domain';
-import { PartyModification } from 'koffing/backend';
+import { PartyModification, PaymentInstitution } from 'koffing/backend';
 import { ShopCreationStep } from './shop-creation-step';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentInstitutionService } from 'koffing/backend/payment-institution.service';
@@ -36,9 +37,8 @@ export class CreateShopService {
 
     private handleGroups() {
         this.paymentInstitutionService.getPaymentInstitutions().subscribe((paymentInstitutions) => {
-            const paymentInstitutionID = paymentInstitutions.find((paymentInstitution) => paymentInstitution.realm === 'live' && !!paymentInstitution.residences.find((residence) => residence === 'RUS')).id;
             this.handleStatus(this.contractForm, () => {
-                const contractCreation = this.contractFormService.toContractCreation(this.contractForm, this.type, paymentInstitutionID);
+                const contractCreation = this.contractFormService.toContractCreation(this.contractForm, this.type, this.GetPaymentInstitutionId(paymentInstitutions, this.type));
                 this.contractID = contractCreation.contractID;
                 this.changeSet[ShopCreationStep.contract] = contractCreation;
             });
@@ -51,6 +51,15 @@ export class CreateShopService {
         this.handleStatus(this.shopForm, () => {
             this.changeSet[ShopCreationStep.shop] = this.shopFormService.toShopCreation(this.contractID, this.payoutToolID, this.shopForm);
         });
+    }
+
+    private GetPaymentInstitutionId(paymentInstitutions: PaymentInstitution[], type: string): number {
+        switch (type) {
+            case 'resident':
+                return paymentInstitutions.find((paymentInstitution) => paymentInstitution.realm === 'live' && !!paymentInstitution.residences.find((residence) => residence === 'RUS')).id;
+            case 'nonresident':
+                return paymentInstitutions.find((paymentInstitution) => paymentInstitution.realm === 'live' && !!without(paymentInstitution.residences, 'RUS')[0]).id;
+        }
     }
 
     private handleStatus(group: FormGroup, doHandler: any) {
