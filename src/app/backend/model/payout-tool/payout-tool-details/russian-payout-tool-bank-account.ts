@@ -1,6 +1,5 @@
-import { applyMixins } from '../../../helpers/applyMixins';
-import { BankAccount } from '../../bank-account';
-import { PayoutToolDetails } from './payout-tool-details';
+import { applyMixins } from 'koffing/backend/helpers/applyMixins';
+import { BankAccount, PayoutToolDetails } from 'koffing/backend';
 
 export class PayoutToolDetailsBankAccount implements BankAccount, PayoutToolDetails {
 

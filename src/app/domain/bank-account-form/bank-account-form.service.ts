@@ -1,7 +1,7 @@
 import { FormGroup } from '@angular/forms';
 import { Injectable } from '@angular/core';
-import { RussianBankAccountFormService } from 'koffing/domain/bank-account-form/russian-bank-account-form/russian-bank-account-form.service';
-import { InternationalBankAccountFormService } from 'koffing/domain/bank-account-form/international-bank-account-form/international-bank-account-form.service';
+import { RussianBankAccountFormService } from './russian-bank-account-form/russian-bank-account-form.service';
+import { InternationalBankAccountFormService } from './international-bank-account-form/international-bank-account-form.service';
 
 @Injectable()
 export class BankAccountFormService {

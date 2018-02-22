@@ -1,5 +1,5 @@
 import { Contractor } from './contractor';
-import {LegalEntityTypeEnum} from 'koffing/backend/model/contract/contractor/legal-entity-type-enum';
+import {LegalEntityTypeEnum} from './legal-entity-type-enum';
 
 export abstract class LegalEntity extends Contractor {
 

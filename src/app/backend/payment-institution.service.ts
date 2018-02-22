@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { KoffingHttp } from './koffing-http.service';
 import { ConfigService } from './config.service';
-import { PaymentInstitution } from 'koffing/backend/model/payment-institution';
+import { PaymentInstitution } from 'koffing/backend';
 
 @Injectable()
 export class PaymentInstitutionService {

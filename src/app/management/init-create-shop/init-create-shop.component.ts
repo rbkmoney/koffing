@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BreadcrumbBroadcaster } from 'koffing/broadcaster';
-import { LegalEntityTypeEnum } from 'koffing/backend/model/contract/contractor/legal-entity-type-enum';
+import { LegalEntityTypeEnum } from 'koffing/backend';
 import { SelectItem } from 'koffing/common/select/select-item';
 import { Router } from '@angular/router';
 

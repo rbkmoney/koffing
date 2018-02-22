@@ -2,11 +2,10 @@ import { FormGroup } from '@angular/forms';
 import { Injectable } from '@angular/core';
 import * as uuid from 'uuid/v4';
 
-import { ContractCreation, RussianLegalEntity } from 'koffing/backend';
-import { BankAccountFormService } from '../bank-account-form/bank-account-form.service';
-import { InternationalLegalEntity } from 'koffing/backend/model/contract/contractor/international-legal-entity';
-import { InternationalContractFormService } from 'koffing/domain/contract-form/international-contract-form/international-contract-form.service';
-import { RussianContractFormService } from 'koffing/domain/contract-form/russian-contract-form/russian-contract-form.service';
+import { ContractCreation, RussianLegalEntity, InternationalLegalEntity } from 'koffing/backend';
+import { BankAccountFormService } from 'koffing/domain';
+import { InternationalContractFormService } from './international-contract-form/international-contract-form.service';
+import { RussianContractFormService } from './russian-contract-form/russian-contract-form.service';
 
 @Injectable()
 export class ContractFormService {

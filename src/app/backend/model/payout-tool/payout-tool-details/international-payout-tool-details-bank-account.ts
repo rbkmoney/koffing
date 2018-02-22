@@ -1,5 +1,4 @@
-import { InternationalBankAccount } from 'koffing/backend/model/international-bank-account';
-import { PayoutToolDetails } from 'koffing/backend';
+import { InternationalBankAccount, PayoutToolDetails } from 'koffing/backend';
 import { applyMixins } from 'koffing/backend/helpers/applyMixins';
 
 export class PayoutToolDetailsInternationalBankAccount implements PayoutToolDetails, InternationalBankAccount {

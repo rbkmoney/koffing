@@ -2,9 +2,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Injectable } from '@angular/core';
 import * as uuid from 'uuid/v4';
 
-import { PayoutToolDetailsBankAccount, ContractPayoutToolCreation } from 'koffing/backend';
-import { BankAccountFormService } from '../bank-account-form/bank-account-form.service';
-import { PayoutToolDetailsInternationalBankAccount } from 'koffing/backend/model/payout-tool/payout-tool-details/international-payout-tool-details-bank-account';
+import { PayoutToolDetailsBankAccount, ContractPayoutToolCreation, PayoutToolDetailsInternationalBankAccount } from 'koffing/backend';
+import { BankAccountFormService } from 'koffing/domain';
 
 @Injectable()
 export class PayoutToolFormService {

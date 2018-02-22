@@ -1,6 +1,6 @@
 import { LegalEntity } from './legal-entity';
-import { BankAccount } from '../../bank-account';
-import { LegalEntityTypeEnum } from 'koffing/backend/model/contract/contractor/legal-entity-type-enum';
+import { BankAccount } from 'koffing/backend';
+import { LegalEntityTypeEnum } from './legal-entity-type-enum';
 
 export class RussianLegalEntity extends LegalEntity {
 

@@ -8,9 +8,7 @@ import { ContractService } from 'koffing/backend/contract.service';
 import { PayoutToolService } from 'koffing/backend/payout-tool.service';
 import { MODIFICATION_TYPE } from 'koffing/management/modification-type';
 import { ShopInfoService } from './shop-info.service';
-import { LegalEntityTypeEnum } from 'koffing/backend/model/contract/contractor/legal-entity-type-enum';
-import { RussianLegalEntity } from 'koffing/backend/model/contract/contractor/russian-legal-entity';
-import { InternationalLegalEntity } from 'koffing/backend/model/contract/contractor/international-legal-entity';
+import { RussianLegalEntity, InternationalLegalEntity, LegalEntityTypeEnum } from 'koffing/backend';
 
 @Component({
     templateUrl: 'shop-info.component.pug',
