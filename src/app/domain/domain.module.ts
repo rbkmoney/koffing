@@ -23,6 +23,9 @@ import { InternationalBankAccountFormService } from 'koffing/domain/bank-account
 import { RussianBankAccountFormService } from 'koffing/domain/bank-account-form/russian-bank-account-form/russian-bank-account-form.service';
 import { InternationalBankAccountFormComponent } from 'koffing/domain/bank-account-form/international-bank-account-form/international-bank-account-form.component';
 import { RussianBankAccountFormComponent } from 'koffing/domain/bank-account-form/russian-bank-account-form/russian-bank-account-form.component';
+import { InternationalBankAccountDetailsComponent } from 'koffing/domain/international-bank-account-details/international-bank-account-details.component';
+import { RussianContractorDetailsComponent } from 'koffing/domain/contractor-details/russian-contractor-details/russian-contractor-details.component';
+import { InternationalContractorDetailsComponent } from 'koffing/domain/contractor-details/international-contractor-details/international-contractor-details.component';
 
 @NgModule({
     imports: [
@@ -34,7 +37,10 @@ import { RussianBankAccountFormComponent } from 'koffing/domain/bank-account-for
         ShopDetailsComponent,
         ContractDetailsComponent,
         ContractorDetailsComponent,
+        RussianContractorDetailsComponent,
+        InternationalContractorDetailsComponent,
         BankAccountDetailsComponent,
+        InternationalBankAccountDetailsComponent,
         PayoutToolDetailsComponent,
         ShopFormComponent,
         ContractFormComponent,
@@ -50,7 +56,10 @@ import { RussianBankAccountFormComponent } from 'koffing/domain/bank-account-for
         ShopDetailsComponent,
         ContractDetailsComponent,
         ContractorDetailsComponent,
+        RussianContractorDetailsComponent,
+        InternationalContractorDetailsComponent,
         BankAccountDetailsComponent,
+        InternationalBankAccountDetailsComponent,
         PayoutToolDetailsComponent,
         ShopFormComponent,
         ContractFormComponent,

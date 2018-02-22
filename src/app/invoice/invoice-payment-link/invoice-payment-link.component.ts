@@ -24,18 +24,18 @@ export class InvoicePaymentLinkComponent implements OnInit {
     public paymentLinkVisible: boolean = false;
     public methods: PaymentMethod[];
 
-    constructor(
-        private checkoutConfigFormService: CheckoutConfigFormService,
-        private paymentLinkService: PaymentLinkService,
-        private invoiceService: InvoiceService) {
+    constructor(private checkoutConfigFormService: CheckoutConfigFormService,
+                private paymentLinkService: PaymentLinkService,
+                private invoiceService: InvoiceService) {
     }
 
     public ngOnInit() {
         this.checkoutConfigForm = this.checkoutConfigFormService.form;
-        this.checkoutConfigForm.valueChanges
-            .subscribe(() => this.paymentLinkVisible = false);
+        this.checkoutConfigForm.valueChanges.subscribe(() => this.paymentLinkVisible = false);
         this.invoiceService.getInvoicePaymentMethods(this.invoice.id)
-            .subscribe((methods) => this.methods = methods);
+            .subscribe((methods) => {
+                this.methods = methods;
+            });
     }
 
     public copy() {

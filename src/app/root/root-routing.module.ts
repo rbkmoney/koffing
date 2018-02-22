@@ -80,7 +80,7 @@ import { InitCreateShopComponent } from 'koffing/management/init-create-shop/ini
                         component: ShopInfoComponent
                     },
                     {
-                        path: 'contract',
+                        path: 'contract/:type',
                         component: ContractManageComponent
                     },
                     {

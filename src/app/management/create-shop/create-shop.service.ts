@@ -45,7 +45,6 @@ export class CreateShopService {
         });
         this.handleStatus(this.payoutToolForm, () => {
             const payoutToolCreation = this.payoutToolFormService.toPayoutToolCreation(this.contractID, this.payoutToolForm, this.type);
-            console.log(payoutToolCreation);
             this.payoutToolID = payoutToolCreation.payoutToolID;
             this.changeSet[ShopCreationStep.payoutTool] = payoutToolCreation;
         });
