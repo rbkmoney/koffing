@@ -2,17 +2,20 @@ import { FormGroup } from '@angular/forms';
 import { Injectable } from '@angular/core';
 import * as uuid from 'uuid/v4';
 
-import { ContractCreation, RussianLegalEntity, InternationalLegalEntity } from 'koffing/backend';
+import { ContractCreation, RussianLegalEntity, InternationalLegalEntity, PaymentInstitution } from 'koffing/backend';
 import { BankAccountFormService } from 'koffing/domain';
 import { InternationalContractFormService } from './international-contract-form/international-contract-form.service';
 import { RussianContractFormService } from './russian-contract-form/russian-contract-form.service';
+import { PaymentInstitutionService } from 'koffing/backend/payment-institution.service';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ContractFormService {
 
     constructor(private bankAccountFormService: BankAccountFormService,
                 private internationalContractFormService: InternationalContractFormService,
-                private russianContractFormService: RussianContractFormService) {
+                private russianContractFormService: RussianContractFormService,
+                private paymentInstitutionService: PaymentInstitutionService) {
     }
 
     public initForm(type: string): FormGroup {
@@ -24,16 +27,32 @@ export class ContractFormService {
         }
     }
 
-    public toContractCreation(contractForm: FormGroup, type: string, paymentInstitutionID: number): ContractCreation {
-        let contractor;
+    public toContractCreation(contractForm: FormGroup, type: string): Observable<ContractCreation> {
+        return this.paymentInstitutionService.getPaymentInstitutions().map((paymentInstitutions) => {
+            let contractor;
+            switch (type) {
+                case 'resident':
+                    contractor = new RussianLegalEntity(contractForm.value);
+                    break;
+                case 'nonresident':
+                    contractor = new InternationalLegalEntity(contractForm.value);
+                    break;
+            }
+            return new ContractCreation(uuid(), contractor, this.getPaymentInstitutionId(paymentInstitutions, type));
+        });
+
+    }
+
+    // TODO fix it
+    private getPaymentInstitutionId(institutions: PaymentInstitution[], type: string): number {
+        const find = (rus: boolean) => institutions.find((paymentInstitution) =>
+            paymentInstitution.realm === 'live' &&
+            !!paymentInstitution.residences.find((residence) => rus ? residence === 'RUS' : residence !== 'RUS')).id;
         switch (type) {
             case 'resident':
-                contractor = new RussianLegalEntity(contractForm.value);
-                break;
+                return find(true);
             case 'nonresident':
-                contractor = new InternationalLegalEntity(contractForm.value);
-                break;
+                return find(false);
         }
-        return new ContractCreation(uuid(), contractor, paymentInstitutionID);
     }
 }

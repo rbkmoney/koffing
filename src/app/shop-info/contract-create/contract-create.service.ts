@@ -18,11 +18,9 @@ export class ContractCreateService {
     private contractID: string;
     private payoutToolID: string;
 
-    constructor(
-        private contractFormService: ContractFormService,
-        private route: ActivatedRoute,
-        private payoutToolFormService: PayoutToolFormService
-    ) {
+    constructor(private contractFormService: ContractFormService,
+                private route: ActivatedRoute,
+                private payoutToolFormService: PayoutToolFormService) {
         this.route.params.subscribe((params) => {
             this.contractForm = this.contractFormService.initForm(params.type);
             this.payoutToolForm = this.payoutToolFormService.initForm(params.type);
@@ -40,9 +38,10 @@ export class ContractCreateService {
 
     private handleGroups() {
         this.handleStatus(this.contractForm, () => {
-            const contractCreation = this.contractFormService.toContractCreation(this.contractForm, this.type, 1);
-            this.contractID = contractCreation.contractID;
-            this.changeSet[CONTRACT_CREATION_STEP.contract] = contractCreation;
+            this.contractFormService.toContractCreation(this.contractForm, this.type).subscribe((contractCreation) => {
+                this.contractID = contractCreation.contractID;
+                this.changeSet[CONTRACT_CREATION_STEP.contract] = contractCreation;
+            });
         });
         this.handleStatus(this.payoutToolForm, () => {
             const payoutToolCreation = this.payoutToolFormService.toPayoutToolCreation(this.contractID, this.payoutToolForm, this.type);
