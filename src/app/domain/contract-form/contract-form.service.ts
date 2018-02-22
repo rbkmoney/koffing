@@ -8,9 +8,12 @@ import { InternationalContractFormService } from './international-contract-form/
 import { RussianContractFormService } from './russian-contract-form/russian-contract-form.service';
 import { PaymentInstitutionService } from 'koffing/backend/payment-institution.service';
 import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
 
 @Injectable()
 export class ContractFormService {
+
+    private paymentInstitutions: PaymentInstitution[];
 
     constructor(private bankAccountFormService: BankAccountFormService,
                 private internationalContractFormService: InternationalContractFormService,
@@ -28,7 +31,7 @@ export class ContractFormService {
     }
 
     public toContractCreation(contractForm: FormGroup, type: string): Observable<ContractCreation> {
-        return this.paymentInstitutionService.getPaymentInstitutions().map((paymentInstitutions) => {
+        return this.getPaymentInstitutions().map((paymentInstitutions: PaymentInstitution[]) => {
             let contractor;
             switch (type) {
                 case 'resident':
@@ -41,6 +44,19 @@ export class ContractFormService {
             return new ContractCreation(uuid(), contractor, this.getPaymentInstitutionId(paymentInstitutions, type));
         });
 
+    }
+
+    private getPaymentInstitutions(): Observable<PaymentInstitution[]> {
+        return Observable.create((observer: Observer<any>) => {
+            if (this.paymentInstitutions) {
+                observer.next(this.paymentInstitutions);
+            } else {
+                this.paymentInstitutionService.getPaymentInstitutions().subscribe((institutions) => {
+                    this.paymentInstitutions = institutions;
+                    observer.next(institutions);
+                });
+            }
+        });
     }
 
     // TODO fix it
