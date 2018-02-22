@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
-import { without } from 'lodash';
 
 import { ContractFormService, PayoutToolFormService, ShopFormService } from 'koffing/domain';
 import { PartyModification, PaymentInstitution } from 'koffing/backend';
 import { ShopCreationStep } from './shop-creation-step';
-import { ActivatedRoute } from '@angular/router';
 import { PaymentInstitutionService } from 'koffing/backend/payment-institution.service';
 
 @Injectable()
@@ -38,7 +37,8 @@ export class CreateShopService {
     private handleGroups() {
         this.paymentInstitutionService.getPaymentInstitutions().subscribe((paymentInstitutions) => {
             this.handleStatus(this.contractForm, () => {
-                const contractCreation = this.contractFormService.toContractCreation(this.contractForm, this.type, this.GetPaymentInstitutionId(paymentInstitutions, this.type));
+                const institutionID = this.getPaymentInstitutionId(paymentInstitutions, this.type);
+                const contractCreation = this.contractFormService.toContractCreation(this.contractForm, this.type, institutionID);
                 this.contractID = contractCreation.contractID;
                 this.changeSet[ShopCreationStep.contract] = contractCreation;
             });
@@ -53,12 +53,16 @@ export class CreateShopService {
         });
     }
 
-    private GetPaymentInstitutionId(paymentInstitutions: PaymentInstitution[], type: string): number {
+    // TODO fix it
+    private getPaymentInstitutionId(institutions: PaymentInstitution[], type: string): number {
+        const find = (rus: boolean) => institutions.find((paymentInstitution) =>
+            paymentInstitution.realm === 'live' &&
+            !!paymentInstitution.residences.find((residence) => rus ? residence === 'RUS' : residence !== 'RUS')).id;
         switch (type) {
             case 'resident':
-                return paymentInstitutions.find((paymentInstitution) => paymentInstitution.realm === 'live' && !!paymentInstitution.residences.find((residence) => residence === 'RUS')).id;
+                return find(true);
             case 'nonresident':
-                return paymentInstitutions.find((paymentInstitution) => paymentInstitution.realm === 'live' && !!without(paymentInstitution.residences, 'RUS')[0]).id;
+                return find(false);
         }
     }
 
