@@ -1,32 +1,42 @@
-import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { EventPollerService } from 'koffing/common/event-poller.service';
-import { PAYMENT_STATUS, PaymentStatusChanged } from 'koffing/backend';
+import { Invoice, RefundParams } from 'koffing/backend';
 import { InvoiceService } from 'koffing/backend/invoice.service';
+import { FormGroup } from '@angular/forms';
+import { PaymentRefundService } from './payment-refund.service';
+import { RefundStatusChanged } from 'koffing/backend/model/event/refund-status.changed';
+import { REFUND_STATUS } from 'koffing/backend/constants/refund-status';
 
 @Component({
     selector: 'kof-payment-refund',
     templateUrl: 'payment-refund.component.pug'
 })
-export class PaymentRefundComponent implements AfterViewInit {
+export class PaymentRefundComponent implements OnInit, AfterViewInit {
 
     @Input()
-    public invoiceID: string;
+    public invoice: Invoice;
 
     @Input()
     public paymentID: string;
 
     @Output()
-    public onChangeStatus: EventEmitter<string> = new EventEmitter();
+    public onRefund: EventEmitter<void> = new EventEmitter();
 
-    public reason: string;
+    public form: FormGroup;
+
     public inProcess: boolean = false;
     private modalElement: any;
 
     constructor(
         private eventPollerService: EventPollerService,
-        private invoiceService: InvoiceService
+        private invoiceService: InvoiceService,
+        private paymentRefundService: PaymentRefundService
     ) { }
+
+    public ngOnInit() {
+        this.form = this.paymentRefundService.initForm(this.invoice.amount);
+    }
 
     public ngAfterViewInit() {
         this.modalElement = jQuery(`#${this.paymentID}refund`);
@@ -38,11 +48,16 @@ export class PaymentRefundComponent implements AfterViewInit {
 
     public refundPayment() {
         this.inProcess = true;
-        this.invoiceService.refundPayment(this.invoiceID, this.paymentID, this.reason).subscribe(() => {
-            const expectedChange = new PaymentStatusChanged(PAYMENT_STATUS.refunded, this.paymentID);
-            this.eventPollerService.startPolling(this.invoiceID, expectedChange).subscribe(() => {
+        const refundParams = {
+            reason: this.form.value.reason,
+            amount: this.form.value.amount * 100,
+            currency: this.form.value.amount ? 'RUB' : null // TODO: убрать хардкод валюты когда это станет возможным
+        } as RefundParams;
+        this.invoiceService.refundPayment(this.invoice.id, this.paymentID, refundParams).subscribe((refund) => {
+            const expectedChange = new RefundStatusChanged(REFUND_STATUS.succeeded, this.paymentID, refund.id);
+            this.eventPollerService.startPolling(this.invoice.id, expectedChange).subscribe(() => {
                 this.inProcess = false;
-                this.onChangeStatus.emit(PAYMENT_STATUS.refunded);
+                this.onRefund.emit();
                 this.close();
             });
         });
