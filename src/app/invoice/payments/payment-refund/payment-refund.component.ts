@@ -1,12 +1,16 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 
 import { EventPollerService } from 'koffing/common/event-poller.service';
-import { Invoice, PaymentRefund, RefundParams } from 'koffing/backend';
+import { Invoice, PaymentRefund, RefundParams, Shop } from 'koffing/backend';
 import { InvoiceService } from 'koffing/backend/invoice.service';
 import { FormGroup } from '@angular/forms';
 import { PaymentRefundService } from './payment-refund.service';
 import { RefundStatusChanged } from 'koffing/backend/model/event/refund-status.changed';
 import { REFUND_STATUS } from 'koffing/backend/constants/refund-status';
+import { ActivatedRoute } from '@angular/router';
+import { ShopService } from 'koffing/backend/shop.service';
+import { AccountsService } from 'koffing/backend/accounts.service';
+import { Account } from 'koffing/backend/model';
 
 @Component({
     selector: 'kof-payment-refund',
@@ -32,18 +36,31 @@ export class PaymentRefundComponent implements OnInit, OnChanges, AfterViewInit 
     public inProcess: boolean = false;
     private modalElement: any;
     private refundedAmount: number = 0;
+    private account: Account;
+    private settlementID: number;
 
-    constructor(
-        private eventPollerService: EventPollerService,
-        private invoiceService: InvoiceService,
-        private paymentRefundService: PaymentRefundService
-    ) { }
+    constructor(private eventPollerService: EventPollerService,
+                private invoiceService: InvoiceService,
+                private paymentRefundService: PaymentRefundService,
+                private route: ActivatedRoute,
+                private shopService: ShopService,
+                private accountService: AccountsService) {
+    }
 
     public ngOnInit() {
         this.form = this.paymentRefundService.initForm(this.invoice.amount);
+        this.route.parent.params.subscribe((params) => {
+            this.shopService.getShopByID(params.shopID).subscribe((shop) => {
+                this.settlementID = shop.account.settlementID;
+                this.setAccount();
+            });
+        });
     }
 
     public ngOnChanges() {
+        if (this.settlementID) {
+            this.setAccount();
+        }
         if (this.refunds) {
             this.refundedAmount = this.refunds.reduce((acc, current) => {
                 return acc + current.amount;
@@ -56,7 +73,7 @@ export class PaymentRefundComponent implements OnInit, OnChanges, AfterViewInit 
     }
 
     public open() {
-        this.form = this.paymentRefundService.initForm(this.invoice.amount - this.refundedAmount);
+        this.form = this.paymentRefundService.initForm(this.invoice.amount - this.refundedAmount, this.account.availableAmount);
     }
 
     public close() {
@@ -78,5 +95,9 @@ export class PaymentRefundComponent implements OnInit, OnChanges, AfterViewInit 
                 this.close();
             });
         });
+    }
+
+    private setAccount() {
+        this.accountService.getAccountByID(this.settlementID).subscribe((account) => this.account = account);
     }
 }
