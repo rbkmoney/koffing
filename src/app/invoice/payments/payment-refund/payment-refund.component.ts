@@ -1,13 +1,13 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { FormGroup } from '@angular/forms';
 
 import { EventPollerService } from 'koffing/common/event-poller.service';
-import { Invoice, PaymentRefund, RefundParams, Shop } from 'koffing/backend';
+import { Invoice, PaymentRefund, RefundParams } from 'koffing/backend';
 import { InvoiceService } from 'koffing/backend/invoice.service';
-import { FormGroup } from '@angular/forms';
 import { PaymentRefundService } from './payment-refund.service';
 import { RefundStatusChanged } from 'koffing/backend/model/event/refund-status.changed';
 import { REFUND_STATUS } from 'koffing/backend/constants/refund-status';
-import { ActivatedRoute } from '@angular/router';
 import { ShopService } from 'koffing/backend/shop.service';
 import { AccountsService } from 'koffing/backend/accounts.service';
 import { Account } from 'koffing/backend/model';
@@ -49,11 +49,10 @@ export class PaymentRefundComponent implements OnInit, OnChanges, AfterViewInit 
 
     public ngOnInit() {
         this.form = this.paymentRefundService.initForm(this.invoice.amount);
-        this.route.parent.params.subscribe((params) => {
-            this.shopService.getShopByID(params.shopID).subscribe((shop) => {
-                this.settlementID = shop.account.settlementID;
-                this.setAccount();
-            });
+        this.route.parent.params.switchMap((params) =>
+            this.shopService.getShopByID(params.shopID)).subscribe((shop) => {
+            this.settlementID = shop.account.settlementID;
+            this.setAccount();
         });
     }
 
