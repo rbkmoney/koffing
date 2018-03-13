@@ -1,11 +1,11 @@
 .x_panel(*ngIf="refundTableItems?.length")
     .x_title
-        h5 Возвраты
+        label Возвраты
     .x_content
         table.table.table-striped
             thead
                 tr
-                    th Дата
+                    th Дата и время
                     th Сумма
                     th Статус
                     th
@@ -26,4 +26,5 @@
         kof-payment-refund(
         [invoice]="invoice",
         [paymentID]="payment.id",
+        [refunds]="refunds",
         (onRefund)="onRefund()")

@@ -12,6 +12,7 @@ export class PaymentRefundService {
     public initForm(amount: number): FormGroup {
         return this.fb.group({
             amount: [amount / 100, [
+                Validators.required,
                 Validators.min(10), // TODO: минимальная сумма рефанда?
                 Validators.max(amount / 100),
                 Validators.pattern(/^\d+$/)]
