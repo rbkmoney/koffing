@@ -62,9 +62,7 @@ export class PaymentRefundComponent implements OnInit, OnChanges, AfterViewInit 
             this.setAccount();
         }
         if (this.refunds) {
-            this.refundedAmount = this.refunds.reduce((acc, current) => {
-                return acc + current.amount;
-            }, 0);
+            this.refundedAmount = this.refunds.reduce((acc, current) => acc + current.amount, 0);
         }
     }
 
