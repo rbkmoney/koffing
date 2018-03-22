@@ -12,8 +12,7 @@ export class SearchPayoutsFormService {
     private defaultValues = {
         from: moment().subtract(1, 'month').startOf('day').toDate(),
         to: moment().endOf('day').toDate(),
-        payoutID: '',
-        status: ''
+        payoutID: ''
     };
 
     constructor(
