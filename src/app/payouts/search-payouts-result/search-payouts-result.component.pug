@@ -16,4 +16,4 @@ table.table.table-striped
                         | {{item.visible ? 'Скрыть' : 'Показать'}} детали
         tr(*ngIf="item.visible")
             td.row(colspan="4")
-                kof-payout-summary([summary]="item.payout.summary")
+                kof-payout-summary([summary]="item.payout.payoutSummary")
