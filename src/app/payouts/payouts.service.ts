@@ -12,6 +12,7 @@ export class PayoutsService {
         result.toTime = formValue.to;
         result.payoutID = formValue.payoutID;
         result.payoutToolType = ''; // hardcode
+        result.status = formValue.status;
         return result;
     }
 }

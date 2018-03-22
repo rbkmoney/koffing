@@ -12,7 +12,8 @@ export class SearchPayoutsFormService {
     private defaultValues = {
         from: moment().subtract(1, 'month').startOf('day').toDate(),
         to: moment().endOf('day').toDate(),
-        payoutID: ''
+        payoutID: '',
+        status: ''
     };
 
     constructor(
@@ -32,7 +33,8 @@ export class SearchPayoutsFormService {
         return this.fb.group({
             from: [this.defaultValues.from, Validators.required],
             to: [this.defaultValues.to, Validators.required],
-            payoutID: this.defaultValues.payoutID
+            payoutID: this.defaultValues.payoutID,
+            status: this.defaultValues.status
         });
     }
 

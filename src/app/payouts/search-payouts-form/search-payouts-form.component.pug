@@ -22,3 +22,7 @@ form([formGroup]="form", novalidate)
             .form-group
                 label Идентификатор выплаты:
                 input.form-control(formControlName="payoutID")
+        .com-xs-12.col-sm-3
+            .form-grout
+                label Статус выплаты
+                kof-select([items]='payoutStatusSelectItems', formControlName="status")
