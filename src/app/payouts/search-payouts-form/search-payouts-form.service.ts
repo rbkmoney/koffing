@@ -32,8 +32,7 @@ export class SearchPayoutsFormService {
         return this.fb.group({
             from: [this.defaultValues.from, Validators.required],
             to: [this.defaultValues.to, Validators.required],
-            payoutID: this.defaultValues.payoutID,
-            status: this.defaultValues.status
+            payoutID: this.defaultValues.payoutID
         });
     }
 
