@@ -25,6 +25,10 @@ export class RussianBankAccountFormService {
             bankBik: ['', [
                 Validators.required,
                 Validators.pattern(/^\d{9}$/)
+            ]],
+            currency: ['RUB', [
+                Validators.required,
+                Validators.pattern(/^[A-Z]{3}$/)
             ]]
         });
     }
