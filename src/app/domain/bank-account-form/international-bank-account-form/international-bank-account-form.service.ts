@@ -30,7 +30,7 @@ export class InternationalBankAccountFormService {
                 Validators.required,
                 Validators.pattern(/^([A-Z0-9]{8}|[A-Z0-9]{11})$/)
             ]],
-            currency: ['USD', [
+            currency: ['RUB', [
                 Validators.required,
                 Validators.pattern(/^[A-Z]{3}$/)
             ]]
