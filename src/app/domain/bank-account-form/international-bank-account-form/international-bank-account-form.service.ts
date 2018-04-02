@@ -29,6 +29,10 @@ export class InternationalBankAccountFormService {
             bic: ['', [
                 Validators.required,
                 Validators.pattern(/^([A-Z0-9]{8}|[A-Z0-9]{11})$/)
+            ]],
+            currency: ['RUB', [
+                Validators.required,
+                Validators.pattern(/^[A-Z]{3}$/)
             ]]
         });
     }
