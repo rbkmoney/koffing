@@ -1,9 +1,9 @@
-import { Component, Input, OnChanges } from '@angular/core';
-import { get } from 'lodash';
+import {Component, Input, OnChanges} from '@angular/core';
+import {get} from 'lodash';
 
-import { Payment } from 'koffing/backend/model/payment/payment';
-import { CustomerService } from 'koffing/backend/customer.service';
-import { PAYMENT_STATUS, Customer, CustomerPayer, PaymentError } from 'koffing/backend';
+import {Payment} from 'koffing/backend/model/payment/payment';
+import {CustomerService} from 'koffing/backend/customer.service';
+import {PAYMENT_STATUS, Customer, CustomerPayer, PaymentError} from 'koffing/backend';
 import * as errors from './errors.json';
 
 @Component({
@@ -17,7 +17,8 @@ export class PaymentDetailsComponent implements OnChanges {
 
     public customer: Customer;
 
-    constructor(private customerService: CustomerService) {}
+    constructor(private customerService: CustomerService) {
+    }
 
     public ngOnChanges() {
         if (this.payment && this.payment.payer.payerType === 'CustomerPayer') {
@@ -39,13 +40,16 @@ export class PaymentDetailsComponent implements OnChanges {
     }
 
     public mapError(paymentError: PaymentError) {
-        let path;
-        (function getPath(error: PaymentError) {
-            path = path ? `${path}.${error.code}` : error.code;
-            if (error.subError) {
-                getPath(error.subError);
-            }
-        })(paymentError);
+        const path = this.getPath(paymentError);
         return get(errors, path, 'Неизвестная ошибка');
+    }
+
+    private getPath(error: PaymentError): string {
+        let path;
+        path = error.subError ? `${error.code}.${this.getPath(error.subError)}` : error.code;
+        if (error.subError) {
+            this.getPath(error.subError);
+        }
+        return path;
     }
 }
