@@ -1,10 +1,10 @@
 import { Component, Input, OnChanges } from '@angular/core';
+import { get } from 'lodash';
 
 import { Payment } from 'koffing/backend/model/payment/payment';
-import { PAYMENT_STATUS } from 'koffing/backend';
 import { CustomerService } from 'koffing/backend/customer.service';
-import { Customer } from 'koffing/backend/model/customer';
-import { CustomerPayer } from 'koffing/backend/model/payer/customer-payer';
+import { PAYMENT_STATUS, Customer, CustomerPayer, PaymentError } from 'koffing/backend';
+import * as errors from './errors.json';
 
 @Component({
     selector: 'kof-payment-details',
@@ -36,5 +36,16 @@ export class PaymentDetailsComponent implements OnChanges {
             'label-success': status === PAYMENT_STATUS.captured,
             'label-danger': status === PAYMENT_STATUS.failed
         };
+    }
+
+    public mapError(paymentError: PaymentError) {
+        let path;
+        (function getPath(error: PaymentError) {
+            path = path ? `${path}.${error.code}` : error.code;
+            if (error.subError) {
+                getPath(error.subError);
+            }
+        })(paymentError);
+        return get(errors, path, 'Неизвестная ошибка');
     }
 }
