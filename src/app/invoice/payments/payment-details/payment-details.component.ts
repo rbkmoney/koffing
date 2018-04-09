@@ -1,9 +1,13 @@
-import {Component, Input, OnChanges} from '@angular/core';
-import {get} from 'lodash';
+import { Component, Input, OnChanges } from '@angular/core';
 
-import {Payment} from 'koffing/backend/model/payment/payment';
-import {CustomerService} from 'koffing/backend/customer.service';
-import {PAYMENT_STATUS, Customer, CustomerPayer, PaymentError} from 'koffing/backend';
+import { CustomerService } from 'koffing/backend/customer.service';
+import {
+    PAYMENT_STATUS,
+    Customer,
+    CustomerPayer,
+    PaymentError,
+    Payment
+} from 'koffing/backend';
 import * as errors from './errors.json';
 
 @Component({
@@ -39,21 +43,17 @@ export class PaymentDetailsComponent implements OnChanges {
         };
     }
 
-    public mapError(paymentError: PaymentError) {
-        const path = this.getPath(paymentError);
-        const arrayTopicPath = path.split('.').splice(-0, 1);
-        arrayTopicPath.push('message');
-        const topic = get(errors, arrayTopicPath.join('.'), '');
-        const error = get(errors, path, 'Неизвестная ошибка');
-        return `${topic}${topic ? ':' : null} ${error}`;
+    public getMessage(paymentError: PaymentError) {
+        return this.mapErrors(paymentError, errors);
     }
 
-    private getPath(error: PaymentError): string {
-        let path;
-        path = error.subError ? `${error.code}.${this.getPath(error.subError)}` : error.code;
+    private mapErrors(error: PaymentError, dictionary: any, acc: string = ''): string {
+        const key = dictionary[error.code];
         if (error.subError) {
-            this.getPath(error.subError);
+            const {message} = key;
+            return this.mapErrors(error.subError, key, acc.concat(acc === '' ? message : ` -> ${message}`));
+        } else {
+            return acc === '' ? key : `${acc} -> ${key}.`;
         }
-        return path;
     }
 }
