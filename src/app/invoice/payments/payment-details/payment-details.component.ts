@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
+import { get } from 'lodash';
 
 import { CustomerService } from 'koffing/backend/customer.service';
 import {
@@ -48,9 +49,10 @@ export class PaymentDetailsComponent implements OnChanges {
     }
 
     private mapErrors(error: PaymentError, dictionary: any, acc: string = ''): string {
-        const key = dictionary[error.code];
+        const {code} = error;
+        const key = dictionary ? dictionary[code] : code;
         if (error.subError) {
-            const {message} = key;
+            const message = get(key, 'message') ? key.message : code;
             return this.mapErrors(error.subError, key, acc.concat(acc === '' ? message : ` -> ${message}`));
         } else {
             return acc === '' ? key : `${acc} -> ${key}.`;
