@@ -41,7 +41,11 @@ export class PaymentDetailsComponent implements OnChanges {
 
     public mapError(paymentError: PaymentError) {
         const path = this.getPath(paymentError);
-        return get(errors, path, 'Неизвестная ошибка');
+        const arrayTopicPath = path.split('.').splice(-0, 1);
+        arrayTopicPath.push('message');
+        const topic = get(errors, arrayTopicPath.join('.'), '');
+        const error = get(errors, path, 'Неизвестная ошибка');
+        return `${topic}${topic ? ':' : null} ${error}`;
     }
 
     private getPath(error: PaymentError): string {
