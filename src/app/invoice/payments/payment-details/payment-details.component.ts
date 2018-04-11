@@ -1,7 +1,7 @@
-import {Component, Input, OnChanges} from '@angular/core';
-import {get} from 'lodash';
+import { Component, Input, OnChanges } from '@angular/core';
+import { get } from 'lodash';
 
-import {CustomerService} from 'koffing/backend/customer.service';
+import { CustomerService } from 'koffing/backend/customer.service';
 import {
     PAYMENT_STATUS,
     Customer,
