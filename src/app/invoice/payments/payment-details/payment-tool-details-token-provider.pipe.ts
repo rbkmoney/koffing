@@ -6,9 +6,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class PaymentToolDetailsTokenProviderPipe implements PipeTransform {
 
     private names = {
-        applepay: 'Apple pay',
-        googlepay: 'Google pay',
-        samsungpay: 'Samsung pay'
+        applepay: 'Apple Pay',
+        googlepay: 'Google Pay',
+        samsungpay: 'Samsung Pay'
     };
 
     public transform(input: string): string {
