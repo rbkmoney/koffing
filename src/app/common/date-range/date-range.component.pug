@@ -16,6 +16,6 @@ form([formGroup]="form", novalidate)
                 formControlName="toTime",
                 [minDate]="form.controls.fromTime.value",
                 dateFormat = "dd.mm.yy",
-                readonlyInput="true"
+                readonlyInput="true",
                 showTime="true",
                 (onSelect)="emitDate()")
