@@ -1,16 +1,16 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {FormGroup} from '@angular/forms';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { FormGroup } from '@angular/forms';
 
-import {EventPollerService} from 'koffing/common/event-poller.service';
-import {Invoice, PaymentRefund, Account} from 'koffing/backend';
-import {InvoiceService} from 'koffing/backend/invoice.service';
-import {PaymentRefundService} from './payment-refund.service';
-import {RefundStatusChanged} from 'koffing/backend/model/event/refund-status.changed';
-import {REFUND_STATUS} from 'koffing/backend/constants/refund-status';
-import {ShopService} from 'koffing/backend/shop.service';
-import {AccountsService} from 'koffing/backend/accounts.service';
-import {toMinor} from 'koffing/common/amount-utils';
+import { EventPollerService } from 'koffing/common/event-poller.service';
+import { Invoice, PaymentRefund, Account } from 'koffing/backend';
+import { InvoiceService } from 'koffing/backend/invoice.service';
+import { PaymentRefundService } from './payment-refund.service';
+import { RefundStatusChanged } from 'koffing/backend/model/event/refund-status.changed';
+import { REFUND_STATUS } from 'koffing/backend/constants/refund-status';
+import { ShopService } from 'koffing/backend/shop.service';
+import { AccountsService } from 'koffing/backend/accounts.service';
+import { toMinor } from 'koffing/common/amount-utils';
 
 @Component({
     selector: 'kof-payment-refund',
