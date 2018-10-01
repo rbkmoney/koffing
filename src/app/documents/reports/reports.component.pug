@@ -2,10 +2,9 @@
     .col-xs-12.col-sm-6
         kof-date-range((onSelect)="selectDateRange($event)")
     .col-xs-12.col-sm-6(*ngIf="reportType === reportTypes.paymentRegistry")
-        label Создать реестр за этот период?:
         .row
             .col-xs-12
-                button.btn.btn-default(
+                button.btn.btn-default.create-report(
                     (click)="createReports()",
                     [disabled]="isLoading") Создать
 .row
