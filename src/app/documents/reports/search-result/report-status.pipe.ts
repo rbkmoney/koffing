@@ -6,8 +6,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ReportStatusPipe implements PipeTransform {
 
     private STATUSES = {
-        pending: 'В процессе',
-        created: 'Создан'
+        pending: 'В процессе формирования',
+        created: 'Сформирован'
     };
 
     public transform(input: string): string {
