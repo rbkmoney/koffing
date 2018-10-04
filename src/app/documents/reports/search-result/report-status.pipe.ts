@@ -7,7 +7,7 @@ export class ReportStatusPipe implements PipeTransform {
 
     private STATUSES = {
         pending: 'В процессе',
-        created: 'Файлы готовы'
+        created: 'Создан'
     };
 
     public transform(input: string): string {
