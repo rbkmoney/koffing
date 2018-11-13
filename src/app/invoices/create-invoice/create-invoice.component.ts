@@ -27,8 +27,7 @@ export class CreateInvoiceComponent implements OnInit {
     constructor(
         private invoiceService: InvoiceService,
         private invoiceFormService: InvoiceFormService
-    ) {
-    }
+    ) {}
 
     public ngOnInit() {
         this.invoiceForm = this.invoiceFormService.form;
