@@ -20,6 +20,7 @@ import { DocumentsComponent } from 'koffing/documents/documents.component';
 import { InitCreateShopComponent } from 'koffing/management/init-create-shop/init-create-shop.component';
 import { ReportsComponent } from 'koffing/documents/reports/reports.component';
 import { ReportType } from 'koffing/backend';
+import { WalletsComponent } from 'koffing/wallets/wallets.component';
 
 @NgModule({
     imports: [
@@ -74,6 +75,10 @@ import { ReportType } from 'koffing/backend';
                     {
                         path: 'payouts',
                         component: PayoutsComponent
+                    },
+                    {
+                        path: 'wallets',
+                        component: WalletsComponent
                     },
                     {
                         path: 'info',

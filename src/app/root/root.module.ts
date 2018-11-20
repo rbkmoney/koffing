@@ -25,6 +25,7 @@ import { TopPanelActionsComponent } from './components/top-panel-actions/top-pan
 import { ShopSelectorComponent } from 'koffing/root/components/shop-container/shop-top-panel/shop-selector/shop-selector.component';
 import { ShopTopPanelComponent } from 'koffing/root/components/shop-container/shop-top-panel/shop-top-panel.component';
 import { ShopContainerComponent } from './components/shop-container/shop-container.component';
+import { WalletsModule } from 'koffing/wallets/wallets.module';
 
 @NgModule({
     imports: [
@@ -44,6 +45,7 @@ import { ShopContainerComponent } from './components/shop-container/shop-contain
         AnalyticsModule,
         ShopInfoModule,
         PayoutsModule,
+        WalletsModule
     ],
     declarations: [
         ContainerComponent,
