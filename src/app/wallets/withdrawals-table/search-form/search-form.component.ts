@@ -7,7 +7,7 @@ import { SearchFormService } from './search-form.service';
 import { WITHDRAWAL_STATUS_LABEL } from '../../witchdrawal-status-label';
 
 @Component({
-    selector: 'kof-search-form',
+    selector: 'kof-wallet-search-form',
     templateUrl: 'search-form.component.pug',
     providers: [SearchFormService],
     styleUrls: ['search-form.component.less']
