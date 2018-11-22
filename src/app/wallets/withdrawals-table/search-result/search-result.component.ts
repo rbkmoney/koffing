@@ -6,7 +6,7 @@ import { Withdrawal } from 'koffing/backend';
 import { WithdrawalStatus } from 'koffing/wallets/withdrawal-status';
 
 @Component({
-    selector: 'kof-wallet-search-result',
+    selector: 'kof-withdrawal-search-result',
     templateUrl: 'search-result.component.pug'
 })
 export class SearchResultComponent implements OnInit {

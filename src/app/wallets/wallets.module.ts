@@ -7,7 +7,8 @@ import { CommonModule } from 'koffing/common/common.module';
 import { WalletsComponent } from './wallets.component';
 import { WithdrawalsTableComponent } from './withdrawals-table/withdrawals-table.component';
 import { SearchFormComponent } from './withdrawals-table/search-form/search-form.component';
-import { SearchResultComponent } from './withdrawals-table/search-result/search-result.component';
+import { SearchResultComponent as WithdrawalSearchResultComponent } from './withdrawals-table/search-result/search-result.component';
+import { SearchResultComponent as WalletsSearchResultComponent } from './wallets-table/search-result/search-result.component';
 
 @NgModule({
     imports: [
@@ -21,7 +22,8 @@ import { SearchResultComponent } from './withdrawals-table/search-result/search-
         WalletsComponent,
         WithdrawalsTableComponent,
         SearchFormComponent,
-        SearchResultComponent
+        WithdrawalSearchResultComponent,
+        WalletsSearchResultComponent
     ]
 })
 export class WalletsModule { }
