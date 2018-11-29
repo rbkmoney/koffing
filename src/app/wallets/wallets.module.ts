@@ -9,6 +9,7 @@ import { WithdrawalsTableComponent } from './withdrawals-table/withdrawals-table
 import { SearchFormComponent } from './withdrawals-table/search-form/search-form.component';
 import { SearchResultComponent as WithdrawalSearchResultComponent } from './withdrawals-table/search-result/search-result.component';
 import { SearchResultComponent as WalletsSearchResultComponent } from './wallets-table/search-result/search-result.component';
+import { WalletsTableComponent } from './wallets-table/wallets-table.component';
 
 @NgModule({
     imports: [
@@ -23,7 +24,8 @@ import { SearchResultComponent as WalletsSearchResultComponent } from './wallets
         WithdrawalsTableComponent,
         SearchFormComponent,
         WithdrawalSearchResultComponent,
-        WalletsSearchResultComponent
+        WalletsSearchResultComponent,
+        WalletsTableComponent
     ]
 })
-export class WalletsModule { }
+export class WalletsModule {}

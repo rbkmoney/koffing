@@ -21,6 +21,7 @@ import { InitCreateShopComponent } from 'koffing/management/init-create-shop/ini
 import { ReportsComponent } from 'koffing/documents/reports/reports.component';
 import { ReportType } from 'koffing/backend';
 import { WalletsComponent } from 'koffing/wallets/wallets.component';
+import { WithdrawalComponent } from 'koffing/withdrawal/withdrawal.component';
 
 @NgModule({
     imports: [
@@ -79,6 +80,10 @@ import { WalletsComponent } from 'koffing/wallets/wallets.component';
                     {
                         path: 'wallets',
                         component: WalletsComponent
+                    },
+                    {
+                        path: 'withdrawal/:withdrawalID',
+                        component: WithdrawalComponent
                     },
                     {
                         path: 'info',

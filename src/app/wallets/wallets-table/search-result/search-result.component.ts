@@ -1,9 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { WalletTableItem } from './wallet-table-item';
 import { Wallet } from 'koffing/backend';
-import { SearchAccountResult } from './search-account-result';
 import { WalletService } from 'koffing/backend/wallet.service';
 
 @Component({
@@ -13,34 +12,36 @@ import { WalletService } from 'koffing/backend/wallet.service';
 })
 export class SearchResultComponent implements OnInit {
 
-    public walletTableItems: BehaviorSubject<WalletTableItem[]> = new BehaviorSubject([]);
+    public walletTableItems: WalletTableItem[] = [];
 
     @Input()
-    private searchWalletsResult: BehaviorSubject<Wallet[]> = new BehaviorSubject([]);
-    private searchAccountsResult: BehaviorSubject<SearchAccountResult[]> = new BehaviorSubject([]);
+    private searchWalletsResult: Observable<Wallet[]>;
 
     constructor(private walletService: WalletService) {
     }
 
     public ngOnInit() {
-        this.searchAccountsResult.subscribe((searchAccountResults) => {
-            searchAccountResults.map((result) => {
-                this.searchWalletsResult.getValue().find((wallet) => wallet.id === result.walletID);
-            });
-        });
         this.searchWalletsResult.subscribe((wallets) => {
-            this.searchAccountsResult.next([]);
+            this.walletTableItems = [];
             wallets.map((wallet) => {
                 this.walletService.getWalletAccount(wallet.id).subscribe((account) => {
-                    this.searchAccountsResult.next([
-                        ...this.searchAccountsResult.getValue(),
+                    this.walletTableItems = ([
+                        ...this.walletTableItems,
                         {
-                            walletID: wallet.id,
+                            ...wallet,
                             account
                         }
                     ]);
                 });
             });
         });
+    }
+
+    public getLabelClass(status: boolean) {
+        return status ? 'label-danger' : 'label-success';
+    }
+
+    public getStatus(status: boolean) {
+        return status ? 'Заблокирован' : 'Активен';
     }
 }

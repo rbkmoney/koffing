@@ -46,7 +46,6 @@ export class WithdrawalsTableComponent implements OnInit {
         const request = this.withdrawalTableService.toSearchParams(this.limit, continuationToken, this.searchForm.value);
         this.searchService.searchWalletWithdrawals(request).subscribe((response) => {
             this.continuationTokens[this.page + 1] = response.continuationToken;
-            console.log(response.result);
             this.withdrawals.next(response.result);
         });
     }

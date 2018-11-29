@@ -10,7 +10,11 @@ export class SearchFormService {
     public searchForm: FormGroup;
 
     private shopID: string;
-    private defaultValues = {};
+    private urlDateFormat = 'YYYY-MM-DD';
+    private defaultValues = {
+        createdAtFrom: moment().format(this.urlDateFormat),
+        createdAtTo: moment().format(this.urlDateFormat),
+    };
     private mainSearchFields = ['walletID', 'identityID', 'status'];
 
     constructor(private fb: FormBuilder,
@@ -34,7 +38,7 @@ export class SearchFormService {
     }
 
     public reset() {
-        this.searchForm.reset();
+        this.searchForm.reset(this.defaultValues);
     }
 
     private updateFormValue(queryParams: Params) {
@@ -68,11 +72,10 @@ export class SearchFormService {
 
     private formValueToQueryParams(formValue: any): Params {
         const mapped = mapValues(formValue, (value) => isEqual(value, '') ? null : value);
-        const urlDateFormat = 'YYYY-MM-DD';
         return {
             ...mapped,
-            createdAtFrom: moment(formValue.createdAtFrom).format(urlDateFormat),
-            createdAtTo: moment(formValue.createdAtTo).format(urlDateFormat),
+            createdAtFrom: moment(formValue.createdAtFrom).format(this.urlDateFormat),
+            createdAtTo: moment(formValue.createdAtTo).format(this.urlDateFormat),
         };
     }
 

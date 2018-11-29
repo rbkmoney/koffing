@@ -26,7 +26,7 @@ export class SearchFormComponent implements OnInit {
 
     public ngOnInit() {
         this.witchdrawalStatuses = map(WITHDRAWAL_STATUS_LABEL, (name, key) => new SelectItem(key, name));
-
+        this.onSearch.emit();
         this.searchForm = this.searchFormService.searchForm;
         this.searchForm.valueChanges
             .filter((value) => this.searchForm.status === 'VALID')

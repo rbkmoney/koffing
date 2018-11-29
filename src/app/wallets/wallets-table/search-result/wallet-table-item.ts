@@ -1,9 +1,5 @@
-import { WalletAccount } from 'koffing/backend';
+import { Wallet, WalletAccount } from 'koffing/backend';
 
-export class WalletTableItem {
-    public id: string;
-    public name: string;
-    public createdAt: string;
+export class WalletTableItem extends Wallet{
     public account: WalletAccount;
-    public isBlocked: boolean;
 }

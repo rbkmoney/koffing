@@ -51,3 +51,4 @@ export * from './refund';
 export * from './report-link';
 export * from './withdrawal-search-result';
 export * from './wallets';
+export * from './wallets-search-result';

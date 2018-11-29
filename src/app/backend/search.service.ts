@@ -11,14 +11,14 @@ import {
     SearchPaymentsParams,
     SearchPayoutsParams,
     SearchReportParams,
-    SearchRefundsParams, SearchWalletWithdrawals
+    SearchRefundsParams, SearchWalletWithdrawals, SearchWalletsParams
 } from './requests';
 import {
     InvoiceSearchResult,
     PaymentSearchResult,
     PayoutSearchResult,
     RefundsSearchResult,
-    Report,
+    Report, WalletsSearchResult, Withdrawal,
     WithdrawalSearchResult
 } from './model';
 
@@ -64,6 +64,17 @@ export class SearchService {
     public searchWalletWithdrawals(withdrawalsParams: SearchWalletWithdrawals): Observable<WithdrawalSearchResult> {
         const search = this.toSearchParams(withdrawalsParams);
         return this.http.get(`${this.config.wapiUrl}/withdrawals`, {search})
+            .map((res) => res.json());
+    }
+
+    public searchWalletWithdrawal(withdrawalID: string): Observable<Withdrawal> {
+        return this.http.get(`${this.config.wapiUrl}/withdrawals/${withdrawalID}`)
+                   .map((res) => res.json());
+    }
+
+    public searchWallets(walletsParams: SearchWalletsParams): Observable<WalletsSearchResult> {
+        const search = this.toSearchParams(walletsParams);
+        return this.http.get(`${this.config.wapiUrl}/wallets`, {search})
             .map((res) => res.json());
     }
 
