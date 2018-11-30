@@ -22,7 +22,7 @@ export class WithdrawalService {
                 private router: Router) {
         Observable.combineLatest(this.route.parent.params, this.route.params).subscribe((result) => {
             this.shopID = result[0].shopID;
-            this.searchInvoice(result[1].withdrawalID);
+            this.searchWithdrawal(result[1].withdrawalID);
         });
     }
 
@@ -30,7 +30,7 @@ export class WithdrawalService {
         this.router.navigate(['shop', this.shopID, 'wallets']);
     }
 
-    private searchInvoice(withdrawalID: string) {
+    private searchWithdrawal(withdrawalID: string) {
         const searchRetries = 20;
         this.searchService.searchWalletWithdrawal(withdrawalID).repeatWhen((notifications) =>
             notifications
