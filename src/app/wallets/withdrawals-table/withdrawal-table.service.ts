@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { SearchWalletWithdrawals } from 'koffing/backend';
+import { toMinor } from 'koffing/common/amount-utils';
 
 @Injectable()
 export class WithdrawalTableService {
@@ -15,8 +16,8 @@ export class WithdrawalTableService {
         result.status = formParams.status;
         result.createdAtFrom = formParams.createdAtFrom;
         result.createdAtTo = formParams.createdAtTo;
-        result.amountFrom = formParams.amountFrom;
-        result.amountTo = formParams.amountTo;
+        result.amountFrom = toMinor(formParams.amountFrom);
+        result.amountTo = toMinor(formParams.amountTo);
         result.currencyID = formParams.currencyID;
         return result;
     }

@@ -46,11 +46,11 @@ form([formGroup]="searchForm", novalidate)
             .col-sm-3.col-xs-12
                 .form-group
                     label Сумма от:
-                    input.form-control(formControlName="amountFrom")
+                    input.form-control(formControlName="amountFrom", type="number")
             .col-sm-3.col-xs-12
                 .form-group
                     label Сумма до:
-                    input.form-control(formControlName="amountTo")
+                    input.form-control(formControlName="amountTo", type="number")
             .col-sm-3.col-xs-12
                 .form-group
                     label Валюта:
