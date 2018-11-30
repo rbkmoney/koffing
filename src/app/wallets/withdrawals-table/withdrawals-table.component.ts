@@ -13,21 +13,16 @@ import { SearchFormService } from './search-form/search-form.service';
     styleUrls: ['withdrawal-table.component.less'],
     providers: [WithdrawalTableService, SearchFormService]
 })
-export class WithdrawalsTableComponent implements OnInit {
+export class WithdrawalsTableComponent {
 
     public page: number = 0;
     public limit: number = 20;
     public withdrawals: Subject<Withdrawal[]> = new Subject();
     private continuationTokens: string[] = [];
-    private searchForm: FormGroup;
+    private formValue: any;
 
     constructor(private withdrawalTableService: WithdrawalTableService,
-                private searchService: SearchService,
-                private searchFormService: SearchFormService) {
-    }
-
-    public ngOnInit() {
-        this.searchForm = this.searchFormService.searchForm;
+                private searchService: SearchService) {
     }
 
     public reset() {
@@ -35,8 +30,9 @@ export class WithdrawalsTableComponent implements OnInit {
         this.page = 0;
     }
 
-    public onSearch() {
+    public onSearch(fromValue: any) {
         this.reset();
+        this.formValue = fromValue;
         this.search();
     }
 
@@ -51,7 +47,7 @@ export class WithdrawalsTableComponent implements OnInit {
     private search(num: number = 0) {
         this.page += num;
         const continuationToken = this.continuationTokens[this.page];
-        const request = this.withdrawalTableService.toSearchParams(this.limit, continuationToken, this.searchForm.value);
+        const request = this.withdrawalTableService.toSearchParams(this.limit, continuationToken, this.formValue);
         this.searchService.searchWalletWithdrawals(request).subscribe((response) => {
             this.continuationTokens[this.page + 1] = response.continuationToken;
             this.withdrawals.next(response.result);

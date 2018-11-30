@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { mapValues, isEqual, chain, keys, difference } from 'lodash';
+import { mapValues, isEqual, chain, keys, difference, clone } from 'lodash';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import * as moment from 'moment';
 
@@ -11,10 +11,7 @@ export class SearchFormService {
 
     private shopID: string;
     private urlDateFormat = 'YYYY-MM-DD';
-    private defaultValues = {
-        createdAtFrom: moment().subtract(1, 'month').startOf('day').toDate(),
-        createdAtTo: moment().endOf('day').toDate(),
-    };
+    private defaultValues: any;
     private mainSearchFields = ['walletID', 'identityID', 'status'];
 
     constructor(private fb: FormBuilder,
@@ -37,8 +34,9 @@ export class SearchFormService {
         return difference(formFields, defaultFields, this.mainSearchFields).length > 0;
     }
 
-    public reset() {
+    public reset(): any {
         this.searchForm.reset(this.defaultValues);
+        return this.defaultValues;
     }
 
     private updateFormValue(queryParams: Params) {
@@ -55,19 +53,21 @@ export class SearchFormService {
     }
 
     private initForm(): FormGroup {
-        return this.fb.group({
+        const form = this.fb.group({
             walletID: '',
             identityID: '',
             destinationID: '',
             status: '',
-            createdAtFrom: '',
-            createdAtTo: '',
+            createdAtFrom: moment().subtract(1, 'month').startOf('day').toDate(),
+            createdAtTo:  moment().endOf('day').toDate(),
             amountFrom: '',
             amountTo: '',
             currencyID: '',
             continuationToken: '',
             limit: [20, Validators.required]
         });
+        this.defaultValues = clone(form.value);
+        return form;
     }
 
     private formValueToQueryParams(formValue: any): Params {

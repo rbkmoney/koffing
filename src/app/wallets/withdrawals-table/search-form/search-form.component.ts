@@ -15,7 +15,7 @@ import { WITHDRAWAL_STATUS_LABEL } from '../../withdrawal-status-label';
 export class SearchFormComponent implements OnInit {
 
     @Output()
-    public onSearch: EventEmitter<void> = new EventEmitter<void>();
+    public onSearch: EventEmitter<any> = new EventEmitter<any>();
 
     public searchForm: FormGroup;
     public additionalParamsVisible: boolean;
@@ -26,18 +26,17 @@ export class SearchFormComponent implements OnInit {
 
     public ngOnInit() {
         this.withdrawalStatuses = map(WITHDRAWAL_STATUS_LABEL, (name, key) => new SelectItem(key, name));
-        this.onSearch.emit();
         this.searchForm = this.searchFormService.searchForm;
+        this.onSearch.emit(this.searchForm.value);
         this.searchForm.valueChanges
-            .filter((value) => this.searchForm.status === 'VALID')
+            .filter(() => this.searchForm.status === 'VALID')
             .debounceTime(300)
-            .subscribe(() => this.onSearch.emit());
+            .subscribe((value) => this.onSearch.emit(value));
         this.additionalParamsVisible = this.searchFormService.hasFormAdditionalParams();
     }
 
     public reset() {
-        this.searchFormService.reset();
-        this.onSearch.emit();
+        this.onSearch.emit(this.searchFormService.reset());
     }
 
     public toggleAdditionalParamsVisible() {
