@@ -16,7 +16,7 @@ import { SearchFormService } from './search-form/search-form.service';
 export class WithdrawalsTableComponent implements OnInit {
 
     public page: number = 0;
-    public limit: number = 1000;
+    public limit: number = 20;
     public withdrawals: Subject<Withdrawal[]> = new Subject();
     private continuationTokens: string[] = [];
     private searchForm: FormGroup;
@@ -38,6 +38,14 @@ export class WithdrawalsTableComponent implements OnInit {
     public onSearch() {
         this.reset();
         this.search();
+    }
+
+    public hasNext() {
+        return !!this.continuationTokens[this.page + 1];
+    }
+
+    public onChangePage(num: number) {
+        this.search(num);
     }
 
     private search(num: number = 0) {

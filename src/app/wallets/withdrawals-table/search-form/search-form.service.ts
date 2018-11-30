@@ -66,7 +66,7 @@ export class SearchFormService {
             amountTo: '',
             currencyID: '',
             continuationToken: '',
-            limit: [1000, Validators.required]
+            limit: [20, Validators.required]
         });
     }
 
