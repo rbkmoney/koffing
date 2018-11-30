@@ -12,8 +12,8 @@ export class SearchFormService {
     private shopID: string;
     private urlDateFormat = 'YYYY-MM-DD';
     private defaultValues = {
-        createdAtFrom: moment().format(this.urlDateFormat),
-        createdAtTo: moment().format(this.urlDateFormat),
+        createdAtFrom: moment().subtract(1, 'month').startOf('day').toDate(),
+        createdAtTo: moment().endOf('day').toDate(),
     };
     private mainSearchFields = ['walletID', 'identityID', 'status'];
 
