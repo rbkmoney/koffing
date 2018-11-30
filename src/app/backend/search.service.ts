@@ -11,14 +11,18 @@ import {
     SearchPaymentsParams,
     SearchPayoutsParams,
     SearchReportParams,
-    SearchRefundsParams, SearchWalletWithdrawals, SearchWalletsParams
+    SearchRefundsParams,
+    SearchWalletWithdrawals,
+    SearchWalletsParams
 } from './requests';
 import {
     InvoiceSearchResult,
     PaymentSearchResult,
     PayoutSearchResult,
     RefundsSearchResult,
-    Report, WalletsSearchResult, Withdrawal,
+    Report,
+    WalletsSearchResult,
+    Withdrawal,
     WithdrawalSearchResult
 } from './model';
 
@@ -28,8 +32,7 @@ export class SearchService {
     constructor(
         private http: KoffingHttp,
         private config: ConfigService
-    ) {
-    }
+    ) { }
 
     public searchInvoices(shopID: string, invoiceParams: SearchInvoicesParams): Observable<InvoiceSearchResult> {
         const search = this.toSearchParams(invoiceParams);

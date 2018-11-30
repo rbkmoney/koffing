@@ -23,15 +23,12 @@ export class SearchResultComponent implements OnInit {
     public ngOnInit() {
         this.searchWalletsResult.subscribe((wallets) => {
             this.walletTableItems = [];
-            wallets.map((wallet) => {
+            wallets.forEach((wallet) => {
                 this.walletService.getWalletAccount(wallet.id).subscribe((account) => {
-                    this.walletTableItems = ([
-                        ...this.walletTableItems,
-                        {
-                            ...wallet,
-                            account
-                        }
-                    ]);
+                    this.walletTableItems.push({
+                        ...wallet,
+                        account
+                    });
                 });
             });
         });

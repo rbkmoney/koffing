@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { SearchService } from 'koffing/backend/search.service';
 import { Subject } from 'rxjs';
+
+import { SearchService } from 'koffing/backend/search.service';
 import { Wallet } from 'koffing/backend';
 
 @Component({

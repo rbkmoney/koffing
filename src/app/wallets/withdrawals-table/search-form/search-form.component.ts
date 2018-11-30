@@ -4,7 +4,7 @@ import { map } from 'lodash';
 
 import { SelectItem } from 'koffing/common/select/select-item';
 import { SearchFormService } from './search-form.service';
-import { WITHDRAWAL_STATUS_LABEL } from '../../witchdrawal-status-label';
+import { WITHDRAWAL_STATUS_LABEL } from '../../withdrawal-status-label';
 
 @Component({
     selector: 'kof-withdrawal-search-form',
@@ -19,13 +19,13 @@ export class SearchFormComponent implements OnInit {
 
     public searchForm: FormGroup;
     public additionalParamsVisible: boolean;
-    public witchdrawalStatuses: SelectItem[];
+    public withdrawalStatuses: SelectItem[];
 
     constructor(private searchFormService: SearchFormService) {
     }
 
     public ngOnInit() {
-        this.witchdrawalStatuses = map(WITHDRAWAL_STATUS_LABEL, (name, key) => new SelectItem(key, name));
+        this.withdrawalStatuses = map(WITHDRAWAL_STATUS_LABEL, (name, key) => new SelectItem(key, name));
         this.onSearch.emit();
         this.searchForm = this.searchFormService.searchForm;
         this.searchForm.valueChanges
