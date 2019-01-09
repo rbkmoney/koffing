@@ -12,7 +12,7 @@ import { Wallet } from 'koffing/backend';
 export class WalletsTableComponent implements OnInit {
 
     public page: number = 0;
-    public limit: number = 5;
+    public limit: number = 10;
     public wallets: Subject<Wallet[]> = new Subject();
 
     private continuationTokens: string[] = [];
