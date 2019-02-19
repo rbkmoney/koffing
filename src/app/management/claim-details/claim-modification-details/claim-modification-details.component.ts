@@ -19,10 +19,12 @@ export class ClaimModificationDetailsComponent implements OnInit {
     public ngOnInit() {
         switch (this.partyModification.partyModificationType) {
             case 'ContractModification':
-                this.modificationType = (this.partyModification as ContractModification).contractModificationType;
+                this.modificationType = (this
+                    .partyModification as ContractModification).contractModificationType;
                 break;
             case 'ShopModification':
-                this.modificationType = (this.partyModification as ShopModification).shopModificationType;
+                this.modificationType = (this
+                    .partyModification as ShopModification).shopModificationType;
                 break;
         }
     }
