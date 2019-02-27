@@ -19,6 +19,7 @@ import { CurrencyPipe } from './currency.pipe';
 import { StepperComponent } from './stepper/stepper.component';
 import { WithdrawalStatusPipe } from './withdrawal-status.pipe';
 import { ClaimDetailsTitlePipe } from 'koffing/management/claim-details/claim-details-title.pipe';
+import { DepositStatusPipe } from './deposit-status.pipe';
 
 @NgModule({
     imports: [BrowserModule, FormsModule, ReactiveFormsModule, CalendarModule],
@@ -37,7 +38,8 @@ import { ClaimDetailsTitlePipe } from 'koffing/management/claim-details/claim-de
         ClaimDetailsTitlePipe,
         CurrencyPipe,
         WithdrawalStatusPipe,
-        StepperComponent
+        StepperComponent,
+        DepositStatusPipe
     ],
     exports: [
         SelectComponent,
@@ -54,7 +56,8 @@ import { ClaimDetailsTitlePipe } from 'koffing/management/claim-details/claim-de
         ClaimDetailsTitlePipe,
         CurrencyPipe,
         WithdrawalStatusPipe,
-        StepperComponent
+        StepperComponent,
+        DepositStatusPipe
     ],
     providers: [EventPollerService]
 })
