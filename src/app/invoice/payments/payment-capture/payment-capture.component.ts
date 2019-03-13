@@ -61,8 +61,8 @@ export class PaymentCaptureComponent implements OnInit, AfterViewInit {
             .capturePayment(
                 this.invoiceID,
                 this.paymentID,
-                this.form.controls['reason'].value,
-                this.form.controls['amount'].value
+                this.form.value.reason,
+                this.form.value.amount
             )
             .subscribe(() => {
                 const expectedChange = new PaymentStatusChanged(
