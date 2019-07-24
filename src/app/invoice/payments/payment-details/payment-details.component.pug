@@ -144,13 +144,13 @@ form.form-horizontal.form-label-left.css-form
                             label.col-sm-5 Email плательщика:
                             .col-sm-7
                                 div {{ recurrentPayer?.contactInfo?.email }}
-                .row(*ngIf="recurrentPayer?.contactInfo?.email")
+                .row(*ngIf="recurrentPayer?.recurrentParentPayment?.paymentID")
                     .col-xs-12
                         .form-group
                             label.col-sm-5 ID родительского платежа:
                             .col-sm-7
                                 div {{ recurrentPayer?.recurrentParentPayment?.paymentID }}
-                .row(*ngIf="recurrentPayer?.contactInfo?.email")
+                .row(*ngIf="recurrentPayer?.recurrentParentPayment?.invoiceID")
                     .col-xs-12
                         .form-group
                             label.col-sm-5 ID родительского инвойса:
