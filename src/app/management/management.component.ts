@@ -32,7 +32,6 @@ export class ManagementComponent implements OnInit {
         private claimModificationService: ClaimModificationService,
         private managementService: ManagementService,
         private breadcrumbBroadcaster: BreadcrumbBroadcaster,
-        private warningsService: WarningsService,
         private settingsService: SettingsService
     ) {
     }
