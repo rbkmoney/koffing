@@ -33,8 +33,7 @@ export class ManagementComponent implements OnInit {
         private managementService: ManagementService,
         private breadcrumbBroadcaster: BreadcrumbBroadcaster,
         private settingsService: SettingsService
-    ) {
-    }
+    ) {}
 
     public ngOnInit() {
         Observable.zip(
