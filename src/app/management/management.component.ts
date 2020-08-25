@@ -22,7 +22,8 @@ export class ManagementComponent implements OnInit {
     public isCreating: boolean = false;
     public partyId: string;
 
-    public warning = this.settingsService.getLocalStorageItem('warning-banner') === 'true' ||
+    public warning =
+        this.settingsService.getLocalStorageItem('warning-banner') === 'true' ||
         this.settingsService.getLocalStorageItem('warning-banner') === null;
 
     constructor(
